@@ -6,7 +6,6 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
 
-	<link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Roboto+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 	<link rel="stylesheet" type="text/css" href="default.css">
@@ -36,35 +35,16 @@
 		}
 
 		body {
-			font-family: 'Bahnschrift Light', 'Bahnschrift', sans-serif;
+			font-family: Bahnschrift;
 			font-weight: 400;
 			color: var(--text-body);
 			background: var(--white);
 			line-height: 1.7;
 		}
 
-		/* ── Nav (preserved from original) ───────────── */
-		.nav-wrapper {
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-			padding: 14px 40px;
-			background: var(--white);
-			border-bottom: 1px solid var(--border);
-			position: sticky;
-			top: 0;
-			z-index: 900;
-		}
-		.dots-wrapper { display: flex; gap: 7px; }
-		.browser-dot {
-			width: 13px; height: 13px; border-radius: 50%;
-		}
-		#dot-1 { background: #ed6a5a; }
-		#dot-2 { background: #f5c842; }
-		#dot-3 { background: #62c554; }
-		#navigation { list-style: none; display: flex; gap: 24px; }
+		/* ── Nav: inherits from default.css (matches index.html) ───── */
 		#navigation li a {
-			font-family: 'Roboto Mono', monospace;
+			font-family: 'Bahnschrift Light', monospace;
 			font-size: 12px;
 			color: var(--blue-deep);
 			text-decoration: none;
@@ -96,7 +76,7 @@
 			position: relative;
 		}
 		.hero-eyebrow {
-			font-family: 'Roboto Mono', monospace;
+			font-family: 'Bahnschrift Light', monospace;
 			font-size: 11px;
 			font-weight: 600;
 			letter-spacing: 0.14em;
@@ -114,7 +94,7 @@
 			background: var(--accent);
 		}
 		.hero h1 {
-			font-family: 'Russo One', sans-serif;
+			font-family: 'Bahnschrift', sans-serif;
 			font-size: clamp(2.2rem, 5vw, 3.6rem);
 			color: var(--blue-ink);
 			line-height: 1.15;
@@ -142,13 +122,13 @@
 			flex-direction: column;
 		}
 		.hero-stat-num {
-			font-family: 'Russo One', sans-serif;
+			font-family: 'Bahnschrift', sans-serif;
 			font-size: 1.8rem;
 			color: var(--blue-deep);
 			line-height: 1;
 		}
 		.hero-stat-label {
-			font-family: 'Roboto Mono', monospace;
+			font-family: 'Bahnschrift Light', monospace;
 			font-size: 10px;
 			letter-spacing: 0.1em;
 			text-transform: uppercase;
@@ -172,7 +152,7 @@
 			padding: 70px 40px;
 		}
 		.section-label {
-			font-family: 'Roboto Mono', monospace;
+			font-family: 'Bahnschrift Light', monospace;
 			font-size: 10px;
 			letter-spacing: 0.16em;
 			text-transform: uppercase;
@@ -191,7 +171,7 @@
 			background: var(--accent);
 		}
 		.section-title {
-			font-family: 'Russo One', sans-serif;
+			font-family: 'Bahnschrift', sans-serif;
 			font-size: clamp(1.4rem, 3vw, 2rem);
 			color: var(--blue-ink);
 			margin-bottom: 10px;
@@ -292,7 +272,7 @@
 			align-items: flex-start;
 		}
 		.spotlight-q-num {
-			font-family: 'Roboto Mono', monospace;
+			font-family: 'Bahnschrift Light', monospace;
 			font-size: 10px;
 			font-weight: 600;
 			color: var(--accent);
@@ -317,7 +297,7 @@
 			margin-bottom: 14px;
 		}
 		.insight-card-label {
-			font-family: 'Roboto Mono', monospace;
+			font-family: 'Bahnschrift Light', monospace;
 			font-size: 9px;
 			letter-spacing: 0.12em;
 			text-transform: uppercase;
@@ -371,7 +351,7 @@
 			gap: 14px;
 		}
 		.accordion-num {
-			font-family: 'Roboto Mono', monospace;
+			font-family: 'Bahnschrift Light', monospace;
 			font-size: 10px;
 			font-weight: 600;
 			color: var(--accent);
@@ -527,7 +507,7 @@
 			top: 7px; right: 7px;
 			background: rgba(26,82,118,0.85);
 			color: #fff;
-			font-family: 'Roboto Mono', monospace;
+			font-family: 'Bahnschrift Light', monospace;
 			font-size: 8px;
 			letter-spacing: 0.08em;
 			text-transform: uppercase;
@@ -536,7 +516,7 @@
 			font-weight: 500;
 		}
 		.video-ep-label {
-			font-family: 'Roboto Mono', monospace;
+			font-family: 'Bahnschrift Light', monospace;
 			font-size: 9px;
 			letter-spacing: 0.1em;
 			text-transform: uppercase;
@@ -642,7 +622,7 @@
 			color: var(--blue-deep);
 			padding: 6px 14px;
 			border-radius: 20px;
-			font-family: 'Roboto Mono', monospace;
+			font-family: 'Bahnschrift Light', monospace;
 			font-size: 11px;
 			font-weight: 500;
 			letter-spacing: 0.02em;
@@ -681,7 +661,7 @@
 			text-decoration: none;
 		}
 		.writeup-part {
-			font-family: 'Roboto Mono', monospace;
+			font-family: 'Bahnschrift Light', monospace;
 			font-size: 9px;
 			letter-spacing: 0.12em;
 			text-transform: uppercase;
@@ -727,7 +707,7 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			font-family: 'Roboto Mono', monospace;
+			font-family: 'Bahnschrift Light', monospace;
 			font-size: 13px;
 			color: var(--accent);
 			letter-spacing: 0.1em;
