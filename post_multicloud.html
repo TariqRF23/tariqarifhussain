@@ -521,13 +521,19 @@
 		.metrics-section .section-desc { color: rgba(255,255,255,0.7); }
 
 		.metrics-grid {
-			display: grid;
-			grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-			gap: 2px;
-			margin-top: 48px;
-			background: rgba(255,255,255,0.1);
-			border-radius: var(--radius);
-			overflow: hidden;
+		    display: grid;
+		    grid-template-columns: repeat(3, 1fr);
+		    gap: 2px;
+		    margin-top: 48px;
+		    background: rgba(255,255,255,0.1);
+		    border-radius: var(--radius);
+		    overflow: hidden;
+		}
+		@media (max-width: 900px) {
+		    .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+		}
+		@media (max-width: 500px) {
+		    .metrics-grid { grid-template-columns: 1fr; }
 		}
 		.metric {
 			background: rgba(255,255,255,0.03);
