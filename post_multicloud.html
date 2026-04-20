@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Multi-Cloud Architecture for BMW Financial Services – Tariq Hussain</title>
+	<title>Multi-Cloud Architecture – Tariq Hussain</title>
 	<link rel="shortcut icon" href="images/LOGO.jpg">
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
@@ -14,96 +14,133 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 
 	<style>
-		/* ── Reset & Base ─────────────────────────────── */
 		*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 		:root {
-			--blue-light:  #d9e7f4;
-			--blue-mid:    #b8d4ec;
-			--blue-deep:   #1a5276;
-			--blue-ink:    #0d3349;
-			--grey-bg:     #ecf0f3;
-			--grey-soft:   #f5f7fa;
-			--text-body:   #2c3e50;
-			--text-muted:  #6b7c93;
-			--white:       #ffffff;
-			--accent:      #2e86c1;
-			--accent-soft: #d6eaf8;
-			--border:      #d9e7f4;
-			--radius:      10px;
-			--aws-tint:    #fef5e7;
-			--azure-tint:  #eef5fb;
+			--blue-ink:      #0D3349;
+			--blue-deep:     #1A5276;
+			--blue-mid:      #2874A6;
+			--blue-light:    #AED6F1;
+			--blue-whisper:  #EBF4FB;
+			--accent:        #2E86C1;
+			--accent-soft:   #D6EAF8;
+			--accent-deep:   #1F618D;
+
+			--grey-50:       #F8FAFC;
+			--grey-100:      #F1F5F9;
+			--grey-200:      #E2E8F0;
+			--grey-400:      #94A3B8;
+			--grey-500:      #64748B;
+
+			--text-body:     #334155;
+			--text-muted:    #64748B;
+			--text-soft:     #94A3B8;
+
+			--white:         #FFFFFF;
+			--border:        #E2E8F0;
+			--border-soft:   #EEF2F7;
+
+			--radius-sm:     6px;
+			--radius:        10px;
+			--radius-lg:     16px;
+
+			--shadow-sm:     0 1px 3px rgba(15, 40, 65, 0.06);
+			--shadow:        0 6px 20px rgba(15, 40, 65, 0.08);
+			--shadow-lg:     0 20px 50px rgba(15, 40, 65, 0.12);
 		}
 
 		body {
-			font-family: Bahnschrift;
+			font-family: Bahnschrift, sans-serif;
 			font-weight: 400;
 			color: var(--text-body);
 			background: var(--white);
 			line-height: 1.7;
+			-webkit-font-smoothing: antialiased;
+		}
+		a { color: var(--accent); text-decoration: none; }
+		a:hover { color: var(--accent-deep); text-decoration: none; }
+
+		/* Reading Progress Bar */
+		#progress-bar {
+			position: fixed; top: 0; left: 0;
+			height: 3px;
+			background: linear-gradient(90deg, var(--accent), var(--blue-deep));
+			width: 0%; z-index: 9998;
+			transition: width 0.1s linear;
 		}
 
-		/* ── Hero ─────────────────────────────────────── */
+		/* Hero */
 		.hero {
-			background: linear-gradient(135deg, #eef5fb 0%, #dceef8 40%, #ecf0f3 100%);
-			padding: 80px 40px 70px;
 			position: relative;
+			padding: 90px 40px 100px;
+			background: linear-gradient(135deg, #EBF4FB 0%, #D6EAF8 45%, #F1F5F9 100%);
 			overflow: hidden;
 		}
 		.hero::before {
-			content: '';
-			position: absolute;
-			top: -60px; right: -80px;
-			width: 420px; height: 420px;
+			content: ''; position: absolute;
+			top: -100px; right: -120px;
+			width: 520px; height: 520px;
 			border-radius: 50%;
-			background: radial-gradient(circle, rgba(46,134,193,0.10) 0%, transparent 70%);
+			background: radial-gradient(circle, rgba(46,134,193,0.14) 0%, transparent 70%);
 			pointer-events: none;
 		}
-		.hero-inner { max-width: 960px; margin: 0 auto; position: relative; }
+		.hero::after {
+			content: ''; position: absolute;
+			bottom: -80px; left: 10%;
+			width: 340px; height: 340px;
+			border-radius: 50%;
+			background: radial-gradient(circle, rgba(26,82,118,0.08) 0%, transparent 70%);
+			pointer-events: none;
+		}
+		.hero-inner { max-width: 1000px; margin: 0 auto; position: relative; z-index: 1; }
+
 		.hero-eyebrow {
 			font-family: 'Bahnschrift Light', monospace;
-			font-size: 11px;
-			font-weight: 600;
-			letter-spacing: 0.14em;
-			text-transform: uppercase;
-			color: var(--accent);
-			margin-bottom: 18px;
-			display: flex;
-			align-items: center;
-			gap: 10px;
+			font-size: 11px; font-weight: 600;
+			letter-spacing: 0.16em; text-transform: uppercase;
+			color: var(--accent-deep);
+			margin-bottom: 22px;
+			display: flex; align-items: center; gap: 12px;
 		}
 		.hero-eyebrow::before {
-			content: '';
-			display: inline-block;
-			width: 28px; height: 2px;
-			background: var(--accent);
+			content: ''; display: inline-block;
+			width: 32px; height: 2px; background: var(--accent);
 		}
 		.hero h1 {
 			font-family: 'Bahnschrift', sans-serif;
-			font-size: clamp(2rem, 4.5vw, 3.2rem);
-			color: var(--blue-ink);
-			line-height: 1.18;
-			margin-bottom: 20px;
-			letter-spacing: -0.01em;
-			font-weight: 700;
+			font-size: clamp(2.2rem, 5vw, 3.6rem);
+			color: var(--blue-ink); line-height: 1.12;
+			margin-bottom: 24px;
+			letter-spacing: -0.02em; font-weight: 700;
 		}
 		.hero h1 span { color: var(--accent); }
 		.hero-sub {
-			font-size: 1.05rem;
+			font-size: 1.1rem;
 			color: var(--text-muted);
-			max-width: 650px;
+			max-width: 700px;
 			line-height: 1.75;
-			margin-bottom: 36px;
+			margin-bottom: 44px;
 			font-weight: 300;
 		}
-		.hero-stats { display: flex; gap: 36px; flex-wrap: wrap; }
-		.hero-stat { display: flex; flex-direction: column; }
+
+		.hero-stats {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+			max-width: 780px;
+			background: var(--white);
+			border-radius: var(--radius);
+			padding: 22px 28px;
+			box-shadow: var(--shadow);
+			border: 1px solid var(--border);
+		}
+		.hero-stat { padding: 4px 18px; border-right: 1px solid var(--border-soft); }
+		.hero-stat:last-child { border-right: none; }
 		.hero-stat-num {
 			font-family: 'Bahnschrift', sans-serif;
-			font-size: 1.8rem;
+			font-size: 1.9rem;
 			color: var(--blue-deep);
-			line-height: 1;
-			font-weight: 700;
+			line-height: 1; font-weight: 700;
+			margin-bottom: 6px;
 		}
 		.hero-stat-label {
 			font-family: 'Bahnschrift Light', monospace;
@@ -111,313 +148,530 @@
 			letter-spacing: 0.1em;
 			text-transform: uppercase;
 			color: var(--text-muted);
-			margin-top: 4px;
-		}
-		.hero-stat-divider {
-			width: 1px;
-			background: var(--border);
-			align-self: stretch;
-			margin: 4px 0;
 		}
 
-		/* ── Section wrapper ──────────────────────────── */
-		.section { padding: 70px 40px; max-width: 960px; margin: 0 auto; }
+		.hero-scroll-nav {
+			margin-top: 36px;
+			display: flex; flex-wrap: wrap;
+			gap: 8px;
+		}
+		.hero-scroll-nav a {
+			display: inline-flex; align-items: center;
+			gap: 6px;
+			padding: 8px 16px;
+			background: var(--white);
+			border: 1px solid var(--border);
+			border-radius: 100px;
+			color: var(--blue-deep);
+			font-size: 0.85rem; font-weight: 500;
+			transition: all 0.2s;
+		}
+		.hero-scroll-nav a:hover {
+			background: var(--accent); color: var(--white);
+			border-color: var(--accent);
+			transform: translateY(-1px);
+		}
+
+		/* Section framework */
+		.section {
+			padding: 90px 40px;
+			max-width: 1120px;
+			margin: 0 auto;
+		}
+		.section-header { margin-bottom: 48px; }
 		.section-label {
 			font-family: 'Bahnschrift Light', monospace;
 			font-size: 10px;
-			letter-spacing: 0.16em;
+			letter-spacing: 0.18em;
 			text-transform: uppercase;
 			color: var(--accent);
 			font-weight: 600;
-			margin-bottom: 10px;
-			display: flex;
-			align-items: center;
-			gap: 10px;
+			margin-bottom: 14px;
+			display: flex; align-items: center; gap: 12px;
 		}
-		.section-label::after {
-			content: '';
-			flex: 1;
-			max-width: 40px;
-			height: 1px;
+		.section-label::before {
+			content: ''; display: inline-block;
+			width: 28px; height: 1px;
 			background: var(--accent);
 		}
 		.section-title {
 			font-family: 'Bahnschrift', sans-serif;
-			font-size: clamp(1.4rem, 3vw, 2rem);
+			font-size: clamp(1.6rem, 3.4vw, 2.3rem);
 			color: var(--blue-ink);
-			margin-bottom: 10px;
-			line-height: 1.2;
+			margin-bottom: 14px;
+			line-height: 1.22;
 			font-weight: 700;
+			letter-spacing: -0.01em;
 		}
 		.section-desc {
 			color: var(--text-muted);
-			font-size: 0.97rem;
-			max-width: 620px;
-			line-height: 1.7;
+			font-size: 1rem;
+			max-width: 680px;
+			line-height: 1.75;
 			font-weight: 300;
 		}
 		hr.section-rule { border: none; border-top: 1px solid var(--border); margin: 0; }
+		.section-tinted { background: linear-gradient(180deg, var(--grey-50), #FFFFFF); }
 
-		/* ── Feature Cards ────────────────────────────── */
-		.features-grid {
+		/* Executive summary */
+		.exec-grid {
 			display: grid;
-			grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-			gap: 20px;
-			margin-top: 40px;
+			grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+			gap: 20px; margin-top: 44px;
 		}
-		.feature-card {
-			background: var(--grey-soft);
+		.exec-card {
+			background: var(--white);
 			border: 1px solid var(--border);
 			border-radius: var(--radius);
-			padding: 28px 26px;
-			transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
-			position: relative;
-			overflow: hidden;
+			padding: 32px 28px;
+			transition: all 0.25s ease;
 		}
-		.feature-card::before {
-			content: '';
-			position: absolute;
-			top: 0; left: 0;
-			width: 3px; height: 100%;
-			background: var(--accent);
-			opacity: 0;
-			transition: opacity 0.2s;
+		.exec-card:hover {
+			transform: translateY(-4px);
+			box-shadow: var(--shadow-lg);
+			border-color: var(--accent);
 		}
-		.feature-card:hover {
-			transform: translateY(-3px);
-			box-shadow: 0 8px 24px rgba(26,82,118,0.09);
-			border-color: var(--blue-mid);
-		}
-		.feature-card:hover::before { opacity: 1; }
-		.feature-icon {
-			width: 38px; height: 38px;
-			background: var(--blue-light);
-			border-radius: 8px;
-			display: flex; align-items: center; justify-content: center;
-			color: var(--blue-deep);
-			font-size: 16px;
-			margin-bottom: 16px;
-		}
-		.feature-title {
+		.exec-label {
+			font-family: 'Bahnschrift Light', monospace;
+			font-size: 10px;
+			letter-spacing: 0.14em;
+			text-transform: uppercase;
 			font-weight: 600;
-			font-size: 0.95rem;
-			color: var(--blue-ink);
-			margin-bottom: 8px;
+			margin-bottom: 14px;
+			display: inline-block;
+			padding: 4px 10px;
+			border-radius: 4px;
 		}
-		.feature-body {
-			font-size: 0.88rem;
-			color: var(--text-muted);
-			line-height: 1.65;
-			font-weight: 300;
+		.exec-card.challenge .exec-label { background: #FDEDEB; color: #C0392B; }
+		.exec-card.solution .exec-label { background: var(--accent-soft); color: var(--accent-deep); }
+		.exec-card.outcome .exec-label { background: #D4EFDF; color: #196F3D; }
+		.exec-title {
+			font-size: 1.15rem;
+			color: var(--blue-ink);
+			font-weight: 600;
+			margin-bottom: 12px;
+			line-height: 1.3;
+		}
+		.exec-body { font-size: 0.92rem; color: var(--text-muted); line-height: 1.7; font-weight: 300; }
+		.exec-body ul { list-style: none; padding: 0; margin-top: 10px; }
+		.exec-body li { padding-left: 18px; margin-bottom: 6px; position: relative; }
+		.exec-body li::before {
+			content: '—'; position: absolute; left: 0; color: var(--blue-mid);
 		}
 
-		/* ── Diagram Sections ─────────────────────────── */
+		/* Architecture Diagram */
 		.diagram-section {
-			background: linear-gradient(135deg, #eef5fb, #f0f6fb);
+			background: linear-gradient(180deg, #FAFCFE, #F3F8FC);
 			border-top: 1px solid var(--border);
 			border-bottom: 1px solid var(--border);
+			padding: 80px 40px;
 		}
-		.diagram-inner {
-			max-width: 1100px;
-			margin: 0 auto;
-			padding: 70px 40px;
+		.diagram-inner { max-width: 1360px; margin: 0 auto; }
+		.diagram-meta {
+			display: flex; gap: 20px; flex-wrap: wrap;
+			margin-top: 18px;
+			font-size: 0.82rem;
+			color: var(--text-muted);
+		}
+		.diagram-meta span { display: inline-flex; align-items: center; gap: 6px; }
+		.diagram-wrapper {
+			margin-top: 36px;
+			background: var(--white);
+			border: 1px solid var(--border);
+			border-radius: var(--radius-lg);
+			padding: 28px;
+			box-shadow: var(--shadow);
+			overflow-x: auto;
+		}
+		.diagram-wrapper img {
+			width: 100%;
+			max-width: 100%;
+			height: auto;
+			display: block;
+			min-width: 700px;
 		}
 		.diagram-caption {
 			text-align: center;
+			margin-top: 22px;
 			font-family: 'Bahnschrift Light', monospace;
 			font-size: 11px;
 			letter-spacing: 0.12em;
 			text-transform: uppercase;
 			color: var(--text-muted);
-			margin-top: 18px;
 		}
-		.svg-wrapper {
-			width: 100%;
+
+		/* Design Decisions */
+		.decisions-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+			gap: 20px;
+			margin-top: 44px;
+		}
+		.decision {
 			background: var(--white);
 			border: 1px solid var(--border);
 			border-radius: var(--radius);
-			padding: 24px;
-			margin-top: 32px;
-			overflow-x: auto;
+			padding: 28px 26px;
+			position: relative; overflow: hidden;
+			transition: all 0.25s ease;
 		}
-		.svg-wrapper svg {
-			width: 100%;
-			height: auto;
-			min-width: 700px;
-			display: block;
+		.decision::before {
+			content: ''; position: absolute;
+			top: 0; left: 0;
+			width: 4px; height: 100%;
+			background: var(--accent);
+			transform: scaleY(0); transform-origin: top;
+			transition: transform 0.3s ease;
+		}
+		.decision:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); }
+		.decision:hover::before { transform: scaleY(1); }
+
+		.decision-icon {
+			width: 44px; height: 44px;
+			border-radius: var(--radius-sm);
+			background: var(--accent-soft);
+			display: flex; align-items: center; justify-content: center;
+			color: var(--accent-deep);
+			font-size: 18px;
+			margin-bottom: 18px;
+		}
+		.decision-title {
+			font-weight: 600; font-size: 1.02rem;
+			color: var(--blue-ink);
+			margin-bottom: 10px; line-height: 1.4;
+		}
+		.decision-body {
+			font-size: 0.88rem; color: var(--text-muted);
+			line-height: 1.7; font-weight: 300;
+			margin-bottom: 14px;
+		}
+		.decision-rationale {
+			font-size: 0.78rem;
+			color: var(--accent-deep);
+			font-style: italic;
+			padding-top: 12px;
+			border-top: 1px dashed var(--border);
+			line-height: 1.6;
+		}
+		.decision-rationale::before {
+			content: 'Why ▸ ';
+			font-family: 'Bahnschrift Light', monospace;
+			font-weight: 600;
+			letter-spacing: 0.05em;
+			color: var(--accent); font-style: normal;
 		}
 
-		/* ── Accordion Modules ────────────────────────── */
-		.modules-section { max-width: 960px; margin: 0 auto; padding: 70px 40px; }
+		/* Accordions */
 		.accordion-item {
 			border: 1px solid var(--border);
 			border-radius: var(--radius);
-			margin-bottom: 10px;
+			margin-bottom: 12px;
 			overflow: hidden;
-			transition: box-shadow 0.2s;
+			background: var(--white);
+			transition: all 0.25s ease;
 		}
-		.accordion-item:hover { box-shadow: 0 4px 14px rgba(26,82,118,0.07); }
+		.accordion-item:hover { box-shadow: var(--shadow); }
+		.accordion-item.open { box-shadow: var(--shadow); border-color: var(--accent); }
 		.accordion-trigger {
-			width: 100%;
-			background: var(--grey-soft);
-			border: none;
-			padding: 18px 22px;
-			text-align: left;
+			width: 100%; background: var(--white); border: none;
+			padding: 22px 26px; text-align: left;
 			cursor: pointer;
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-			gap: 12px;
-			font-weight: 600;
-			font-size: 0.95rem;
+			display: flex; align-items: center; justify-content: space-between;
+			gap: 14px;
+			font-weight: 600; font-size: 1rem;
 			color: var(--blue-ink);
 			transition: background 0.2s;
 		}
-		.accordion-trigger:hover { background: var(--blue-light); }
-		.accordion-trigger.open { background: var(--blue-light); }
-		.accordion-trigger-left { display: flex; align-items: center; gap: 14px; }
+		.accordion-trigger:hover { background: var(--grey-50); }
+		.accordion-trigger.open { background: var(--blue-whisper); }
+		.accordion-trigger-left { display: flex; align-items: center; gap: 18px; flex: 1; }
 		.accordion-num {
 			font-family: 'Bahnschrift Light', monospace;
-			font-size: 10px;
-			font-weight: 600;
-			color: var(--accent);
+			font-size: 11px; font-weight: 700;
+			color: var(--accent-deep);
 			background: var(--accent-soft);
 			border-radius: 4px;
-			padding: 2px 7px;
+			padding: 3px 9px;
 			flex-shrink: 0;
+			letter-spacing: 0.05em;
 		}
 		.accordion-chevron {
-			font-size: 11px;
-			color: var(--text-muted);
-			transition: transform 0.25s;
-			flex-shrink: 0;
+			font-size: 11px; color: var(--text-muted);
+			transition: transform 0.25s; flex-shrink: 0;
 		}
 		.accordion-trigger.open .accordion-chevron { transform: rotate(180deg); }
 		.accordion-panel {
-			max-height: 0;
-			overflow: hidden;
-			transition: max-height 0.3s ease;
-			background: var(--white);
+			max-height: 0; overflow: hidden;
+			transition: max-height 0.35s ease;
 		}
 		.accordion-panel-inner {
-			padding: 22px 22px 26px 56px;
+			padding: 26px 26px 30px 70px;
 			border-top: 1px solid var(--border);
+			background: #FCFDFE;
 		}
 		.accordion-panel-inner ul {
-			list-style: none;
-			padding: 0;
-			display: flex;
-			flex-direction: column;
-			gap: 10px;
+			list-style: none; padding: 0;
+			display: flex; flex-direction: column; gap: 11px;
 		}
 		.accordion-panel-inner ul li {
-			font-size: 0.9rem;
-			color: var(--text-muted);
-			line-height: 1.65;
-			padding-left: 16px;
-			position: relative;
-			font-weight: 300;
+			font-size: 0.93rem; color: var(--text-body);
+			line-height: 1.7; padding-left: 18px;
+			position: relative; font-weight: 300;
 		}
 		.accordion-panel-inner ul li::before {
-			content: '—';
-			position: absolute;
-			left: 0;
-			color: var(--blue-mid);
-			font-size: 0.8rem;
+			content: '▸'; position: absolute; left: 0;
+			color: var(--accent); font-size: 0.8rem; top: 2px;
 		}
+		.accordion-tech-row {
+			margin-top: 20px; padding-top: 18px;
+			border-top: 1px dashed var(--border);
+			display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+		}
+		.accordion-tech-label {
+			font-family: 'Bahnschrift Light', monospace;
+			font-size: 9px; letter-spacing: 0.12em;
+			text-transform: uppercase;
+			color: var(--text-soft); font-weight: 600;
+			margin-right: 6px;
+		}
+		.tech-chip {
+			display: inline-flex; align-items: center;
+			padding: 4px 11px;
+			background: var(--grey-100);
+			color: var(--blue-deep);
+			border: 1px solid var(--border);
+			border-radius: 100px;
+			font-size: 0.78rem; font-weight: 500;
+			font-family: 'Bahnschrift Light', monospace;
+		}
+		.tech-chip.aws { background: #FFF4E6; border-color: #FCD199; color: #B65A00; }
+		.tech-chip.azure { background: #E3F2FD; border-color: #90CAF9; color: #1565C0; }
 
-		/* ── Phases Timeline ──────────────────────────── */
-		.phases-section { max-width: 960px; margin: 0 auto; padding: 70px 40px; }
-		.phases-grid {
-			display: grid;
-			grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-			gap: 16px;
-			margin-top: 32px;
+		/* Request Lifecycle Steps */
+		.lifecycle {
+			margin-top: 44px;
+			position: relative;
 		}
-		.phase-card {
+		.lifecycle::before {
+			content: ''; position: absolute;
+			left: 23px; top: 12px; bottom: 12px;
+			width: 2px;
+			background: linear-gradient(180deg, var(--accent) 0%, var(--blue-light) 100%);
+			border-radius: 2px;
+		}
+		.step {
+			display: grid;
+			grid-template-columns: 48px 1fr;
+			gap: 22px; margin-bottom: 28px;
+			position: relative;
+		}
+		.step-num {
+			width: 48px; height: 48px;
+			border-radius: 50%;
+			background: var(--white);
+			border: 2px solid var(--accent);
+			color: var(--accent-deep);
+			display: flex; align-items: center; justify-content: center;
+			font-family: 'Bahnschrift', sans-serif;
+			font-weight: 700; font-size: 1rem;
+			flex-shrink: 0; position: relative; z-index: 1;
+			box-shadow: 0 0 0 4px var(--white);
+		}
+		.step-body {
 			background: var(--white);
 			border: 1px solid var(--border);
 			border-radius: var(--radius);
-			padding: 22px 22px;
-			position: relative;
-			transition: transform 0.2s, box-shadow 0.2s;
+			padding: 20px 24px;
+			transition: all 0.2s;
 		}
-		.phase-card:hover {
-			transform: translateY(-2px);
-			box-shadow: 0 6px 18px rgba(26,82,118,0.09);
+		.step-body:hover { box-shadow: var(--shadow); border-color: var(--accent); }
+		.step-title {
+			font-size: 1rem; font-weight: 600;
+			color: var(--blue-ink); margin-bottom: 8px;
 		}
-		.phase-label {
+		.step-desc {
+			font-size: 0.9rem; color: var(--text-muted);
+			line-height: 1.7; font-weight: 300;
+		}
+		.step-tech {
+			margin-top: 10px;
 			font-family: 'Bahnschrift Light', monospace;
-			font-size: 10px;
-			letter-spacing: 0.12em;
+			font-size: 0.72rem; letter-spacing: 0.04em;
+			color: var(--accent-deep);
+		}
+
+		/* SLA Metrics Dashboard */
+		.metrics-section {
+			background: linear-gradient(135deg, var(--blue-ink) 0%, var(--blue-deep) 100%);
+			padding: 90px 40px;
+			color: var(--white);
+			position: relative; overflow: hidden;
+		}
+		.metrics-section::before {
+			content: ''; position: absolute;
+			top: -100px; right: -100px;
+			width: 400px; height: 400px;
+			border-radius: 50%;
+			background: radial-gradient(circle, rgba(46,134,193,0.3) 0%, transparent 70%);
+		}
+		.metrics-inner { max-width: 1120px; margin: 0 auto; position: relative; }
+		.metrics-section .section-label { color: var(--accent-soft); }
+		.metrics-section .section-label::before { background: var(--accent-soft); }
+		.metrics-section .section-title { color: var(--white); }
+		.metrics-section .section-desc { color: rgba(255,255,255,0.7); }
+
+		.metrics-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+			gap: 2px;
+			margin-top: 48px;
+			background: rgba(255,255,255,0.1);
+			border-radius: var(--radius);
+			overflow: hidden;
+		}
+		.metric {
+			background: rgba(255,255,255,0.03);
+			padding: 36px 28px;
+			transition: background 0.25s;
+		}
+		.metric:hover { background: rgba(255,255,255,0.08); }
+		.metric-num {
+			font-family: 'Bahnschrift', sans-serif;
+			font-size: 2.6rem; line-height: 1;
+			font-weight: 700; color: var(--white);
+			margin-bottom: 10px;
+			letter-spacing: -0.02em;
+		}
+		.metric-label {
+			font-family: 'Bahnschrift Light', monospace;
+			font-size: 10px; letter-spacing: 0.14em;
 			text-transform: uppercase;
-			color: var(--accent);
-			font-weight: 600;
-			margin-bottom: 6px;
+			color: var(--accent-soft);
+			margin-bottom: 14px; font-weight: 600;
+		}
+		.metric-desc {
+			font-size: 0.85rem;
+			color: rgba(255,255,255,0.75);
+			line-height: 1.6; font-weight: 300;
+		}
+
+		/* Timeline */
+		.timeline { margin-top: 48px; position: relative; }
+		.timeline-track {
+			display: grid;
+			grid-template-columns: repeat(6, 1fr);
+			gap: 16px;
+		}
+		.timeline-phase {
+			background: var(--white);
+			border: 1px solid var(--border);
+			border-radius: var(--radius);
+			padding: 22px 18px;
+			position: relative;
+			transition: all 0.25s ease;
+		}
+		.timeline-phase:hover {
+			transform: translateY(-4px);
+			box-shadow: var(--shadow-lg);
+			border-color: var(--accent);
+		}
+		.timeline-phase::after {
+			content: ''; position: absolute;
+			top: 50%; right: -16px;
+			width: 16px; height: 2px;
+			background: var(--border); z-index: 0;
+		}
+		.timeline-phase:last-child::after { display: none; }
+		.phase-num {
+			display: inline-block;
+			width: 28px; height: 28px;
+			line-height: 28px; text-align: center;
+			font-family: 'Bahnschrift', sans-serif;
+			font-weight: 700; font-size: 0.8rem;
+			border-radius: 50%;
+			background: var(--accent);
+			color: var(--white);
+			margin-bottom: 14px;
 		}
 		.phase-title {
-			font-weight: 600;
-			font-size: 0.95rem;
+			font-weight: 600; font-size: 0.92rem;
 			color: var(--blue-ink);
-			margin-bottom: 8px;
+			margin-bottom: 8px; line-height: 1.35;
 		}
 		.phase-desc {
-			font-size: 0.85rem;
-			color: var(--text-muted);
-			line-height: 1.6;
-			font-weight: 300;
+			font-size: 0.78rem; color: var(--text-muted);
+			line-height: 1.6; font-weight: 300;
 		}
 
-		/* ── Tech Stack ───────────────────────────────── */
-		.tech-section { max-width: 960px; margin: 0 auto; padding: 60px 40px; }
-		.tech-group { margin-top: 24px; }
-		.tech-group-label {
-			font-family: 'Bahnschrift Light', monospace;
-			font-size: 10px;
-			letter-spacing: 0.12em;
-			text-transform: uppercase;
-			color: var(--blue-deep);
-			font-weight: 600;
-			margin-bottom: 10px;
+		@media (max-width: 900px) {
+			.timeline-track { grid-template-columns: repeat(2, 1fr); }
+			.timeline-phase::after { display: none; }
 		}
-		.tech-grid { display: flex; flex-wrap: wrap; gap: 9px; }
+		@media (max-width: 500px) {
+			.timeline-track { grid-template-columns: 1fr; }
+		}
+
+		/* Tech Stack */
+		.tech-section { padding: 80px 40px; max-width: 1120px; margin: 0 auto; }
+		.tech-group { margin-top: 32px; }
+		.tech-group:first-child { margin-top: 40px; }
+		.tech-group-header {
+			display: flex; align-items: center; gap: 14px;
+			margin-bottom: 14px;
+		}
+		.tech-group-badge {
+			display: inline-flex; align-items: center; justify-content: center;
+			width: 32px; height: 32px;
+			border-radius: 6px;
+			font-family: 'Bahnschrift', sans-serif;
+			font-weight: 700; font-size: 0.7rem;
+			color: var(--white);
+		}
+		.tech-group.aws .tech-group-badge { background: linear-gradient(135deg, #FF9900, #E47400); }
+		.tech-group.azure .tech-group-badge { background: linear-gradient(135deg, #0078D4, #005A9E); }
+		.tech-group.crosscut .tech-group-badge { background: linear-gradient(135deg, var(--blue-deep), var(--blue-ink)); }
+		.tech-group-label {
+			font-family: 'Bahnschrift', sans-serif;
+			font-weight: 600; font-size: 1rem;
+			color: var(--blue-ink);
+		}
+		.tech-grid {
+			display: flex; flex-wrap: wrap; gap: 9px;
+			padding-left: 46px;
+		}
 		.tech-pill {
-			display: inline-flex;
-			align-items: center;
-			gap: 6px;
-			background: var(--grey-soft);
+			display: inline-flex; align-items: center; gap: 6px;
+			background: var(--grey-50);
 			border: 1px solid var(--border);
 			color: var(--blue-deep);
-			padding: 6px 14px;
-			border-radius: 20px;
+			padding: 7px 15px;
+			border-radius: 100px;
 			font-family: 'Bahnschrift Light', monospace;
-			font-size: 11px;
-			font-weight: 500;
+			font-size: 11.5px; font-weight: 500;
 			letter-spacing: 0.02em;
-			transition: background 0.15s, border-color 0.15s;
+			transition: all 0.15s;
 		}
-		.tech-pill:hover { background: var(--blue-light); border-color: var(--blue-mid); }
+		.tech-pill:hover {
+			background: var(--accent-soft);
+			border-color: var(--accent);
+			transform: translateY(-1px);
+		}
 
-		/* ── Back Link ────────────────────────────────── */
+		/* Back Link */
 		.back-section {
-			background: var(--grey-soft);
+			background: var(--grey-50);
 			border-top: 1px solid var(--border);
-			padding: 40px 40px;
+			padding: 44px 40px;
 			text-align: center;
 		}
 		.back-link {
-			display: inline-flex;
-			align-items: center;
-			gap: 8px;
-			color: var(--accent);
-			font-weight: 600;
-			text-decoration: none;
-			font-size: 0.92rem;
+			display: inline-flex; align-items: center; gap: 8px;
+			color: var(--accent-deep);
+			font-weight: 600; font-size: 0.95rem;
 			transition: gap 0.2s;
 		}
-		.back-link:hover { gap: 12px; color: var(--blue-deep); text-decoration: none; }
+		.back-link:hover { gap: 14px; color: var(--blue-ink); }
 
-		/* ── Footer ───────────────────────────────────── */
 		footer {
 			background: var(--white);
 			border-top: 1px solid var(--border);
@@ -426,54 +680,44 @@
 		}
 		footer img { width: 70px; height: 70px; opacity: 0.85; }
 
-		/* ── Preloader ────────────────────────────────── */
 		#preloader {
-			position: fixed;
-			inset: 0;
+			position: fixed; inset: 0;
 			background: var(--white);
 			z-index: 9999;
-			display: flex;
-			align-items: center;
-			justify-content: center;
+			display: flex; align-items: center; justify-content: center;
 			font-family: 'Bahnschrift Light', monospace;
 			font-size: 13px;
 			color: var(--accent);
 			letter-spacing: 0.1em;
 		}
 
-		/* ── SVG Diagram Styles ───────────────────────── */
-		.arch-svg .env-box-aws { fill: var(--aws-tint); stroke: #f39c12; stroke-width: 1.5; stroke-dasharray: 6 3; }
-		.arch-svg .env-box-azure { fill: var(--azure-tint); stroke: var(--accent); stroke-width: 1.5; stroke-dasharray: 6 3; }
-		.arch-svg .env-box-shared { fill: var(--grey-soft); stroke: var(--blue-mid); stroke-width: 1.5; stroke-dasharray: 6 3; }
-		.arch-svg .service-box { fill: var(--white); stroke: var(--blue-mid); stroke-width: 1; }
-		.arch-svg .env-label { font-family: 'Bahnschrift', sans-serif; font-size: 14px; font-weight: 700; fill: var(--blue-ink); }
-		.arch-svg .svc-label { font-family: 'Bahnschrift Light', sans-serif; font-size: 10.5px; fill: var(--blue-deep); }
-		.arch-svg .conn { stroke: var(--blue-mid); stroke-width: 1.5; fill: none; }
-		.arch-svg .conn-accent { stroke: var(--accent); stroke-width: 1.8; fill: none; }
-		.arch-svg .conn-dashed { stroke: var(--blue-mid); stroke-width: 1.5; fill: none; stroke-dasharray: 5 3; }
-
-		.seq-svg .lane-header { fill: var(--blue-light); stroke: var(--blue-mid); stroke-width: 1; }
-		.seq-svg .lane-header-text { font-family: 'Bahnschrift', sans-serif; font-size: 11px; font-weight: 700; fill: var(--blue-ink); text-anchor: middle; }
-		.seq-svg .lane-line { stroke: var(--border); stroke-width: 1; stroke-dasharray: 3 3; }
-		.seq-svg .msg-arrow { stroke: var(--blue-deep); stroke-width: 1.5; fill: none; }
-		.seq-svg .msg-arrow-sync { stroke: var(--accent); stroke-width: 1.5; fill: none; stroke-dasharray: 4 3; }
-		.seq-svg .msg-label { font-family: 'Bahnschrift Light', sans-serif; font-size: 10px; fill: var(--text-body); text-anchor: middle; }
-		.seq-svg .step-num { font-family: 'Bahnschrift Light', monospace; font-size: 9px; font-weight: 600; fill: var(--accent); }
-
-		/* ── Responsive ───────────────────────────────── */
 		@media (max-width: 720px) {
-			.hero-stats { gap: 22px; }
-			.hero, .section, .modules-section, .tech-section, .phases-section { padding-left: 20px; padding-right: 20px; }
-			.diagram-inner { padding-left: 20px; padding-right: 20px; }
-			.accordion-panel-inner { padding-left: 22px; }
+			.hero, .section, .tech-section, .diagram-section, .metrics-section { padding-left: 20px; padding-right: 20px; }
+			.hero { padding-top: 60px; padding-bottom: 70px; }
+			.section { padding-top: 60px; padding-bottom: 60px; }
+			.accordion-panel-inner { padding-left: 26px; }
+			.hero-stats { grid-template-columns: 1fr 1fr; gap: 12px; padding: 16px; }
+			.hero-stat { border-right: none; border-bottom: 1px solid var(--border-soft); padding: 10px 8px; }
+			.hero-stat:nth-last-child(-n+2) { border-bottom: none; }
+		}
+
+		/* Fade-in on scroll */
+		.fade-in {
+			opacity: 0;
+			transform: translateY(14px);
+			transition: opacity 0.6s ease, transform 0.6s ease;
+		}
+		.fade-in.visible {
+			opacity: 1;
+			transform: translateY(0);
 		}
 	</style>
 </head>
 <body>
 
 <div id="preloader"><p>Please Wait.</p></div>
+<div id="progress-bar"></div>
 
-<!-- Nav (inherits from default.css, matches index.html) -->
 <div class="nav-wrapper">
 	<a href="index.html">
 		<div class="dots-wrapper">
@@ -487,221 +731,220 @@
 	</ul>
 </div>
 
-<!-- Hero -->
+<!-- HERO -->
 <section class="hero">
 	<div class="hero-inner">
-		<div class="hero-eyebrow">Research Work · IT Strategy</div>
-		<h1><span>Multi-Cloud</span> Architecture for<br>BMW Financial Services</h1>
+		<div class="hero-eyebrow">Research Work · IT Strategy · Enterprise Architecture</div>
+		<h1><span>Multi-Cloud</span> Architecture<br>for Resilient Financial Services</h1>
 		<p class="hero-sub">
 			A proactive AWS + Azure architecture that eliminates single points of failure,
-			scales on demand, and protects sensitive financial data through multi-layered security.
-			Built around the ACID principles, designed for 99.9%+ uptime, and engineered for
-			cross-cloud failover without service interruption.
+			scales elastically with demand, and protects sensitive financial data through layered
+			security controls. Engineered around ACID principles and designed to meet stringent
+			SLA commitments across geographic regions.
 		</p>
+
 		<div class="hero-stats">
 			<div class="hero-stat">
-				<span class="hero-stat-num">2</span>
-				<span class="hero-stat-label">Cloud Providers</span>
+				<div class="hero-stat-num">99.99%</div>
+				<div class="hero-stat-label">Uptime Target</div>
 			</div>
-			<div class="hero-stat-divider"></div>
 			<div class="hero-stat">
-				<span class="hero-stat-num">99.9%</span>
-				<span class="hero-stat-label">Uptime Target</span>
+				<div class="hero-stat-num">&lt;15min</div>
+				<div class="hero-stat-label">RTO</div>
 			</div>
-			<div class="hero-stat-divider"></div>
 			<div class="hero-stat">
-				<span class="hero-stat-num">7</span>
-				<span class="hero-stat-label">Architecture Layers</span>
+				<div class="hero-stat-num">&lt;5min</div>
+				<div class="hero-stat-label">RPO</div>
 			</div>
-			<div class="hero-stat-divider"></div>
 			<div class="hero-stat">
-				<span class="hero-stat-num">ACID</span>
-				<span class="hero-stat-label">Compliant</span>
+				<div class="hero-stat-num">7</div>
+				<div class="hero-stat-label">Architecture Layers</div>
 			</div>
+		</div>
+
+		<div class="hero-scroll-nav">
+			<a href="#summary"><i class="fa fa-bookmark"></i> Executive Summary</a>
+			<a href="#architecture"><i class="fa fa-sitemap"></i> Architecture</a>
+			<a href="#decisions"><i class="fa fa-lightbulb-o"></i> Key Decisions</a>
+			<a href="#layers"><i class="fa fa-bars"></i> 7 Layers</a>
+			<a href="#lifecycle"><i class="fa fa-exchange"></i> Request Flow</a>
+			<a href="#metrics"><i class="fa fa-tachometer"></i> SLAs</a>
 		</div>
 	</div>
 </section>
 
 <hr class="section-rule">
 
-<!-- What it addresses -->
-<div class="section">
-	<div class="section-label">What it addresses</div>
-	<h2 class="section-title">Resilience, scale, and security — engineered together</h2>
-	<p class="section-desc">
-		Single-cloud dependency is a risk financial services can't absorb. This architecture
-		splits the stack across AWS and Azure so neither provider becomes a single point of failure,
-		and every layer — network, compute, database, traffic — has an independent failover path.
-	</p>
-
-	<div class="features-grid">
-		<div class="feature-card">
-			<div class="feature-icon"><i class="fa fa-shield"></i></div>
-			<div class="feature-title">High Availability &amp; Redundancy</div>
-			<div class="feature-body">Cross-cloud distribution of front-end and back-end services with independent failover paths. No single provider outage takes the service down.</div>
-		</div>
-		<div class="feature-card">
-			<div class="feature-icon"><i class="fa fa-line-chart"></i></div>
-			<div class="feature-title">Scalability &amp; Performance</div>
-			<div class="feature-body">AWS Auto Scaling and Azure Autoscale match compute to real-time demand. AWS SQS decouples the front-end from heavy back-end processing.</div>
-		</div>
-		<div class="feature-card">
-			<div class="feature-icon"><i class="fa fa-lock"></i></div>
-			<div class="feature-title">Data Security &amp; Compliance</div>
-			<div class="feature-body">VPN tunnels between clouds, KMS and Key Vault for encryption at rest and in transit, IAM and Azure AD enforcing least-privilege access.</div>
-		</div>
-		<div class="feature-card">
-			<div class="feature-icon"><i class="fa fa-eye"></i></div>
-			<div class="feature-title">Proactive Monitoring</div>
-			<div class="feature-body">CloudWatch and Azure Monitor continuously track every component's health. Threshold-based alerts and auto-scaling triggers before customers feel impact.</div>
-		</div>
-		<div class="feature-card">
-			<div class="feature-icon"><i class="fa fa-refresh"></i></div>
-			<div class="feature-title">Disaster Recovery</div>
-			<div class="feature-body">RDS Multi-AZ, cross-cloud data replication, and DNS-based failover via Route 53 and Azure Traffic Manager. Traffic reroutes automatically on outage.</div>
-		</div>
-		<div class="feature-card">
-			<div class="feature-icon"><i class="fa fa-check-square-o"></i></div>
-			<div class="feature-title">Compliance-Ready</div>
-			<div class="feature-body">Multi-region data residency, encrypted backups, and auditable access controls align with GDPR and ISO 27001 requirements out of the box.</div>
-		</div>
-	</div>
-</div>
-
-<hr class="section-rule">
-
-<!-- Architecture Diagram -->
-<section class="diagram-section">
-	<div class="diagram-inner">
-		<div class="section-label">Architecture</div>
-		<h2 class="section-title">Network &amp; security topology</h2>
+<!-- EXECUTIVE SUMMARY -->
+<section class="section" id="summary">
+	<div class="section-header">
+		<div class="section-label">Executive Summary</div>
+		<h2 class="section-title">The case for multi-cloud, distilled</h2>
 		<p class="section-desc">
-			Two isolated cloud environments connected through VPN tunnels and cross-cloud data replication.
-			AWS hosts the back-end compute and primary data store; Azure hosts the customer-facing front-end
-			and the replicated SQL layer. Shared services sit between them.
+			Relying on a single cloud provider is a risk financial institutions cannot absorb.
+			This architecture splits the stack across AWS and Azure so neither provider becomes
+			a single point of failure, and every layer — network, compute, database, traffic —
+			has an independent failover path.
 		</p>
+	</div>
 
-		<div class="svg-wrapper">
-			<svg class="arch-svg" viewBox="0 0 1100 560" xmlns="http://www.w3.org/2000/svg">
-				<defs>
-					<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
-						<path d="M 0 0 L 10 5 L 0 10 z" fill="#b8d4ec"/>
-					</marker>
-					<marker id="arrow-accent" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
-						<path d="M 0 0 L 10 5 L 0 10 z" fill="#2e86c1"/>
-					</marker>
-				</defs>
-
-				<!-- AWS Environment -->
-				<rect class="env-box-aws" x="20" y="40" width="420" height="480" rx="10"/>
-				<text class="env-label" x="40" y="65">☁ AWS Environment</text>
-
-				<!-- AWS Services -->
-				<rect class="service-box" x="40" y="90" width="120" height="36" rx="5"/>
-				<text class="svc-label" x="100" y="112" text-anchor="middle">AWS VPC</text>
-
-				<rect class="service-box" x="180" y="90" width="120" height="36" rx="5"/>
-				<text class="svc-label" x="240" y="112" text-anchor="middle">AWS IAM</text>
-
-				<rect class="service-box" x="320" y="90" width="100" height="36" rx="5"/>
-				<text class="svc-label" x="370" y="112" text-anchor="middle">AWS KMS</text>
-
-				<rect class="service-box" x="40" y="150" width="120" height="36" rx="5"/>
-				<text class="svc-label" x="100" y="172" text-anchor="middle">AWS EC2</text>
-
-				<rect class="service-box" x="180" y="150" width="120" height="36" rx="5"/>
-				<text class="svc-label" x="240" y="172" text-anchor="middle">AWS ELB</text>
-
-				<rect class="service-box" x="320" y="150" width="100" height="36" rx="5"/>
-				<text class="svc-label" x="370" y="172" text-anchor="middle">Auto Scaling</text>
-
-				<rect class="service-box" x="40" y="210" width="120" height="36" rx="5"/>
-				<text class="svc-label" x="100" y="232" text-anchor="middle">AWS SQS</text>
-
-				<rect class="service-box" x="180" y="210" width="120" height="36" rx="5"/>
-				<text class="svc-label" x="240" y="232" text-anchor="middle">CloudWatch</text>
-
-				<rect class="service-box" x="320" y="210" width="100" height="36" rx="5"/>
-				<text class="svc-label" x="370" y="232" text-anchor="middle">Route 53</text>
-
-				<rect class="service-box" x="110" y="290" width="240" height="50" rx="5" style="fill: var(--accent-soft);"/>
-				<text class="svc-label" x="230" y="313" text-anchor="middle" style="font-weight:600;">AWS RDS (Multi-AZ)</text>
-				<text class="svc-label" x="230" y="328" text-anchor="middle" style="font-size:9.5px; fill: var(--text-muted);">Primary financial data store</text>
-
-				<text class="svc-label" x="230" y="390" text-anchor="middle" style="font-size:10px; fill: var(--text-muted); font-style: italic;">Back-end compute &amp; primary data</text>
-
-				<!-- Azure Environment -->
-				<rect class="env-box-azure" x="460" y="40" width="420" height="480" rx="10"/>
-				<text class="env-label" x="480" y="65">☁ Azure Environment</text>
-
-				<!-- Azure Services -->
-				<rect class="service-box" x="480" y="90" width="120" height="36" rx="5"/>
-				<text class="svc-label" x="540" y="112" text-anchor="middle">Azure VNet</text>
-
-				<rect class="service-box" x="620" y="90" width="120" height="36" rx="5"/>
-				<text class="svc-label" x="680" y="112" text-anchor="middle">Azure AD</text>
-
-				<rect class="service-box" x="760" y="90" width="100" height="36" rx="5"/>
-				<text class="svc-label" x="810" y="112" text-anchor="middle">Key Vault</text>
-
-				<rect class="service-box" x="480" y="150" width="120" height="36" rx="5"/>
-				<text class="svc-label" x="540" y="172" text-anchor="middle">Azure VMs</text>
-
-				<rect class="service-box" x="620" y="150" width="120" height="36" rx="5"/>
-				<text class="svc-label" x="680" y="172" text-anchor="middle">Load Balancer</text>
-
-				<rect class="service-box" x="760" y="150" width="100" height="36" rx="5"/>
-				<text class="svc-label" x="810" y="172" text-anchor="middle">Autoscale</text>
-
-				<rect class="service-box" x="480" y="210" width="120" height="36" rx="5"/>
-				<text class="svc-label" x="540" y="232" text-anchor="middle">Azure Monitor</text>
-
-				<rect class="service-box" x="620" y="210" width="240" height="36" rx="5"/>
-				<text class="svc-label" x="740" y="232" text-anchor="middle">Azure Traffic Manager</text>
-
-				<rect class="service-box" x="550" y="290" width="240" height="50" rx="5" style="fill: var(--accent-soft);"/>
-				<text class="svc-label" x="670" y="313" text-anchor="middle" style="font-weight:600;">Azure SQL Database</text>
-				<text class="svc-label" x="670" y="328" text-anchor="middle" style="font-size:9.5px; fill: var(--text-muted);">Replicated SQL layer</text>
-
-				<text class="svc-label" x="670" y="390" text-anchor="middle" style="font-size:10px; fill: var(--text-muted); font-style: italic;">Front-end services &amp; replica data</text>
-
-				<!-- Shared Services (bottom) -->
-				<rect class="env-box-shared" x="240" y="430" width="620" height="80" rx="10"/>
-				<text class="env-label" x="260" y="455" style="font-size:12px;">⟷ Shared Services</text>
-
-				<rect class="service-box" x="260" y="465" width="180" height="32" rx="5"/>
-				<text class="svc-label" x="350" y="485" text-anchor="middle">VPN Tunnel (encrypted)</text>
-
-				<rect class="service-box" x="460" y="465" width="180" height="32" rx="5"/>
-				<text class="svc-label" x="550" y="485" text-anchor="middle">Cross-Cloud Data Replication</text>
-
-				<rect class="service-box" x="660" y="465" width="180" height="32" rx="5"/>
-				<text class="svc-label" x="750" y="485" text-anchor="middle">DNS-based Failover</text>
-
-				<!-- Connections between AWS and Azure -->
-				<path class="conn-accent" d="M 440 170 L 480 170" marker-end="url(#arrow-accent)"/>
-				<path class="conn-accent" d="M 480 175 L 440 175" marker-end="url(#arrow-accent)"/>
-				<text class="svc-label" x="460" y="163" text-anchor="middle" style="font-size:9px; fill: var(--accent); font-weight:600;">VPN</text>
-
-				<!-- RDS ↔ Azure SQL replication -->
-				<path class="conn-dashed" d="M 350 315 C 400 315, 500 315, 550 315"/>
-				<text class="svc-label" x="450" y="307" text-anchor="middle" style="font-size:9px; fill: var(--blue-mid); font-style: italic;">Sync</text>
-
-				<!-- Connections to shared services -->
-				<path class="conn" d="M 230 340 L 230 430" marker-end="url(#arrow)"/>
-				<path class="conn" d="M 670 340 L 670 430" marker-end="url(#arrow)"/>
-			</svg>
+	<div class="exec-grid">
+		<div class="exec-card challenge">
+			<div class="exec-label">Challenge</div>
+			<div class="exec-title">Single-provider risk in a 24/7 business</div>
+			<div class="exec-body">
+				<ul>
+					<li>Regional outages cause measurable revenue loss and reputational damage</li>
+					<li>Peak-hour demand spikes overwhelm fixed-capacity infrastructure</li>
+					<li>Sensitive customer data requires multi-region residency and GDPR compliance</li>
+					<li>Regulatory audits demand verifiable disaster recovery capability</li>
+				</ul>
+			</div>
 		</div>
-		<div class="diagram-caption">Figure 1 — Cross-cloud network and security topology</div>
+
+		<div class="exec-card solution">
+			<div class="exec-label">Solution</div>
+			<div class="exec-title">Active-active multi-cloud with cross-cloud replication</div>
+			<div class="exec-body">
+				<ul>
+					<li>Front-end on Azure VMs with Traffic Manager for global routing</li>
+					<li>Back-end processing on AWS EC2 behind SQS for async decoupling</li>
+					<li>RDS Multi-AZ primary with cross-cloud sync to Azure SQL Database</li>
+					<li>DNS-level failover via Route 53 &amp; Azure Traffic Manager health checks</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="exec-card outcome">
+			<div class="exec-label">Outcome</div>
+			<div class="exec-title">Resilient, compliant, cost-aware at any scale</div>
+			<div class="exec-body">
+				<ul>
+					<li>99.99% uptime target with measured &lt;15min RTO across regions</li>
+					<li>Autoscaling handles 10× peak load without manual intervention</li>
+					<li>Encrypted at rest and in transit; IAM + Azure AD enforce least-privilege</li>
+					<li>Runbook-tested failover drills confirm recovery procedures quarterly</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- ARCHITECTURE DIAGRAM -->
+<section class="diagram-section" id="architecture">
+	<div class="diagram-inner">
+		<div class="section-header">
+			<div class="section-label">Architecture</div>
+			<h2 class="section-title">Network &amp; security topology</h2>
+			<p class="section-desc">
+				Two isolated cloud environments connected through an encrypted VPN tunnel and
+				cross-cloud data replication. AWS hosts back-end compute and the primary data
+				store; Azure hosts the customer-facing front-end and the replicated SQL layer.
+				Each side runs its own Multi-AZ deployment for in-region high availability.
+			</p>
+			<div class="diagram-meta">
+				<span><i class="fa fa-cloud"></i> AWS + Azure</span>
+				<span><i class="fa fa-shield"></i> IPsec VPN</span>
+				<span><i class="fa fa-database"></i> Cross-cloud replication</span>
+				<span><i class="fa fa-globe"></i> DNS failover</span>
+			</div>
+		</div>
+
+		<div class="diagram-wrapper">
+			<img src="images/Multi_Cloud_Concept.svg" alt="Multi-cloud architecture diagram showing AWS and Azure environments connected via VPN, with Multi-AZ subnet tiers and cross-cloud data replication">
+		</div>
+		<div class="diagram-caption">Figure 1 — Cross-cloud network &amp; security topology</div>
+	</div>
+</section>
+
+<!-- KEY DESIGN DECISIONS -->
+<section class="section" id="decisions">
+	<div class="section-header">
+		<div class="section-label">Design Decisions</div>
+		<h2 class="section-title">Why each architectural choice was made</h2>
+		<p class="section-desc">
+			Every major component in this architecture was selected for a specific reason. These
+			are the decisions that shape the trade-offs between cost, resilience, latency, and
+			operational complexity.
+		</p>
+	</div>
+
+	<div class="decisions-grid">
+		<div class="decision">
+			<div class="decision-icon"><i class="fa fa-random"></i></div>
+			<div class="decision-title">Active-active, not active-passive</div>
+			<div class="decision-body">
+				Both clouds serve live traffic simultaneously via DNS-weighted routing. Neither
+				side sits idle waiting for a failure.
+			</div>
+			<div class="decision-rationale">Passive failover wastes 50% of capacity and tends to fail the first time it's tested. Active-active continuously exercises both paths.</div>
+		</div>
+
+		<div class="decision">
+			<div class="decision-icon"><i class="fa fa-exchange"></i></div>
+			<div class="decision-title">SQS between front-end and back-end</div>
+			<div class="decision-body">
+				Customer requests queue asynchronously. Front-end stays responsive during back-end
+				slowdowns; back-end scales independently of incoming request rate.
+			</div>
+			<div class="decision-rationale">Tight coupling propagates slowness. A queue absorbs spikes, smooths throughput, and gives each tier its own operational tempo.</div>
+		</div>
+
+		<div class="decision">
+			<div class="decision-icon"><i class="fa fa-database"></i></div>
+			<div class="decision-title">RDS Multi-AZ primary, Azure SQL replica</div>
+			<div class="decision-body">
+				RDS Multi-AZ handles fast in-region failover (seconds). Cross-cloud replication
+				to Azure SQL handles catastrophic regional loss (minutes).
+			</div>
+			<div class="decision-rationale">Two independent failure domains. Most outages are regional, not global — using the right tool for each scope cuts RTO significantly.</div>
+		</div>
+
+		<div class="decision">
+			<div class="decision-icon"><i class="fa fa-sitemap"></i></div>
+			<div class="decision-title">Tiered subnets: public / app / DB</div>
+			<div class="decision-body">
+				Public subnet holds only the load balancer. App tier in private subnet. Database
+				tier in a separate private subnet with no route to the internet.
+			</div>
+			<div class="decision-rationale">Defense-in-depth. A compromised EC2 instance cannot reach the database directly without traversing a NACL and security group boundary.</div>
+		</div>
+
+		<div class="decision">
+			<div class="decision-icon"><i class="fa fa-lock"></i></div>
+			<div class="decision-title">KMS + Key Vault instead of shared secrets</div>
+			<div class="decision-body">
+				Encryption keys stored in AWS KMS and Azure Key Vault, never in application
+				config. Rotation handled by the cloud provider, audit trails built in.
+			</div>
+			<div class="decision-rationale">Hardcoded secrets leak via logs, repos, and backups. Managed key services solve rotation, audit, and access control in one integrated layer.</div>
+		</div>
+
+		<div class="decision">
+			<div class="decision-icon"><i class="fa fa-heart-o"></i></div>
+			<div class="decision-title">DNS failover via health checks</div>
+			<div class="decision-body">
+				Route 53 and Azure Traffic Manager poll endpoint health continuously. Unhealthy
+				endpoints drop out of DNS within 30 seconds — no manual intervention.
+			</div>
+			<div class="decision-rationale">Human-operated failover takes minutes or hours. Automated DNS failover takes seconds and doesn't require someone to be awake.</div>
+		</div>
 	</div>
 </section>
 
 <hr class="section-rule">
 
-<!-- Architecture Layers (Accordions) -->
-<div class="modules-section">
-	<div class="section-label">Architecture Layers</div>
-	<h2 class="section-title" style="margin-bottom: 28px;">Seven layers, each with an independent failure mode</h2>
+<!-- ARCHITECTURE LAYERS -->
+<section class="section section-tinted" id="layers">
+	<div class="section-header">
+		<div class="section-label">Architecture Layers</div>
+		<h2 class="section-title">Seven layers, each with its own failure mode</h2>
+		<p class="section-desc">
+			Each layer is designed to fail independently. A compute outage doesn't take down
+			the network. A database failover doesn't interrupt monitoring. This isolation is
+			what makes the overall system resilient.
+		</p>
+	</div>
 
 	<div class="accordion-item">
 		<button class="accordion-trigger">
@@ -716,11 +959,20 @@
 				<ul>
 					<li>AWS VPC and Azure VNet provide isolated network environments for every service tier</li>
 					<li>Public/private subnet segregation — databases and internal services sit in private subnets with no direct internet exposure</li>
-					<li>VPN tunnels between AWS and Azure enable encrypted, authenticated cross-cloud communication</li>
-					<li>Firewall rules and security groups enforce least-privilege traffic flow at every boundary</li>
-					<li>Encryption at rest via AWS KMS and Azure Key Vault; TLS in transit for every service-to-service call</li>
+					<li>Site-to-site VPN tunnels between AWS and Azure enable encrypted, authenticated cross-cloud communication</li>
+					<li>Firewall rules and security groups enforce least-privilege traffic flow at every network boundary</li>
+					<li>Encryption at rest via AWS KMS and Azure Key Vault; TLS 1.2+ in transit for every service-to-service call</li>
 					<li>Identity federation via AWS IAM and Azure Active Directory with role-based access controls</li>
 				</ul>
+				<div class="accordion-tech-row">
+					<span class="accordion-tech-label">Key Tech</span>
+					<span class="tech-chip aws">AWS VPC</span>
+					<span class="tech-chip azure">Azure VNet</span>
+					<span class="tech-chip aws">IAM</span>
+					<span class="tech-chip azure">Azure AD</span>
+					<span class="tech-chip aws">KMS</span>
+					<span class="tech-chip azure">Key Vault</span>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -729,7 +981,7 @@
 		<button class="accordion-trigger">
 			<span class="accordion-trigger-left">
 				<span class="accordion-num">02</span>
-				Compute Layer: VMs &amp; Autoscaling
+				Compute Layer &amp; Autoscaling
 			</span>
 			<span class="accordion-chevron fa fa-chevron-down"></span>
 		</button>
@@ -737,11 +989,19 @@
 			<div class="accordion-panel-inner">
 				<ul>
 					<li>Front-end services hosted on Azure VMs — customer-facing portals for leasing, financing, insurance</li>
-					<li>Back-end compute hosted on AWS EC2 — transactional processing, data orchestration, customer request handling</li>
+					<li>Back-end compute on AWS EC2 — transactional processing, data orchestration, customer request handling</li>
 					<li>Multi-region deployments on both clouds for geographic redundancy and latency optimization</li>
 					<li>AWS Auto Scaling and Azure Autoscale match instance counts to real-time demand</li>
-					<li>Peak-period surges (e.g. financing promotions) provision additional capacity automatically; off-peak deprovisioning keeps costs controlled</li>
+					<li>Peak-period surges provision additional capacity automatically; off-peak deprovisioning keeps costs controlled</li>
+					<li>Instance health checks ensure unhealthy instances are replaced without operator intervention</li>
 				</ul>
+				<div class="accordion-tech-row">
+					<span class="accordion-tech-label">Key Tech</span>
+					<span class="tech-chip aws">EC2</span>
+					<span class="tech-chip azure">Azure VMs</span>
+					<span class="tech-chip aws">Auto Scaling</span>
+					<span class="tech-chip azure">Autoscale</span>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -760,9 +1020,17 @@
 					<li>AWS Elastic Load Balancer and Azure Load Balancer distribute traffic evenly across healthy instances</li>
 					<li>No single instance absorbs all requests — consistent response times under variable load</li>
 					<li>Cross-cloud DNS-based failover via AWS Route 53 and Azure Traffic Manager</li>
-					<li>Health checks at the DNS level reroute traffic to the healthy cloud when one provider degrades</li>
+					<li>Health checks at the DNS level reroute traffic to the healthy cloud within 30 seconds of a failure</li>
 					<li>Customer experience remains uninterrupted even during a full-region outage on either cloud</li>
+					<li>Weighted routing supports gradual traffic shifting during deployments or capacity testing</li>
 				</ul>
+				<div class="accordion-tech-row">
+					<span class="accordion-tech-label">Key Tech</span>
+					<span class="tech-chip aws">ELB</span>
+					<span class="tech-chip azure">Azure LB</span>
+					<span class="tech-chip aws">Route 53</span>
+					<span class="tech-chip azure">Traffic Manager</span>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -771,7 +1039,7 @@
 		<button class="accordion-trigger">
 			<span class="accordion-trigger-left">
 				<span class="accordion-num">04</span>
-				Database Layer: RDS &amp; Cross-Cloud Replication
+				Database Layer &amp; Cross-Cloud Replication
 			</span>
 			<span class="accordion-chevron fa fa-chevron-down"></span>
 		</button>
@@ -779,11 +1047,19 @@
 			<div class="accordion-panel-inner">
 				<ul>
 					<li>AWS RDS (Multi-AZ) as the primary data store for customer loan agreements, payment histories, insurance records</li>
-					<li>Automatic failover to a standby replica in a separate availability zone in case of primary failure</li>
-					<li>Cross-cloud replication mirrors critical data to Azure SQL Database for geographic redundancy</li>
-					<li>Either cloud can serve reads; writes are routed to the primary with eventual consistency guarantees on the replica</li>
-					<li>Regular encrypted backups across multiple regions for disaster recovery</li>
+					<li>Automatic failover to a standby replica in a separate availability zone within seconds of primary failure</li>
+					<li>Cross-cloud replication mirrors critical data to Azure SQL Database for regional disaster recovery</li>
+					<li>Either cloud can serve reads; writes route to the primary with eventual consistency on the replica</li>
+					<li>Automated encrypted backups across multiple regions with configurable retention</li>
+					<li>Point-in-time restore capability for operational recovery scenarios</li>
 				</ul>
+				<div class="accordion-tech-row">
+					<span class="accordion-tech-label">Key Tech</span>
+					<span class="tech-chip aws">RDS Multi-AZ</span>
+					<span class="tech-chip azure">Azure SQL</span>
+					<span class="tech-chip">Geo-replication</span>
+					<span class="tech-chip">Point-in-time restore</span>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -804,7 +1080,14 @@
 					<li>Message queueing buffers requests during traffic spikes or partial service degradation</li>
 					<li>Retry logic and dead-letter queues ensure no customer request is lost in transit</li>
 					<li>Back-end can scale independently of front-end load without coupling the two tiers</li>
+					<li>Per-message visibility timeouts prevent duplicate processing during worker failures</li>
 				</ul>
+				<div class="accordion-tech-row">
+					<span class="accordion-tech-label">Key Tech</span>
+					<span class="tech-chip aws">SQS</span>
+					<span class="tech-chip aws">Dead-letter queues</span>
+					<span class="tech-chip">Async patterns</span>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -825,7 +1108,15 @@
 					<li>Threshold-based alerts route to the operations team before user-facing impact</li>
 					<li>Performance anomalies trigger autoscaling actions automatically — no human intervention needed for routine scaling</li>
 					<li>Both monitoring systems feed a unified dashboard for cross-cloud observability</li>
+					<li>Log aggregation supports forensic analysis and compliance audit requirements</li>
 				</ul>
+				<div class="accordion-tech-row">
+					<span class="accordion-tech-label">Key Tech</span>
+					<span class="tech-chip aws">CloudWatch</span>
+					<span class="tech-chip azure">Azure Monitor</span>
+					<span class="tech-chip">PagerDuty</span>
+					<span class="tech-chip">Centralized logging</span>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -842,192 +1133,218 @@
 			<div class="accordion-panel-inner">
 				<ul>
 					<li>DNS-based failover reroutes traffic to the healthy cloud when the primary provider degrades</li>
-					<li>RDS Multi-AZ handles AWS-internal failover within seconds of a zone outage</li>
+					<li>RDS Multi-AZ handles AWS-internal failover within seconds of an AZ outage</li>
 					<li>Cross-cloud backups provide an additional recovery layer if both providers experience correlated issues</li>
 					<li>Monitoring systems trigger failover automatically based on health-check failures</li>
 					<li>Data synchronization ensures the failover target has current data — no data loss during cutover</li>
 					<li>Recovery protocols documented and drilled quarterly to verify runbook accuracy</li>
 				</ul>
+				<div class="accordion-tech-row">
+					<span class="accordion-tech-label">Key Tech</span>
+					<span class="tech-chip aws">Route 53 health checks</span>
+					<span class="tech-chip azure">Traffic Manager</span>
+					<span class="tech-chip">Quarterly drills</span>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
+</section>
 
-<hr class="section-rule">
-
-<!-- Sequence Diagram -->
-<section class="diagram-section">
-	<div class="diagram-inner">
-		<div class="section-label">Technical Flow</div>
+<!-- REQUEST LIFECYCLE -->
+<section class="section" id="lifecycle">
+	<div class="section-header">
+		<div class="section-label">Request Lifecycle</div>
 		<h2 class="section-title">How a customer request travels across clouds</h2>
 		<p class="section-desc">
-			A single request — say, a loan application — crosses both clouds, passes through a queue,
-			hits multiple datastores, and generates telemetry to monitoring systems, all before the
-			customer sees a response. The architecture decouples each step so a failure at any layer
-			doesn't cascade.
+			A single loan application traverses both clouds, passes through a queue, touches
+			multiple data stores, and generates telemetry — all before the customer sees a
+			response. Each step is decoupled so a failure at any layer doesn't cascade.
 		</p>
+	</div>
 
-		<div class="svg-wrapper">
-			<svg class="seq-svg" viewBox="0 0 1100 640" xmlns="http://www.w3.org/2000/svg">
-				<defs>
-					<marker id="seq-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
-						<path d="M 0 0 L 10 5 L 0 10 z" fill="#0d3349"/>
-					</marker>
-					<marker id="seq-arrow-accent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
-						<path d="M 0 0 L 10 5 L 0 10 z" fill="#2e86c1"/>
-					</marker>
-				</defs>
-
-				<!-- Lane headers -->
-				<g>
-					<rect class="lane-header" x="20" y="20" width="120" height="40" rx="5"/>
-					<text class="lane-header-text" x="80" y="44">Customer</text>
-					<line class="lane-line" x1="80" y1="60" x2="80" y2="620"/>
-
-					<rect class="lane-header" x="160" y="20" width="120" height="40" rx="5"/>
-					<text class="lane-header-text" x="220" y="44">Load Balancer</text>
-					<line class="lane-line" x1="220" y1="60" x2="220" y2="620"/>
-
-					<rect class="lane-header" x="300" y="20" width="120" height="40" rx="5"/>
-					<text class="lane-header-text" x="360" y="38">Azure VMs</text>
-					<text class="lane-header-text" x="360" y="52" style="font-size:9px; font-weight:300;">(Front-End)</text>
-					<line class="lane-line" x1="360" y1="60" x2="360" y2="620"/>
-
-					<rect class="lane-header" x="440" y="20" width="120" height="40" rx="5"/>
-					<text class="lane-header-text" x="500" y="44">AWS SQS</text>
-					<line class="lane-line" x1="500" y1="60" x2="500" y2="620"/>
-
-					<rect class="lane-header" x="580" y="20" width="120" height="40" rx="5"/>
-					<text class="lane-header-text" x="640" y="38">AWS EC2</text>
-					<text class="lane-header-text" x="640" y="52" style="font-size:9px; font-weight:300;">(Back-End)</text>
-					<line class="lane-line" x1="640" y1="60" x2="640" y2="620"/>
-
-					<rect class="lane-header" x="720" y="20" width="120" height="40" rx="5"/>
-					<text class="lane-header-text" x="780" y="44">AWS RDS</text>
-					<line class="lane-line" x1="780" y1="60" x2="780" y2="620"/>
-
-					<rect class="lane-header" x="860" y="20" width="120" height="40" rx="5"/>
-					<text class="lane-header-text" x="920" y="44">Azure SQL</text>
-					<line class="lane-line" x1="920" y1="60" x2="920" y2="620"/>
-
-					<rect class="lane-header" x="1000" y="20" width="80" height="40" rx="5" style="fill: var(--accent-soft);"/>
-					<text class="lane-header-text" x="1040" y="44">Monitoring</text>
-					<line class="lane-line" x1="1040" y1="60" x2="1040" y2="620"/>
-				</g>
-
-				<!-- Message 1: Customer → Load Balancer -->
-				<text class="step-num" x="28" y="95">1</text>
-				<line class="msg-arrow" x1="80" y1="105" x2="220" y2="105" marker-end="url(#seq-arrow)"/>
-				<text class="msg-label" x="150" y="98">Initiate request</text>
-
-				<!-- Message 2: LB → Azure VMs -->
-				<text class="step-num" x="170" y="140">2</text>
-				<line class="msg-arrow" x1="220" y1="150" x2="360" y2="150" marker-end="url(#seq-arrow)"/>
-				<text class="msg-label" x="290" y="143">Route to front-end</text>
-
-				<!-- Message 3: Azure VMs → AWS SQS -->
-				<text class="step-num" x="312" y="185">3</text>
-				<line class="msg-arrow" x1="360" y1="195" x2="500" y2="195" marker-end="url(#seq-arrow)"/>
-				<text class="msg-label" x="430" y="188">Queue request</text>
-
-				<!-- Message 4: AWS SQS → AWS EC2 -->
-				<text class="step-num" x="452" y="230">4</text>
-				<line class="msg-arrow" x1="500" y1="240" x2="640" y2="240" marker-end="url(#seq-arrow)"/>
-				<text class="msg-label" x="570" y="233">Process request</text>
-
-				<!-- Message 5: AWS EC2 → AWS RDS -->
-				<text class="step-num" x="592" y="275">5</text>
-				<line class="msg-arrow" x1="640" y1="285" x2="780" y2="285" marker-end="url(#seq-arrow)"/>
-				<text class="msg-label" x="710" y="278">Read / Write data</text>
-
-				<!-- Message 6: AWS RDS ↔ Azure SQL (replication) -->
-				<text class="step-num" x="732" y="320">6</text>
-				<line class="msg-arrow-sync" x1="780" y1="330" x2="920" y2="330" marker-end="url(#seq-arrow-accent)"/>
-				<text class="msg-label" x="850" y="323" style="fill: var(--accent); font-style: italic;">Cross-cloud sync</text>
-
-				<!-- Message 7: AWS EC2 → AWS SQS (response) -->
-				<text class="step-num" x="492" y="365">7</text>
-				<line class="msg-arrow" x1="640" y1="375" x2="500" y2="375" marker-end="url(#seq-arrow)"/>
-				<text class="msg-label" x="570" y="368">Return processed response</text>
-
-				<!-- Message 8: AWS SQS → Azure VMs (pull) -->
-				<text class="step-num" x="352" y="410">8</text>
-				<line class="msg-arrow" x1="500" y1="420" x2="360" y2="420" marker-end="url(#seq-arrow)"/>
-				<text class="msg-label" x="430" y="413">Pull response</text>
-
-				<!-- Message 9: Azure VMs → Customer -->
-				<text class="step-num" x="72" y="455">9</text>
-				<line class="msg-arrow" x1="360" y1="465" x2="80" y2="465" marker-end="url(#seq-arrow)"/>
-				<text class="msg-label" x="220" y="458">Return result to customer</text>
-
-				<!-- Monitoring telemetry (parallel, dashed) -->
-				<text class="step-num" x="370" y="510" style="fill: var(--text-muted);">⟳</text>
-				<line class="msg-arrow-sync" x1="360" y1="520" x2="1040" y2="520" marker-end="url(#seq-arrow-accent)"/>
-				<line class="msg-arrow-sync" x1="500" y1="540" x2="1040" y2="540" marker-end="url(#seq-arrow-accent)"/>
-				<line class="msg-arrow-sync" x1="640" y1="560" x2="1040" y2="560" marker-end="url(#seq-arrow-accent)"/>
-				<line class="msg-arrow-sync" x1="780" y1="580" x2="1040" y2="580" marker-end="url(#seq-arrow-accent)"/>
-				<text class="msg-label" x="850" y="513" style="fill: var(--accent); font-style: italic; font-size: 9.5px;">Telemetry — continuous, parallel to all steps</text>
-			</svg>
+	<div class="lifecycle">
+		<div class="step">
+			<div class="step-num">1</div>
+			<div class="step-body">
+				<div class="step-title">Customer initiates request</div>
+				<div class="step-desc">Traffic enters the system via DNS resolution. Route 53 and Azure Traffic Manager perform health checks and route to the healthiest cloud endpoint.</div>
+				<div class="step-tech">Route 53 · Azure Traffic Manager</div>
+			</div>
 		</div>
-		<div class="diagram-caption">Figure 2 — Request lifecycle across AWS and Azure</div>
+
+		<div class="step">
+			<div class="step-num">2</div>
+			<div class="step-body">
+				<div class="step-title">Load balancer distributes to front-end</div>
+				<div class="step-desc">Request hits the regional load balancer, which distributes across healthy front-end instances based on current capacity and response times.</div>
+				<div class="step-tech">Azure Load Balancer · AWS ELB</div>
+			</div>
+		</div>
+
+		<div class="step">
+			<div class="step-num">3</div>
+			<div class="step-body">
+				<div class="step-title">Front-end queues for async processing</div>
+				<div class="step-desc">Azure VM front-end validates the request, authenticates via Azure AD, and places the payload onto AWS SQS. Front-end returns a tracking ID immediately — no blocking.</div>
+				<div class="step-tech">Azure VMs · Azure AD · AWS SQS</div>
+			</div>
+		</div>
+
+		<div class="step">
+			<div class="step-num">4</div>
+			<div class="step-body">
+				<div class="step-title">Back-end consumes and processes</div>
+				<div class="step-desc">AWS EC2 workers poll SQS, retrieve the message, and begin transactional processing. Visibility timeout ensures the message is reprocessed if a worker fails mid-task.</div>
+				<div class="step-tech">AWS EC2 · SQS visibility timeouts</div>
+			</div>
+		</div>
+
+		<div class="step">
+			<div class="step-num">5</div>
+			<div class="step-body">
+				<div class="step-title">Data read/write against RDS</div>
+				<div class="step-desc">Back-end reads customer history from the RDS primary, performs validation and risk calculations, and writes the result within an ACID transaction.</div>
+				<div class="step-tech">RDS Primary · ACID transactions</div>
+			</div>
+		</div>
+
+		<div class="step">
+			<div class="step-num">6</div>
+			<div class="step-body">
+				<div class="step-title">Cross-cloud replication to Azure SQL</div>
+				<div class="step-desc">Committed writes replicate asynchronously to Azure SQL Database across the VPN tunnel. Replica lag monitored continuously; alerts fire if lag exceeds threshold.</div>
+				<div class="step-tech">Cross-cloud sync · Replica lag monitoring</div>
+			</div>
+		</div>
+
+		<div class="step">
+			<div class="step-num">7</div>
+			<div class="step-body">
+				<div class="step-title">Response routed back to customer</div>
+				<div class="step-desc">Back-end publishes the processed response to SQS. Front-end polls for completion and delivers the final result to the customer's browser.</div>
+				<div class="step-tech">SQS response queue · Azure VMs</div>
+			</div>
+		</div>
+
+		<div class="step">
+			<div class="step-num">8</div>
+			<div class="step-body">
+				<div class="step-title">Telemetry captured end-to-end</div>
+				<div class="step-desc">CloudWatch and Azure Monitor capture metrics from every hop — response times, queue depth, DB performance. Dashboards update in real-time; anomalies trigger alerts.</div>
+				<div class="step-tech">CloudWatch · Azure Monitor · Unified dashboards</div>
+			</div>
+		</div>
 	</div>
 </section>
 
-<hr class="section-rule">
+<!-- SLA METRICS -->
+<section class="metrics-section" id="metrics">
+	<div class="metrics-inner">
+		<div class="section-header">
+			<div class="section-label">Service Level Objectives</div>
+			<h2 class="section-title">The numbers this architecture commits to</h2>
+			<p class="section-desc">
+				Architecture choices only matter if they deliver measurable outcomes. These are
+				the targets this design is built to meet, verified quarterly through chaos
+				testing and real-world load simulations.
+			</p>
+		</div>
 
-<!-- Implementation Phases -->
-<div class="phases-section">
-	<div class="section-label">Implementation</div>
-	<h2 class="section-title">Phased rollout</h2>
-	<p class="section-desc">
-		A multi-cloud migration is a strangler-fig operation — the new architecture grows around
-		the old one piece by piece, with each phase independently testable and reversible before
-		moving forward.
-	</p>
-
-	<div class="phases-grid">
-		<div class="phase-card">
-			<div class="phase-label">Phase 1</div>
-			<div class="phase-title">Core Infrastructure</div>
-			<div class="phase-desc">Deploy AWS VPC, Azure VNet, load balancers, and VPN tunnels. Establishes the secure network foundation across both clouds.</div>
-		</div>
-		<div class="phase-card">
-			<div class="phase-label">Phase 2</div>
-			<div class="phase-title">Front-End Services</div>
-			<div class="phase-desc">Stand up customer-facing services on Azure VMs. Configure AWS SQS for async request queueing between tiers.</div>
-		</div>
-		<div class="phase-card">
-			<div class="phase-label">Phase 3</div>
-			<div class="phase-title">Back-End &amp; Data</div>
-			<div class="phase-desc">Deploy back-end services on AWS EC2 with RDS. Set up cross-cloud replication to Azure SQL Database.</div>
-		</div>
-		<div class="phase-card">
-			<div class="phase-label">Phase 4</div>
-			<div class="phase-title">Monitoring Integration</div>
-			<div class="phase-desc">Wire up CloudWatch and Azure Monitor. Configure alerts, dashboards, and auto-scaling triggers.</div>
-		</div>
-		<div class="phase-card">
-			<div class="phase-label">Phase 5</div>
-			<div class="phase-title">DNS Failover</div>
-			<div class="phase-desc">Deploy Route 53 and Azure Traffic Manager. Run failover drills to verify automatic traffic redirection.</div>
-		</div>
-		<div class="phase-card">
-			<div class="phase-label">Phase 6</div>
-			<div class="phase-title">Optimization</div>
-			<div class="phase-desc">Tune autoscaling policies, run performance tests under load, and establish a quarterly disaster-recovery drill cadence.</div>
+		<div class="metrics-grid">
+			<div class="metric">
+				<div class="metric-label">Availability</div>
+				<div class="metric-num">99.99%</div>
+				<div class="metric-desc">Uptime target across both clouds. &lt;53 minutes of downtime per year.</div>
+			</div>
+			<div class="metric">
+				<div class="metric-label">Recovery Time</div>
+				<div class="metric-num">&lt;15min</div>
+				<div class="metric-desc">RTO for full cross-cloud failover. In-region failover measured in seconds.</div>
+			</div>
+			<div class="metric">
+				<div class="metric-label">Data Loss</div>
+				<div class="metric-num">&lt;5min</div>
+				<div class="metric-desc">RPO based on replication lag. Synchronous replication within a region.</div>
+			</div>
+			<div class="metric">
+				<div class="metric-label">Response Time</div>
+				<div class="metric-num">&lt;200ms</div>
+				<div class="metric-desc">P95 API response time at typical load. &lt;500ms at peak demand.</div>
+			</div>
+			<div class="metric">
+				<div class="metric-label">Scale</div>
+				<div class="metric-num">10×</div>
+				<div class="metric-desc">Peak-to-baseline capacity ratio. Autoscaling handles without intervention.</div>
+			</div>
+			<div class="metric">
+				<div class="metric-label">Compliance</div>
+				<div class="metric-num">GDPR</div>
+				<div class="metric-desc">Multi-region data residency. ISO 27001 controls for access &amp; encryption.</div>
+			</div>
 		</div>
 	</div>
-</div>
+</section>
 
-<hr class="section-rule">
+<!-- IMPLEMENTATION ROADMAP -->
+<section class="section">
+	<div class="section-header">
+		<div class="section-label">Implementation</div>
+		<h2 class="section-title">Phased rollout over six stages</h2>
+		<p class="section-desc">
+			A multi-cloud migration follows a strangler-fig pattern — the new architecture grows
+			around the existing one piece by piece. Each phase is independently testable and
+			reversible before moving forward.
+		</p>
+	</div>
 
-<!-- Tech Stack -->
-<div class="tech-section">
-	<div class="section-label">Technologies</div>
-	<h2 class="section-title">Built with</h2>
+	<div class="timeline">
+		<div class="timeline-track">
+			<div class="timeline-phase">
+				<div class="phase-num">1</div>
+				<div class="phase-title">Core Infrastructure</div>
+				<div class="phase-desc">VPC, VNet, load balancers, and VPN tunnels. Establishes the secure network foundation.</div>
+			</div>
+			<div class="timeline-phase">
+				<div class="phase-num">2</div>
+				<div class="phase-title">Front-End Services</div>
+				<div class="phase-desc">Customer-facing Azure VMs. Configure SQS for async request queueing.</div>
+			</div>
+			<div class="timeline-phase">
+				<div class="phase-num">3</div>
+				<div class="phase-title">Back-End &amp; Data</div>
+				<div class="phase-desc">Deploy AWS EC2 back-end with RDS. Set up cross-cloud replication to Azure SQL.</div>
+			</div>
+			<div class="timeline-phase">
+				<div class="phase-num">4</div>
+				<div class="phase-title">Monitoring</div>
+				<div class="phase-desc">Wire up CloudWatch and Azure Monitor. Configure alerts and autoscale triggers.</div>
+			</div>
+			<div class="timeline-phase">
+				<div class="phase-num">5</div>
+				<div class="phase-title">DNS Failover</div>
+				<div class="phase-desc">Deploy Route 53 and Azure Traffic Manager. Run failover drills in staging.</div>
+			</div>
+			<div class="timeline-phase">
+				<div class="phase-num">6</div>
+				<div class="phase-title">Optimization</div>
+				<div class="phase-desc">Tune autoscaling. Run performance tests under load. Establish quarterly DR drills.</div>
+			</div>
+		</div>
+	</div>
+</section>
 
-	<div class="tech-group">
-		<div class="tech-group-label">AWS</div>
+<!-- TECH STACK -->
+<section class="tech-section">
+	<div class="section-header">
+		<div class="section-label">Technology Stack</div>
+		<h2 class="section-title">Built with</h2>
+	</div>
+
+	<div class="tech-group aws">
+		<div class="tech-group-header">
+			<span class="tech-group-badge">AWS</span>
+			<span class="tech-group-label">Amazon Web Services</span>
+		</div>
 		<div class="tech-grid">
 			<span class="tech-pill"><i class="fa fa-cloud"></i> VPC</span>
 			<span class="tech-pill"><i class="fa fa-server"></i> EC2</span>
@@ -1042,8 +1359,11 @@
 		</div>
 	</div>
 
-	<div class="tech-group">
-		<div class="tech-group-label">Azure</div>
+	<div class="tech-group azure">
+		<div class="tech-group-header">
+			<span class="tech-group-badge">AZ</span>
+			<span class="tech-group-label">Microsoft Azure</span>
+		</div>
 		<div class="tech-grid">
 			<span class="tech-pill"><i class="fa fa-cloud"></i> VNet</span>
 			<span class="tech-pill"><i class="fa fa-server"></i> Virtual Machines</span>
@@ -1057,18 +1377,22 @@
 		</div>
 	</div>
 
-	<div class="tech-group">
-		<div class="tech-group-label">Cross-Cutting</div>
+	<div class="tech-group crosscut">
+		<div class="tech-group-header">
+			<span class="tech-group-badge">CX</span>
+			<span class="tech-group-label">Cross-Cutting Concerns</span>
+		</div>
 		<div class="tech-grid">
-			<span class="tech-pill"><i class="fa fa-lock"></i> TLS / VPN Encryption</span>
+			<span class="tech-pill"><i class="fa fa-lock"></i> TLS 1.2+ / IPsec VPN</span>
 			<span class="tech-pill"><i class="fa fa-check"></i> ACID Compliance</span>
-			<span class="tech-pill"><i class="fa fa-shield"></i> GDPR / ISO 27001</span>
-			<span class="tech-pill"><i class="fa fa-sitemap"></i> ITIL Service Management</span>
+			<span class="tech-pill"><i class="fa fa-shield"></i> GDPR &amp; ISO 27001</span>
+			<span class="tech-pill"><i class="fa fa-sitemap"></i> ITIL v4 Service Management</span>
+			<span class="tech-pill"><i class="fa fa-code-fork"></i> Infrastructure as Code</span>
+			<span class="tech-pill"><i class="fa fa-tasks"></i> Quarterly DR Drills</span>
 		</div>
 	</div>
-</div>
+</section>
 
-<!-- Back to Portfolio -->
 <section class="back-section">
 	<a href="index.html" class="back-link">
 		<i class="fa fa-arrow-left"></i> Back to Portfolio
@@ -1080,29 +1404,66 @@
 </footer>
 
 <script>
-	// ── Preloader ─────────────────────────────────────────────
 	window.addEventListener('load', function () {
 		var loader = document.getElementById('preloader');
 		if (loader) loader.style.display = 'none';
 	});
 
-	// ── Accordion ─────────────────────────────────────────────
+	window.addEventListener('scroll', function () {
+		var scrollTop = window.scrollY;
+		var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+		var percent = (scrollTop / docHeight) * 100;
+		document.getElementById('progress-bar').style.width = percent + '%';
+	});
+
 	document.querySelectorAll('.accordion-trigger').forEach(function (btn) {
 		btn.addEventListener('click', function () {
 			var panel = btn.nextElementSibling;
+			var item = btn.parentElement;
 			var isOpen = btn.classList.contains('open');
 
-			// Close all
 			document.querySelectorAll('.accordion-trigger').forEach(function (b) {
 				b.classList.remove('open');
+				b.parentElement.classList.remove('open');
 				b.nextElementSibling.style.maxHeight = null;
 			});
 
 			if (!isOpen) {
 				btn.classList.add('open');
+				item.classList.add('open');
 				panel.style.maxHeight = panel.scrollHeight + 'px';
 			}
 		});
+	});
+
+	document.querySelectorAll('.hero-scroll-nav a').forEach(function (link) {
+		link.addEventListener('click', function (e) {
+			var href = link.getAttribute('href');
+			if (href.startsWith('#')) {
+				e.preventDefault();
+				var target = document.querySelector(href);
+				if (target) {
+					window.scrollTo({
+						top: target.offsetTop - 20,
+						behavior: 'smooth'
+					});
+				}
+			}
+		});
+	});
+
+	var observer = new IntersectionObserver(function (entries) {
+		entries.forEach(function (entry) {
+			if (entry.isIntersecting) {
+				entry.target.classList.add('visible');
+				observer.unobserve(entry.target);
+			}
+		});
+	}, { threshold: 0.1 });
+
+	document.querySelectorAll('.exec-card, .decision, .accordion-item, .step, .metric, .timeline-phase').forEach(function (el) {
+		el.classList.add('fade-in');
+		observer.observe(el);
 	});
 </script>
 
