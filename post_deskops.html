@@ -42,8 +42,6 @@
 			line-height: 1.7;
 		}
 
-		/* ── Nav: inherits entirely from default.css (matches post1.html / index.html) ───── */
-
 		/* ── Hero ─────────────────────────────────────── */
 		.hero {
 			background: linear-gradient(135deg, #eef5fb 0%, #dceef8 40%, #ecf0f3 100%);
@@ -60,11 +58,7 @@
 			background: radial-gradient(circle, rgba(46,134,193,0.10) 0%, transparent 70%);
 			pointer-events: none;
 		}
-		.hero-inner {
-			max-width: 860px;
-			margin: 0 auto;
-			position: relative;
-		}
+		.hero-inner { max-width: 860px; margin: 0 auto; position: relative; }
 		.hero-eyebrow {
 			font-family: 'Bahnschrift Light', monospace;
 			font-size: 11px;
@@ -91,9 +85,7 @@
 			margin-bottom: 20px;
 			letter-spacing: -0.01em;
 		}
-		.hero h1 span {
-			color: var(--accent);
-		}
+		.hero h1 span { color: var(--accent); }
 		.hero-sub {
 			font-size: 1.05rem;
 			color: var(--text-muted);
@@ -102,15 +94,8 @@
 			margin-bottom: 36px;
 			font-weight: 300;
 		}
-		.hero-stats {
-			display: flex;
-			gap: 36px;
-			flex-wrap: wrap;
-		}
-		.hero-stat {
-			display: flex;
-			flex-direction: column;
-		}
+		.hero-stats { display: flex; gap: 36px; flex-wrap: wrap; }
+		.hero-stat { display: flex; flex-direction: column; }
 		.hero-stat-num {
 			font-family: 'Bahnschrift', sans-serif;
 			font-size: 1.8rem;
@@ -133,14 +118,8 @@
 		}
 
 		/* ── Section wrapper ──────────────────────────── */
-		.section {
-			padding: 70px 40px;
-			max-width: 960px;
-			margin: 0 auto;
-		}
-		.section-full {
-			padding: 70px 40px;
-		}
+		.section { padding: 70px 40px; max-width: 960px; margin: 0 auto; }
+		.section-full { padding: 70px 40px; }
 		.section-label {
 			font-family: 'Bahnschrift Light', monospace;
 			font-size: 10px;
@@ -174,11 +153,7 @@
 			line-height: 1.7;
 			font-weight: 300;
 		}
-		hr.section-rule {
-			border: none;
-			border-top: 1px solid var(--border);
-			margin: 0;
-		}
+		hr.section-rule { border: none; border-top: 1px solid var(--border); margin: 0; }
 
 		/* ── Feature Cards ────────────────────────────── */
 		.features-grid {
@@ -249,18 +224,13 @@
 			gap: 60px;
 			align-items: start;
 		}
-		.spotlight-left {}
 		.spotlight-questions {
 			margin-top: 28px;
 			display: flex;
 			flex-direction: column;
 			gap: 12px;
 		}
-		.spotlight-q {
-			display: flex;
-			gap: 12px;
-			align-items: flex-start;
-		}
+		.spotlight-q { display: flex; gap: 12px; align-items: flex-start; }
 		.spotlight-q-num {
 			font-family: 'Bahnschrift Light', monospace;
 			font-size: 10px;
@@ -278,7 +248,6 @@
 			line-height: 1.6;
 			font-weight: 400;
 		}
-		.spotlight-right {}
 		.insight-card {
 			background: var(--white);
 			border: 1px solid var(--border);
@@ -303,11 +272,7 @@
 		}
 
 		/* ── Accordion Modules ────────────────────────── */
-		.modules-section {
-			max-width: 960px;
-			margin: 0 auto;
-			padding: 70px 40px;
-		}
+		.modules-section { max-width: 960px; margin: 0 auto; padding: 70px 40px; }
 		.accordion-item {
 			border: 1px solid var(--border);
 			border-radius: var(--radius);
@@ -335,11 +300,7 @@
 		}
 		.accordion-trigger:hover { background: var(--blue-light); }
 		.accordion-trigger.open { background: var(--blue-light); }
-		.accordion-trigger-left {
-			display: flex;
-			align-items: center;
-			gap: 14px;
-		}
+		.accordion-trigger-left { display: flex; align-items: center; gap: 14px; }
 		.accordion-num {
 			font-family: 'Bahnschrift Light', monospace;
 			font-size: 10px;
@@ -406,12 +367,7 @@
 			justify-content: space-between;
 			gap: 20px;
 		}
-		.carousel-header-left {}
-		.carousel-nav-btns {
-			display: flex;
-			gap: 8px;
-			flex-shrink: 0;
-		}
+		.carousel-nav-btns { display: flex; gap: 8px; flex-shrink: 0; }
 		.carousel-nav-btn {
 			width: 34px; height: 34px;
 			border-radius: 50%;
@@ -426,10 +382,7 @@
 		.carousel-nav-btn:hover { background: var(--blue-light); border-color: var(--blue-mid); }
 		.carousel-nav-btn:disabled { opacity: 0.35; cursor: default; }
 
-		.carousel-track-wrapper {
-			overflow: hidden;
-			padding: 0 40px;
-		}
+		.carousel-track-wrapper { overflow: hidden; padding: 0 40px; }
 		.carousel-track {
 			display: flex;
 			gap: 16px;
@@ -529,7 +482,7 @@
 			font-weight: 300;
 		}
 
-		/* ── Video Modal ──────────────────────────────── */
+		/* ── Video Modal — with side rail ─────────────── */
 		.video-modal-overlay {
 			display: none;
 			position: fixed;
@@ -545,10 +498,13 @@
 			background: var(--white);
 			border-radius: 12px;
 			overflow: hidden;
-			width: 90%;
-			max-width: 760px;
+			width: 92%;
+			max-width: 1100px;
+			max-height: 88vh;
 			box-shadow: 0 24px 60px rgba(0,0,0,0.3);
 			animation: modalIn 0.25s ease;
+			display: flex;
+			flex-direction: column;
 		}
 		@keyframes modalIn {
 			from { opacity:0; transform:scale(0.96) translateY(12px); }
@@ -560,6 +516,7 @@
 			justify-content: space-between;
 			padding: 14px 18px;
 			border-bottom: 1px solid var(--border);
+			flex-shrink: 0;
 		}
 		.video-modal-title {
 			font-family: 'Bahnschrift Light', 'Bahnschrift', sans-serif;
@@ -579,10 +536,25 @@
 			transition: background 0.15s;
 		}
 		.video-modal-close:hover { background: var(--grey-bg); }
+
+		.video-modal-body {
+			display: flex;
+			flex: 1;
+			min-height: 0;
+		}
+		.video-modal-player-wrap {
+			flex: 1;
+			min-width: 0;
+			background: #000;
+			position: relative;
+		}
+		.video-modal-body:not(.has-rail) .video-modal-player-wrap {
+			aspect-ratio: 16/9;
+		}
 		.video-modal-player {
 			position: relative;
-			padding-bottom: 56.25%;
-			height: 0;
+			width: 100%;
+			height: 100%;
 		}
 		.video-modal-player iframe {
 			position: absolute;
@@ -591,12 +563,146 @@
 			border: 0;
 		}
 
-		/* ── Tech Stack ───────────────────────────────── */
-		.tech-section {
-			max-width: 960px;
-			margin: 0 auto;
-			padding: 60px 40px;
+		/* Side rail */
+		.video-modal-rail {
+			width: 220px;
+			flex-shrink: 0;
+			border-left: 1px solid var(--border);
+			background: var(--grey-soft);
+			display: flex;
+			flex-direction: column;
+			overflow: hidden;
 		}
+		.video-modal-body:not(.has-rail) .video-modal-rail {
+			display: none;
+		}
+		.video-modal-rail-header {
+			padding: 12px 14px 8px;
+			font-family: 'Bahnschrift Light', monospace;
+			font-size: 9px;
+			letter-spacing: 0.14em;
+			text-transform: uppercase;
+			color: var(--accent);
+			font-weight: 600;
+			border-bottom: 1px solid var(--border);
+			flex-shrink: 0;
+		}
+		.video-modal-rail-list {
+			flex: 1;
+			overflow-y: auto;
+			padding: 10px;
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+			scrollbar-width: thin;
+			scrollbar-color: #cbd5e1 transparent;
+		}
+		.video-modal-rail-list::-webkit-scrollbar { width: 5px; }
+		.video-modal-rail-list::-webkit-scrollbar-track { background: transparent; }
+		.video-modal-rail-list::-webkit-scrollbar-thumb {
+			background: #cbd5e1;
+			border-radius: 3px;
+		}
+		.rail-thumb {
+			cursor: pointer;
+			background: var(--white);
+			border: 1px solid var(--border);
+			border-radius: 8px;
+			overflow: hidden;
+			position: relative;
+			transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+		}
+		.rail-thumb:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 6px 14px rgba(26,82,118,0.10);
+			border-color: var(--blue-mid);
+		}
+		.rail-thumb-img {
+			width: 100%;
+			aspect-ratio: 16/10;
+			object-fit: cover;
+			display: block;
+			background: var(--blue-light);
+		}
+		.rail-thumb-magnifier {
+			position: absolute;
+			top: 6px; right: 6px;
+			width: 24px; height: 24px;
+			background: rgba(13,51,73,0.85);
+			color: #fff;
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 10px;
+			opacity: 0;
+			transition: opacity 0.15s;
+		}
+		.rail-thumb:hover .rail-thumb-magnifier { opacity: 1; }
+		.rail-thumb-caption {
+			padding: 8px 10px 10px;
+			font-size: 0.72rem;
+			color: var(--text-muted);
+			line-height: 1.4;
+			font-weight: 300;
+		}
+
+		/* ── Zoom Modal — layered above video modal ───── */
+		.zoom-modal-overlay {
+			display: none;
+			position: fixed;
+			inset: 0;
+			background: rgba(0,0,0,0.92);
+			z-index: 2500;
+			align-items: center;
+			justify-content: center;
+			padding: 40px;
+			backdrop-filter: blur(6px);
+		}
+		.zoom-modal-overlay.open { display: flex; }
+		.zoom-modal-img {
+			max-width: 100%;
+			max-height: 100%;
+			object-fit: contain;
+			border-radius: 6px;
+			box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+			animation: zoomIn 0.2s ease;
+		}
+		@keyframes zoomIn {
+			from { opacity: 0; transform: scale(0.96); }
+			to   { opacity: 1; transform: scale(1); }
+		}
+		.zoom-modal-caption {
+			position: absolute;
+			bottom: 24px; left: 50%;
+			transform: translateX(-50%);
+			color: rgba(255,255,255,0.85);
+			font-size: 0.85rem;
+			background: rgba(0,0,0,0.5);
+			padding: 8px 16px;
+			border-radius: 20px;
+			max-width: 80%;
+			text-align: center;
+		}
+		.zoom-modal-close {
+			position: absolute;
+			top: 20px; right: 24px;
+			background: rgba(255,255,255,0.12);
+			border: none;
+			color: #fff;
+			width: 38px; height: 38px;
+			border-radius: 50%;
+			cursor: pointer;
+			font-size: 18px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			transition: background 0.15s;
+		}
+		.zoom-modal-close:hover { background: rgba(255,255,255,0.22); }
+
+		/* ── Tech Stack ───────────────────────────────── */
+		.tech-section { max-width: 960px; margin: 0 auto; padding: 60px 40px; }
 		.tech-grid {
 			display: flex;
 			flex-wrap: wrap;
@@ -672,10 +778,7 @@
 			align-items: center;
 			gap: 5px;
 		}
-		.writeup-dot {
-			width: 6px; height: 6px;
-			border-radius: 50%;
-		}
+		.writeup-dot { width: 6px; height: 6px; border-radius: 50%; }
 		.writeup-dot.live { background: #27ae60; }
 		.writeup-dot.soon { background: #f0b429; }
 
@@ -711,6 +814,22 @@
 			.carousel-track-wrapper, .carousel-header { padding-left: 20px; padding-right: 20px; }
 			.writeup-inner { padding-left: 20px; padding-right: 20px; }
 			.accordion-panel-inner { padding-left: 22px; }
+
+			.video-modal { max-width: 100%; max-height: 95vh; }
+			.video-modal-body { flex-direction: column; }
+			.video-modal-rail {
+				width: 100%;
+				border-left: none;
+				border-top: 1px solid var(--border);
+				max-height: 220px;
+			}
+			.video-modal-rail-list {
+				flex-direction: row;
+				overflow-y: hidden;
+				overflow-x: auto;
+			}
+			.rail-thumb { min-width: 180px; flex-shrink: 0; }
+			.video-modal-body:not(.has-rail) .video-modal-player-wrap { aspect-ratio: 16/9; }
 		}
 	</style>
 </head>
@@ -1038,8 +1157,11 @@
 				<div class="video-desc">Sharing AI chats across assignment group members, forking shared conversations, and the six-section resolution composer with grounded citations.</div>
 			</div>
 
-			<!-- Episode 3 — live -->
-			<div class="video-card" data-video-id="yLYMOLcoKNE" data-title="Ep 3 — MCP Server with PII Redaction">
+			<!-- Episode 3 — live, with screenshots -->
+			<div class="video-card"
+			     data-video-id="yLYMOLcoKNE"
+			     data-title="Ep 3 — MCP Server with PII Redaction"
+			     data-screenshots="images/DeskOps EP3-1.png::GitHub commit 8804d5e — Nov 9, 2025|images/DeskOps EP3-2.png::MySQL information_schema CREATE_TIME">
 				<div class="video-thumb">
 					<img src="https://img.youtube.com/vi/yLYMOLcoKNE/mqdefault.jpg" alt="Episode 3" loading="lazy">
 					<div class="video-play-overlay">
@@ -1088,17 +1210,32 @@
 	</div>
 </section>
 
-<!-- Video Modal -->
+<!-- Video Modal — with side rail -->
 <div class="video-modal-overlay" id="video-modal">
 	<div class="video-modal">
 		<div class="video-modal-header">
 			<span class="video-modal-title" id="modal-title"></span>
 			<button class="video-modal-close" id="modal-close" aria-label="Close">&#10005;</button>
 		</div>
-		<div class="video-modal-player">
-			<iframe id="modal-iframe" src="" allowfullscreen allow="autoplay"></iframe>
+		<div class="video-modal-body" id="modal-body">
+			<div class="video-modal-player-wrap">
+				<div class="video-modal-player">
+					<iframe id="modal-iframe" src="" allowfullscreen allow="autoplay"></iframe>
+				</div>
+			</div>
+			<aside class="video-modal-rail" id="modal-rail">
+				<div class="video-modal-rail-header">Evidence &amp; Screenshots</div>
+				<div class="video-modal-rail-list" id="modal-rail-list"></div>
+			</aside>
 		</div>
 	</div>
+</div>
+
+<!-- Zoom Modal — layered above video modal -->
+<div class="zoom-modal-overlay" id="zoom-modal">
+	<button class="zoom-modal-close" id="zoom-close" aria-label="Close">&#10005;</button>
+	<img id="zoom-img" class="zoom-modal-img" src="" alt="">
+	<div id="zoom-caption" class="zoom-modal-caption" style="display:none;"></div>
 </div>
 
 <hr class="section-rule">
@@ -1166,13 +1303,10 @@
 		btn.addEventListener('click', () => {
 			const panel = btn.nextElementSibling;
 			const isOpen = btn.classList.contains('open');
-
-			// Close all
 			document.querySelectorAll('.accordion-trigger').forEach(b => {
 				b.classList.remove('open');
 				b.nextElementSibling.style.maxHeight = null;
 			});
-
 			if (!isOpen) {
 				btn.classList.add('open');
 				panel.style.maxHeight = panel.scrollHeight + 'px';
@@ -1185,13 +1319,12 @@
 	const prevBtn   = document.getElementById('carousel-prev');
 	const nextBtn   = document.getElementById('carousel-next');
 	const cards     = track.querySelectorAll('.video-card');
-	const cardWidth = 200 + 16; // width + gap
+	const cardWidth = 200 + 16;
 	let   currentIndex = 0;
 
 	function getVisible() {
 		return Math.floor(track.parentElement.offsetWidth / cardWidth);
 	}
-
 	function updateCarousel() {
 		const maxIndex = Math.max(0, cards.length - getVisible());
 		currentIndex = Math.max(0, Math.min(currentIndex, maxIndex));
@@ -1199,40 +1332,109 @@
 		prevBtn.disabled = currentIndex === 0;
 		nextBtn.disabled = currentIndex >= maxIndex;
 	}
-
 	prevBtn.addEventListener('click', () => { currentIndex--; updateCarousel(); });
 	nextBtn.addEventListener('click', () => { currentIndex++; updateCarousel(); });
 	window.addEventListener('resize', updateCarousel);
 	updateCarousel();
 
-	// ── Video Modal ───────────────────────────────────────────
-	const modal    = document.getElementById('video-modal');
-	const iframe   = document.getElementById('modal-iframe');
-	const modalTitle = document.getElementById('modal-title');
-	const closeBtn = document.getElementById('modal-close');
+	// ── Video Modal with side-rail screenshots ────────────────
+	const modal       = document.getElementById('video-modal');
+	const modalBody   = document.getElementById('modal-body');
+	const iframe      = document.getElementById('modal-iframe');
+	const modalTitle  = document.getElementById('modal-title');
+	const closeBtn    = document.getElementById('modal-close');
+	const railList    = document.getElementById('modal-rail-list');
 
-	cards.forEach(card => {
-		card.addEventListener('click', () => {
-			const videoId = card.dataset.videoId;
-			const coming  = card.dataset.comingSoon;
-			if (coming) return;
-			if (!videoId) return;
-			modalTitle.textContent = card.dataset.title || 'DeskOps';
-			iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
-			modal.classList.add('open');
-			document.body.style.overflow = 'hidden';
+	const zoomModal   = document.getElementById('zoom-modal');
+	const zoomImg     = document.getElementById('zoom-img');
+	const zoomCaption = document.getElementById('zoom-caption');
+	const zoomClose   = document.getElementById('zoom-close');
+
+	function buildRail(screenshotsAttr) {
+		railList.innerHTML = '';
+		if (!screenshotsAttr) {
+			modalBody.classList.remove('has-rail');
+			return;
+		}
+		const items = screenshotsAttr.split('|').map(s => s.trim()).filter(Boolean);
+		if (items.length === 0) {
+			modalBody.classList.remove('has-rail');
+			return;
+		}
+		modalBody.classList.add('has-rail');
+		items.forEach(entry => {
+			const [path, caption = ''] = entry.split('::');
+			const thumb = document.createElement('div');
+			thumb.className = 'rail-thumb';
+			thumb.innerHTML = `
+				<img class="rail-thumb-img" src="${path}" alt="${caption.replace(/"/g, '&quot;')}" loading="lazy">
+				<div class="rail-thumb-magnifier"><i class="fa fa-search-plus"></i></div>
+				${caption ? `<div class="rail-thumb-caption">${caption}</div>` : ''}
+			`;
+			thumb.addEventListener('click', () => openZoom(path, caption));
+			railList.appendChild(thumb);
 		});
-	});
-
-	function closeModal() {
-		modal.classList.remove('open');
-		iframe.src = '';
-		document.body.style.overflow = '';
 	}
 
-	closeBtn.addEventListener('click', closeModal);
-	modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
-	document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+	function openVideoCard(card) {
+		const videoId    = card.dataset.videoId;
+		const coming     = card.dataset.comingSoon;
+		const screenshots = card.dataset.screenshots;
+		if (coming || !videoId) return;
+
+		modalTitle.textContent = card.dataset.title || 'DeskOps';
+		iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+		buildRail(screenshots);
+
+		modal.classList.add('open');
+		document.body.style.overflow = 'hidden';
+	}
+
+	function closeVideoModal() {
+		modal.classList.remove('open');
+		iframe.src = '';
+		railList.innerHTML = '';
+		modalBody.classList.remove('has-rail');
+		if (!zoomModal.classList.contains('open')) {
+			document.body.style.overflow = '';
+		}
+	}
+
+	function openZoom(src, caption) {
+		zoomImg.src = src;
+		zoomImg.alt = caption || '';
+		if (caption) {
+			zoomCaption.textContent = caption;
+			zoomCaption.style.display = '';
+		} else {
+			zoomCaption.style.display = 'none';
+		}
+		zoomModal.classList.add('open');
+	}
+
+	function closeZoom() {
+		zoomModal.classList.remove('open');
+		zoomImg.src = '';
+	}
+
+	cards.forEach(card => {
+		card.addEventListener('click', () => openVideoCard(card));
+	});
+
+	closeBtn.addEventListener('click', closeVideoModal);
+	modal.addEventListener('click', e => { if (e.target === modal) closeVideoModal(); });
+
+	zoomClose.addEventListener('click', closeZoom);
+	zoomModal.addEventListener('click', e => { if (e.target === zoomModal) closeZoom(); });
+
+	document.addEventListener('keydown', e => {
+		if (e.key !== 'Escape') return;
+		if (zoomModal.classList.contains('open')) {
+			closeZoom();
+		} else if (modal.classList.contains('open')) {
+			closeVideoModal();
+		}
+	});
 </script>
 
 </body>
