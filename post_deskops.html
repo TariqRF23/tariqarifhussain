@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>DeskOps – Tariq Hussain</title>
+	<title>DeskOps - Tariq Hussain</title>
 	<link rel="shortcut icon" href="images/LOGO.jpg">
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
@@ -15,7 +15,6 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 
 	<style>
-		/* ── Reset & Base ─────────────────────────────── */
 		*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 		:root {
@@ -32,17 +31,21 @@
 			--accent-soft: #d6eaf8;
 			--border:      #d9e7f4;
 			--radius:      10px;
+			--font-main:   Bahnschrift, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+			--font-label:  'Bahnschrift Light', 'SF Mono', Consolas, monospace;
 		}
 
+		html { scroll-behavior: smooth; }
+
 		body {
-			font-family: Bahnschrift;
+			font-family: var(--font-main);
 			font-weight: 400;
 			color: var(--text-body);
 			background: var(--white);
 			line-height: 1.7;
 		}
 
-		/* ── Hero ─────────────────────────────────────── */
+		/* Hero */
 		.hero {
 			background: linear-gradient(135deg, #eef5fb 0%, #dceef8 40%, #ecf0f3 100%);
 			padding: 80px 40px 70px;
@@ -58,9 +61,18 @@
 			background: radial-gradient(circle, rgba(46,134,193,0.10) 0%, transparent 70%);
 			pointer-events: none;
 		}
-		.hero-inner { max-width: 860px; margin: 0 auto; position: relative; }
+		.hero::after {
+			content: '';
+			position: absolute;
+			bottom: -120px; left: -60px;
+			width: 340px; height: 340px;
+			border-radius: 50%;
+			background: radial-gradient(circle, rgba(26,82,118,0.07) 0%, transparent 70%);
+			pointer-events: none;
+		}
+		.hero-inner { max-width: 880px; margin: 0 auto; position: relative; }
 		.hero-eyebrow {
-			font-family: 'Bahnschrift Light', monospace;
+			font-family: var(--font-label);
 			font-size: 11px;
 			font-weight: 600;
 			letter-spacing: 0.14em;
@@ -78,7 +90,7 @@
 			background: var(--accent);
 		}
 		.hero h1 {
-			font-family: 'Bahnschrift', sans-serif;
+			font-family: var(--font-main);
 			font-size: clamp(2.2rem, 5vw, 3.6rem);
 			color: var(--blue-ink);
 			line-height: 1.15;
@@ -89,21 +101,21 @@
 		.hero-sub {
 			font-size: 1.05rem;
 			color: var(--text-muted);
-			max-width: 620px;
+			max-width: 660px;
 			line-height: 1.75;
-			margin-bottom: 36px;
+			margin-bottom: 34px;
 			font-weight: 300;
 		}
 		.hero-stats { display: flex; gap: 36px; flex-wrap: wrap; }
 		.hero-stat { display: flex; flex-direction: column; }
 		.hero-stat-num {
-			font-family: 'Bahnschrift', sans-serif;
+			font-family: var(--font-main);
 			font-size: 1.8rem;
 			color: var(--blue-deep);
 			line-height: 1;
 		}
 		.hero-stat-label {
-			font-family: 'Bahnschrift Light', monospace;
+			font-family: var(--font-label);
 			font-size: 10px;
 			letter-spacing: 0.1em;
 			text-transform: uppercase;
@@ -116,12 +128,61 @@
 			align-self: stretch;
 			margin: 4px 0;
 		}
+		.hero-measured-note {
+			font-family: var(--font-label);
+			font-size: 9px;
+			letter-spacing: 0.12em;
+			text-transform: uppercase;
+			color: var(--accent);
+			margin-bottom: 10px;
+			margin-top: 34px;
+		}
 
-		/* ── Section wrapper ──────────────────────────── */
+		/* Chapter nav strip */
+		.chapnav {
+			background: var(--white);
+			border-bottom: 1px solid var(--border);
+			padding: 14px 40px;
+		}
+		.chapnav-inner {
+			max-width: 960px;
+			margin: 0 auto;
+			display: flex;
+			flex-wrap: wrap;
+			gap: 8px;
+			align-items: center;
+		}
+		.chapnav-label {
+			font-family: var(--font-label);
+			font-size: 9px;
+			letter-spacing: 0.14em;
+			text-transform: uppercase;
+			color: var(--text-muted);
+			margin-right: 8px;
+		}
+		.chapnav a {
+			display: inline-flex;
+			align-items: center;
+			gap: 7px;
+			font-family: var(--font-label);
+			font-size: 10.5px;
+			font-weight: 600;
+			letter-spacing: 0.05em;
+			color: var(--blue-deep);
+			background: var(--grey-soft);
+			border: 1px solid var(--border);
+			border-radius: 20px;
+			padding: 5px 13px;
+			text-decoration: none;
+			transition: background 0.15s, border-color 0.15s;
+		}
+		.chapnav a:hover { background: var(--blue-light); border-color: var(--blue-mid); text-decoration: none; }
+		.chapnav a b { font-weight: 600; color: var(--accent); }
+
+		/* Sections */
 		.section { padding: 70px 40px; max-width: 960px; margin: 0 auto; }
-		.section-full { padding: 70px 40px; }
 		.section-label {
-			font-family: 'Bahnschrift Light', monospace;
+			font-family: var(--font-label);
 			font-size: 10px;
 			letter-spacing: 0.16em;
 			text-transform: uppercase;
@@ -140,7 +201,7 @@
 			background: var(--accent);
 		}
 		.section-title {
-			font-family: 'Bahnschrift', sans-serif;
+			font-family: var(--font-main);
 			font-size: clamp(1.4rem, 3vw, 2rem);
 			color: var(--blue-ink);
 			margin-bottom: 10px;
@@ -149,13 +210,13 @@
 		.section-desc {
 			color: var(--text-muted);
 			font-size: 0.97rem;
-			max-width: 580px;
+			max-width: 600px;
 			line-height: 1.7;
 			font-weight: 300;
 		}
 		hr.section-rule { border: none; border-top: 1px solid var(--border); margin: 0; }
 
-		/* ── Feature Cards ────────────────────────────── */
+		/* Feature cards */
 		.features-grid {
 			display: grid;
 			grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -196,7 +257,7 @@
 			margin-bottom: 16px;
 		}
 		.feature-title {
-			font-family: 'Bahnschrift Light', 'Bahnschrift', sans-serif;
+			font-family: var(--font-main);
 			font-weight: 600;
 			font-size: 0.95rem;
 			color: var(--blue-ink);
@@ -209,7 +270,587 @@
 			font-weight: 300;
 		}
 
-		/* ── Research Spotlight ───────────────────────── */
+		/* Pillars */
+		.pillars-section {
+			background: linear-gradient(135deg, #eef5fb, #f0f6fb);
+			border-top: 1px solid var(--border);
+			border-bottom: 1px solid var(--border);
+		}
+		.pillars-inner { max-width: 960px; margin: 0 auto; padding: 70px 40px; }
+		.pillars-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+			gap: 14px;
+			margin-top: 36px;
+		}
+		.pillar-card {
+			background: var(--white);
+			border: 1px solid var(--border);
+			border-radius: var(--radius);
+			padding: 22px 20px;
+			transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+		}
+		.pillar-card:hover {
+			transform: translateY(-3px);
+			box-shadow: 0 8px 24px rgba(26,82,118,0.09);
+			border-color: var(--blue-mid);
+		}
+		.pillar-num {
+			font-family: var(--font-label);
+			font-size: 10px;
+			font-weight: 600;
+			color: var(--accent);
+			background: var(--accent-soft);
+			border-radius: 4px;
+			padding: 2px 7px;
+			display: inline-block;
+			margin-bottom: 12px;
+		}
+		.pillar-title {
+			font-family: var(--font-main);
+			font-weight: 600;
+			font-size: 0.9rem;
+			color: var(--blue-ink);
+			margin-bottom: 8px;
+			line-height: 1.3;
+		}
+		.pillar-text {
+			font-size: 0.82rem;
+			color: var(--text-muted);
+			line-height: 1.6;
+			font-weight: 300;
+		}
+
+		/* Chapters */
+		.chapter {
+			max-width: 960px;
+			margin: 0 auto;
+			padding: 64px 40px;
+			display: grid;
+			grid-template-columns: 1.15fr 1fr;
+			gap: 56px;
+			align-items: center;
+		}
+		.chapter.flip { grid-template-columns: 1fr 1.15fr; }
+		.chapter.flip .chapter-text { order: 2; }
+		.chapter.flip .chapter-visual { order: 1; }
+		.chapter-facts {
+			margin-top: 22px;
+			list-style: none;
+			padding: 0;
+			display: flex;
+			flex-direction: column;
+			gap: 9px;
+		}
+		.chapter-facts li {
+			font-size: 0.88rem;
+			color: var(--text-muted);
+			line-height: 1.6;
+			padding-left: 18px;
+			position: relative;
+			font-weight: 300;
+		}
+		.chapter-facts li::before {
+			content: '-';
+			position: absolute;
+			left: 0;
+			color: var(--accent);
+			font-weight: 600;
+		}
+		.chapter-facts li b { color: var(--text-body); font-weight: 600; }
+
+		.deepdive-btn {
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			margin-top: 24px;
+			font-family: var(--font-label);
+			font-size: 10.5px;
+			font-weight: 600;
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+			color: var(--blue-deep);
+			background: var(--white);
+			border: 1px solid var(--blue-mid);
+			border-radius: 20px;
+			padding: 8px 18px;
+			cursor: pointer;
+			transition: background 0.15s, color 0.15s, border-color 0.15s;
+		}
+		.deepdive-btn:hover { background: var(--blue-deep); border-color: var(--blue-deep); color: #fff; }
+		.deepdive-btn .fa { font-size: 10px; }
+
+		/* Vignettes */
+		.vignette {
+			background: var(--white);
+			border: 1px solid var(--border);
+			border-radius: 12px;
+			box-shadow: 0 18px 44px rgba(26,82,118,0.12);
+			overflow: hidden;
+			position: relative;
+		}
+		.vignette-bar {
+			display: flex;
+			align-items: center;
+			gap: 6px;
+			padding: 10px 14px;
+			background: var(--grey-soft);
+			border-bottom: 1px solid var(--border);
+		}
+		.vignette-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--blue-mid); }
+		.vignette-dot:nth-child(2) { opacity: 0.7; }
+		.vignette-dot:nth-child(3) { opacity: 0.4; }
+		.vignette-bar-title {
+			font-family: var(--font-label);
+			font-size: 9px;
+			letter-spacing: 0.1em;
+			text-transform: uppercase;
+			color: var(--text-muted);
+			margin-left: 8px;
+		}
+		.vignette-body { padding: 16px; }
+
+		.vg-ticket {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			padding: 10px 12px;
+			border: 1px solid var(--border);
+			border-radius: 8px;
+			margin-bottom: 8px;
+			background: var(--white);
+		}
+		.vg-ticket:last-child { margin-bottom: 0; }
+		.vg-urgency { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+		.vg-urgency.ok   { background: #27ae60; }
+		.vg-urgency.warn { background: #f0b429; }
+		.vg-urgency.hot  { background: #e74c3c; }
+		.vg-line {
+			height: 8px;
+			border-radius: 4px;
+			background: linear-gradient(90deg, var(--blue-light), var(--grey-bg));
+			flex: 1;
+		}
+		.vg-line.short { flex: 0 0 38%; }
+		.vg-chip {
+			font-family: var(--font-label);
+			font-size: 9px;
+			font-weight: 600;
+			color: var(--blue-deep);
+			background: var(--accent-soft);
+			border-radius: 4px;
+			padding: 2px 7px;
+			white-space: nowrap;
+			flex-shrink: 0;
+		}
+		.vg-chip.alarm { color: #b03a2e; background: #fdecea; }
+
+		.vg-ledger-row {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 7px 4px;
+			border-bottom: 1px dashed var(--border);
+			font-family: var(--font-label);
+			font-size: 10.5px;
+			color: var(--text-muted);
+		}
+		.vg-ledger-row b { color: var(--blue-deep); font-weight: 600; }
+		.vg-ledger-row.total {
+			border-bottom: none;
+			border-top: 2px solid var(--blue-mid);
+			margin-top: 3px;
+			padding-top: 9px;
+		}
+		.vg-ledger-row.total b { color: var(--blue-ink); }
+		.vg-bars {
+			display: flex;
+			align-items: flex-end;
+			gap: 10px;
+			height: 74px;
+			margin-top: 16px;
+			padding: 0 4px;
+		}
+		.vg-bar {
+			flex: 1;
+			border-radius: 4px 4px 0 0;
+			background: linear-gradient(180deg, var(--accent), var(--blue-deep));
+			opacity: 0.85;
+		}
+		.vg-bar.ghost { background: var(--blue-light); opacity: 1; }
+
+		.vg-wall { display: grid; grid-template-columns: repeat(9, 1fr); gap: 5px; }
+		.vg-cell { aspect-ratio: 1; border-radius: 3px; background: var(--accent); }
+		.vg-wall-footer {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-top: 12px;
+		}
+		.vg-wall-caption {
+			font-family: var(--font-label);
+			font-size: 9px;
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+			color: var(--text-muted);
+		}
+
+		.vg-slide {
+			aspect-ratio: 16/9;
+			border: 1px solid var(--border);
+			border-radius: 8px;
+			background: linear-gradient(135deg, #ffffff, #f2f7fc);
+			padding: 18px;
+			position: relative;
+			overflow: hidden;
+		}
+		.vg-slide-title {
+			height: 12px;
+			width: 55%;
+			border-radius: 6px;
+			background: linear-gradient(90deg, var(--blue-deep), var(--accent));
+			margin-bottom: 14px;
+		}
+		.vg-slide-line { height: 7px; border-radius: 4px; background: var(--blue-light); margin-bottom: 9px; }
+		.vg-slide-line.l2 { width: 82%; }
+		.vg-slide-line.l3 { width: 64%; }
+		.vg-laser {
+			position: absolute;
+			right: 26%; bottom: 32%;
+			width: 10px; height: 10px;
+			border-radius: 50%;
+			background: #e74c3c;
+			box-shadow: 0 0 12px 4px rgba(231,76,60,0.5);
+		}
+		.vg-slide-dots { position: absolute; bottom: 10px; left: 18px; display: flex; gap: 5px; }
+		.vg-slide-dots span { width: 6px; height: 6px; border-radius: 50%; background: var(--blue-mid); }
+		.vg-slide-dots span.on { background: var(--accent); }
+		.vg-hud { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+
+		.vg-bubble {
+			max-width: 85%;
+			border-radius: 10px;
+			padding: 10px 13px;
+			font-size: 0.78rem;
+			line-height: 1.55;
+			margin-bottom: 10px;
+			font-weight: 300;
+		}
+		.vg-bubble.user {
+			margin-left: auto;
+			background: var(--blue-light);
+			color: var(--blue-ink);
+			border-bottom-right-radius: 3px;
+		}
+		.vg-bubble.qleo {
+			background: var(--grey-soft);
+			border: 1px solid var(--border);
+			color: var(--text-body);
+			border-bottom-left-radius: 3px;
+		}
+		.vg-bubble sup { color: var(--accent); font-weight: 600; font-size: 0.65rem; }
+		.vg-agent-step {
+			display: flex;
+			align-items: center;
+			gap: 9px;
+			font-family: var(--font-label);
+			font-size: 10px;
+			color: var(--text-muted);
+			padding: 5px 0;
+		}
+		.vg-agent-step .fa { color: #27ae60; font-size: 10px; width: 14px; }
+		.vg-agent-step.pending .fa { color: var(--blue-mid); }
+
+		.vg-flow {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 12px 4px;
+		}
+		.vg-node {
+			background: var(--white);
+			border: 1.5px solid var(--blue-mid);
+			border-radius: 9px;
+			padding: 10px 12px;
+			text-align: center;
+			flex-shrink: 0;
+			min-width: 84px;
+			box-shadow: 0 4px 10px rgba(26,82,118,0.08);
+		}
+		.vg-node-kind {
+			font-family: var(--font-label);
+			font-size: 8px;
+			letter-spacing: 0.1em;
+			text-transform: uppercase;
+			color: var(--accent);
+			font-weight: 600;
+			display: block;
+		}
+		.vg-node-name {
+			font-size: 0.72rem;
+			font-weight: 600;
+			color: var(--blue-ink);
+			display: block;
+			margin-top: 2px;
+		}
+		.vg-wire {
+			flex: 1;
+			height: 2px;
+			background: linear-gradient(90deg, var(--blue-mid), var(--accent));
+			position: relative;
+			min-width: 18px;
+		}
+		.vg-wire::after {
+			content: '';
+			position: absolute;
+			right: -1px; top: -3px;
+			border-left: 7px solid var(--accent);
+			border-top: 4px solid transparent;
+			border-bottom: 4px solid transparent;
+		}
+
+		.vg-tree {
+			font-family: var(--font-label);
+			font-size: 11px;
+			line-height: 2;
+			color: var(--text-muted);
+			padding: 4px 6px;
+		}
+		.vg-tree b { color: var(--blue-deep); font-weight: 600; }
+		.vg-tree .hl { color: var(--accent); }
+
+		/* Engines band */
+		.engines-section {
+			background: var(--blue-ink);
+			border-top: 1px solid var(--border);
+			border-bottom: 1px solid var(--border);
+		}
+		.engines-inner { max-width: 960px; margin: 0 auto; padding: 70px 40px; }
+		.engines-section .section-label { color: #7fc0ea; }
+		.engines-section .section-label::after { background: #7fc0ea; }
+		.engines-section .section-title { color: #eef5fb; }
+		.engines-section .section-desc { color: #9fb8cc; }
+		.engines-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+			gap: 14px;
+			margin-top: 36px;
+		}
+		.engine-card {
+			background: rgba(255,255,255,0.05);
+			border: 1px solid rgba(184,212,236,0.22);
+			border-radius: var(--radius);
+			padding: 20px 18px;
+			transition: background 0.2s, border-color 0.2s, transform 0.2s;
+		}
+		.engine-card:hover {
+			background: rgba(255,255,255,0.09);
+			border-color: rgba(184,212,236,0.45);
+			transform: translateY(-3px);
+		}
+		.engine-icon { color: #7fc0ea; font-size: 15px; margin-bottom: 10px; }
+		.engine-name {
+			font-family: var(--font-main);
+			font-weight: 600;
+			font-size: 0.88rem;
+			color: #eef5fb;
+			margin-bottom: 5px;
+		}
+		.engine-replaces {
+			font-family: var(--font-label);
+			font-size: 9px;
+			letter-spacing: 0.06em;
+			text-transform: uppercase;
+			color: #7fc0ea;
+			margin-bottom: 7px;
+		}
+		.engine-body {
+			font-size: 0.78rem;
+			color: #9fb8cc;
+			line-height: 1.55;
+			font-weight: 300;
+		}
+
+		/* Articles (the library) */
+		.articles-section {
+			background: var(--grey-soft);
+			border-top: 1px solid var(--border);
+			border-bottom: 1px solid var(--border);
+		}
+		.articles-inner { max-width: 960px; margin: 0 auto; padding: 70px 40px; }
+		.articles-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+			gap: 16px;
+			margin-top: 36px;
+		}
+		.article-card {
+			background: var(--white);
+			border: 1px solid var(--border);
+			border-radius: var(--radius);
+			padding: 24px 22px;
+			cursor: pointer;
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+			transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+			text-align: left;
+		}
+		.article-card:hover {
+			transform: translateY(-3px);
+			box-shadow: 0 8px 24px rgba(26,82,118,0.10);
+			border-color: var(--blue-mid);
+		}
+		.article-kicker {
+			font-family: var(--font-label);
+			font-size: 9px;
+			letter-spacing: 0.12em;
+			text-transform: uppercase;
+			color: var(--accent);
+			font-weight: 600;
+		}
+		.article-title {
+			font-family: var(--font-main);
+			font-weight: 600;
+			font-size: 0.94rem;
+			color: var(--blue-ink);
+			line-height: 1.4;
+		}
+		.article-excerpt {
+			font-size: 0.84rem;
+			color: var(--text-muted);
+			line-height: 1.6;
+			font-weight: 300;
+		}
+		.article-meta {
+			display: flex;
+			gap: 7px;
+			flex-wrap: wrap;
+			margin-top: auto;
+			padding-top: 6px;
+		}
+
+		/* Reader modal (articles and deep dives) */
+		.reader-overlay {
+			display: none;
+			position: fixed;
+			inset: 0;
+			background: rgba(8,30,44,0.75);
+			z-index: 2200;
+			align-items: center;
+			justify-content: center;
+			backdrop-filter: blur(4px);
+			padding: 24px;
+		}
+		.reader-overlay.open { display: flex; }
+		.reader {
+			background: var(--white);
+			border-radius: 12px;
+			width: 100%;
+			max-width: 780px;
+			max-height: 88vh;
+			box-shadow: 0 24px 60px rgba(0,0,0,0.3);
+			display: flex;
+			flex-direction: column;
+			overflow: hidden;
+			animation: modalIn 0.25s ease;
+		}
+		.reader-header {
+			display: flex;
+			align-items: flex-start;
+			justify-content: space-between;
+			gap: 16px;
+			padding: 20px 26px 16px;
+			border-bottom: 1px solid var(--border);
+			flex-shrink: 0;
+		}
+		.reader-kicker {
+			font-family: var(--font-label);
+			font-size: 9px;
+			letter-spacing: 0.14em;
+			text-transform: uppercase;
+			color: var(--accent);
+			font-weight: 600;
+			margin-bottom: 5px;
+		}
+		.reader-title {
+			font-family: var(--font-main);
+			font-weight: 600;
+			font-size: 1.08rem;
+			color: var(--blue-ink);
+			line-height: 1.35;
+		}
+		.reader-close {
+			background: none;
+			border: none;
+			cursor: pointer;
+			color: var(--text-muted);
+			font-size: 18px;
+			line-height: 1;
+			padding: 4px 6px;
+			border-radius: 5px;
+			transition: background 0.15s;
+			flex-shrink: 0;
+		}
+		.reader-close:hover { background: var(--grey-bg); }
+		.reader-body {
+			overflow-y: auto;
+			padding: 24px 26px 32px;
+			scrollbar-width: thin;
+			scrollbar-color: #cbd5e1 transparent;
+		}
+		.reader-body::-webkit-scrollbar { width: 6px; }
+		.reader-body::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+		.reader-body h2 { display: none; }
+		.reader-body h3 {
+			font-family: var(--font-main);
+			font-size: 0.95rem;
+			font-weight: 600;
+			color: var(--blue-ink);
+			margin: 22px 0 10px;
+			padding-bottom: 6px;
+			border-bottom: 1px solid var(--border);
+		}
+		.reader-body p {
+			font-size: 0.9rem;
+			color: var(--text-body);
+			line-height: 1.75;
+			font-weight: 300;
+			margin-bottom: 12px;
+		}
+		.reader-body p.ka-overview {
+			font-size: 0.96rem;
+			color: var(--text-muted);
+			border-left: 3px solid var(--accent);
+			padding: 4px 0 4px 14px;
+			margin-bottom: 16px;
+		}
+		.reader-body ul, .reader-body ol {
+			margin: 0 0 14px 0;
+			padding-left: 22px;
+			display: flex;
+			flex-direction: column;
+			gap: 7px;
+		}
+		.reader-body li {
+			font-size: 0.88rem;
+			color: var(--text-muted);
+			line-height: 1.65;
+			font-weight: 300;
+		}
+		.reader-body li strong, .reader-body p strong { color: var(--text-body); font-weight: 600; }
+		.reader-body code {
+			font-family: var(--font-label);
+			font-size: 0.8rem;
+			background: var(--grey-soft);
+			border: 1px solid var(--border);
+			border-radius: 4px;
+			padding: 1px 6px;
+			color: var(--blue-deep);
+		}
+		.reader-body .ka-corro { color: var(--accent); font-weight: 600; }
+
+		/* Research spotlight */
 		.spotlight {
 			background: linear-gradient(135deg, #eef5fb, #f0f6fb);
 			border-top: 1px solid var(--border);
@@ -224,15 +865,10 @@
 			gap: 60px;
 			align-items: start;
 		}
-		.spotlight-questions {
-			margin-top: 28px;
-			display: flex;
-			flex-direction: column;
-			gap: 12px;
-		}
+		.spotlight-questions { margin-top: 28px; display: flex; flex-direction: column; gap: 12px; }
 		.spotlight-q { display: flex; gap: 12px; align-items: flex-start; }
 		.spotlight-q-num {
-			font-family: 'Bahnschrift Light', monospace;
+			font-family: var(--font-label);
 			font-size: 10px;
 			font-weight: 600;
 			color: var(--accent);
@@ -242,12 +878,7 @@
 			flex-shrink: 0;
 			margin-top: 3px;
 		}
-		.spotlight-q-text {
-			font-size: 0.9rem;
-			color: var(--text-body);
-			line-height: 1.6;
-			font-weight: 400;
-		}
+		.spotlight-q-text { font-size: 0.9rem; color: var(--text-body); line-height: 1.6; font-weight: 400; }
 		.insight-card {
 			background: var(--white);
 			border: 1px solid var(--border);
@@ -256,7 +887,7 @@
 			margin-bottom: 14px;
 		}
 		.insight-card-label {
-			font-family: 'Bahnschrift Light', monospace;
+			font-family: var(--font-label);
 			font-size: 9px;
 			letter-spacing: 0.12em;
 			text-transform: uppercase;
@@ -264,14 +895,60 @@
 			font-weight: 600;
 			margin-bottom: 8px;
 		}
-		.insight-card-text {
-			font-size: 0.88rem;
-			color: var(--text-muted);
-			line-height: 1.65;
-			font-weight: 300;
-		}
+		.insight-card-text { font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; font-weight: 300; }
 
-		/* ── Accordion Modules ────────────────────────── */
+		/* Kept honest */
+		.honest-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 40px; margin-top: 36px; }
+		.honest-step { display: flex; gap: 14px; align-items: flex-start; }
+		.honest-step-num {
+			font-family: var(--font-label);
+			font-size: 10px;
+			font-weight: 600;
+			color: var(--accent);
+			background: var(--accent-soft);
+			border-radius: 4px;
+			padding: 2px 7px;
+			flex-shrink: 0;
+			margin-top: 4px;
+		}
+		.honest-step-title { font-family: var(--font-main); font-weight: 600; font-size: 0.92rem; color: var(--blue-ink); margin-bottom: 4px; }
+		.honest-step-text { font-size: 0.87rem; color: var(--text-muted); line-height: 1.6; font-weight: 300; }
+
+		/* Timeline */
+		.timeline-section { max-width: 960px; margin: 0 auto; padding: 70px 40px; }
+		.timeline { margin-top: 40px; position: relative; padding-left: 26px; }
+		.timeline::before {
+			content: '';
+			position: absolute;
+			left: 7px; top: 6px; bottom: 6px;
+			width: 2px;
+			background: linear-gradient(180deg, var(--blue-mid), var(--accent));
+			border-radius: 1px;
+		}
+		.tl-item { position: relative; padding-bottom: 26px; }
+		.tl-item:last-child { padding-bottom: 0; }
+		.tl-item::before {
+			content: '';
+			position: absolute;
+			left: -25px; top: 6px;
+			width: 12px; height: 12px;
+			border-radius: 50%;
+			background: var(--white);
+			border: 3px solid var(--accent);
+		}
+		.tl-when {
+			font-family: var(--font-label);
+			font-size: 9.5px;
+			letter-spacing: 0.12em;
+			text-transform: uppercase;
+			color: var(--accent);
+			font-weight: 600;
+			margin-bottom: 3px;
+		}
+		.tl-what { font-family: var(--font-main); font-weight: 600; font-size: 0.95rem; color: var(--blue-ink); margin-bottom: 3px; }
+		.tl-detail { font-size: 0.86rem; color: var(--text-muted); line-height: 1.6; font-weight: 300; max-width: 640px; }
+
+		/* Accordions */
 		.modules-section { max-width: 960px; margin: 0 auto; padding: 70px 40px; }
 		.accordion-item {
 			border: 1px solid var(--border);
@@ -292,7 +969,7 @@
 			align-items: center;
 			justify-content: space-between;
 			gap: 12px;
-			font-family: 'Bahnschrift Light', 'Bahnschrift', sans-serif;
+			font-family: var(--font-main);
 			font-weight: 600;
 			font-size: 0.95rem;
 			color: var(--blue-ink);
@@ -302,7 +979,7 @@
 		.accordion-trigger.open { background: var(--blue-light); }
 		.accordion-trigger-left { display: flex; align-items: center; gap: 14px; }
 		.accordion-num {
-			font-family: 'Bahnschrift Light', monospace;
+			font-family: var(--font-label);
 			font-size: 10px;
 			font-weight: 600;
 			color: var(--accent);
@@ -311,30 +988,11 @@
 			padding: 2px 7px;
 			flex-shrink: 0;
 		}
-		.accordion-chevron {
-			font-size: 11px;
-			color: var(--text-muted);
-			transition: transform 0.25s;
-			flex-shrink: 0;
-		}
+		.accordion-chevron { font-size: 11px; color: var(--text-muted); transition: transform 0.25s; flex-shrink: 0; }
 		.accordion-trigger.open .accordion-chevron { transform: rotate(180deg); }
-		.accordion-panel {
-			max-height: 0;
-			overflow: hidden;
-			transition: max-height 0.3s ease;
-			background: var(--white);
-		}
-		.accordion-panel-inner {
-			padding: 22px 22px 26px 56px;
-			border-top: 1px solid var(--border);
-		}
-		.accordion-panel-inner ul {
-			list-style: none;
-			padding: 0;
-			display: flex;
-			flex-direction: column;
-			gap: 10px;
-		}
+		.accordion-panel { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; background: var(--white); }
+		.accordion-panel-inner { padding: 22px 22px 26px 56px; border-top: 1px solid var(--border); }
+		.accordion-panel-inner ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px; }
 		.accordion-panel-inner ul li {
 			font-size: 0.9rem;
 			color: var(--text-muted);
@@ -344,14 +1002,14 @@
 			font-weight: 300;
 		}
 		.accordion-panel-inner ul li::before {
-			content: '—';
+			content: '-';
 			position: absolute;
 			left: 0;
 			color: var(--blue-mid);
 			font-size: 0.8rem;
 		}
 
-		/* ── Video Carousel ───────────────────────────── */
+		/* Video carousel */
 		.carousel-section {
 			background: #f0f6fb;
 			border-top: 1px solid var(--border);
@@ -381,22 +1039,12 @@
 		}
 		.carousel-nav-btn:hover { background: var(--blue-light); border-color: var(--blue-mid); }
 		.carousel-nav-btn:disabled { opacity: 0.35; cursor: default; }
-
 		.carousel-track-wrapper { overflow: hidden; padding: 0 40px; }
-		.carousel-track {
-			display: flex;
-			gap: 16px;
-			transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
-		}
+		.carousel-track { display: flex; gap: 16px; transition: transform 0.4s cubic-bezier(0.4,0,0.2,1); }
 
-		.video-card {
-			flex-shrink: 0;
-			width: 200px;
-			cursor: pointer;
-			position: relative;
-		}
+		.video-card { flex-shrink: 0; width: 200px; cursor: pointer; position: relative; }
 		.video-card.active { width: 200px; }
-
+		.video-card[data-coming-soon="true"] { cursor: default; }
 		.video-thumb {
 			width: 100%;
 			aspect-ratio: 16/9;
@@ -407,25 +1055,15 @@
 			border: 1px solid var(--border);
 			transition: transform 0.2s, box-shadow 0.2s;
 		}
-		.video-card:hover .video-thumb {
-			transform: scale(1.03);
-			box-shadow: 0 8px 24px rgba(26,82,118,0.14);
-		}
-		.video-thumb img {
-			width: 100%; height: 100%;
-			object-fit: cover;
-			display: block;
-		}
+		.video-card:hover .video-thumb { transform: scale(1.03); box-shadow: 0 8px 24px rgba(26,82,118,0.14); }
+		.video-card[data-coming-soon="true"]:hover .video-thumb { transform: none; box-shadow: none; }
+		.video-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
 		.video-thumb-placeholder {
 			width: 100%; height: 100%;
 			display: flex; align-items: center; justify-content: center;
 			background: linear-gradient(135deg, var(--blue-light), var(--blue-mid));
 		}
-		.video-thumb-placeholder .fa {
-			font-size: 22px;
-			color: var(--blue-deep);
-			opacity: 0.5;
-		}
+		.video-thumb-placeholder .fa { font-size: 22px; color: var(--blue-deep); opacity: 0.5; }
 		.video-play-overlay {
 			position: absolute;
 			inset: 0;
@@ -450,7 +1088,7 @@
 			top: 7px; right: 7px;
 			background: rgba(26,82,118,0.85);
 			color: #fff;
-			font-family: 'Bahnschrift Light', monospace;
+			font-family: var(--font-label);
 			font-size: 8px;
 			letter-spacing: 0.08em;
 			text-transform: uppercase;
@@ -459,7 +1097,7 @@
 			font-weight: 500;
 		}
 		.video-ep-label {
-			font-family: 'Bahnschrift Light', monospace;
+			font-family: var(--font-label);
 			font-size: 9px;
 			letter-spacing: 0.1em;
 			text-transform: uppercase;
@@ -468,21 +1106,10 @@
 			margin-top: 10px;
 			margin-bottom: 3px;
 		}
-		.video-title {
-			font-size: 0.82rem;
-			font-weight: 600;
-			color: var(--blue-ink);
-			line-height: 1.4;
-			margin-bottom: 3px;
-		}
-		.video-desc {
-			font-size: 0.76rem;
-			color: var(--text-muted);
-			line-height: 1.45;
-			font-weight: 300;
-		}
+		.video-title { font-size: 0.82rem; font-weight: 600; color: var(--blue-ink); line-height: 1.4; margin-bottom: 3px; }
+		.video-desc { font-size: 0.76rem; color: var(--text-muted); line-height: 1.45; font-weight: 300; }
 
-		/* ── Video Modal — with side rail ─────────────── */
+		/* Video modal */
 		.video-modal-overlay {
 			display: none;
 			position: fixed;
@@ -518,12 +1145,7 @@
 			border-bottom: 1px solid var(--border);
 			flex-shrink: 0;
 		}
-		.video-modal-title {
-			font-family: 'Bahnschrift Light', 'Bahnschrift', sans-serif;
-			font-weight: 600;
-			font-size: 0.92rem;
-			color: var(--blue-ink);
-		}
+		.video-modal-title { font-family: var(--font-main); font-weight: 600; font-size: 0.92rem; color: var(--blue-ink); }
 		.video-modal-close {
 			background: none;
 			border: none;
@@ -536,34 +1158,12 @@
 			transition: background 0.15s;
 		}
 		.video-modal-close:hover { background: var(--grey-bg); }
+		.video-modal-body { display: flex; flex: 1; min-height: 0; }
+		.video-modal-player-wrap { flex: 1; min-width: 0; background: #000; position: relative; }
+		.video-modal-body:not(.has-rail) .video-modal-player-wrap { aspect-ratio: 16/9; }
+		.video-modal-player { position: relative; width: 100%; height: 100%; }
+		.video-modal-player iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
-		.video-modal-body {
-			display: flex;
-			flex: 1;
-			min-height: 0;
-		}
-		.video-modal-player-wrap {
-			flex: 1;
-			min-width: 0;
-			background: #000;
-			position: relative;
-		}
-		.video-modal-body:not(.has-rail) .video-modal-player-wrap {
-			aspect-ratio: 16/9;
-		}
-		.video-modal-player {
-			position: relative;
-			width: 100%;
-			height: 100%;
-		}
-		.video-modal-player iframe {
-			position: absolute;
-			inset: 0;
-			width: 100%; height: 100%;
-			border: 0;
-		}
-
-		/* Side rail */
 		.video-modal-rail {
 			width: 220px;
 			flex-shrink: 0;
@@ -573,12 +1173,10 @@
 			flex-direction: column;
 			overflow: hidden;
 		}
-		.video-modal-body:not(.has-rail) .video-modal-rail {
-			display: none;
-		}
+		.video-modal-body:not(.has-rail) .video-modal-rail { display: none; }
 		.video-modal-rail-header {
 			padding: 12px 14px 8px;
-			font-family: 'Bahnschrift Light', monospace;
+			font-family: var(--font-label);
 			font-size: 9px;
 			letter-spacing: 0.14em;
 			text-transform: uppercase;
@@ -599,10 +1197,7 @@
 		}
 		.video-modal-rail-list::-webkit-scrollbar { width: 5px; }
 		.video-modal-rail-list::-webkit-scrollbar-track { background: transparent; }
-		.video-modal-rail-list::-webkit-scrollbar-thumb {
-			background: #cbd5e1;
-			border-radius: 3px;
-		}
+		.video-modal-rail-list::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
 		.rail-thumb {
 			cursor: pointer;
 			background: var(--white);
@@ -612,18 +1207,8 @@
 			position: relative;
 			transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
 		}
-		.rail-thumb:hover {
-			transform: translateY(-2px);
-			box-shadow: 0 6px 14px rgba(26,82,118,0.10);
-			border-color: var(--blue-mid);
-		}
-		.rail-thumb-img {
-			width: 100%;
-			aspect-ratio: 16/10;
-			object-fit: cover;
-			display: block;
-			background: var(--blue-light);
-		}
+		.rail-thumb:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(26,82,118,0.10); border-color: var(--blue-mid); }
+		.rail-thumb-img { width: 100%; aspect-ratio: 16/10; object-fit: cover; display: block; background: var(--blue-light); }
 		.rail-thumb-magnifier {
 			position: absolute;
 			top: 6px; right: 6px;
@@ -639,15 +1224,9 @@
 			transition: opacity 0.15s;
 		}
 		.rail-thumb:hover .rail-thumb-magnifier { opacity: 1; }
-		.rail-thumb-caption {
-			padding: 8px 10px 10px;
-			font-size: 0.72rem;
-			color: var(--text-muted);
-			line-height: 1.4;
-			font-weight: 300;
-		}
+		.rail-thumb-caption { padding: 8px 10px 10px; font-size: 0.72rem; color: var(--text-muted); line-height: 1.4; font-weight: 300; }
 
-		/* ── Zoom Modal — layered above video modal ───── */
+		/* Zoom modal */
 		.zoom-modal-overlay {
 			display: none;
 			position: fixed;
@@ -701,14 +1280,14 @@
 		}
 		.zoom-modal-close:hover { background: rgba(255,255,255,0.22); }
 
-		/* ── Tech Stack ───────────────────────────────── */
+		/* Plan band */
+		.plan-band { background: var(--grey-soft); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+		.plan-band-inner { max-width: 960px; margin: 0 auto; padding: 56px 40px; }
+		.plan-band .hero-stats { margin-top: 28px; }
+
+		/* Tech stack */
 		.tech-section { max-width: 960px; margin: 0 auto; padding: 60px 40px; }
-		.tech-grid {
-			display: flex;
-			flex-wrap: wrap;
-			gap: 9px;
-			margin-top: 28px;
-		}
+		.tech-grid { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 28px; }
 		.tech-pill {
 			display: inline-flex;
 			align-items: center;
@@ -718,7 +1297,7 @@
 			color: var(--blue-deep);
 			padding: 6px 14px;
 			border-radius: 20px;
-			font-family: 'Bahnschrift Light', monospace;
+			font-family: var(--font-label);
 			font-size: 11px;
 			font-weight: 500;
 			letter-spacing: 0.02em;
@@ -726,11 +1305,8 @@
 		}
 		.tech-pill:hover { background: var(--blue-light); border-color: var(--blue-mid); }
 
-		/* ── Write-up links ───────────────────────────── */
-		.writeup-section {
-			background: var(--grey-soft);
-			border-top: 1px solid var(--border);
-		}
+		/* Write-ups */
+		.writeup-section { background: var(--grey-soft); border-top: 1px solid var(--border); }
 		.writeup-inner {
 			max-width: 960px;
 			margin: 0 auto;
@@ -757,41 +1333,22 @@
 			text-decoration: none;
 		}
 		.writeup-part {
-			font-family: 'Bahnschrift Light', monospace;
+			font-family: var(--font-label);
 			font-size: 9px;
 			letter-spacing: 0.12em;
 			text-transform: uppercase;
 			color: var(--accent);
 			font-weight: 600;
 		}
-		.writeup-title {
-			font-weight: 600;
-			font-size: 0.92rem;
-			color: var(--blue-ink);
-			line-height: 1.4;
-		}
-		.writeup-status {
-			font-size: 0.8rem;
-			color: var(--text-muted);
-			font-weight: 300;
-			display: flex;
-			align-items: center;
-			gap: 5px;
-		}
+		.writeup-title { font-weight: 600; font-size: 0.92rem; color: var(--blue-ink); line-height: 1.4; }
+		.writeup-status { font-size: 0.8rem; color: var(--text-muted); font-weight: 300; display: flex; align-items: center; gap: 5px; }
 		.writeup-dot { width: 6px; height: 6px; border-radius: 50%; }
 		.writeup-dot.live { background: #27ae60; }
 		.writeup-dot.soon { background: #f0b429; }
 
-		/* ── Footer ───────────────────────────────────── */
-		footer {
-			background: var(--white);
-			border-top: 1px solid var(--border);
-			padding: 28px 40px;
-			text-align: center;
-		}
+		/* Footer + preloader */
+		footer { background: var(--white); border-top: 1px solid var(--border); padding: 28px 40px; text-align: center; }
 		footer img { width: 70px; height: 70px; opacity: 0.85; }
-
-		/* ── Preloader ────────────────────────────────── */
 		#preloader2 {
 			position: fixed;
 			inset: 0;
@@ -800,34 +1357,32 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			font-family: 'Bahnschrift Light', monospace;
+			font-family: var(--font-label);
 			font-size: 13px;
 			color: var(--accent);
 			letter-spacing: 0.1em;
 		}
 
-		/* ── Responsive ───────────────────────────────── */
-		@media (max-width: 720px) {
+		/* Responsive */
+		@media (max-width: 760px) {
 			.spotlight-inner { grid-template-columns: 1fr; gap: 36px; }
+			.honest-grid { grid-template-columns: 1fr; }
+			.chapter, .chapter.flip { grid-template-columns: 1fr; gap: 30px; padding: 48px 20px; }
+			.chapter.flip .chapter-text { order: 1; }
+			.chapter.flip .chapter-visual { order: 2; }
 			.hero-stats { gap: 22px; }
-			.hero, .section, .section-full, .modules-section, .tech-section { padding-left: 20px; padding-right: 20px; }
+			.hero, .section, .modules-section, .tech-section, .timeline-section { padding-left: 20px; padding-right: 20px; }
+			.pillars-inner, .plan-band-inner, .engines-inner, .articles-inner { padding-left: 20px; padding-right: 20px; }
 			.carousel-track-wrapper, .carousel-header { padding-left: 20px; padding-right: 20px; }
 			.writeup-inner { padding-left: 20px; padding-right: 20px; }
 			.accordion-panel-inner { padding-left: 22px; }
+			.chapnav { padding: 12px 20px; }
+			.reader { max-height: 94vh; }
 
 			.video-modal { max-width: 100%; max-height: 95vh; }
 			.video-modal-body { flex-direction: column; }
-			.video-modal-rail {
-				width: 100%;
-				border-left: none;
-				border-top: 1px solid var(--border);
-				max-height: 220px;
-			}
-			.video-modal-rail-list {
-				flex-direction: row;
-				overflow-y: hidden;
-				overflow-x: auto;
-			}
+			.video-modal-rail { width: 100%; border-left: none; border-top: 1px solid var(--border); max-height: 220px; }
+			.video-modal-rail-list { flex-direction: row; overflow-y: hidden; overflow-x: auto; }
 			.rail-thumb { min-width: 180px; flex-shrink: 0; }
 			.video-modal-body:not(.has-rail) .video-modal-player-wrap { aspect-ratio: 16/9; }
 		}
@@ -854,22 +1409,26 @@
 <!-- Hero -->
 <section class="hero">
 	<div class="hero-inner">
-		<div class="hero-eyebrow">Solo Build · Sep 2024 – Present</div>
-		<h1>DeskOps —<br>Helpdesk &amp; <span>ERP</span> with AI</h1>
+		<div class="hero-eyebrow">Solo Build · Sep 2024 - Present</div>
+		<h1>DeskOps -<br>Helpdesk &amp; <span>ERP</span> with AI</h1>
 		<p class="hero-sub">
-			A production-grade IT service desk built from scratch on a WAMP stack.
-			Full incident lifecycle, role-based access, SLA enforcement, double-entry financials,
-			and a RAG pipeline that grounds AI-generated resolution notes in indexed evidence.
+			A production-grade IT service desk that matured into a complete ERP with its own
+			resident intelligence. Full incident lifecycle, role-based access, SLA enforcement,
+			double-entry financials, billing, timesheets and KPI analytics, attended throughout
+			by Qleo, a local-first AI assistant that answers from indexed evidence, cites its
+			sources, and submits to a redaction gate before any request leaves the machine.
+			The entire stack, database and inference engine included, resides in a single folder
+			and operates without a network connection.
 		</p>
 		<div class="hero-stats">
 			<div class="hero-stat">
-				<span class="hero-stat-num">6</span>
+				<span class="hero-stat-num">16</span>
 				<span class="hero-stat-label">Core Modules</span>
 			</div>
 			<div class="hero-stat-divider"></div>
 			<div class="hero-stat">
 				<span class="hero-stat-num">5</span>
-				<span class="hero-stat-label">AI Models</span>
+				<span class="hero-stat-label">Cloud AI Models</span>
 			</div>
 			<div class="hero-stat-divider"></div>
 			<div class="hero-stat">
@@ -881,17 +1440,63 @@
 				<span class="hero-stat-num">ITIL</span>
 				<span class="hero-stat-label">Aligned</span>
 			</div>
+			<div class="hero-stat-divider"></div>
+			<div class="hero-stat">
+				<span class="hero-stat-num">100%</span>
+				<span class="hero-stat-label">Self-Hosted</span>
+			</div>
+		</div>
+		<div class="hero-measured-note">The build, measured from the repository</div>
+		<div class="hero-stats">
+			<div class="hero-stat">
+				<span class="hero-stat-num">267k</span>
+				<span class="hero-stat-label">Lines Hand-Written</span>
+			</div>
+			<div class="hero-stat-divider"></div>
+			<div class="hero-stat">
+				<span class="hero-stat-num">615</span>
+				<span class="hero-stat-label">API Endpoints</span>
+			</div>
+			<div class="hero-stat-divider"></div>
+			<div class="hero-stat">
+				<span class="hero-stat-num">289</span>
+				<span class="hero-stat-label">Database Tables</span>
+			</div>
+			<div class="hero-stat-divider"></div>
+			<div class="hero-stat">
+				<span class="hero-stat-num">137</span>
+				<span class="hero-stat-label">Screens</span>
+			</div>
+			<div class="hero-stat-divider"></div>
+			<div class="hero-stat">
+				<span class="hero-stat-num">1,190</span>
+				<span class="hero-stat-label">Commits</span>
+			</div>
 		</div>
 	</div>
 </section>
 
-<hr class="section-rule">
+<!-- Chapter nav -->
+<nav class="chapnav">
+	<div class="chapnav-inner">
+		<span class="chapnav-label">The Tour</span>
+		<a href="#ch-desk"><b>01</b> The Desk</a>
+		<a href="#ch-money"><b>02</b> The Money</a>
+		<a href="#ch-time"><b>03</b> The Time</a>
+		<a href="#ch-knowledge"><b>04</b> The Knowledge</a>
+		<a href="#ch-qleo"><b>05</b> Qleo</a>
+		<a href="#ch-automation"><b>06</b> The Automation</a>
+		<a href="#ch-foundation"><b>07</b> The Foundation</a>
+		<a href="#library"><b>08</b> The Library</a>
+		<a href="#episodes"><b>&#9654;</b> Episodes</a>
+	</div>
+</nav>
 
 <!-- Feature Cards -->
 <div class="section">
 	<div class="section-label">What it does</div>
 	<h2 class="section-title">Built for real operational use</h2>
-	<p class="section-desc">Every module was designed to handle genuine IT operations demands — not prototype quality, not demo-ware.</p>
+	<p class="section-desc">Every module was designed to handle genuine IT operations demands - not prototype quality, not demo-ware.</p>
 
 	<div class="features-grid">
 		<div class="feature-card">
@@ -907,7 +1512,7 @@
 		<div class="feature-card">
 			<div class="feature-icon"><i class="fa fa-file-text"></i></div>
 			<div class="feature-title">Cited Resolution Notes</div>
-			<div class="feature-body">A two-pass AI pipeline generates structured resolution notes with inline citations traceable to source documents — not summaries, but grounded analysis.</div>
+			<div class="feature-body">A two-pass AI pipeline generates structured resolution notes with inline citations traceable to source documents - not summaries, but grounded analysis.</div>
 		</div>
 		<div class="feature-card">
 			<div class="feature-icon"><i class="fa fa-line-chart"></i></div>
@@ -922,12 +1527,532 @@
 		<div class="feature-card">
 			<div class="feature-icon"><i class="fa fa-book"></i></div>
 			<div class="feature-title">Knowledge Base &amp; Tag Profiles</div>
-			<div class="feature-body">Articles with AI-generated tag profiles — structured context, signals, and recommended actions that enrich every resolution note generated for tagged tickets.</div>
+			<div class="feature-body">Articles with AI-generated tag profiles - structured context, signals, and recommended actions that enrich every resolution note generated for tagged tickets.</div>
+		</div>
+		<div class="feature-card">
+			<div class="feature-icon"><i class="fa fa-magic"></i></div>
+			<div class="feature-title">Qleo, the Resident AI</div>
+			<div class="feature-body">A named assistant that inhabits the application - triaging, tagging, drafting and reasoning - on a model that runs beside the data it serves. The cloud is a contingency, never a dependency.</div>
+		</div>
+		<div class="feature-card">
+			<div class="feature-icon"><i class="fa fa-users"></i></div>
+			<div class="feature-title">Deep Agents on the Case</div>
+			<div class="feature-body">Qleo's field agents undertake whole investigations: they plan their steps on a board, escalate to stronger models when warranted, and record every action in a replayable ledger.</div>
+		</div>
+		<div class="feature-card">
+			<div class="feature-icon"><i class="fa fa-random"></i></div>
+			<div class="feature-title">Visual Playbooks</div>
+			<div class="feature-body">Automation drawn rather than coded: triggers, conditions and actions wired together on a node canvas, then executed by the application's own engine when genuine events fire.</div>
+		</div>
+		<div class="feature-card">
+			<div class="feature-icon"><i class="fa fa-clock-o"></i></div>
+			<div class="feature-title">SLA Engine &amp; Escalations</div>
+			<div class="feature-body">Business-hour calendars, per-ticket countdowns, and breach alerts that ascend the support tiers - with a default policy protected at the database level against accidental deletion.</div>
+		</div>
+		<div class="feature-card">
+			<div class="feature-icon"><i class="fa fa-bar-chart"></i></div>
+			<div class="feature-title">KPI Dashboards</div>
+			<div class="feature-body">Performance dashboards rendered by DeskChart, a hand-written canvas engine. No charting library, no CDN - every axis, tooltip and animation is the application's own code.</div>
+		</div>
+		<div class="feature-card">
+			<div class="feature-icon"><i class="fa fa-television"></i></div>
+			<div class="feature-title">The Slide Studio</div>
+			<div class="feature-body">Knowledge articles become slide decks with build animations, an overview grid, and a presenter view furnished with speaker notes, a HUD, a laser pointer and a kiosk mode.</div>
+		</div>
+		<div class="feature-card">
+			<div class="feature-icon"><i class="fa fa-shield"></i></div>
+			<div class="feature-title">Privacy at the Boundary</div>
+			<div class="feature-body">Nothing departs the machine unscrubbed. A redaction layer strips personal data from every cloud-bound prompt and retains an audit-grade hash of what it removed.</div>
+		</div>
+		<div class="feature-card">
+			<div class="feature-icon"><i class="fa fa-print"></i></div>
+			<div class="feature-title">Print-Grade Reports</div>
+			<div class="feature-body">A report builder whose PDF export is assembled by hand - no PDF library anywhere. Genuine typography, legible icons, and consistent branding straight from the browser.</div>
+		</div>
+		<div class="feature-card">
+			<div class="feature-icon"><i class="fa fa-code"></i></div>
+			<div class="feature-title">The Studio</div>
+			<div class="feature-body">A coding agent within the application that plans before it edits, modifying DeskOps from inside DeskOps - with every change recorded to an undo ledger.</div>
+		</div>
+		<div class="feature-card">
+			<div class="feature-icon"><i class="fa fa-suitcase"></i></div>
+			<div class="feature-title">Sovereign &amp; Portable</div>
+			<div class="feature-body">A desktop application whose entire stack - web server, database, AI engine - occupies one folder. It runs offline, installs nothing on the host, and travels on a USB stick.</div>
 		</div>
 	</div>
 </div>
 
+<!-- Philosophy -->
+<section class="pillars-section">
+	<div class="pillars-inner">
+		<div class="section-label">The philosophy</div>
+		<h2 class="section-title">A helpdesk that compounds</h2>
+		<p class="section-desc">DeskOps rests on five convictions. Every feature on this page traces its lineage to at least one of them.</p>
+
+		<div class="pillars-grid">
+			<div class="pillar-card">
+				<span class="pillar-num">01</span>
+				<div class="pillar-title">Sovereign</div>
+				<div class="pillar-text">Your data serves you, on your machine. The stack, the database and the AI reside in a folder you own, and the system is complete without a single cloud account.</div>
+			</div>
+			<div class="pillar-card">
+				<span class="pillar-num">02</span>
+				<div class="pillar-title">Trust is earned</div>
+				<div class="pillar-text">The AI is never extended the benefit of the doubt. It cites its evidence, its permissions are determined by deterministic rules rather than its own judgement, and its inputs are scrubbed before they travel.</div>
+			</div>
+			<div class="pillar-card">
+				<span class="pillar-num">03</span>
+				<div class="pillar-title">Right-brain</div>
+				<div class="pillar-text">Walls, canvases, decks and dashboards. Where another system would produce a table, DeskOps endeavours to produce a picture, because people reason in pictures.</div>
+			</div>
+			<div class="pillar-card">
+				<span class="pillar-num">04</span>
+				<div class="pillar-title">Self-learning</div>
+				<div class="pillar-text">The system is built to study its own history - what was attempted, what actually worked - so the assistant sharpens against real outcomes rather than remaining frozen at installation.</div>
+			</div>
+			<div class="pillar-card">
+				<span class="pillar-num">05</span>
+				<div class="pillar-title">Work compounds</div>
+				<div class="pillar-text">A resolved ticket is not an ending. It feeds tag profiles, knowledge articles and playbooks, so the next comparable ticket arrives already half resolved.</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- THE TOUR -->
+
+<!-- Chapter 1: The Desk -->
+<section class="chapter" id="ch-desk">
+	<div class="chapter-text">
+		<div class="section-label">Chapter 01</div>
+		<h2 class="section-title">The Desk</h2>
+		<p class="section-desc">
+			Everything begins at the ticket. An incident arrives, is triaged across five
+			support tiers, and wears its urgency openly: colour-coded SLA countdowns that
+			run against business-hour calendars rather than wall clocks.
+		</p>
+		<ul class="chapter-facts">
+			<li><b>Five-tier RBAC</b> - Admin and Tiers 1 through 4, each with scoped views, scoped actions, and nothing beyond its remit</li>
+			<li><b>Tags with minds</b> - every tag carries an AI-written profile: context, signals, recommended actions, worked examples</li>
+			<li><b>A genuine workbench</b> - Markdown comments, system events, gallery attachments with password protection and per-file indexing status</li>
+			<li><b>Escalation that acts</b> - breach alerts notify and reassign, ascending the tiers until someone owns the problem</li>
+		</ul>
+		<button class="deepdive-btn" data-doc="dd-desk">Read the deep dive <i class="fa fa-arrow-right"></i></button>
+	</div>
+	<div class="chapter-visual">
+		<div class="vignette">
+			<div class="vignette-bar">
+				<span class="vignette-dot"></span><span class="vignette-dot"></span><span class="vignette-dot"></span>
+				<span class="vignette-bar-title">Manage Tickets</span>
+			</div>
+			<div class="vignette-body">
+				<div class="vg-ticket">
+					<span class="vg-urgency hot"></span>
+					<span class="vg-line"></span>
+					<span class="vg-chip alarm">0h 42m</span>
+					<span class="vg-chip">Tier 2</span>
+				</div>
+				<div class="vg-ticket">
+					<span class="vg-urgency warn"></span>
+					<span class="vg-line short"></span>
+					<span class="vg-line"></span>
+					<span class="vg-chip">6h 10m</span>
+				</div>
+				<div class="vg-ticket">
+					<span class="vg-urgency ok"></span>
+					<span class="vg-line"></span>
+					<span class="vg-chip">2d 3h</span>
+					<span class="vg-chip">Tier 1</span>
+				</div>
+				<div class="vg-ticket">
+					<span class="vg-urgency ok"></span>
+					<span class="vg-line short"></span>
+					<span class="vg-line"></span>
+					<span class="vg-chip">Resolved</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
 <hr class="section-rule">
+
+<!-- Chapter 2: The Money -->
+<section class="chapter flip" id="ch-money">
+	<div class="chapter-text">
+		<div class="section-label">Chapter 02</div>
+		<h2 class="section-title">The Money</h2>
+		<p class="section-desc">
+			A helpdesk that keeps its own books. Genuine double-entry accounting underpins
+			the module: every invoice and expense posts journal entries automatically, and
+			a single billing pipeline governs every document type so the rules can never
+			drift apart.
+		</p>
+		<ul class="chapter-facts">
+			<li><b>Chart of Accounts and General Ledger</b> - orthodox double-entry, not a totals column posing as accounting</li>
+			<li><b>Quotes post nothing until accepted</b> - a promise is not a transaction, and the ledger remains honest</li>
+			<li><b>Retainers as client credit</b> - money received in advance stands as a balance and diminishes as work is billed</li>
+			<li><b>Budgets against actuals</b> - targets per account category, tracked live, drawn as gauges by the application's own charts</li>
+		</ul>
+		<button class="deepdive-btn" data-doc="dd-money">Read the deep dive <i class="fa fa-arrow-right"></i></button>
+	</div>
+	<div class="chapter-visual">
+		<div class="vignette">
+			<div class="vignette-bar">
+				<span class="vignette-dot"></span><span class="vignette-dot"></span><span class="vignette-dot"></span>
+				<span class="vignette-bar-title">General Ledger</span>
+			</div>
+			<div class="vignette-body">
+				<div class="vg-ledger-row"><span>Consulting revenue</span><b>4,800.00 Cr</b></div>
+				<div class="vg-ledger-row"><span>Accounts receivable</span><b>4,800.00 Dr</b></div>
+				<div class="vg-ledger-row"><span>Client credit drawn</span><b>1,250.00 Dr</b></div>
+				<div class="vg-ledger-row total"><span>Trial balance</span><b>Balanced &#10003;</b></div>
+				<div class="vg-bars">
+					<div class="vg-bar" style="height:58%"></div>
+					<div class="vg-bar ghost" style="height:40%"></div>
+					<div class="vg-bar" style="height:82%"></div>
+					<div class="vg-bar ghost" style="height:52%"></div>
+					<div class="vg-bar" style="height:66%"></div>
+					<div class="vg-bar ghost" style="height:74%"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<hr class="section-rule">
+
+<!-- Chapter 3: The Time -->
+<section class="chapter" id="ch-time">
+	<div class="chapter-text">
+		<div class="section-label">Chapter 03</div>
+		<h2 class="section-title">The Time</h2>
+		<p class="section-desc">
+			Hours are recorded where the work actually occurs, inside tickets and tasks, a
+			few clicks deep, and are then consolidated into per-person and per-team views.
+			The direction of travel is deliberately visual: walls of hours legible at a
+			glance, rather than spreadsheet grids that demand decoding.
+		</p>
+		<ul class="chapter-facts">
+			<li><b>Logging in the flow</b> - from the ticket, from the task list, without breaking stride</li>
+			<li><b>Roll-ups that answer questions</b> - who is loaded, who is available, where the week actually went</li>
+			<li><b>Team-level utilisation</b> - a distinct team surface, because an individual's calendar and a team's capacity are different questions</li>
+		</ul>
+	</div>
+	<div class="chapter-visual">
+		<div class="vignette">
+			<div class="vignette-bar">
+				<span class="vignette-dot"></span><span class="vignette-dot"></span><span class="vignette-dot"></span>
+				<span class="vignette-bar-title">Hours, as a wall</span>
+			</div>
+			<div class="vignette-body">
+				<div class="vg-wall">
+					<span class="vg-cell" style="opacity:.25"></span><span class="vg-cell" style="opacity:.7"></span><span class="vg-cell" style="opacity:.9"></span><span class="vg-cell" style="opacity:.45"></span><span class="vg-cell" style="opacity:.15"></span><span class="vg-cell" style="opacity:.8"></span><span class="vg-cell" style="opacity:.6"></span><span class="vg-cell" style="opacity:.3"></span><span class="vg-cell" style="opacity:.85"></span>
+					<span class="vg-cell" style="opacity:.6"></span><span class="vg-cell" style="opacity:.2"></span><span class="vg-cell" style="opacity:.75"></span><span class="vg-cell" style="opacity:.95"></span><span class="vg-cell" style="opacity:.4"></span><span class="vg-cell" style="opacity:.55"></span><span class="vg-cell" style="opacity:.15"></span><span class="vg-cell" style="opacity:.7"></span><span class="vg-cell" style="opacity:.5"></span>
+					<span class="vg-cell" style="opacity:.85"></span><span class="vg-cell" style="opacity:.5"></span><span class="vg-cell" style="opacity:.3"></span><span class="vg-cell" style="opacity:.65"></span><span class="vg-cell" style="opacity:.2"></span><span class="vg-cell" style="opacity:.9"></span><span class="vg-cell" style="opacity:.75"></span><span class="vg-cell" style="opacity:.4"></span><span class="vg-cell" style="opacity:.6"></span>
+					<span class="vg-cell" style="opacity:.35"></span><span class="vg-cell" style="opacity:.8"></span><span class="vg-cell" style="opacity:.55"></span><span class="vg-cell" style="opacity:.25"></span><span class="vg-cell" style="opacity:.7"></span><span class="vg-cell" style="opacity:.45"></span><span class="vg-cell" style="opacity:.9"></span><span class="vg-cell" style="opacity:.6"></span><span class="vg-cell" style="opacity:.2"></span>
+				</div>
+				<div class="vg-wall-footer">
+					<span class="vg-wall-caption">One square, one hour</span>
+					<span class="vg-chip">+ Log time</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<hr class="section-rule">
+
+<!-- Chapter 4: The Knowledge -->
+<section class="chapter flip" id="ch-knowledge">
+	<div class="chapter-text">
+		<div class="section-label">Chapter 04</div>
+		<h2 class="section-title">The Knowledge</h2>
+		<p class="section-desc">
+			What the team learns, the system retains. Articles are written once and surface
+			during ticket handling; tag profiles preserve the tribal knowledge; and when an
+			article merits an audience, it becomes a slide deck, presented from within the
+			application itself.
+		</p>
+		<ul class="chapter-facts">
+			<li><b>A knowledge base that appears</b> - articles surface in context while the agent works the ticket, not in a separate portal nobody visits</li>
+			<li><b>The Slide Studio</b> - build animations, chapter jumps, keyboard chords, an overview grid of the whole deck</li>
+			<li><b>A genuine presenter view</b> - speaker notes, a HUD, a laser pointer and pen, screen blanking, and a kiosk mode for self-running decks</li>
+			<li><b>ChromaDB beneath</b> - the same vector store that powers Ask AI renders the knowledge searchable by meaning, not merely by keyword</li>
+		</ul>
+		<button class="deepdive-btn" data-doc="dd-knowledge">Read the deep dive <i class="fa fa-arrow-right"></i></button>
+	</div>
+	<div class="chapter-visual">
+		<div class="vignette">
+			<div class="vignette-bar">
+				<span class="vignette-dot"></span><span class="vignette-dot"></span><span class="vignette-dot"></span>
+				<span class="vignette-bar-title">Presenter view</span>
+			</div>
+			<div class="vignette-body">
+				<div class="vg-slide">
+					<div class="vg-slide-title"></div>
+					<div class="vg-slide-line"></div>
+					<div class="vg-slide-line l2"></div>
+					<div class="vg-slide-line l3"></div>
+					<div class="vg-laser"></div>
+					<div class="vg-slide-dots">
+						<span></span><span></span><span class="on"></span><span></span><span></span><span></span>
+					</div>
+				</div>
+				<div class="vg-hud">
+					<span class="vg-chip">Slide 8 / 21</span>
+					<span class="vg-chip">12:34 elapsed</span>
+					<span class="vg-chip">Notes on</span>
+					<span class="vg-chip">Kiosk ready</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<hr class="section-rule">
+
+<!-- Chapter 5: Qleo -->
+<section class="chapter" id="ch-qleo">
+	<div class="chapter-text">
+		<div class="section-label">Chapter 05</div>
+		<h2 class="section-title">Qleo, the AI Crew</h2>
+		<p class="section-desc">
+			The assistant has a name, Qleo (say CLEE-oh), and a residence: a local inference
+			engine on the same machine as the data. Qleo triages, tags, drafts and reasons,
+			and behind it operates a crew of deep agents that undertake whole investigations,
+			planning their steps on a board and recording every action in a replayable ledger.
+		</p>
+		<ul class="chapter-facts">
+			<li><b>Local-first by architecture</b> - the everyday brain runs on your hardware; five cloud models stand behind it as a fallback chain</li>
+			<li><b>An Access Agent immune to persuasion</b> - requests are granted, escalated or queued by deterministic rules applied to the shape of the request, never its wording</li>
+			<li><b>A distillation pipeline</b> - constructed to teach the small local model from a larger teacher, so the machine you own grows permanently more capable</li>
+			<li><b>The Studio</b> - a coding agent that plans before it edits, modifying DeskOps from within DeskOps, every change on an undo ledger</li>
+			<li><b>No mental arithmetic</b> - anything exact is delegated to deterministic tools Qleo must call; the model never computes in its head</li>
+		</ul>
+		<button class="deepdive-btn" data-doc="dd-qleo">Read the deep dive <i class="fa fa-arrow-right"></i></button>
+	</div>
+	<div class="chapter-visual">
+		<div class="vignette">
+			<div class="vignette-bar">
+				<span class="vignette-dot"></span><span class="vignette-dot"></span><span class="vignette-dot"></span>
+				<span class="vignette-bar-title">Ask Qleo</span>
+			</div>
+			<div class="vignette-body">
+				<div class="vg-bubble user">What did the vendor change before the outage?</div>
+				<div class="vg-bubble qleo">The firmware notes attached to this ticket show a TLS library swap two days prior<sup>[1]</sup>, and the packet capture confirms handshakes failing from that morning<sup>[2]</sup>.</div>
+				<div class="vg-hud" style="margin-top:2px; margin-bottom:12px;">
+					<span class="vg-chip">Local model</span>
+					<span class="vg-chip">Scrubbed</span>
+					<span class="vg-chip">2 citations</span>
+				</div>
+				<div class="vg-agent-step"><i class="fa fa-check-circle"></i> Plan approved on the board</div>
+				<div class="vg-agent-step"><i class="fa fa-check-circle"></i> Evidence gathered from 3 sources</div>
+				<div class="vg-agent-step pending"><i class="fa fa-circle-o"></i> Drafting resolution, step 3 of 4</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<hr class="section-rule">
+
+<!-- Chapter 6: The Automation -->
+<section class="chapter flip" id="ch-automation">
+	<div class="chapter-text">
+		<div class="section-label">Chapter 06</div>
+		<h2 class="section-title">The Automation</h2>
+		<p class="section-desc">
+			Repetition is treated as a defect. Playbooks permit the person who knows the
+			process to draw the automation, a trigger, conditions and actions wired together
+			on a node canvas, and the application's own engine executes it when genuine
+			events fire. No scripting, no third-party automation service, no data leaving
+			the premises.
+		</p>
+		<ul class="chapter-facts">
+			<li><b>Drawn, then run</b> - the canvas reads like a circuit diagram, and what is drawn is precisely what executes</li>
+			<li><b>Native scheduling</b> - recurring jobs reside in the database engine itself, so automation survives restarts and requires no external scheduler</li>
+			<li><b>The compounding loop</b> - the roadmap directs playbooks toward Qleo, so the system may propose automations from the patterns it observes in resolved work</li>
+		</ul>
+	</div>
+	<div class="chapter-visual">
+		<div class="vignette">
+			<div class="vignette-bar">
+				<span class="vignette-dot"></span><span class="vignette-dot"></span><span class="vignette-dot"></span>
+				<span class="vignette-bar-title">Playbook canvas</span>
+			</div>
+			<div class="vignette-body">
+				<div class="vg-flow">
+					<div class="vg-node">
+						<span class="vg-node-kind">Trigger</span>
+						<span class="vg-node-name">Ticket created</span>
+					</div>
+					<div class="vg-wire"></div>
+					<div class="vg-node">
+						<span class="vg-node-kind">Condition</span>
+						<span class="vg-node-name">Tag = VPN</span>
+					</div>
+					<div class="vg-wire"></div>
+					<div class="vg-node">
+						<span class="vg-node-kind">Action</span>
+						<span class="vg-node-name">Assign Tier 2</span>
+					</div>
+				</div>
+				<div class="vg-hud" style="justify-content:center;">
+					<span class="vg-chip">Enabled</span>
+					<span class="vg-chip">Ran 47 times</span>
+					<span class="vg-chip">0 failures</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<hr class="section-rule">
+
+<!-- Chapter 7: The Foundation -->
+<section class="chapter" id="ch-foundation">
+	<div class="chapter-text">
+		<div class="section-label">Chapter 07</div>
+		<h2 class="section-title">The Foundation</h2>
+		<p class="section-desc">
+			DeskOps answers to nobody's server. The web server, PHP, the database and the AI
+			engine travel together in one self-contained folder, wrapped in a desktop shell
+			that opens like a native application. To copy the folder is to copy the company's
+			entire operations system.
+		</p>
+		<ul class="chapter-facts">
+			<li><b>Zero installation</b> - nothing touches the host machine's registry or system folders; a portable build runs from a USB stick</li>
+			<li><b>Offline as a feature</b> - with the AI running locally, the whole system operates with the network cable unplugged</li>
+			<li><b>Disciplined beneath</b> - prepared statements throughout, session and role guards on all 615 endpoints, self-hosted fonts and icons</li>
+			<li><b>Plans that live in the application</b> - a built-in documentation hub carries the numbered improvement programmes, annotated in place as items ship</li>
+		</ul>
+		<button class="deepdive-btn" data-doc="dd-foundation">Read the deep dive <i class="fa fa-arrow-right"></i></button>
+	</div>
+	<div class="chapter-visual">
+		<div class="vignette">
+			<div class="vignette-bar">
+				<span class="vignette-dot"></span><span class="vignette-dot"></span><span class="vignette-dot"></span>
+				<span class="vignette-bar-title">One folder, everything</span>
+			</div>
+			<div class="vignette-body">
+				<div class="vg-tree">
+					<b>DeskOps/</b><br>
+					&nbsp;&nbsp;&#9500;&#9472; apache/ <span class="hl">the web server</span><br>
+					&nbsp;&nbsp;&#9500;&#9472; php/ <span class="hl">the runtime</span><br>
+					&nbsp;&nbsp;&#9500;&#9472; mysql/ <span class="hl">289 tables of truth</span><br>
+					&nbsp;&nbsp;&#9500;&#9472; engine/ <span class="hl">Qleo's local brain</span><br>
+					&nbsp;&nbsp;&#9492;&#9472; app/ <span class="hl">267k lines, hand-written</span>
+				</div>
+				<div class="vg-hud">
+					<span class="vg-chip">No installer</span>
+					<span class="vg-chip">Runs offline</span>
+					<span class="vg-chip">Fits on a USB stick</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- Built, not borrowed -->
+<section class="engines-section">
+	<div class="engines-inner">
+		<div class="section-label">Built, not borrowed</div>
+		<h2 class="section-title">Eight subsystems most applications import</h2>
+		<p class="section-desc">Wherever an off-the-shelf dependency would have entailed a CDN, a licence, or a data leak, DeskOps received a hand-written replacement instead. Each of the following runs in production today.</p>
+
+		<div class="engines-grid">
+			<div class="engine-card">
+				<div class="engine-icon"><i class="fa fa-bar-chart"></i></div>
+				<div class="engine-name">DeskChart</div>
+				<div class="engine-replaces">In place of Chart.js</div>
+				<div class="engine-body">A canvas chart engine with its own axes, tooltips, legends and animations, rendering every KPI dashboard in the application.</div>
+			</div>
+			<div class="engine-card">
+				<div class="engine-icon"><i class="fa fa-file-pdf-o"></i></div>
+				<div class="engine-name">The PDF Writer</div>
+				<div class="engine-replaces">In place of a PDF library</div>
+				<div class="engine-body">Report exports are assembled byte by byte by the application's own writer: genuine typography, print-grade output.</div>
+			</div>
+			<div class="engine-card">
+				<div class="engine-icon"><i class="fa fa-television"></i></div>
+				<div class="engine-name">The Slide Engine</div>
+				<div class="engine-replaces">In place of slide embeds</div>
+				<div class="engine-body">Decks, builds, presenter HUD, laser, pen and kiosk playback: a complete presentation runtime inside a helpdesk.</div>
+			</div>
+			<div class="engine-card">
+				<div class="engine-icon"><i class="fa fa-random"></i></div>
+				<div class="engine-name">The Playbook Engine</div>
+				<div class="engine-replaces">In place of Zapier or n8n</div>
+				<div class="engine-body">Node-canvas automations executed in-house, so workflow logic never leaves the premises.</div>
+			</div>
+			<div class="engine-card">
+				<div class="engine-icon"><i class="fa fa-microchip"></i></div>
+				<div class="engine-name">The Local AI Engine</div>
+				<div class="engine-replaces">In place of cloud-only AI</div>
+				<div class="engine-body">A llama.cpp-based inference service that furnishes Qleo with a brain on your own hardware, the cloud standing by as reserve.</div>
+			</div>
+			<div class="engine-card">
+				<div class="engine-icon"><i class="fa fa-shield"></i></div>
+				<div class="engine-name">The Redaction Server</div>
+				<div class="engine-replaces">In place of DLP middleware</div>
+				<div class="engine-body">A Model Context Protocol server with two detection layers that scrubs PII at the AI boundary and hashes what it removed.</div>
+			</div>
+			<div class="engine-card">
+				<div class="engine-icon"><i class="fa fa-file-text-o"></i></div>
+				<div class="engine-name">The Resolution Composer</div>
+				<div class="engine-replaces">In place of a summary button</div>
+				<div class="engine-body">A two-pass, framework-guided pipeline that writes cited, structured resolution notes worth signing.</div>
+			</div>
+			<div class="engine-card">
+				<div class="engine-icon"><i class="fa fa-window-restore"></i></div>
+				<div class="engine-name">The Dialog Layer</div>
+				<div class="engine-replaces">In place of a UI kit CDN</div>
+				<div class="engine-body">Dialogs, confirmations and toasts served by the application's own shim: one consistent voice, zero external requests.</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- The Library -->
+<section class="articles-section" id="library">
+	<div class="articles-inner">
+		<div class="section-label">The Library</div>
+		<h2 class="section-title">Featured articles, written inside the system</h2>
+		<p class="section-desc">
+			DeskOps maintains an organisation-wide knowledge base whose articles are drafted by
+			its AI pipeline and matured through the application's own editorial lifecycle. The
+			selection below is reproduced exactly as the system published it; open any card to
+			read the full article.
+		</p>
+
+		<div class="articles-grid">
+			<button class="article-card" data-doc="art-sso">
+				<span class="article-kicker">Incident Knowledge · Identity</span>
+				<span class="article-title">Company-Wide SSO Failure for All Federated Applications</span>
+				<span class="article-excerpt">When every federated application refuses sign-in at once, the fault almost always lies in the trust relationship itself. A disciplined walk from symptom to certificate.</span>
+				<span class="article-meta"><span class="vg-chip">Runbook</span><span class="vg-chip">4 min read</span></span>
+			</button>
+			<button class="article-card" data-doc="art-bleed">
+				<span class="article-kicker">AI Operations · Privacy</span>
+				<span class="article-title">AI Agent Context Retention and Cross-Ticket Information Bleed</span>
+				<span class="article-excerpt">An agent that remembers the wrong ticket is a privacy incident in waiting. Recognising, diagnosing and eliminating context that outlives its session.</span>
+				<span class="article-meta"><span class="vg-chip">Diagnostic</span><span class="vg-chip">3 min read</span></span>
+			</button>
+			<button class="article-card" data-doc="art-inconsistent">
+				<span class="article-kicker">AI Operations · Reliability</span>
+				<span class="article-title">Troubleshooting Inconsistent or Inaccurate AI Agent Responses</span>
+				<span class="article-excerpt">Identical questions deserve identical answers. Where response instability originates, and the five interventions that restore it, quantified with a Wilson confidence bound.</span>
+				<span class="article-meta"><span class="vg-chip">Diagnostic</span><span class="vg-chip">4 min read</span></span>
+			</button>
+			<button class="article-card" data-doc="art-exposure">
+				<span class="article-kicker">AI Operations · Security</span>
+				<span class="article-title">Mitigating Security Risks in AI Agent Frameworks from Code Exposure</span>
+				<span class="article-excerpt">Exposed agent architecture invites replication and attack. A structured assessment spanning supply chain, access control, guardrails and prompt-injection resistance.</span>
+				<span class="article-meta"><span class="vg-chip">Advisory</span><span class="vg-chip">4 min read</span></span>
+			</button>
+		</div>
+	</div>
+</section>
 
 <!-- Research Spotlight -->
 <section class="spotlight">
@@ -963,11 +2088,11 @@
 		<div class="spotlight-right">
 			<div class="insight-card">
 				<div class="insight-card-label">Cynefin Classification</div>
-				<div class="insight-card-text">The resolution framework uses domain classification to calibrate tone — a Clear domain note is direct and factual, while a Complex domain note acknowledges uncertainty and avoids false certainty. The AI reasons through this silently before writing a single word.</div>
+				<div class="insight-card-text">The resolution framework uses domain classification to calibrate tone - a Clear domain note is direct and factual, while a Complex domain note acknowledges uncertainty and avoids false certainty. The AI reasons through this silently before writing a single word.</div>
 			</div>
 			<div class="insight-card">
 				<div class="insight-card-label">Bloom's Taxonomy Depth</div>
-				<div class="insight-card-text">Each note is calibrated to the appropriate cognitive level — from recalling a known fix through to synthesising a novel approach from first principles. The depth of the output reflects the depth of the problem.</div>
+				<div class="insight-card-text">Each note is calibrated to the appropriate cognitive level - from recalling a known fix through to synthesising a novel approach from first principles. The depth of the output reflects the depth of the problem.</div>
 			</div>
 			<div class="insight-card">
 				<div class="insight-card-label">Evidence-Grounded Citations</div>
@@ -976,6 +2101,46 @@
 		</div>
 	</div>
 </section>
+
+<hr class="section-rule">
+
+<!-- Kept Honest strip -->
+<div class="section">
+	<div class="section-label">How the AI earns it</div>
+	<h2 class="section-title">Kept honest by design</h2>
+	<p class="section-desc">Every AI feature in DeskOps passes through the same four disciplines. None depends on the model behaving well; each is enforced around it.</p>
+
+	<div class="honest-grid">
+		<div class="honest-step">
+			<span class="honest-step-num">1</span>
+			<div>
+				<div class="honest-step-title">Grounded</div>
+				<div class="honest-step-text">Answers derive from the ticket's own indexed evidence - its files, description and history - never from the model's imagination. No evidence, no claim.</div>
+			</div>
+		</div>
+		<div class="honest-step">
+			<span class="honest-step-num">2</span>
+			<div>
+				<div class="honest-step-title">Local first</div>
+				<div class="honest-step-text">A model running on the same machine as the data performs the everyday work. Cloud models are a contingency for the hardest tasks, never the default route.</div>
+			</div>
+		</div>
+		<div class="honest-step">
+			<span class="honest-step-num">3</span>
+			<div>
+				<div class="honest-step-title">Scrubbed</div>
+				<div class="honest-step-text">Anything cloud-bound passes a redaction gate first. Names, emails and identifiers are stripped, and each removal is hashed so an audit trail exists without a copy of the secret.</div>
+			</div>
+		</div>
+		<div class="honest-step">
+			<span class="honest-step-num">4</span>
+			<div>
+				<div class="honest-step-title">Cited or silent</div>
+				<div class="honest-step-text">Claims carry inline citations to their sources, and a screening pass removes any citation that cannot earn its place. Exact work - arithmetic, dates - is delegated to deterministic tools, never left to the model's mental math.</div>
+			</div>
+		</div>
+	</div>
+</div>
 
 <hr class="section-rule">
 
@@ -996,7 +2161,7 @@
 			<div class="accordion-panel-inner">
 				<ul>
 					<li>Full ticket lifecycle: creation, triage, assignment, escalation, and closure</li>
-					<li>RBAC across five tiers — Admin, Tier 1 through Tier 4 — with scoped views and permissions</li>
+					<li>RBAC across five tiers - Admin, Tier 1 through Tier 4 - with scoped views and permissions</li>
 					<li>SLA tracking with colour-coded urgency indicators and breach threshold alerts</li>
 					<li>Ticket tags with AI-generated profiles: context, signals, actions, examples, and facets in structured JSON</li>
 					<li>Comment system with Markdown rendering, system-generated comments, and attachment linking</li>
@@ -1018,10 +2183,11 @@
 			<div class="accordion-panel-inner">
 				<ul>
 					<li>Attachments chunked, embedded via ChromaDB client, and upserted with rich metadata (source name, ticket ID, attachment ID, chunk index)</li>
-					<li>Per-ticket chat sessions persisted in MySQL — users can switch, create, and delete sessions with full history</li>
+					<li>Per-ticket chat sessions persisted in MySQL - users can switch, create, and delete sessions with full history</li>
+					<li>Chat sessions shareable across assignment group members, with forking of shared conversations</li>
 					<li>Five-model fallback chain with per-model retry logic and live countdown UI during rate-limit waits</li>
 					<li>Inline citation superscripts in chat responses; sources sidebar shows per-file indexing status</li>
-					<li>Ticket description and comments indexed alongside file attachments — every aspect of the ticket is queryable</li>
+					<li>Ticket description and comments indexed alongside file attachments - every aspect of the ticket is queryable</li>
 				</ul>
 			</div>
 		</div>
@@ -1043,6 +2209,7 @@
 					<li>Structured format: INITIAL PROBLEM → Key Actions Taken → ADDITIONAL CONTEXT → Outcome or Open Questions</li>
 					<li>Citations appear as inline superscripts [N] with a collapsible source panel below the editor</li>
 					<li>Citations persisted to MySQL and re-rendered on every page load</li>
+					<li>A per-job engine switch: generate in the cloud or fully locally, with rate limits falling back to the local engine seamlessly</li>
 				</ul>
 			</div>
 		</div>
@@ -1052,7 +2219,7 @@
 		<button class="accordion-trigger">
 			<span class="accordion-trigger-left">
 				<span class="accordion-num">04</span>
-				Financials Module (ERP)
+				Financials &amp; Billing (ERP)
 			</span>
 			<span class="accordion-chevron fa fa-chevron-down"></span>
 		</button>
@@ -1063,7 +2230,10 @@
 					<li>Invoice management: create, edit, mark paid/unpaid, auto-post to ledger on status change</li>
 					<li>Expense tracking with category assignment, supplier info, and ledger integration</li>
 					<li>Budget module: targets per account category, actuals tracked in real time</li>
-					<li>SVG-based analytics dashboard — revenue vs expenses, budget utilisation gauges, ledger balance summaries, no external charting libraries</li>
+					<li>Quotes that post nothing to the ledger until accepted - a promise is not a transaction</li>
+					<li>Retainers rebuilt as client credit: money in advance stands as a balance and diminishes as work is billed</li>
+					<li>One billing pipeline behind every document type, so invoices, quotes and credit obey the same rules</li>
+					<li>SVG-based analytics dashboard - revenue vs expenses, budget utilisation gauges, ledger balance summaries, no external charting libraries</li>
 				</ul>
 			</div>
 		</div>
@@ -1073,7 +2243,7 @@
 		<button class="accordion-trigger">
 			<span class="accordion-trigger-left">
 				<span class="accordion-num">05</span>
-				Knowledge Base
+				Knowledge Base &amp; the Slide Studio
 			</span>
 			<span class="accordion-chevron fa fa-chevron-down"></span>
 		</button>
@@ -1083,6 +2253,8 @@
 					<li>Structured article management with rich text editing, categorisation, and tagging</li>
 					<li>AI-assisted tag profiling: context, signals, recommended actions, examples, synonyms, and facets generated on demand</li>
 					<li>Articles surfaceable during ticket handling to give agents contextual self-service material</li>
+					<li>Articles can become slide decks: build animations, chapter jumps, keyboard chords, and an overview grid of the whole deck</li>
+					<li>A presenter view with its own HUD, speaker notes, a laser pointer and pen, screen blanking, and a kiosk mode for self-running playback</li>
 				</ul>
 			</div>
 		</div>
@@ -1107,12 +2279,209 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="accordion-item">
+		<button class="accordion-trigger">
+			<span class="accordion-trigger-left">
+				<span class="accordion-num">07</span>
+				Qleo - the In-House AI Crew
+			</span>
+			<span class="accordion-chevron fa fa-chevron-down"></span>
+		</button>
+		<div class="accordion-panel">
+			<div class="accordion-panel-inner">
+				<ul>
+					<li>A named assistant, Qleo, present across the application: it triages tickets, distributes tags, drafts content, and reasons through resolutions</li>
+					<li>Runs on its own local inference engine on the same machine as the data; cloud models are a fallback, never the default</li>
+					<li>Every cloud-bound prompt passes the PII redaction gate first - nothing private travels in the clear</li>
+					<li>Deep agents that investigate: they plan their steps on a board, escalate to stronger models when warranted, and record every action in a replayable ledger</li>
+					<li>An AI Access Agent bounded by deterministic enforcement - requests are granted, escalated, or queued by the shape of the request, never its wording</li>
+					<li>A distillation pipeline constructed to teach the small local model from a larger teacher, on-device</li>
+					<li>Deterministic tools for anything exact: arithmetic is performed by a calculator the model must call, never in its head</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="accordion-item">
+		<button class="accordion-trigger">
+			<span class="accordion-trigger-left">
+				<span class="accordion-num">08</span>
+				The Studio - DeskOps Codes Itself
+			</span>
+			<span class="accordion-chevron fa fa-chevron-down"></span>
+		</button>
+		<div class="accordion-panel">
+			<div class="accordion-panel-inner">
+				<ul>
+					<li>A plan-then-act coding agent inside the application, in the manner of modern agentic coding tools</li>
+					<li>Grammar-constrained tool turns, so even a small local model produces exactly the structured actions the harness expects</li>
+					<li>Auto-advance through multi-step plans, with every file change recorded to an undo ledger</li>
+					<li>The application that manages the work can also modify itself - under supervision, one reviewed step at a time</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="accordion-item">
+		<button class="accordion-trigger">
+			<span class="accordion-trigger-left">
+				<span class="accordion-num">09</span>
+				SLA Engine &amp; Escalations
+			</span>
+			<span class="accordion-chevron fa fa-chevron-down"></span>
+		</button>
+		<div class="accordion-panel">
+			<div class="accordion-panel-inner">
+				<ul>
+					<li>SLA policies with business-hour calendars, so the clock stops at closing time and resumes at opening</li>
+					<li>Per-ticket countdowns with colour-coded urgency, visible directly in the ticket lists</li>
+					<li>Breach alerts that notify and reassign, ascending the support tiers until someone acts</li>
+					<li>The default policy and calendar are protected at the database level - they cannot be deleted or silently mutated</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="accordion-item">
+		<button class="accordion-trigger">
+			<span class="accordion-trigger-left">
+				<span class="accordion-num">10</span>
+				KPI &amp; Analytics Dashboards
+			</span>
+			<span class="accordion-chevron fa fa-chevron-down"></span>
+		</button>
+		<div class="accordion-panel">
+			<div class="accordion-panel-inner">
+				<ul>
+					<li>Agent, team and ticket-flow dashboards drawn by DeskChart, the hand-written canvas chart engine - no charting library anywhere in the application</li>
+					<li>Interactive charts with custom tooltips, legends and live filtering, all rendered by the application's own code</li>
+					<li>Fonts and icons self-hosted, so every dashboard renders offline and renders identically everywhere</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="accordion-item">
+		<button class="accordion-trigger">
+			<span class="accordion-trigger-left">
+				<span class="accordion-num">11</span>
+				Teams &amp; Workload
+			</span>
+			<span class="accordion-chevron fa fa-chevron-down"></span>
+		</button>
+		<div class="accordion-panel">
+			<div class="accordion-panel-inner">
+				<ul>
+					<li>A full team directory with membership, roles, and per-team SLA policy selection</li>
+					<li>Team views match the ticket screens in layout and density, so nothing has to be relearned</li>
+					<li>Teams are first-class records with their own settings and schema, not labels affixed to a user row</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="accordion-item">
+		<button class="accordion-trigger">
+			<span class="accordion-trigger-left">
+				<span class="accordion-num">12</span>
+				Timesheets &amp; Time Tracking
+			</span>
+			<span class="accordion-chevron fa fa-chevron-down"></span>
+		</button>
+		<div class="accordion-panel">
+			<div class="accordion-panel-inner">
+				<ul>
+					<li>Time logged against tickets and tasks from wherever the work happens, a few clicks deep</li>
+					<li>Logged hours roll up into per-person and per-team views</li>
+					<li>Designed as the base for utilisation walls - visual, calendar-like surfaces rather than spreadsheet grids</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="accordion-item">
+		<button class="accordion-trigger">
+			<span class="accordion-trigger-left">
+				<span class="accordion-num">13</span>
+				Playbooks - Visual Automation
+			</span>
+			<span class="accordion-chevron fa fa-chevron-down"></span>
+		</button>
+		<div class="accordion-panel">
+			<div class="accordion-panel-inner">
+				<ul>
+					<li>Automations drawn on a node canvas: a trigger, conditions and actions connected with wires, in the manner of n8n or a circuit board</li>
+					<li>The engine executes what is drawn - assignments, notifications and status changes fired by genuine ticket events</li>
+					<li>Built visually so the person who knows the process can build the automation, no scripting required</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="accordion-item">
+		<button class="accordion-trigger">
+			<span class="accordion-trigger-left">
+				<span class="accordion-num">14</span>
+				CMDB &amp; Asset Relationships
+			</span>
+			<span class="accordion-chevron fa fa-chevron-down"></span>
+		</button>
+		<div class="accordion-panel">
+			<div class="accordion-panel-inner">
+				<ul>
+					<li>Configuration items with typed relationships - what runs on what, what depends on what</li>
+					<li>Relationships are polymorphic, so any record can connect to any other: assets, services, tickets</li>
+					<li>A browsable map of the estate that gives incidents their hardware and service context</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="accordion-item">
+		<button class="accordion-trigger">
+			<span class="accordion-trigger-left">
+				<span class="accordion-num">15</span>
+				Reports &amp; the PDF Engine
+			</span>
+			<span class="accordion-chevron fa fa-chevron-down"></span>
+		</button>
+		<div class="accordion-panel">
+			<div class="accordion-panel-inner">
+				<ul>
+					<li>A report builder whose PDF export is assembled by hand - no external PDF library in the application</li>
+					<li>Print-grade output: genuine typography, legible icons, consistent branding on every page</li>
+					<li>Operational reports exported straight from the browser, ready to circulate</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="accordion-item">
+		<button class="accordion-trigger">
+			<span class="accordion-trigger-left">
+				<span class="accordion-num">16</span>
+				Desktop App &amp; Portable Runtime
+			</span>
+			<span class="accordion-chevron fa fa-chevron-down"></span>
+		</button>
+		<div class="accordion-panel">
+			<div class="accordion-panel-inner">
+				<ul>
+					<li>A desktop application shell, so DeskOps opens like a native application rather than a browser tab</li>
+					<li>The entire stack - web server, PHP, database - travels in one self-contained folder; nothing is installed on the host machine</li>
+					<li>A portable build fits on a USB stick and runs where it lands</li>
+					<li>No cloud dependency: with the AI running locally, the whole system operates with the network cable unplugged</li>
+				</ul>
+			</div>
+		</div>
+	</div>
 </div>
 
 <hr class="section-rule">
 
 <!-- Video Carousel -->
-<section class="carousel-section">
+<section class="carousel-section" id="episodes">
 	<div class="carousel-header">
 		<div class="carousel-header-left">
 			<div class="section-label">In Action</div>
@@ -1131,8 +2500,7 @@
 	<div class="carousel-track-wrapper">
 		<div class="carousel-track" id="carousel-track">
 
-			<!-- Episode 1 — live -->
-			<div class="video-card" data-video-id="SDsD8hSaHsc" data-title="Ep 1 — AI Causal Reasoning via RAG">
+			<div class="video-card" data-video-id="SDsD8hSaHsc" data-title="Ep 1 - AI Causal Reasoning via RAG">
 				<div class="video-thumb">
 					<img src="https://img.youtube.com/vi/SDsD8hSaHsc/mqdefault.jpg" alt="Episode 1" loading="lazy">
 					<div class="video-play-overlay">
@@ -1144,8 +2512,7 @@
 				<div class="video-desc">Indexing academic papers, retrieving evidence, and generating cited resolution notes.</div>
 			</div>
 
-			<!-- Episode 2 — live -->
-			<div class="video-card" data-video-id="XUTUKBN_gF0" data-title="Ep 2 — Chat Sharing & Resolution Notes">
+			<div class="video-card" data-video-id="XUTUKBN_gF0" data-title="Ep 2 - Chat Sharing &amp; Resolution Notes">
 				<div class="video-thumb">
 					<img src="https://img.youtube.com/vi/XUTUKBN_gF0/mqdefault.jpg" alt="Episode 2" loading="lazy">
 					<div class="video-play-overlay">
@@ -1157,11 +2524,10 @@
 				<div class="video-desc">Sharing AI chats across assignment group members, forking shared conversations, and the six-section resolution composer with grounded citations.</div>
 			</div>
 
-			<!-- Episode 3 — live, with screenshots -->
 			<div class="video-card"
 			     data-video-id="yLYMOLcoKNE"
-			     data-title="Ep 3 — MCP Server with PII Redaction"
-			     data-screenshots="images/DeskOps EP3-1.png::GitHub commit 8804d5e — Nov 9, 2025|images/DeskOps EP3-2.png::MySQL information_schema CREATE_TIME">
+			     data-title="Ep 3 - MCP Server with PII Redaction"
+			     data-screenshots="images/DeskOps EP3-1.png::GitHub commit 8804d5e - Nov 9, 2025|images/DeskOps EP3-2.png::MySQL information_schema CREATE_TIME">
 				<div class="video-thumb">
 					<img src="https://img.youtube.com/vi/yLYMOLcoKNE/mqdefault.jpg" alt="Episode 3" loading="lazy">
 					<div class="video-play-overlay">
@@ -1173,8 +2539,7 @@
 				<div class="video-desc">A Model Context Protocol server that scrubs prompts at the AI boundary. Two detection layers, audit-grade hashing, defaults that protect.</div>
 			</div>
 
-			<!-- Episode 4 — live -->
-			<div class="video-card" data-video-id="qP6_R3X1Iwc" data-title="Ep 4 — RBAC &amp; the Access Agent">
+			<div class="video-card" data-video-id="qP6_R3X1Iwc" data-title="Ep 4 - RBAC &amp; the Access Agent">
 				<div class="video-thumb">
 					<img src="https://img.youtube.com/vi/qP6_R3X1Iwc/mqdefault.jpg" alt="Episode 4" loading="lazy">
 					<div class="video-play-overlay">
@@ -1186,7 +2551,6 @@
 				<div class="video-desc">Tiered role-based access, a two-signature quorum, and an AI Access Agent bounded by deterministic enforcement: granted, escalated, queued, or satisfied, decided by the shape of the request, never the wording.</div>
 			</div>
 
-			<!-- Episode 5 — coming soon -->
 			<div class="video-card" data-coming-soon="true">
 				<div class="video-thumb">
 					<div class="video-thumb-placeholder"><i class="fa fa-film"></i></div>
@@ -1197,7 +2561,6 @@
 				<div class="video-desc">Double-entry bookkeeping, Chart of Accounts, Budget vs actuals, and the SVG analytics dashboard.</div>
 			</div>
 
-			<!-- Episode 6 — coming soon -->
 			<div class="video-card" data-coming-soon="true">
 				<div class="video-thumb">
 					<div class="video-thumb-placeholder"><i class="fa fa-film"></i></div>
@@ -1208,7 +2571,6 @@
 				<div class="video-desc">Inspecting the vector store, managing indexed sources, and running live semantic test queries.</div>
 			</div>
 
-			<!-- Episode 7 — coming soon -->
 			<div class="video-card" data-coming-soon="true">
 				<div class="video-thumb">
 					<div class="video-thumb-placeholder"><i class="fa fa-film"></i></div>
@@ -1223,33 +2585,92 @@
 	</div>
 </section>
 
-<!-- Video Modal — with side rail -->
-<div class="video-modal-overlay" id="video-modal">
-	<div class="video-modal">
-		<div class="video-modal-header">
-			<span class="video-modal-title" id="modal-title"></span>
-			<button class="video-modal-close" id="modal-close" aria-label="Close">&#10005;</button>
+<hr class="section-rule">
+
+<!-- Timeline -->
+<div class="timeline-section">
+	<div class="section-label">The Journey</div>
+	<h2 class="section-title">Two years, one keyboard</h2>
+	<p class="section-desc">Built by one person, in public, with each stage documented as it happened.</p>
+
+	<div class="timeline">
+		<div class="tl-item">
+			<div class="tl-when">Sep 2024</div>
+			<div class="tl-what">The first ticket</div>
+			<div class="tl-detail">DeskOps begins as a from-scratch service desk on a plain PHP and MySQL stack: tickets, roles, comments, attachments.</div>
 		</div>
-		<div class="video-modal-body" id="modal-body">
-			<div class="video-modal-player-wrap">
-				<div class="video-modal-player">
-					<iframe id="modal-iframe" src="" allowfullscreen allow="autoplay"></iframe>
-				</div>
-			</div>
-			<aside class="video-modal-rail" id="modal-rail">
-				<div class="video-modal-rail-header">Evidence &amp; Screenshots</div>
-				<div class="video-modal-rail-list" id="modal-rail-list"></div>
-			</aside>
+		<div class="tl-item">
+			<div class="tl-when">2025</div>
+			<div class="tl-what">The AI learns to prove itself</div>
+			<div class="tl-detail">ChromaDB indexing, the Ask AI tab, the five-model fallback chain, and the two-pass citation pipeline arrive. The episode series begins filming the results.</div>
+		</div>
+		<div class="tl-item">
+			<div class="tl-when">Nov 2025</div>
+			<div class="tl-what">Privacy receives its own server</div>
+			<div class="tl-detail">The PII redaction MCP server ships: two detection layers scrubbing every cloud-bound prompt, with audit-grade hashing. Episode 3 documents it.</div>
+		</div>
+		<div class="tl-item">
+			<div class="tl-when">Late 2025</div>
+			<div class="tl-what">Enforcement moves below the model</div>
+			<div class="tl-detail">Tiered RBAC hardens into a two-signature quorum and an AI Access Agent held on a leash of deterministic rules. Episode 4 and the fourth write-up follow.</div>
+		</div>
+		<div class="tl-item">
+			<div class="tl-when">2026</div>
+			<div class="tl-what">The ERP year</div>
+			<div class="tl-detail">The billing pipeline is rebuilt end to end, retainers become client credit, the teams module is rehauled, KPI dashboards land on the in-house chart engine, and reports receive a hand-written PDF writer.</div>
+		</div>
+		<div class="tl-item">
+			<div class="tl-when">Mid 2026</div>
+			<div class="tl-what">The AI comes home</div>
+			<div class="tl-detail">Qleo moves onto a local llama.cpp-based engine beside the data. Deep agents, the playbook engine, and the in-app coding Studio take their first live runs.</div>
+		</div>
+		<div class="tl-item">
+			<div class="tl-when">Aug 2026</div>
+			<div class="tl-what">The Slide Studio</div>
+			<div class="tl-detail">Knowledge articles learn to present themselves: build animations, a presenter HUD, a laser pointer, keyboard chords, and kiosk playback, all rendered by the application's own slide engine.</div>
 		</div>
 	</div>
 </div>
 
-<!-- Zoom Modal — layered above video modal -->
-<div class="zoom-modal-overlay" id="zoom-modal">
-	<button class="zoom-modal-close" id="zoom-close" aria-label="Close">&#10005;</button>
-	<img id="zoom-img" class="zoom-modal-img" src="" alt="">
-	<div id="zoom-caption" class="zoom-modal-caption" style="display:none;"></div>
-</div>
+<!-- Method -->
+<section class="plan-band">
+	<div class="plan-band-inner">
+		<div class="section-label">Method</div>
+		<h2 class="section-title">Built to a written plan</h2>
+		<p class="section-desc">DeskOps grows against numbered improvement programmes: each item planned in writing, shipped one at a time, and annotated in place upon landing. The plans reside in the application's own documentation hub.</p>
+		<div class="hero-stats">
+			<div class="hero-stat">
+				<span class="hero-stat-num">1,400+</span>
+				<span class="hero-stat-label">Planned Points</span>
+			</div>
+			<div class="hero-stat-divider"></div>
+			<div class="hero-stat">
+				<span class="hero-stat-num">500</span>
+				<span class="hero-stat-label">ERP Roadmap</span>
+			</div>
+			<div class="hero-stat-divider"></div>
+			<div class="hero-stat">
+				<span class="hero-stat-num">200</span>
+				<span class="hero-stat-label">UI Programme</span>
+			</div>
+			<div class="hero-stat-divider"></div>
+			<div class="hero-stat">
+				<span class="hero-stat-num">100</span>
+				<span class="hero-stat-label">KPI Rehaul</span>
+			</div>
+			<div class="hero-stat-divider"></div>
+			<div class="hero-stat">
+				<span class="hero-stat-num">100</span>
+				<span class="hero-stat-label">Agentic Backlog</span>
+			</div>
+			<div class="hero-stat-divider"></div>
+			<div class="hero-stat">
+				<span class="hero-stat-num">4</span>
+				<span class="hero-stat-label">Filmed Episodes</span>
+			</div>
+		</div>
+	</div>
+</section>
 
 <hr class="section-rule">
 
@@ -1268,6 +2689,10 @@
 		<span class="tech-pill"><i class="fa fa-microchip"></i> NVIDIA NIM</span>
 		<span class="tech-pill"><i class="fa fa-bolt"></i> Groq API</span>
 		<span class="tech-pill"><i class="fa fa-server"></i> WAMP Stack</span>
+		<span class="tech-pill"><i class="fa fa-desktop"></i> Electron Desktop Shell</span>
+		<span class="tech-pill"><i class="fa fa-microchip"></i> Local LLMs (llama.cpp)</span>
+		<span class="tech-pill"><i class="fa fa-exchange"></i> Model Context Protocol</span>
+		<span class="tech-pill"><i class="fa fa-paint-brush"></i> DeskChart (In-House Charts)</span>
 	</div>
 </div>
 
@@ -1312,13 +2737,263 @@
 	<a href="index.html"><img src="images/tH.png" alt="Tariq Hussain"></a>
 </footer>
 
-<script>
-	// ── Preloader ─────────────────────────────────────────────
-	window.addEventListener('load', () => {
-		document.getElementById('preloader2').style.display = 'none';
-	});
+<!-- Video Modal, with side rail -->
+<div class="video-modal-overlay" id="video-modal">
+	<div class="video-modal">
+		<div class="video-modal-header">
+			<span class="video-modal-title" id="modal-title"></span>
+			<button class="video-modal-close" id="modal-close" aria-label="Close">&#10005;</button>
+		</div>
+		<div class="video-modal-body" id="modal-body">
+			<div class="video-modal-player-wrap">
+				<div class="video-modal-player">
+					<iframe id="modal-iframe" src="" allowfullscreen allow="autoplay"></iframe>
+				</div>
+			</div>
+			<aside class="video-modal-rail" id="modal-rail">
+				<div class="video-modal-rail-header">Evidence &amp; Screenshots</div>
+				<div class="video-modal-rail-list" id="modal-rail-list"></div>
+			</aside>
+		</div>
+	</div>
+</div>
 
-	// ── Accordion ─────────────────────────────────────────────
+<!-- Zoom Modal, layered above video modal -->
+<div class="zoom-modal-overlay" id="zoom-modal">
+	<button class="zoom-modal-close" id="zoom-close" aria-label="Close">&#10005;</button>
+	<img id="zoom-img" class="zoom-modal-img" src="" alt="">
+	<div id="zoom-caption" class="zoom-modal-caption" style="display:none;"></div>
+</div>
+
+<!-- Reader Modal, for deep dives and articles -->
+<div class="reader-overlay" id="reader-modal">
+	<div class="reader">
+		<div class="reader-header">
+			<div>
+				<div class="reader-kicker" id="reader-kicker"></div>
+				<div class="reader-title" id="reader-title"></div>
+			</div>
+			<button class="reader-close" id="reader-close" aria-label="Close">&#10005;</button>
+		</div>
+		<div class="reader-body" id="reader-body"></div>
+	</div>
+</div>
+
+<!-- Deep dive documents -->
+<template id="dd-desk" data-kicker="Deep Dive · Chapter 01" data-title="The Desk, Considered">
+	<p class="ka-overview">A service desk is, at bottom, a machine for keeping promises. DeskOps treats every commitment as a first-class object: measured, displayed, and enforced.</p>
+	<p>Most ticketing systems record time; few reason about it. DeskOps binds every ticket to a service-level policy whose clock respects the organisation's actual working calendar, pausing at closing time and resuming at opening. The countdown a technician sees is therefore not an abstraction but an obligation, rendered in colour and updated continuously, and the moment it threatens to lapse the escalation machinery begins to act on its own initiative, notifying and reassigning up the tier ladder until the problem finds an owner.</p>
+	<p>Access follows the same philosophy of explicitness. Five tiers, from front-line intake to administration, each see precisely the views and actions their remit warrants, and no more. The consequence is subtle but considerable: a ticket's history becomes a trustworthy narrative, because every comment, system event, and attachment entered it through a role that was entitled to put it there.</p>
+	<p>That narrative is not inert. Attachments are indexed for retrieval, tags carry structured profiles written by the AI and curated by people, and the whole record becomes the evidence base from which resolution notes and future automations are drawn. The desk is not merely where work is tracked; it is where the system's memory begins.</p>
+</template>
+
+<template id="dd-money" data-kicker="Deep Dive · Chapter 02" data-title="Books That Balance Themselves">
+	<p class="ka-overview">DeskOps keeps genuine double-entry books because operational truth and financial truth are the same truth, viewed from different sides of the ledger.</p>
+	<p>The financial module is not a reporting veneer. Every invoice and every expense posts balanced journal entries against a real Chart of Accounts, so the trial balance is not a hopeful summary but an arithmetic identity. When a document changes state, the ledger follows automatically; no one reconciles by hand what the system can reconcile by construction.</p>
+	<p>Discipline shows most clearly at the edges. A quote, however confident, posts nothing to the ledger until it is accepted, because a promise is not a transaction. A retainer is not treated as revenue smuggled in early; it stands as client credit, a liability that diminishes only as work is actually billed. And because a single pipeline underlies every document type, an invoice, a quote and a credit note cannot develop divergent behaviours: they are one mechanism wearing three faces.</p>
+	<p>Above the ledger sit budgets tracked against actuals in real time, drawn as gauges and series by the application's own chart engine. The intent is that a manager should apprehend the financial position the way a pilot reads instruments: at a glance, and with reason to believe the needle.</p>
+</template>
+
+<template id="dd-knowledge" data-kicker="Deep Dive · Chapter 04" data-title="From Article to Auditorium">
+	<p class="ka-overview">Knowledge that must be sought is knowledge that decays. DeskOps is arranged so that what the team has learned presents itself at the moment of need, and can present itself to an audience when the occasion demands.</p>
+	<p>The knowledge base does not wait in a separate portal. Articles surface in context while an agent works a ticket, and the tag system carries structured profiles, context, signals, recommended actions, worked examples, that encode the judgement of experienced staff into a form both people and the AI can apply. Beneath it all, the same vector store that powers the assistant renders the corpus searchable by meaning rather than by keyword alone.</p>
+	<p>The Slide Studio extends the idea to its natural conclusion. An article worth circulating is often an article worth presenting, so DeskOps converts articles into slide decks with build animations, chapter jumps, and an overview grid, and furnishes the presenter with a private view: speaker notes, an elapsed-time HUD, a laser pointer and pen, screen blanking, and keyboard chords for navigation. A kiosk mode lets a deck run itself in a lobby or a training room.</p>
+	<p>None of this required a slide product or an embed. The presentation runtime, like the chart engine and the PDF writer, is the application's own, which is why a deck presented from DeskOps looks like DeskOps, and works with the network cable unplugged.</p>
+</template>
+
+<template id="dd-qleo" data-kicker="Deep Dive · Chapter 05" data-title="An Assistant on a Leash of Rules">
+	<p class="ka-overview">Qleo is designed on the premise that an assistant earns authority through verifiability, not fluency. Every capability it holds is bounded by a mechanism that does not depend on the model's good behaviour.</p>
+	<p>Residence comes first. Qleo's everyday reasoning runs on a local inference engine on the same machine as the data it serves, which converts privacy from a policy into a property of the architecture. When a task genuinely warrants a larger cloud model, the request must first pass a redaction gate that strips names, emails and identifiers, retaining an audit-grade hash of each removal, so an audit trail exists without a copy of the secret ever being kept.</p>
+	<p>Verifiability governs the output side. Answers cite the indexed evidence they rest on, and a screening pass discards any citation that cannot support a specific factual claim. Anything exact, arithmetic above all, is delegated to deterministic tools the model is obliged to call; the system does not permit an eloquent guess where a calculator will do. Access decisions follow the same principle: the Access Agent's requests are granted, escalated or queued by deterministic rules applied to the shape of the request, a design that renders persuasion useless.</p>
+	<p>Around the assistant operates a crew. Deep agents undertake whole investigations, planning steps on a board and recording each action in a replayable ledger; the Studio applies the same plan-then-act discipline to code, modifying DeskOps from within DeskOps under an undo ledger; and a distillation pipeline exists to teach the small local model from a larger teacher, so the intelligence you own appreciates rather than depreciates.</p>
+</template>
+
+<template id="dd-foundation" data-kicker="Deep Dive · Chapter 07" data-title="Sovereignty as an Engineering Choice">
+	<p class="ka-overview">Most software asks where your data may live. DeskOps inverts the question: the entire system, data included, lives where you put the folder.</p>
+	<p>The claim is literal. Web server, PHP runtime, MySQL database and the AI inference engine travel together in one self-contained directory, wrapped in a desktop shell that opens like a native application. Nothing is written to the host machine's registry or system folders; a portable build runs from a USB stick and leaves with it. To copy the folder is to copy the company's operations system, books and all.</p>
+	<p>Offline operation follows as a corollary rather than a feature. With inference local, fonts and icons self-hosted, and every chart, PDF and slide drawn by in-house engines, the system has no external request it must make to function. The premises can lose their connection; the desk does not.</p>
+	<p>Sovereignty without discipline would be mere isolation, so the foundation is held to standards: prepared statements throughout the data layer, session and role guards on all 615 endpoints, and a documentation hub inside the application where the numbered improvement programmes are annotated in place as items ship. The system explains itself from within itself, which is the point.</p>
+</template>
+
+<!-- Featured articles, reproduced from the DeskOps knowledge base -->
+<template id="art-sso" data-kicker="From the DeskOps Knowledge Base · Identity" data-title="Company-Wide SSO Failure for All Federated Applications">
+	<p class="ka-overview">All users are unable to sign in to any federated application via Single Sign-On, causing authentication to fail at the service provider after a successful IdP credential entry. The outage is observed across browsers, devices and network locations and affects every application that relies on the shared IdP trust relationship.</p>
+	<h3>Symptoms</h3>
+	<ul>
+		<li>All users are unable to sign into <strong>any</strong> federated application via Single Sign-On (SSO) simultaneously.</li>
+		<li>Users successfully enter credentials at the Identity Provider (IdP) but are redirected back to the Service Provider (SP) with an authentication error, failing to complete login.</li>
+		<li>The issue appears suddenly, impacting all applications at once rather than progressively or in isolation.</li>
+		<li>Local accounts or break-glass accounts (bypassing SSO) can still authenticate successfully.</li>
+		<li>The problem reproduces across multiple browsers, devices (managed/unmanaged), and network locations (office/VPN).</li>
+		<li>No recent deployments, patches, or explicit configuration changes were made to the Enterprise IAM Platform or federated applications prior to the incident.</li>
+	</ul>
+	<h3>Root Cause &amp; Diagnosis</h3>
+	<p>Widespread SSO failures of this type most often stem from a breakdown in the trust relationship between the IdP and the federated Service Providers, commonly due to an expired or mismatched certificate or key.</p>
+	<ol>
+		<li><strong>Verify IdP service health:</strong> Review operational status and logs for outages, high resource usage, or unexpected errors at the time the issue began.</li>
+		<li><strong>Examine federation logs:</strong> Capture a sample failed SAML or OpenID Connect assertion and check signature validity, timestamp validity, and that the assertion issuer matches the IdP and the audience matches the SP.</li>
+		<li><strong>Check certificate and key status:</strong> Determine whether any signing, encryption, or secret keys used in the trust relationship have expired or been rotated without corresponding updates on the opposite side.</li>
+		<li><strong>Validate metadata synchronization:</strong> Ensure the federation metadata containing public keys and endpoints is current and has been correctly exchanged between the IdP and all SPs.</li>
+	</ol>
+	<h3>Resolution</h3>
+	<ol>
+		<li>Identify the expired or mismatched certificate or key (for example, the IdP signing certificate).</li>
+		<li>Renew the expired certificate or revert to the correct certificate/key pair.</li>
+		<li>Update the federation metadata on all affected Service Providers, re-importing the IdP&#8217;s public certificate or metadata XML file as needed.</li>
+		<li>Verify the trust relationship by testing the SSO flow on a representative set of federated applications until authentication succeeds.</li>
+	</ol>
+	<h3>Prevention &amp; Hardening</h3>
+	<ul>
+		<li>Implement continuous monitoring and alerting for upcoming certificate and key expiry dates across all IdP and SP trust relationships.</li>
+		<li>Document a standardized process for certificate rotation, including automated metadata refresh and a rollback procedure.</li>
+		<li>Periodically validate that metadata files are up to date and that timestamps and signatures are correct.</li>
+	</ul>
+	<h3>Related</h3>
+	<ul>
+		<li>Failure can also occur if clock skew between IdP and SP exceeds tolerated limits.</li>
+		<li>Improperly configured audience or issuer values in assertions will break authentication.</li>
+	</ul>
+</template>
+
+<template id="art-bleed" data-kicker="From the DeskOps Knowledge Base · Privacy" data-title="AI Agent Context Retention and Cross-Ticket Information Bleed">
+	<p class="ka-overview">AI Agent Context Retention and Cross-Ticket Information Bleed describes a critical malfunction where AI agents in service desk environments fail to properly isolate and reset contextual data between distinct user interactions. This defect results in the unintended exposure of sensitive information across tickets, significantly degrading data privacy and user trust in the agent's reliability. It is primarily recognized by agents referencing unrelated prior interactions or suggesting inappropriate troubleshooting steps for the current ticket.</p>
+	<h3>Symptoms</h3>
+	<ul>
+		<li>Referencing usernames, systems, or environments from unrelated tickets</li>
+		<li>Suggesting troubleshooting steps based on prior actions not taken in the current ticket</li>
+		<li>Including background details in ticket summaries not mentioned by the current requester</li>
+		<li>Frequent occurrence when multiple tickets are processed in close time proximity</li>
+		<li>Temporary reduction of the issue upon restarting the agent service</li>
+	</ul>
+	<h3>Root Cause &amp; Diagnosis</h3>
+	<ul>
+		<li>Improper session isolation or context reset between interactions</li>
+		<li>Incorrect scoping of conversational memory or context window management</li>
+		<li>Unintentional reuse of cached embeddings or retrieval results</li>
+		<li>Orchestration layer pooling context across threads</li>
+		<li>Inadequate logging or state management distinguishing ticket sessions</li>
+	</ul>
+	<p>A thorough audit of the AI Agent's context scoping mechanisms and orchestration layer is necessary to identify the root cause.</p>
+	<h3>Resolution</h3>
+	<ol>
+		<li>Enforce strict session isolation and context reset mechanisms between interactions</li>
+		<li>Validate that retrieval and knowledge lookups are strictly scoped to the current ticket's context</li>
+		<li>Introduce enhanced logging to track the influence of prior context on agent responses</li>
+		<li>Update system prompts to reinforce the importance of ticket-specific context and disregard lingering information from previous interactions</li>
+	</ol>
+	<h3>Prevention &amp; Hardening</h3>
+	<ul>
+		<li>Establish continuous monitoring for cross-ticket data references or anomalous behavior patterns indicative of context bleed.</li>
+		<li>Implement regular audit processes for AI agent logs and interaction histories to verify strict session isolation.</li>
+		<li>Develop and enforce coding standards for AI agent development that mandate explicit context reset mechanisms and strictly scoped data retrieval.</li>
+		<li>Conduct ongoing training for AI development teams on secure context management and data privacy principles.</li>
+	</ul>
+	<h3>Related</h3>
+	<ul>
+		<li><strong>Data Leakage via Inadequate Redaction:</strong> Failure to redact sensitive information from input or output, distinct from context bleeding.</li>
+		<li><strong>AI Agent Hallucination:</strong> Generation of factually incorrect information not tied to specific prior context but rather to model drift or insufficient training.</li>
+		<li><strong>Over-aggressive Context Truncation:</strong> The opposite problem, where critical, current-ticket context is prematurely discarded, leading to incomplete or incoherent responses.</li>
+	</ul>
+</template>
+
+<template id="art-inconsistent" data-kicker="From the DeskOps Knowledge Base · Reliability" data-title="Troubleshooting Inconsistent or Inaccurate AI Agent Responses">
+	<p class="ka-overview">When an AI-powered support agent returns answers that vary between identical queries, omit required steps, or suggest actions outside the approved support scope, the reliability of the service desk is compromised. The issue impacts end-users who receive incorrect guidance and service-desk agents who must spend additional time validating or correcting the output. It is recognized by inconsistent answers, missing procedural details, out-of-scope suggestions, and a surge in follow-up questions.</p>
+	<h3>Symptoms</h3>
+	<ul>
+		<li>AI Agent provides varying or conflicting responses to identical or very similar user queries.</li>
+		<li>Responses frequently omit critical procedural steps or essential information.</li>
+		<li>The AI Agent occasionally suggests actions or solutions that fall outside the defined support scope.</li>
+		<li>Response quality, content, or accuracy fluctuates based on factors such as time of day or conversation length.</li>
+		<li>Increased follow-up questions from end-users and additional manual validation workload for service-desk agents.</li>
+	</ul>
+	<h3>Root Cause &amp; Diagnosis</h3>
+	<p>The instability originates in the interaction layer that connects the large language model (LLM) with its external tools and knowledge sources.</p>
+	<ul>
+		<li><strong>Ambiguous tool definitions</strong>: Overlapping or insufficiently descriptive <code>JSON</code> schema prevents the LLM from selecting the correct tool.</li>
+		<li><strong>Unclear system prompt</strong>: The prompt lacks explicit rules for when, how, and within what support scope tools should be invoked.</li>
+		<li><strong>Unreliable output parsing</strong>: Parsing logic fails to reliably translate the LLM&#8217;s response into function calls or data extraction.</li>
+		<li><strong>Weak knowledge grounding</strong>: Retrieval-augmentation does not consistently surface approved knowledge-base content.</li>
+		<li><strong>Missing confidence thresholds</strong>: Absence of logic to detect low-confidence answers leads to missed escalations.</li>
+	</ul>
+	<h3>Resolution</h3>
+	<ol>
+		<li><strong>Refine tool definitions</strong>: Review and update all tool <code>JSON</code> schemas so that each description is distinct, unambiguous, and conveys the exact purpose and capabilities to the LLM.</li>
+		<li><strong>Enhance system prompts</strong>: Rewrite the system prompt to include detailed, rule-based instructions on tool selection, adherence to the defined support scope, approved procedures, and confidence-threshold handling.</li>
+		<li><strong>Improve output parsing</strong>: Adopt stricter parsing logic or migrate to the provider&#8217;s native function-calling/structured-output APIs to guarantee reliable tool invocation and data extraction.</li>
+		<li><strong>Strengthen knowledge grounding</strong>: Optimize retrieval augmentation (e.g., chunking strategy, embedding model choice, retrieval parameters) to ensure the LLM consistently accesses and synthesises information from approved articles.</li>
+		<li><strong>Validate confidence &amp; escalation</strong>: Confirm that confidence-threshold settings are correctly configured and that a robust fallback automatically routes low-confidence or out-of-scope queries to a human agent.</li>
+	</ol>
+	<h3>Quantitative Model</h3>
+	<ul>
+		<li>Point estimate: 0.1464</li>
+		<li>Wilson 95% lower: 0.136</li>
+	</ul>
+	<h3>Prevention &amp; Hardening</h3>
+	<ul>
+		<li>Implement continuous monitoring of AI Agent logs for pattern deviations and set alerts on confidence-threshold breaches.</li>
+		<li>Validate all configuration changes in a staging environment before production rollout.</li>
+		<li>Maintain version-controlled documentation for tool schemas, system prompts, and orchestration logic.</li>
+		<li>Periodically retrain or re-index retrieval models to keep knowledge grounding current.</li>
+	</ul>
+	<h3>Related</h3>
+	<ul>
+		<li>Outdated embedding models can degrade retrieval relevance, leading to similar accuracy issues.</li>
+		<li>Insufficient testing of prompt changes may introduce new ambiguities in tool selection.</li>
+	</ul>
+</template>
+
+<template id="art-exposure" data-kicker="From the DeskOps Knowledge Base · Security" data-title="Mitigating Security Risks in AI Agent Frameworks from Code Exposure">
+	<p class="ka-overview">Exposure of AI agent source code or architectural details can undermine the confidentiality and integrity of autonomous systems. It primarily affects teams that develop, deploy, or operate AI-driven agents and automation workflows. The problem is recognized through observable anomalies such as successful prompt-injection attacks and unexpected data exfiltration via tool outputs.</p>
+	<h3>Symptoms</h3>
+	<ul>
+		<li>High success rates of direct or indirect prompt-injection attacks against LLM-powered agents.</li>
+		<li>Evidence of data exfiltration through tool-generated outputs, logs, or intermediate responses that bypass standard input validation.</li>
+	</ul>
+	<h3>Root Cause &amp; Diagnosis</h3>
+	<p>The root cause is the unintended public exposure of AI agent code or architectural details, which enables reverse engineering, unauthorized replication, and exploitation of similar internal systems. Diagnosis focuses on identifying shared architectures, vulnerable dependencies, weak access controls, and insufficient monitoring.</p>
+	<ol>
+		<li><strong>Architectural Similarity Assessment:</strong> Identify internal AI agents that share design patterns, dependencies, or operational principles with exposed external systems.</li>
+		<li><strong>Dependency and Integration Audit:</strong> Review all third-party libraries, plugins, and components for unverified sources or known vulnerabilities.</li>
+		<li><strong>Access Control Evaluation:</strong> Verify that role-based access and least-privilege principles are enforced for AI tooling and automation pipelines.</li>
+		<li><strong>Monitoring Adequacy Check:</strong> Assess whether existing telemetry can detect anomalous agent behavior, logic manipulation, or unauthorized actions.</li>
+		<li><strong>Guardrail and Safeguard Review:</strong> Examine prompt handling, execution flow constraints, and system boundaries for gaps that could permit replication or unintended actions.</li>
+		<li><strong>Prompt-Injection Risk Assessment:</strong> Evaluate susceptibility to both direct and tool-mediated prompt injection, considering context-window management, tool invocation logic, and multi-agent orchestration.</li>
+	</ol>
+	<h3>Resolution</h3>
+	<ol>
+		<li><strong>Comprehensive Security Assessment:</strong> Launch a detailed risk-mitigation plan covering all internal AI agentic systems.</li>
+		<li><strong>Access Control Reinforcement:</strong> Harden role-based and least-privilege permissions for all AI tooling and automation workflows.</li>
+		<li><strong>Supply Chain Validation:</strong> Verify every third-party component against trusted repositories and block unverified extensions that claim to replicate exposed functionality.</li>
+		<li><strong>Enhanced Behavioral Monitoring:</strong> Deploy telemetry and alerts to flag deviations from expected agent behavior or signs of exploitation.</li>
+		<li><strong>Reinforce AI Safety Guardrails:</strong> Strengthen ethical and operational safeguards to prevent unauthorized logic changes or unintended actions.</li>
+		<li><strong>Define Agent Boundaries and Grounding:</strong> Work with engineering to delineate clear execution scopes, verify trace integrity, and ensure agents are grounded in trusted data sources.</li>
+		<li><strong>Continuous Risk Management:</strong> Institutionalize regular dependency reviews, automated security scans, and periodic audits of AI agent infrastructure.</li>
+		<li><strong>Integrated Input Validation and Runtime Monitoring:</strong> Apply dynamic input validation, contextual integrity checks, controlled tool access, and real-time runtime monitoring to reduce exploitability of prompt-injection attacks <span class="ka-corro">observed in 4 incidents</span>.</li>
+	</ol>
+	<h3>Prevention &amp; Hardening</h3>
+	<ul>
+		<li>Integrate AI-specific threat-intelligence feeds to stay ahead of emerging exploitation techniques.</li>
+		<li>Adopt secure coding standards and require explicit component declarations for all AI agent development.</li>
+		<li>Maintain up-to-date incident-response playbooks that address compromises of AI agents, including containment and forensic analysis.</li>
+		<li>Enforce strict validation of all tool inputs and outputs, isolate agent execution contexts, and limit external resource access to the minimum required.</li>
+	</ul>
+	<h3>Related</h3>
+	<ul>
+		<li>Supply-chain attacks targeting AI tooling and model repositories.</li>
+		<li>Evolving prompt-injection techniques that bypass conventional sanitization.</li>
+		<li>Misconfiguration of tool permissions leading to unintended data leakage.</li>
+	</ul>
+</template>
+
+<script>
+	// Preloader
+	function hidePreloader() {
+		document.getElementById('preloader2').style.display = 'none';
+	}
+	document.addEventListener('DOMContentLoaded', hidePreloader);
+	window.addEventListener('load', hidePreloader);
+
+	// Accordion
 	document.querySelectorAll('.accordion-trigger').forEach(btn => {
 		btn.addEventListener('click', () => {
 			const panel = btn.nextElementSibling;
@@ -1334,7 +3009,7 @@
 		});
 	});
 
-	// ── Video Carousel ────────────────────────────────────────
+	// Video carousel
 	const track     = document.getElementById('carousel-track');
 	const prevBtn   = document.getElementById('carousel-prev');
 	const nextBtn   = document.getElementById('carousel-next');
@@ -1357,15 +3032,24 @@
 	window.addEventListener('resize', updateCarousel);
 	updateCarousel();
 
-	// ── Video Modal with side-rail screenshots ────────────────
+	// Shared scroll lock across modals
+	const zoomModal   = document.getElementById('zoom-modal');
+	const readerModal = document.getElementById('reader-modal');
 	const modal       = document.getElementById('video-modal');
+	function syncScrollLock() {
+		const anyOpen = modal.classList.contains('open')
+			|| readerModal.classList.contains('open')
+			|| zoomModal.classList.contains('open');
+		document.body.style.overflow = anyOpen ? 'hidden' : '';
+	}
+
+	// Video modal with side-rail screenshots
 	const modalBody   = document.getElementById('modal-body');
 	const iframe      = document.getElementById('modal-iframe');
 	const modalTitle  = document.getElementById('modal-title');
 	const closeBtn    = document.getElementById('modal-close');
 	const railList    = document.getElementById('modal-rail-list');
 
-	const zoomModal   = document.getElementById('zoom-modal');
 	const zoomImg     = document.getElementById('zoom-img');
 	const zoomCaption = document.getElementById('zoom-caption');
 	const zoomClose   = document.getElementById('zoom-close');
@@ -1397,8 +3081,8 @@
 	}
 
 	function openVideoCard(card) {
-		const videoId    = card.dataset.videoId;
-		const coming     = card.dataset.comingSoon;
+		const videoId     = card.dataset.videoId;
+		const coming      = card.dataset.comingSoon;
 		const screenshots = card.dataset.screenshots;
 		if (coming || !videoId) return;
 
@@ -1407,7 +3091,7 @@
 		buildRail(screenshots);
 
 		modal.classList.add('open');
-		document.body.style.overflow = 'hidden';
+		syncScrollLock();
 	}
 
 	function closeVideoModal() {
@@ -1415,9 +3099,7 @@
 		iframe.src = '';
 		railList.innerHTML = '';
 		modalBody.classList.remove('has-rail');
-		if (!zoomModal.classList.contains('open')) {
-			document.body.style.overflow = '';
-		}
+		syncScrollLock();
 	}
 
 	function openZoom(src, caption) {
@@ -1430,11 +3112,13 @@
 			zoomCaption.style.display = 'none';
 		}
 		zoomModal.classList.add('open');
+		syncScrollLock();
 	}
 
 	function closeZoom() {
 		zoomModal.classList.remove('open');
 		zoomImg.src = '';
+		syncScrollLock();
 	}
 
 	cards.forEach(card => {
@@ -1447,10 +3131,42 @@
 	zoomClose.addEventListener('click', closeZoom);
 	zoomModal.addEventListener('click', e => { if (e.target === zoomModal) closeZoom(); });
 
+	// Reader modal: deep dives and featured articles
+	const readerKicker = document.getElementById('reader-kicker');
+	const readerTitle  = document.getElementById('reader-title');
+	const readerBody   = document.getElementById('reader-body');
+	const readerClose  = document.getElementById('reader-close');
+
+	function openReader(docId) {
+		const tpl = document.getElementById(docId);
+		if (!tpl) return;
+		readerKicker.textContent = tpl.dataset.kicker || '';
+		readerTitle.textContent  = tpl.dataset.title || '';
+		readerBody.innerHTML = '';
+		readerBody.appendChild(tpl.content.cloneNode(true));
+		readerBody.scrollTop = 0;
+		readerModal.classList.add('open');
+		syncScrollLock();
+	}
+
+	function closeReader() {
+		readerModal.classList.remove('open');
+		readerBody.innerHTML = '';
+		syncScrollLock();
+	}
+
+	document.querySelectorAll('[data-doc]').forEach(el => {
+		el.addEventListener('click', () => openReader(el.dataset.doc));
+	});
+	readerClose.addEventListener('click', closeReader);
+	readerModal.addEventListener('click', e => { if (e.target === readerModal) closeReader(); });
+
 	document.addEventListener('keydown', e => {
 		if (e.key !== 'Escape') return;
 		if (zoomModal.classList.contains('open')) {
 			closeZoom();
+		} else if (readerModal.classList.contains('open')) {
+			closeReader();
 		} else if (modal.classList.contains('open')) {
 			closeVideoModal();
 		}
