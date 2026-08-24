@@ -179,6 +179,59 @@
 		.chapnav a:hover { background: var(--blue-light); border-color: var(--blue-mid); text-decoration: none; }
 		.chapnav a b { font-weight: 600; color: var(--accent); }
 
+		/* Left TOC rail (wide viewports) */
+		.side-toc {
+			position: fixed;
+			left: 26px;
+			top: 130px;
+			width: 208px;
+			z-index: 50;
+			background: var(--white);
+			border: 1px solid var(--border);
+			border-radius: var(--radius);
+			padding: 14px 0 10px;
+			box-shadow: 0 8px 24px rgba(26,82,118,0.07);
+			max-height: calc(100vh - 170px);
+			overflow-y: auto;
+			scrollbar-width: thin;
+			scrollbar-color: #cbd5e1 transparent;
+		}
+		.side-toc::-webkit-scrollbar { width: 5px; }
+		.side-toc::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+		.side-toc-head {
+			font-family: var(--font-label);
+			font-size: 9px;
+			letter-spacing: 0.14em;
+			text-transform: uppercase;
+			color: var(--accent);
+			font-weight: 600;
+			padding: 0 16px 9px;
+			border-bottom: 1px solid var(--border);
+			margin-bottom: 7px;
+		}
+		.side-toc a {
+			display: block;
+			padding: 5px 14px;
+			font-family: var(--font-label);
+			font-size: 11px;
+			font-weight: 500;
+			color: var(--text-muted);
+			text-decoration: none;
+			border-left: 2px solid transparent;
+			line-height: 1.5;
+			transition: color 0.12s, background 0.12s, border-color 0.12s;
+		}
+		.side-toc a b { font-weight: 600; color: var(--accent); margin-right: 6px; }
+		.side-toc a:hover { color: var(--blue-deep); background: var(--grey-soft); text-decoration: none; }
+		.side-toc a.on {
+			color: var(--blue-deep);
+			border-left-color: var(--accent);
+			background: rgba(46,134,193,0.07);
+			font-weight: 600;
+		}
+		@media (max-width: 1359px) { .side-toc { display: none; } }
+		@media (min-width: 1360px) { .chapnav { display: none; } }
+
 		/* Sections */
 		.section { padding: 70px 40px; max-width: 960px; margin: 0 auto; }
 		.section-label {
@@ -1283,7 +1336,11 @@
 		/* Plan band */
 		.plan-band { background: var(--grey-soft); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
 		.plan-band-inner { max-width: 960px; margin: 0 auto; padding: 56px 40px; }
-		.plan-band .hero-stats { margin-top: 28px; }
+		.plan-band .hero-stats { margin-top: 28px; flex-wrap: nowrap; gap: 0; justify-content: space-between; }
+		.plan-band .hero-stat-num { font-size: 1.55rem; }
+		@media (max-width: 860px) {
+			.plan-band .hero-stats { flex-wrap: wrap; gap: 22px; justify-content: flex-start; }
+		}
 
 		/* Tech stack */
 		.tech-section { max-width: 960px; margin: 0 auto; padding: 60px 40px; }
@@ -1492,8 +1549,29 @@
 	</div>
 </nav>
 
+<!-- Left TOC rail -->
+<aside class="side-toc" id="side-toc">
+	<div class="side-toc-head">On this page</div>
+	<a href="#features">What it does</a>
+	<a href="#philosophy">The philosophy</a>
+	<a href="#ch-desk"><b>01</b>The Desk</a>
+	<a href="#ch-money"><b>02</b>The Money</a>
+	<a href="#ch-time"><b>03</b>The Time</a>
+	<a href="#ch-knowledge"><b>04</b>The Knowledge</a>
+	<a href="#ch-qleo"><b>05</b>Qleo</a>
+	<a href="#ch-automation"><b>06</b>The Automation</a>
+	<a href="#ch-foundation"><b>07</b>The Foundation</a>
+	<a href="#engines">Built, not borrowed</a>
+	<a href="#library">The Library</a>
+	<a href="#research">Research spotlight</a>
+	<a href="#modules">Key modules</a>
+	<a href="#episodes">Episode series</a>
+	<a href="#journey">The journey</a>
+	<a href="#writeups">Write-ups</a>
+</aside>
+
 <!-- Feature Cards -->
-<div class="section">
+<div class="section" id="features">
 	<div class="section-label">What it does</div>
 	<h2 class="section-title">Built for real operational use</h2>
 	<p class="section-desc">Every module was designed to handle genuine IT operations demands - not prototype quality, not demo-ware.</p>
@@ -1579,11 +1657,21 @@
 			<div class="feature-title">Sovereign &amp; Portable</div>
 			<div class="feature-body">A desktop application whose entire stack - web server, database, AI engine - occupies one folder. It runs offline, installs nothing on the host, and travels on a USB stick.</div>
 		</div>
+		<div class="feature-card">
+			<div class="feature-icon"><i class="fa fa-user-circle"></i></div>
+			<div class="feature-title">Teams &amp; Workload</div>
+			<div class="feature-body">A first-class team directory with membership, roles and per-team SLA policy, presented at the same density as the ticket screens so workload is legible at a glance.</div>
+		</div>
+		<div class="feature-card">
+			<div class="feature-icon"><i class="fa fa-cubes"></i></div>
+			<div class="feature-title">CMDB &amp; Asset Map</div>
+			<div class="feature-body">Configuration items joined by typed, polymorphic relationships - what runs on what, what depends on what - so every incident arrives with its hardware and service context.</div>
+		</div>
 	</div>
 </div>
 
 <!-- Philosophy -->
-<section class="pillars-section">
+<section class="pillars-section" id="philosophy">
 	<div class="pillars-inner">
 		<div class="section-label">The philosophy</div>
 		<h2 class="section-title">A helpdesk that compounds</h2>
@@ -1614,6 +1702,21 @@
 				<span class="pillar-num">05</span>
 				<div class="pillar-title">Work compounds</div>
 				<div class="pillar-text">A resolved ticket is not an ending. It feeds tag profiles, knowledge articles and playbooks, so the next comparable ticket arrives already half resolved.</div>
+			</div>
+			<div class="pillar-card">
+				<span class="pillar-num">06</span>
+				<div class="pillar-title">Deterministic first</div>
+				<div class="pillar-text">Wherever exactness matters - arithmetic, access decisions, schedules - rules and tools outrank the model. The generative parts of DeskOps operate strictly inside boundaries the deterministic parts define.</div>
+			</div>
+			<div class="pillar-card">
+				<span class="pillar-num">07</span>
+				<div class="pillar-title">Reuse over reinvention</div>
+				<div class="pillar-text">One shell, one component library, one dialog voice. A new screen assembles what already exists rather than inventing a variant, which is why 137 screens still read as one application.</div>
+			</div>
+			<div class="pillar-card">
+				<span class="pillar-num">08</span>
+				<div class="pillar-title">One thing at a time</div>
+				<div class="pillar-text">Features ship singly and are verified singly, never as sweeping rewrites. The 1,190-commit history is a ledger of small, provable steps, and the system's stability is the dividend.</div>
 			</div>
 		</div>
 	</div>
@@ -1954,7 +2057,7 @@
 </section>
 
 <!-- Built, not borrowed -->
-<section class="engines-section">
+<section class="engines-section" id="engines">
 	<div class="engines-inner">
 		<div class="section-label">Built, not borrowed</div>
 		<h2 class="section-title">Eight subsystems most applications import</h2>
@@ -2050,12 +2153,24 @@
 				<span class="article-excerpt">Exposed agent architecture invites replication and attack. A structured assessment spanning supply chain, access control, guardrails and prompt-injection resistance.</span>
 				<span class="article-meta"><span class="vg-chip">Advisory</span><span class="vg-chip">4 min read</span></span>
 			</button>
+			<button class="article-card" data-doc="art-orchestration">
+				<span class="article-kicker">AI Operations · Orchestration</span>
+				<span class="article-title">Troubleshooting Intermittent Failures in AI Agent Orchestration</span>
+				<span class="article-excerpt">Intermittent agent failures rarely announce their origin. A systematic path through parsers, prompts, schemas and mTLS trust, closing with causal-inference hardening.</span>
+				<span class="article-meta"><span class="vg-chip">Diagnostic</span><span class="vg-chip">5 min read</span></span>
+			</button>
+			<button class="article-card" data-doc="art-inversion">
+				<span class="article-kicker">AI Operations · Data Protection</span>
+				<span class="article-title">Model Inversion and Training Data Leakage Risks in AI Agent Systems</span>
+				<span class="article-excerpt">A model that memorises can be induced to confess. Recognising inversion and leakage risks, and the filtering, privacy and retention controls that contain them.</span>
+				<span class="article-meta"><span class="vg-chip">Advisory</span><span class="vg-chip">3 min read</span></span>
+			</button>
 		</div>
 	</div>
 </section>
 
 <!-- Research Spotlight -->
-<section class="spotlight">
+<section class="spotlight" id="research">
 	<div class="spotlight-inner">
 		<div class="spotlight-left">
 			<div class="section-label">Research · Episode 1</div>
@@ -2145,7 +2260,7 @@
 <hr class="section-rule">
 
 <!-- Module Accordions -->
-<div class="modules-section">
+<div class="modules-section" id="modules">
 	<div class="section-label">Key Modules</div>
 	<h2 class="section-title" style="margin-bottom: 28px;">What's inside</h2>
 
@@ -2588,7 +2703,7 @@
 <hr class="section-rule">
 
 <!-- Timeline -->
-<div class="timeline-section">
+<div class="timeline-section" id="journey">
 	<div class="section-label">The Journey</div>
 	<h2 class="section-title">Two years, one keyboard</h2>
 	<p class="section-desc">Built by one person, in public, with each stage documented as it happened.</p>
@@ -2688,7 +2803,6 @@
 		<span class="tech-pill"><i class="fa fa-flash"></i> Gemini API</span>
 		<span class="tech-pill"><i class="fa fa-microchip"></i> NVIDIA NIM</span>
 		<span class="tech-pill"><i class="fa fa-bolt"></i> Groq API</span>
-		<span class="tech-pill"><i class="fa fa-server"></i> WAMP Stack</span>
 		<span class="tech-pill"><i class="fa fa-desktop"></i> Electron Desktop Shell</span>
 		<span class="tech-pill"><i class="fa fa-microchip"></i> Local LLMs (llama.cpp)</span>
 		<span class="tech-pill"><i class="fa fa-exchange"></i> Model Context Protocol</span>
@@ -2699,7 +2813,7 @@
 <hr class="section-rule">
 
 <!-- Write-up links -->
-<section class="writeup-section">
+<section class="writeup-section" id="writeups">
 	<div class="writeup-inner">
 		<div class="section-label" style="grid-column: 1 / -1; margin-bottom: -4px;">Write-ups</div>
 		<a class="writeup-card" href="https://www.linkedin.com/in/tariq-hussain-89b846a6/" target="_blank">
@@ -2985,6 +3099,93 @@
 	</ul>
 </template>
 
+<template id="art-orchestration" data-kicker="From the DeskOps Knowledge Base · Orchestration" data-title="Troubleshooting Intermittent Failures and Unreliable Outputs in AI Agent Orchestration">
+	<p class="ka-overview">AI agents intermittently produce incorrect, partial, or context-misaligned outputs and may fail to complete initiated tasks, leading to higher latency and error rates. The issue affects any service that relies on orchestrated AI workflows and is detected through failed tool calls, repeated retries, or HTTP&nbsp;401&nbsp;Unauthorized errors during start-up.</p>
+	<h3>Symptoms</h3>
+	<ul>
+		<li>AI agents generate unreliable outputs (incorrect, partial, or not aligned with input context).</li>
+		<li>Tasks initiated by agents remain incomplete, requiring repeated attempts or manual intervention.</li>
+		<li>System latency rises and response times for agent workflows increase.</li>
+		<li>Error logs show an elevated rate of tool-execution and model-output-parsing failures.</li>
+		<li>Agent behavior varies inconsistently across use cases, reducing operational trust.</li>
+		<li>Agents rely on learned correlations rather than causal reasoning, causing fragility in dynamic environments.</li>
+		<li>Persistent HTTP&nbsp;401&nbsp;Unauthorized errors during agent start-up trigger crash-loop/retry behavior.</li>
+	</ul>
+	<h3>Root Cause &amp; Diagnosis</h3>
+	<p>Intermittent failures stem from weaknesses in the orchestration layer that mediates LLM interactions with external tools. Primary contributors include malformed or ambiguous tool definition schemas, flawed prompt-chaining logic, incorrect tool selection by the orchestrator, inadequate parsing of LLM outputs, variability in upstream API responses, lack of causal inference capability, and mis-configured mTLS authentication (e.g., stale SPIFFE identities or incorrect gateway policy matrices).</p>
+	<h3>Resolution</h3>
+	<ol>
+		<li><strong>Implement stricter output parsers</strong>: Deploy robust parsers that validate the structure and content of LLM responses, catching malformed tool calls before execution.</li>
+		<li><strong>Reinforce system prompts for tool selection</strong>: Enhance system-level prompts with explicit instructions on how to select and format calls to external tools according to registered schemas.</li>
+		<li><strong>Validate and standardize tool definition schemas</strong>: Review all JSON schemas, ensure they are distinct, unambiguous, and conform to internal registry standards; update descriptions for clarity.</li>
+		<li><strong>Review prompt chaining logic</strong>: Audit and optimize prompt construction and propagation to guarantee context retention and clear instructions at each workflow stage.</li>
+		<li><strong>Incorporate causal inference techniques</strong>: Integrate causal reasoning methods so agents can differentiate correlation from causation, improving decision robustness.</li>
+		<li><strong>Fix authentication and mTLS configuration</strong>:
+			<ul>
+				<li>Update the gateway policy matrix to include the correct trust domain for the AI Agent service-account namespace.</li>
+				<li>Re-issue fresh SPIFFE certificates for the agent service accounts and resume automated certificate rotation.</li>
+				<li>Validate that agents present up-to-date SVIDs during the handshake and monitor for HTTP&nbsp;401 errors after deployment.</li>
+			</ul>
+		</li>
+	</ol>
+	<h3>Quantitative Model</h3>
+	<ul>
+		<li><strong>Observed failure proportion</strong>: 0.1464</li>
+		<li><strong>Wilson 95% confidence interval lower bound</strong>: 0.136</li>
+	</ul>
+	<h3>Prevention &amp; Hardening</h3>
+	<ul>
+		<li>Continuously monitor latency and error-rate metrics for AI agent workflows; alert on deviations from baseline.</li>
+		<li>Automate validation of tool definition schemas and enforce schema compliance at registration time.</li>
+		<li>Implement static analysis of prompt chaining templates to detect context loss or ambiguous instructions.</li>
+		<li>Deploy automated checks for gateway policy matrices and SPIFFE certificate freshness to prevent mTLS handshake failures.</li>
+		<li>Incorporate causal validation tests in the agent&#8217;s test suite to ensure decisions are based on causal relationships.</li>
+	</ul>
+	<h3>Related</h3>
+	<ul>
+		<li>Latency spikes may persist due to upstream API variability even after core fixes.</li>
+		<li>Expanding the tool set can re-introduce schema-related regressions if new tools are not rigorously validated.</li>
+		<li>Proprietary or undocumented components can hinder root-cause analysis and long-term maintainability.</li>
+		<li>Trust-domain and certificate-management lapses are a common source of recurring authentication errors.</li>
+	</ul>
+</template>
+
+<template id="art-inversion" data-kicker="From the DeskOps Knowledge Base · Data Protection" data-title="Model Inversion and Training Data Leakage Risks in AI Agent Systems">
+	<p class="ka-overview">AI agent systems can be vulnerable to model inversion attacks, where statistical patterns in outputs inadvertently reveal sensitive training data or specific data points, potentially exposing confidential information or compromising data privacy. This affects organizations relying on proprietary AI models and users interacting with the agents. The leakage is often recognized through anomalous outputs that systematically reconstruct or infer data fragments.</p>
+	<h3>Symptoms</h3>
+	<ul>
+		<li>Reconstructed training data fragments may be exposed through agent outputs</li>
+		<li>Sensitive information may be inferred through systematic probing</li>
+	</ul>
+	<h3>Root Cause &amp; Diagnosis</h3>
+	<p>These vulnerabilities stem from the agent's architecture and operational patterns:</p>
+	<ul>
+		<li>Structured interactions and orchestration frameworks may inadvertently facilitate data reconstruction</li>
+		<li>Efficacy of adversarial prompting in triggering data exfiltration indicates a potential security flaw</li>
+		<li>Persistence or amplification of leaked training fragments due to the agent orchestrator's memory and logging layer exacerbates the risk</li>
+	</ul>
+	<h3>Resolution</h3>
+	<ol>
+		<li>Implement response filtering mechanisms to explicitly block or mask outputs that could contain sensitive training data fragments.</li>
+		<li>Apply differential privacy techniques to the agent's training and inference processes to quantify and limit the risk of data leakage.</li>
+		<li>Enforce strict controls on repeated querying patterns to prevent systematic probing and inference.</li>
+		<li>Deploy monitoring systems to actively detect anomalous extraction behavior or patterns indicative of data leakage.</li>
+		<li>Isolate sensitive workflows and enforce minimal retention policies for AI-generated outputs, combined with stricter access controls.</li>
+	</ol>
+	<h3>Prevention &amp; Hardening</h3>
+	<ul>
+		<li>Continuously monitor for and address potential vulnerabilities related to model inversion and data leakage.</li>
+		<li>Regularly audit and update security controls to adapt to evolving attack vectors.</li>
+		<li>Employ proactive measures such as threat modeling for agent systems to identify and mitigate risks before deployment.</li>
+	</ul>
+	<h3>Related</h3>
+	<ul>
+		<li>Further investigation is needed regarding the impact of the agent orchestrator's memory and logging layer on data leakage.</li>
+		<li>Effectiveness of differential privacy controls in practical agent deployment scenarios requires ongoing evaluation.</li>
+		<li>Attackers may potentially leverage tool-execution logs within the agent system to further probe or reconstruct data.</li>
+	</ul>
+</template>
+
 <script>
 	// Preloader
 	function hidePreloader() {
@@ -3160,6 +3361,23 @@
 	});
 	readerClose.addEventListener('click', closeReader);
 	readerModal.addEventListener('click', e => { if (e.target === readerModal) closeReader(); });
+
+	// Left TOC scroll spy
+	const tocLinks = Array.from(document.querySelectorAll('.side-toc a[href^="#"]'));
+	const tocTargets = tocLinks
+		.map(a => document.getElementById(a.getAttribute('href').slice(1)))
+		.filter(Boolean);
+	function updateToc() {
+		let current = tocTargets[0];
+		const probe = window.scrollY + 170;
+		tocTargets.forEach(t => { if (t.offsetTop <= probe) current = t; });
+		tocLinks.forEach(a => {
+			a.classList.toggle('on', !!current && a.getAttribute('href') === '#' + current.id);
+		});
+	}
+	window.addEventListener('scroll', updateToc, { passive: true });
+	window.addEventListener('resize', updateToc);
+	updateToc();
 
 	document.addEventListener('keydown', e => {
 		if (e.key !== 'Escape') return;
