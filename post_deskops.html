@@ -672,6 +672,163 @@
 		.vg-tree b { color: var(--blue-deep); font-weight: 600; }
 		.vg-tree .hl { color: var(--accent); }
 
+		/* The suite gallery */
+		.gallery-section { background: var(--white); }
+		.gallery-inner { max-width: 960px; margin: 0 auto; padding: 70px 40px; }
+		.gallery-lead {
+			margin-top: 34px;
+			border: 1px solid var(--border);
+			border-radius: var(--radius);
+			overflow: hidden;
+			cursor: pointer;
+			display: block;
+			width: 100%;
+			padding: 0;
+			background: var(--white);
+			text-align: left;
+			font-family: inherit;
+			transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+		}
+		.gallery-lead:hover {
+			transform: translateY(-3px);
+			box-shadow: 0 16px 40px rgba(26,82,118,0.15);
+			border-color: var(--blue-mid);
+		}
+		.gallery-lead img { width: 100%; display: block; border-bottom: 1px solid var(--border); }
+		.gallery-lead-text { padding: 14px 20px 16px; display: block; }
+
+		.gallery-family { margin-top: 40px; }
+		.gallery-family-head {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			margin-bottom: 16px;
+		}
+		.gallery-family-name {
+			font-family: var(--font-label);
+			font-size: 10px;
+			letter-spacing: 0.14em;
+			text-transform: uppercase;
+			color: var(--blue-deep);
+			font-weight: 600;
+		}
+		.gallery-family-rule { flex: 1; height: 1px; background: var(--border); }
+		.gallery-family-count {
+			font-family: var(--font-label);
+			font-size: 9px;
+			letter-spacing: 0.08em;
+			color: var(--text-muted);
+		}
+		.family-intro {
+			background: var(--grey-soft);
+			border-left: 3px solid var(--accent);
+			border-radius: 0 var(--radius) var(--radius) 0;
+			padding: 18px 22px;
+			margin-bottom: 8px;
+			font-size: 0.9rem;
+			color: var(--text-muted);
+			line-height: 1.7;
+			font-weight: 300;
+		}
+		.family-intro b { color: var(--text-body); font-weight: 600; }
+
+		/* One module, one row: the screen on the left, what it is for on the right. */
+		.suite-row {
+			display: grid;
+			grid-template-columns: 384px 1fr;
+			gap: 34px;
+			padding: 30px 0;
+			border-top: 1px solid var(--border);
+			align-items: start;
+		}
+		.suite-shot {
+			position: relative;
+			display: block;
+			width: 100%;
+			padding: 0;
+			border: 1px solid var(--border);
+			border-radius: var(--radius);
+			overflow: hidden;
+			background: var(--grey-soft);
+			cursor: pointer;
+			font-family: inherit;
+			transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+		}
+		.suite-shot:hover {
+			transform: translateY(-3px);
+			box-shadow: 0 12px 30px rgba(26,82,118,0.14);
+			border-color: var(--blue-mid);
+		}
+		.suite-shot img {
+			width: 100%;
+			display: block;
+			aspect-ratio: 16 / 10;
+			object-fit: cover;
+			object-position: top center;
+		}
+		.shot-zoom {
+			position: absolute;
+			top: 8px; right: 8px;
+			width: 26px; height: 26px;
+			border-radius: 50%;
+			background: rgba(13,51,73,0.82);
+			color: #fff;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 10px;
+			opacity: 0;
+			transition: opacity 0.18s;
+		}
+		.suite-shot:hover .shot-zoom { opacity: 1; }
+		.suite-name {
+			font-family: var(--font-main);
+			font-weight: 600;
+			font-size: 1.02rem;
+			color: var(--blue-ink);
+			margin-bottom: 9px;
+		}
+		.suite-lead {
+			font-size: 0.9rem;
+			color: var(--text-muted);
+			line-height: 1.72;
+			font-weight: 300;
+			margin-bottom: 14px;
+		}
+		.suite-points { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+		.suite-points li {
+			font-size: 0.85rem;
+			color: var(--text-muted);
+			line-height: 1.6;
+			font-weight: 300;
+			padding-left: 18px;
+			position: relative;
+		}
+		.suite-points li::before {
+			content: '';
+			position: absolute;
+			left: 0; top: 0.62em;
+			width: 6px; height: 6px;
+			border-radius: 50%;
+			background: var(--blue-mid);
+		}
+		.suite-points li b { color: var(--text-body); font-weight: 600; }
+		.shot-name {
+			font-family: var(--font-main);
+			font-weight: 600;
+			font-size: 0.95rem;
+			color: var(--blue-ink);
+			display: block;
+			margin-bottom: 4px;
+		}
+		.shot-note {
+			font-size: 0.83rem;
+			color: var(--text-muted);
+			line-height: 1.6;
+			font-weight: 300;
+			display: block;
+		}
+
 		/* Engines band */
 		.engines-section {
 			background: var(--blue-ink);
@@ -1425,11 +1582,12 @@
 			.spotlight-inner { grid-template-columns: 1fr; gap: 36px; }
 			.honest-grid { grid-template-columns: 1fr; }
 			.chapter, .chapter.flip { grid-template-columns: 1fr; gap: 30px; padding: 48px 20px; }
+			.suite-row { grid-template-columns: 1fr; gap: 20px; padding: 26px 0; }
 			.chapter.flip .chapter-text { order: 1; }
 			.chapter.flip .chapter-visual { order: 2; }
 			.hero-stats { gap: 22px; }
 			.hero, .section, .modules-section, .tech-section, .timeline-section { padding-left: 20px; padding-right: 20px; }
-			.pillars-inner, .plan-band-inner, .engines-inner, .articles-inner { padding-left: 20px; padding-right: 20px; }
+			.pillars-inner, .plan-band-inner, .engines-inner, .articles-inner, .gallery-inner { padding-left: 20px; padding-right: 20px; }
 			.carousel-track-wrapper, .carousel-header { padding-left: 20px; padding-right: 20px; }
 			.writeup-inner { padding-left: 20px; padding-right: 20px; }
 			.accordion-panel-inner { padding-left: 22px; }
@@ -1544,7 +1702,8 @@
 		<a href="#ch-qleo"><b>05</b> Qleo</a>
 		<a href="#ch-automation"><b>06</b> The Automation</a>
 		<a href="#ch-foundation"><b>07</b> The Foundation</a>
-		<a href="#library"><b>08</b> The Library</a>
+		<a href="#suite"><b>08</b> The Suite</a>
+		<a href="#library"><b>09</b> The Library</a>
 		<a href="#episodes"><b>&#9654;</b> Episodes</a>
 	</div>
 </nav>
@@ -1561,6 +1720,7 @@
 	<a href="#ch-qleo"><b>05</b>Qleo</a>
 	<a href="#ch-automation"><b>06</b>The Automation</a>
 	<a href="#ch-foundation"><b>07</b>The Foundation</a>
+	<a href="#suite">The suite, screen by screen</a>
 	<a href="#engines">Built, not borrowed</a>
 	<a href="#library">The Library</a>
 	<a href="#research">Research spotlight</a>
@@ -1585,7 +1745,7 @@
 		<div class="feature-card">
 			<div class="feature-icon"><i class="fa fa-database"></i></div>
 			<div class="feature-title">RAG-Powered AI Assistant</div>
-			<div class="feature-body">Attachments are chunked, embedded, and stored in ChromaDB. The Ask AI tab queries this context to answer questions grounded in evidence from the ticket's own files.</div>
+			<div class="feature-body">Documents are chunked and embedded; screenshots are read by OCR and described by a local vision model. Every tile in the Attachments tab carries its live index state, and Qleo answers grounded in evidence from the ticket's own files - a View dialog shows exactly what the index holds.</div>
 		</div>
 		<div class="feature-card">
 			<div class="feature-icon"><i class="fa fa-file-text"></i></div>
@@ -1641,6 +1801,11 @@
 			<div class="feature-icon"><i class="fa fa-shield"></i></div>
 			<div class="feature-title">Privacy at the Boundary</div>
 			<div class="feature-body">Nothing departs the machine unscrubbed. A redaction layer strips personal data from every cloud-bound prompt and retains an audit-grade hash of what it removed.</div>
+		</div>
+		<div class="feature-card">
+			<div class="feature-icon"><i class="fa fa-lock"></i></div>
+			<div class="feature-title">The Lock Reaches the Index</div>
+			<div class="feature-body">Protecting an attachment purges its searchable shadow, after a confirm that states the cost in chunks; a locked file refuses indexing and previews alike. What a password hides, retrieval cannot quote.</div>
 		</div>
 		<div class="feature-card">
 			<div class="feature-icon"><i class="fa fa-print"></i></div>
@@ -2050,6 +2215,417 @@
 					<span class="vg-chip">No installer</span>
 					<span class="vg-chip">Runs offline</span>
 					<span class="vg-chip">Fits on a USB stick</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- The suite, screen by screen -->
+<section class="gallery-section" id="suite">
+	<div class="gallery-inner">
+		<div class="section-label">The suite</div>
+		<h2 class="section-title">Screen by screen</h2>
+		<p class="section-desc">
+			What follows is the application itself, photographed on a live instance carrying its
+			own data. Twenty-two surfaces in four families, each with the problem it was built to
+			solve set out beside it. Select any screen to see it full size.
+		</p>
+
+		<button class="gallery-lead" data-full="images/deskops/login.jpg" data-cap="The entry card · sign-in, over the schema of the system it opens">
+			<img src="images/deskops/login.jpg" alt="The DeskOps sign-in card" loading="lazy">
+			<span class="gallery-lead-text">
+				<span class="shot-name">The entry card</span>
+				<span class="shot-note">Sign-in, drawn over the schema of the system it opens. The helpdesk that compounds, before you have typed a word.</span>
+			</span>
+		</button>
+
+		<!-- Family 1 -->
+		<div class="gallery-family">
+			<div class="gallery-family-head">
+				<span class="gallery-family-name">Where the work happens</span>
+				<span class="gallery-family-rule"></span>
+				<span class="gallery-family-count">6 screens</span>
+			</div>
+			<p class="family-intro">
+				A service desk is a machine for keeping promises. These six surfaces are where a
+				promise is made, tracked, escalated and kept. <b>Everything else in DeskOps exists
+				to make what happens here cheaper, faster, or better evidenced.</b>
+			</p>
+
+			<div class="suite-row">
+				<button class="suite-shot" data-full="images/deskops/dashboard.jpg" data-cap="Dashboard · every ticket on one board, with its live SLA state">
+					<img src="images/deskops/thumb/dashboard.jpg" alt="The DeskOps dashboard" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
+				</button>
+				<div class="suite-body">
+					<div class="suite-name">Dashboard</div>
+					<p class="suite-lead">The first screen after sign-in answers the only question that matters on arrival: what is on fire, and whose is it. Every ticket appears on one board with its status, priority, assignee, the customer behind it and the live state of its service-level clock, so a queue never has to be reconstructed from memory or from a spreadsheet.</p>
+					<ul class="suite-points">
+						<li><b>Scoped by role.</b> Five tiers each see the slice their remit covers and nothing beyond it, so the same board is safe to put in front of anyone.</li>
+						<li><b>Computed live.</b> SLA state is calculated per row on request rather than cached overnight, so the colour on screen is the truth now.</li>
+						<li><b>Built to stay fast.</b> Sorting, filtering and search run in the database, so the board does not slow as the estate grows.</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="suite-row">
+				<button class="suite-shot" data-full="images/deskops/ticket.jpg" data-cap="Ticket workbench · the urgency countdown and the service clock beside the incident">
+					<img src="images/deskops/thumb/ticket.jpg" alt="A ticket open in the workbench" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
+				</button>
+				<div class="suite-body">
+					<div class="suite-name">Ticket workbench</div>
+					<p class="suite-lead">Opening a ticket must give an agent everything needed to act without leaving the page. The workbench carries the description, assignment, priority and policy in one column, and beside them the two clocks that decide urgency: the countdown against the agreed target, and the service clock showing how much of it has been consumed.</p>
+					<ul class="suite-points">
+						<li><b>A countdown that respects the working day.</b> It pauses outside business hours, and can be forgiven on the record when it was set in error.</li>
+						<li><b>The whole SLA picture in one panel.</b> The clock, the calendar behind it, holds taken, warnings sent, and every run of the engine.</li>
+						<li><b>Evidence indexed as it lands.</b> Attachments are chunked and embedded on upload, so the assistant can answer from them immediately.</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="suite-row">
+				<button class="suite-shot" data-full="images/deskops/triage.jpg" data-cap="Triage Sentinel · Qleo drafts, a person decides">
+					<img src="images/deskops/thumb/triage.jpg" alt="The Triage Sentinel screen" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
+				</button>
+				<div class="suite-body">
+					<div class="suite-name">Triage Sentinel</div>
+					<p class="suite-lead">Untriaged tickets are the most expensive thing on a service desk, because every hour one waits is an hour of its target spent on nothing. The Sentinel has Qleo read each one and propose a priority and tags, with a confidence figure and a one-line reason, and then stops. A person accepts, re-prioritises or dismisses. Nothing is applied on the model's own authority.</p>
+					<ul class="suite-points">
+						<li><b>Every decision teaches the router.</b> Accepting or overriding a draft is recorded as a signal about which model triages this kind of work best.</li>
+						<li><b>The drafting model is named on each card,</b> so a poor suggestion is traceable to its source rather than to the system in general.</li>
+						<li><b>A second tab ranks by breach risk,</b> so the queue can be worked in the order that protects targets rather than the order of arrival.</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="suite-row">
+				<button class="suite-shot" data-full="images/deskops/sla.jpg" data-cap="SLA Policy Manager · calendars, stages and scopes, with a protected default">
+					<img src="images/deskops/thumb/sla.jpg" alt="The SLA policy manager" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
+				</button>
+				<div class="suite-body">
+					<div class="suite-name">SLA Policy Manager</div>
+					<p class="suite-lead">Service levels mean nothing if the clock disagrees with how the business actually works. Policies are built here from business-hour calendars, staged targets and scopes that decide which tickets they bind, with a preview showing the effect before anything is saved.</p>
+					<ul class="suite-points">
+						<li><b>Two engines, side by side.</b> Fixed thresholds for simple estates, or the policy-driven engine with real calendars and stages for everything else.</li>
+						<li><b>The default cannot be deleted by accident.</b> Database triggers protect the fallback policy and its calendar, because losing them would silently un-govern every ticket.</li>
+						<li><b>Alerts that climb.</b> Breaches notify and reassign up the tier ladder until the ticket finds an owner.</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="suite-row">
+				<button class="suite-shot" data-full="images/deskops/inbox.jpg" data-cap="Inbox · SLA alerts arrive as mail, with the countdown consumed">
+					<img src="images/deskops/thumb/inbox.jpg" alt="The inbox showing SLA alerts" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
+				</button>
+				<div class="suite-body">
+					<div class="suite-name">Inbox</div>
+					<p class="suite-lead">An escalation nobody sees is not an escalation. Every warning the SLA engine raises arrives here as a message with its evidence attached: how much of the countdown has been consumed, which thresholds were crossed and when, and a button that opens the ticket itself.</p>
+					<ul class="suite-points">
+						<li><b>Thresholds drawn, not described.</b> Markers at 75, 90 and 100 per cent show how close the target already was when the warning fired.</li>
+						<li><b>Alert history and human replies thread together,</b> so the conversation about a ticket is not split across two systems.</li>
+						<li><b>Compose, forward and archive,</b> because an alert frequently needs to be sent on to somebody who does not use the desk.</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="suite-row">
+				<button class="suite-shot" data-full="images/deskops/tasks.jpg" data-cap="Task Tracker · the working week, with timesheets on the next tab">
+					<img src="images/deskops/thumb/tasks.jpg" alt="The weekly task tracker" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
+				</button>
+				<div class="suite-body">
+					<div class="suite-name">Task Tracker</div>
+					<p class="suite-lead">Not all work arrives as a ticket. The tracker holds the week the way people actually plan it, day by day, with the time each item consumed recorded on the tab beside it, so billable hours are captured where the work happened rather than reconstructed on a Friday afternoon.</p>
+					<ul class="suite-points">
+						<li><b>Weeks copy forward,</b> so recurring commitments are not retyped fifty times a year.</li>
+						<li><b>Hours feed the ledger directly.</b> Approved time becomes billable value in Financials without anyone re-entering it.</li>
+						<li><b>The year is navigable,</b> so a question about what happened in a given week has an answer rather than an estimate.</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<!-- Family 2 -->
+		<div class="gallery-family">
+			<div class="gallery-family-head">
+				<span class="gallery-family-name">Qleo, the resident AI</span>
+				<span class="gallery-family-rule"></span>
+				<span class="gallery-family-count">6 screens</span>
+			</div>
+			<p class="family-intro">
+				Qleo is an assistant with a residence rather than a subscription. Its everyday
+				reasoning runs on a model on this machine, beside the data it serves; the cloud is
+				a fallback for the hardest work, and every cloud-bound request is scrubbed of
+				personal data first. <b>These six screens are where that intelligence is configured,
+				fed, bounded and put to work.</b>
+			</p>
+
+			<div class="suite-row">
+				<button class="suite-shot" data-full="images/deskops/studio.jpg" data-cap="Qleo Studio · an agent that plans, edits, and reports every patch it applied">
+					<img src="images/deskops/thumb/studio.jpg" alt="Qleo Studio with an agent conversation" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
+				</button>
+				<div class="suite-body">
+					<div class="suite-name">Qleo Studio</div>
+					<p class="suite-lead">The application can be extended from inside itself. Studio is a workspace with real files, an editor, and an agent that plans a change before making one, then reports precisely which files it patched and by how many bytes. The model that did the work is named at the foot of the conversation, and in this capture it is a coder model running locally.</p>
+					<ul class="suite-points">
+						<li><b>Plan, then act.</b> The agent proposes its steps and works through them under supervision, rather than editing and explaining afterwards.</li>
+						<li><b>Every edit lands on an undo ledger,</b> so a change can be inspected and reversed instead of being taken on trust.</li>
+						<li><b>Templates that start something in one click:</b> a web starter, a dashboard, a CRUD application, a SQLite database or a Python script.</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="suite-row">
+				<button class="suite-shot" data-full="images/deskops/aimodels.jpg" data-cap="AI Models · every on-device model with its size and its job">
+					<img src="images/deskops/thumb/aimodels.jpg" alt="The AI models screen" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
+				</button>
+				<div class="suite-body">
+					<div class="suite-name">AI Models</div>
+					<p class="suite-lead">An assistant is only as good as the model behind the task, and no single model is best at everything. This screen is the registry: every on-device model with its size, its weight class and the jobs it is meant for, so routing becomes a decision made once and applied everywhere rather than hard-coded across the application.</p>
+					<ul class="suite-points">
+						<li><b>Required, optional and advanced tiers,</b> so a modest machine still runs the features that matter and a larger one uses what it has.</li>
+						<li><b>Task routing maps each class of work to a model,</b> with the option to pin one deliberately or let the router judge.</li>
+						<li><b>Downloads and benchmarks run in the background,</b> one at a time, so the desk is never blocked by a model arriving.</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="suite-row">
+				<button class="suite-shot" data-full="images/deskops/chroma.jpg" data-cap="ChromaDB Admin · the vector store behind Ask Qleo">
+					<img src="images/deskops/thumb/chroma.jpg" alt="The ChromaDB admin screen" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
+				</button>
+				<div class="suite-body">
+					<div class="suite-name">ChromaDB Admin</div>
+					<p class="suite-lead">Retrieval is only trustworthy if you can see what was indexed. This screen exposes the vector store directly: how many chunks exist, which source produced each one, and which ticket and attachment it belongs to, with the ability to delete a source or index it again.</p>
+					<ul class="suite-points">
+						<li><b>The whole record is queryable.</b> Ticket descriptions and comments are indexed alongside file attachments, not just the files.</li>
+						<li><b>A live query panel</b> runs a semantic search and shows the chunks it retrieved with their distance scores, so relevance can be judged rather than assumed.</li>
+						<li><b>The store starts from inside the application,</b> with a status indicator, so running the assistant never requires a terminal.</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="suite-row">
+				<button class="suite-shot" data-full="images/deskops/specs.jpg" data-cap="Qleo Specs · a requirement that executes cannot silently rot">
+					<img src="images/deskops/thumb/specs.jpg" alt="The Qleo Specs screen" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
+				</button>
+				<div class="suite-body">
+					<div class="suite-name">Qleo Specs</div>
+					<p class="suite-lead">A requirement written in a document rots quietly. A spec written here states an outcome, attaches a criterion that compiles into a live check over the real data, and then reports on a schedule whether the number actually moved. The starting points it offers are drawn from the estate as it stands, not from examples.</p>
+					<ul class="suite-points">
+						<li><b>Criteria compile to queries against live tickets,</b> so a spec is evaluated rather than merely asserted.</li>
+						<li><b>Every check carries its current figure,</b> so drift becomes visible the moment it begins rather than at the next review.</li>
+						<li><b>Drafts stay separate from active specs,</b> so a half-formed idea does not start alerting people.</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="suite-row">
+				<button class="suite-shot" data-full="images/deskops/tagmanager.jpg" data-cap="Tag Manager · tag knowledge in five facets">
+					<img src="images/deskops/thumb/tagmanager.jpg" alt="The advanced tag manager" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
+				</button>
+				<div class="suite-body">
+					<div class="suite-name">Tag Manager</div>
+					<p class="suite-lead">A tag is usually a label and nothing more. Here it carries a written profile in five facets, so the knowledge an experienced agent holds about a topic becomes something both people and the assistant can apply: what the tag means, what signals suggest it, what to do about it, who owns it, and where to read further.</p>
+					<ul class="suite-points">
+						<li><b>Structured, not prose.</b> Profiles are authored in Markdown with a live preview and stored as separate fields the system can actually use.</li>
+						<li><b>The profile does real work.</b> It feeds resolution notes, ticket tooltips, and Qleo's own triage and suggestion passes.</li>
+						<li><b>Scoped per application,</b> so the same word can mean different things in different parts of the estate without collision.</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="suite-row">
+				<button class="suite-shot" data-full="images/deskops/reports.jpg" data-cap="Report Builder · the form decides what runs, never free-hand SQL">
+					<img src="images/deskops/thumb/reports.jpg" alt="The report builder" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
+				</button>
+				<div class="suite-body">
+					<div class="suite-name">Report Builder</div>
+					<p class="suite-lead">Letting a language model write SQL against a production database is an unacceptable risk. Refusing to let anyone ask a question in plain language is an unacceptable cost. The builder settles it by making the form the firewall: a request in words becomes a structured report definition, and only that definition is ever executed.</p>
+					<ul class="suite-points">
+						<li><b>Every part of the query is a validated field.</b> Source, joins, filters, type and style are checked before anything reaches the database.</li>
+						<li><b>The model proposes the shape of the report,</b> never the statement. There is no path from a sentence to raw SQL.</li>
+						<li><b>Definitions are saved and re-run,</b> and export through the application's own hand-written PDF writer.</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<!-- Family 3 -->
+		<div class="gallery-family">
+			<div class="gallery-family-head">
+				<span class="gallery-family-name">The business side</span>
+				<span class="gallery-family-rule"></span>
+				<span class="gallery-family-count">5 screens</span>
+			</div>
+			<p class="family-intro">
+				Most service desks stop at the ticket and hand the commercial consequences to a
+				separate system. DeskOps keeps the books, the customers and the numbers in the same
+				database as the work, <b>so a breached target, an unhappy account and an unpaid
+				invoice can be seen as the single fact they usually are.</b>
+			</p>
+
+			<div class="suite-row">
+				<button class="suite-shot" data-full="images/deskops/financials.jpg" data-cap="Financials · revenue against expenses, cash flow, and a ninety-day forecast">
+					<img src="images/deskops/thumb/financials.jpg" alt="The financials dashboard" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
+				</button>
+				<div class="suite-body">
+					<div class="suite-name">Financials</div>
+					<p class="suite-lead">The money side of service work, kept as genuine double-entry bookkeeping rather than a totals column. Invoices and expenses post balanced journal entries automatically against a chart of accounts, so the trial balance is an arithmetic identity rather than a hopeful summary.</p>
+					<ul class="suite-points">
+						<li><b>A promise is not a transaction.</b> Quotes post nothing until accepted, and retainers stand as client credit that drains only as work is billed.</li>
+						<li><b>Hours become money without retyping.</b> Time approved in the tracker arrives here as billable value automatically.</li>
+						<li><b>Eight tabs, one pipeline.</b> Invoicing, expenses, accounts, ledger, ticket billing, budget and reports all obey the same rules underneath.</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="suite-row">
+				<button class="suite-shot" data-full="images/deskops/crm.jpg" data-cap="CRM · a churn radar that reads each account's own SLA record">
+					<img src="images/deskops/thumb/crm.jpg" alt="The CRM dashboard" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
+				</button>
+				<div class="suite-body">
+					<div class="suite-name">CRM</div>
+					<p class="suite-lead">The commercial read on a customer is usually assembled by hand from three systems. Here it is computed: an account's health score is built from the tickets it raised, the targets missed on them and the invoices it was sent, so the churn radar names the accounts that are slipping and says why in the same row.</p>
+					<ul class="suite-points">
+						<li><b>Churn radar with the value at stake.</b> Paying accounts are ranked by service record, each with its open deal value beside it.</li>
+						<li><b>Expansion signals quoted from real tickets.</b> Customers asking for things you sell, in their own words, with the ticket linked.</li>
+						<li><b>One customer, one universe.</b> Leads, opportunities, contacts and activities run on the same data as the desk, not a parallel address book.</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="suite-row">
+				<button class="suite-shot" data-full="images/deskops/kpi.jpg" data-cap="KPI dashboards · drawn by DeskChart, the application's own canvas engine">
+					<img src="images/deskops/thumb/kpi.jpg" alt="KPI dashboards" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
+				</button>
+				<div class="suite-body">
+					<div class="suite-name">KPI Dashboards</div>
+					<p class="suite-lead">Performance reporting that cannot be trusted is worse than none at all. Every figure here is computed from the ticket record on demand, across nine sections covering trends, status and service levels, teams and categories, backlog and risk, resolution mix and scorecards.</p>
+					<ul class="suite-points">
+						<li><b>Every chart is the application's own code.</b> DeskChart draws each axis, tooltip and legend, so a dashboard renders identically offline with no library and no content delivery network.</li>
+						<li><b>Honest about what it cannot know.</b> A figure that has no basis in the period says so rather than showing a comforting zero.</li>
+						<li><b>One set of filters across every section:</b> period, team, product and policy apply everywhere at once.</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="suite-row">
+				<button class="suite-shot" data-full="images/deskops/teams.jpg" data-cap="Teams · membership, tiers and per-team SLA policy">
+					<img src="images/deskops/thumb/teams.jpg" alt="The teams screen" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
+				</button>
+				<div class="suite-body">
+					<div class="suite-name">Teams</div>
+					<p class="suite-lead">A team in most systems is a label on a user row. Here it is a record with its own membership, tiers, skills and service-level policy, so the question of who is carrying the load has an answer that does not require writing a query.</p>
+					<ul class="suite-points">
+						<li><b>Per-team service levels,</b> so a front-line tier and a specialist group can be held to targets that suit each.</li>
+						<li><b>Load visible in the directory:</b> open tickets, breaches and tickets per member, without opening a report.</li>
+						<li><b>Deliberately familiar.</b> The layout matches the ticket screens, so nothing has to be relearned to read it.</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="suite-row">
+				<button class="suite-shot" data-full="images/deskops/initiatives.jpg" data-cap="Initiatives · goals to epics to stories">
+					<img src="images/deskops/thumb/initiatives.jpg" alt="The initiatives screen" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
+				</button>
+				<div class="suite-body">
+					<div class="suite-name">Initiatives</div>
+					<p class="suite-lead">Longer work needs somewhere to live that is not a ticket queue. Initiatives hold goals, break them into epics and stories, and connect them to the issues and budgets they depend on, so a piece of project work can be traced from the intent down to the hour logged against it.</p>
+					<ul class="suite-points">
+						<li><b>Velocities and a Gantt view</b> for planning, with global permissions deciding who may change what.</li>
+						<li><b>An access agent governs joining and altering</b> an initiative under deterministic rules rather than a manager's memory.</li>
+						<li><b>Blockers and cost sit beside the plan,</b> because issues and financial lines attach to the initiative directly.</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<!-- Family 4 -->
+		<div class="gallery-family">
+			<div class="gallery-family-head">
+				<span class="gallery-family-name">The platform</span>
+				<span class="gallery-family-rule"></span>
+				<span class="gallery-family-count">5 screens</span>
+			</div>
+			<p class="family-intro">
+				The last five surfaces are the ones that make the rest defensible: what the estate is
+				made of, what the database actually looks like, how repetitive work is automated,
+				where knowledge is kept, and what is currently broken. <b>None of them are glamorous,
+				and the system is not credible without them.</b>
+			</p>
+
+			<div class="suite-row">
+				<button class="suite-shot" data-full="images/deskops/cmdb.jpg" data-cap="CMDB · configuration items with health, owners and dependencies">
+					<img src="images/deskops/thumb/cmdb.jpg" alt="The CMDB directory" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
+				</button>
+				<div class="suite-body">
+					<div class="suite-name">CMDB</div>
+					<p class="suite-lead">Incidents happen to things. The configuration database holds those things with typed, polymorphic relationships, so any record can depend on any other, and a failing server can be traced to the services it carries and the tickets those services generated.</p>
+					<ul class="suite-points">
+						<li><b>A health score per item and a fleet-state roll-up,</b> showing at a glance what is active, impaired, retiring or merely planned.</li>
+						<li><b>Queues for what needs attention:</b> critically stale items, services at risk, items with no owner, and orphans with no dependencies at all.</li>
+						<li><b>A topology view beside the directory,</b> because dependency is far easier to read as a picture than as a table.</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="suite-row">
+				<button class="suite-shot" data-full="images/deskops/schema.jpg" data-cap="Schema · a live diagram read from the database itself">
+					<img src="images/deskops/thumb/schema.jpg" alt="The live schema diagram" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
+				</button>
+				<div class="suite-body">
+					<div class="suite-name">Schema</div>
+					<p class="suite-lead">A system that cannot show you its own structure is asking to be taken on faith. This screen reads the live database and draws every table and foreign key in it, grouped into themes, with the delete behaviour marked on each relationship.</p>
+					<ul class="suite-points">
+						<li><b>Generated from the database itself,</b> so the diagram cannot drift from what is actually deployed.</li>
+						<li><b>Themes turn hundreds of tables into readable neighbourhoods</b> rather than one impenetrable wall of boxes.</li>
+						<li><b>A query tab beside the diagram,</b> for reading the schema directly when a picture is not enough.</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="suite-row">
+				<button class="suite-shot" data-full="images/deskops/playbooks.jpg" data-cap="Playbooks · automations drawn rather than coded">
+					<img src="images/deskops/thumb/playbooks.jpg" alt="The playbooks screen" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
+				</button>
+				<div class="suite-body">
+					<div class="suite-name">Playbooks</div>
+					<p class="suite-lead">Repetition is treated as a defect. A playbook is drawn rather than coded: a trigger, the conditions that qualify it, and the actions that follow, wired together on a canvas so the person who knows the process can build the automation without learning to script it.</p>
+					<ul class="suite-points">
+						<li><b>What is drawn is what executes.</b> The engine runs the canvas directly, and every run is recorded step by step.</li>
+						<li><b>A catalogue of ready-made flows</b> covers replies, service levels, routing and follow-ups, so the first automation is a choice rather than a project.</li>
+						<li><b>Scheduling belongs to the database,</b> so recurring work survives a restart without an external scheduler to maintain.</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="suite-row">
+				<button class="suite-shot" data-full="images/deskops/stack.jpg" data-cap="Knowledge Directory · every team's stack, subscribable like a newspaper">
+					<img src="images/deskops/thumb/stack.jpg" alt="The knowledge directory" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
+				</button>
+				<div class="suite-body">
+					<div class="suite-name">Knowledge Directory</div>
+					<p class="suite-lead">Knowledge that must be hunted for decays. Every team's knowledge stack is published here in one place and can be subscribed to like a newspaper, so a newly published page is delivered to the people who need it rather than waiting to be discovered.</p>
+					<ul class="suite-points">
+						<li><b>Featured deep dives hand-picked across the platform,</b> each naming the stack it came from.</li>
+						<li><b>Pages carry versions, permissions, comments and access requests,</b> so a stack can be opened up without being exposed.</li>
+						<li><b>Searchable by meaning.</b> The same vector store behind Ask Qleo indexes this corpus, not just keywords.</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="suite-row">
+				<button class="suite-shot" data-full="images/deskops/issues.jpg" data-cap="Issue Tracker · internal work items, grouped by status">
+					<img src="images/deskops/thumb/issues.jpg" alt="The issue tracker" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
+				</button>
+				<div class="suite-body">
+					<div class="suite-name">Issue Tracker</div>
+					<p class="suite-lead">The application keeps its own defect list, scoped to an initiative or standing alone, so the work of fixing DeskOps is tracked inside DeskOps. Several entries visible in this capture are the honest kind: an automation posting a customer-visible reply it should not, a local model chosen badly after a cold start, an export missing a column.</p>
+					<ul class="suite-points">
+						<li><b>Grouped by status, as a list or a board,</b> with urgency and age counts across the top.</li>
+						<li><b>Labels, assignees and initiative links,</b> so a defect can be traced to the work it is blocking.</li>
+						<li><b>Median age and the seven-day done count,</b> so the health of the backlog is measured rather than assumed.</li>
+					</ul>
 				</div>
 			</div>
 		</div>
@@ -2868,6 +3444,13 @@
 				<span class="writeup-dot live"></span> Live on LinkedIn
 			</span>
 		</a>
+		<a class="writeup-card" href="https://www.linkedin.com/pulse/every-gate-ordinary-code-tariq-hussain-nclye/" target="_blank">
+			<span class="writeup-part">Part 6</span>
+			<span class="writeup-title">Every Gate Is Ordinary Code</span>
+			<span class="writeup-status">
+				<span class="writeup-dot live"></span> Live on LinkedIn
+			</span>
+		</a>
 	</div>
 </section>
 
@@ -3385,6 +3968,13 @@
 	});
 	readerClose.addEventListener('click', closeReader);
 	readerModal.addEventListener('click', e => { if (e.target === readerModal) closeReader(); });
+
+	// The suite gallery: a screen opens full size in the zoom layer
+	document.querySelectorAll('.suite-shot, .gallery-lead').forEach(card => {
+		card.addEventListener('click', () => {
+			openZoom(card.dataset.full, card.dataset.cap || '');
+		});
+	});
 
 	// Left TOC scroll spy
 	const tocLinks = Array.from(document.querySelectorAll('.side-toc a[href^="#"]'));
