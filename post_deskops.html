@@ -741,6 +741,8 @@
 			border-top: 1px solid var(--border);
 			align-items: start;
 		}
+		/* The same window language the illustrative vignettes use higher up the
+		   page, so a real screenshot and a drawn one read as the same object. */
 		.suite-shot {
 			position: relative;
 			display: block;
@@ -749,15 +751,40 @@
 			border: 1px solid var(--border);
 			border-radius: var(--radius);
 			overflow: hidden;
-			background: var(--grey-soft);
+			background: var(--white);
 			cursor: pointer;
 			font-family: inherit;
+			box-shadow: 0 6px 18px rgba(26,82,118,0.08);
 			transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
 		}
 		.suite-shot:hover {
 			transform: translateY(-3px);
-			box-shadow: 0 12px 30px rgba(26,82,118,0.14);
+			box-shadow: 0 16px 36px rgba(26,82,118,0.16);
 			border-color: var(--blue-mid);
+		}
+		.shot-chrome {
+			display: flex;
+			align-items: center;
+			gap: 5px;
+			padding: 8px 11px;
+			background: var(--grey-soft);
+			border-bottom: 1px solid var(--border);
+		}
+		.shot-chrome i {
+			display: block;
+			width: 7px; height: 7px;
+			border-radius: 50%;
+			background: var(--blue-mid);
+		}
+		.shot-chrome i:nth-child(2) { opacity: 0.68; }
+		.shot-chrome i:nth-child(3) { opacity: 0.42; }
+		.shot-chrome span {
+			margin-left: 6px;
+			font-family: var(--font-label);
+			font-size: 8.5px;
+			letter-spacing: 0.1em;
+			text-transform: uppercase;
+			color: var(--text-muted);
 		}
 		.suite-shot img {
 			width: 100%;
@@ -1720,7 +1747,7 @@
 	<a href="#ch-qleo"><b>05</b>Qleo</a>
 	<a href="#ch-automation"><b>06</b>The Automation</a>
 	<a href="#ch-foundation"><b>07</b>The Foundation</a>
-	<a href="#suite">The suite, screen by screen</a>
+	<a href="#suite"><b>08</b>The Suite</a>
 	<a href="#engines">Built, not borrowed</a>
 	<a href="#library">The Library</a>
 	<a href="#research">Research spotlight</a>
@@ -2221,11 +2248,13 @@
 	</div>
 </section>
 
-<!-- The suite, screen by screen -->
+<hr class="section-rule">
+
+<!-- Chapter 08: the suite, screen by screen -->
 <section class="gallery-section" id="suite">
 	<div class="gallery-inner">
-		<div class="section-label">The suite</div>
-		<h2 class="section-title">Screen by screen</h2>
+		<div class="section-label">Chapter 08</div>
+		<h2 class="section-title">The Suite, Screen by Screen</h2>
 		<p class="section-desc">
 			What follows is the application itself, photographed on a live instance carrying its
 			own data. Twenty-two surfaces in four families, each with the problem it was built to
@@ -2255,6 +2284,7 @@
 
 			<div class="suite-row">
 				<button class="suite-shot" data-full="images/deskops/dashboard.jpg" data-cap="Dashboard · every ticket on one board, with its live SLA state">
+					<span class="shot-chrome"><i></i><i></i><i></i><span>Dashboard</span></span>
 					<img src="images/deskops/thumb/dashboard.jpg" alt="The DeskOps dashboard" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
 				</button>
 				<div class="suite-body">
@@ -2270,6 +2300,7 @@
 
 			<div class="suite-row">
 				<button class="suite-shot" data-full="images/deskops/ticket.jpg" data-cap="Ticket workbench · the urgency countdown and the service clock beside the incident">
+					<span class="shot-chrome"><i></i><i></i><i></i><span>Ticket workbench</span></span>
 					<img src="images/deskops/thumb/ticket.jpg" alt="A ticket open in the workbench" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
 				</button>
 				<div class="suite-body">
@@ -2285,6 +2316,7 @@
 
 			<div class="suite-row">
 				<button class="suite-shot" data-full="images/deskops/triage.jpg" data-cap="Triage Sentinel · Qleo drafts, a person decides">
+					<span class="shot-chrome"><i></i><i></i><i></i><span>Triage Sentinel</span></span>
 					<img src="images/deskops/thumb/triage.jpg" alt="The Triage Sentinel screen" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
 				</button>
 				<div class="suite-body">
@@ -2300,6 +2332,7 @@
 
 			<div class="suite-row">
 				<button class="suite-shot" data-full="images/deskops/sla.jpg" data-cap="SLA Policy Manager · calendars, stages and scopes, with a protected default">
+					<span class="shot-chrome"><i></i><i></i><i></i><span>SLA Policy Manager</span></span>
 					<img src="images/deskops/thumb/sla.jpg" alt="The SLA policy manager" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
 				</button>
 				<div class="suite-body">
@@ -2315,6 +2348,7 @@
 
 			<div class="suite-row">
 				<button class="suite-shot" data-full="images/deskops/inbox.jpg" data-cap="Inbox · SLA alerts arrive as mail, with the countdown consumed">
+					<span class="shot-chrome"><i></i><i></i><i></i><span>Inbox</span></span>
 					<img src="images/deskops/thumb/inbox.jpg" alt="The inbox showing SLA alerts" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
 				</button>
 				<div class="suite-body">
@@ -2330,6 +2364,7 @@
 
 			<div class="suite-row">
 				<button class="suite-shot" data-full="images/deskops/tasks.jpg" data-cap="Task Tracker · the working week, with timesheets on the next tab">
+					<span class="shot-chrome"><i></i><i></i><i></i><span>Task Tracker</span></span>
 					<img src="images/deskops/thumb/tasks.jpg" alt="The weekly task tracker" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
 				</button>
 				<div class="suite-body">
@@ -2361,6 +2396,7 @@
 
 			<div class="suite-row">
 				<button class="suite-shot" data-full="images/deskops/studio.jpg" data-cap="Qleo Studio · an agent that plans, edits, and reports every patch it applied">
+					<span class="shot-chrome"><i></i><i></i><i></i><span>Qleo Studio</span></span>
 					<img src="images/deskops/thumb/studio.jpg" alt="Qleo Studio with an agent conversation" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
 				</button>
 				<div class="suite-body">
@@ -2376,6 +2412,7 @@
 
 			<div class="suite-row">
 				<button class="suite-shot" data-full="images/deskops/aimodels.jpg" data-cap="AI Models · every on-device model with its size and its job">
+					<span class="shot-chrome"><i></i><i></i><i></i><span>AI Models</span></span>
 					<img src="images/deskops/thumb/aimodels.jpg" alt="The AI models screen" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
 				</button>
 				<div class="suite-body">
@@ -2391,6 +2428,7 @@
 
 			<div class="suite-row">
 				<button class="suite-shot" data-full="images/deskops/chroma.jpg" data-cap="ChromaDB Admin · the vector store behind Ask Qleo">
+					<span class="shot-chrome"><i></i><i></i><i></i><span>ChromaDB Admin</span></span>
 					<img src="images/deskops/thumb/chroma.jpg" alt="The ChromaDB admin screen" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
 				</button>
 				<div class="suite-body">
@@ -2406,6 +2444,7 @@
 
 			<div class="suite-row">
 				<button class="suite-shot" data-full="images/deskops/specs.jpg" data-cap="Qleo Specs · a requirement that executes cannot silently rot">
+					<span class="shot-chrome"><i></i><i></i><i></i><span>Qleo Specs</span></span>
 					<img src="images/deskops/thumb/specs.jpg" alt="The Qleo Specs screen" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
 				</button>
 				<div class="suite-body">
@@ -2421,6 +2460,7 @@
 
 			<div class="suite-row">
 				<button class="suite-shot" data-full="images/deskops/tagmanager.jpg" data-cap="Tag Manager · tag knowledge in five facets">
+					<span class="shot-chrome"><i></i><i></i><i></i><span>Tag Manager</span></span>
 					<img src="images/deskops/thumb/tagmanager.jpg" alt="The advanced tag manager" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
 				</button>
 				<div class="suite-body">
@@ -2436,6 +2476,7 @@
 
 			<div class="suite-row">
 				<button class="suite-shot" data-full="images/deskops/reports.jpg" data-cap="Report Builder · the form decides what runs, never free-hand SQL">
+					<span class="shot-chrome"><i></i><i></i><i></i><span>Report Builder</span></span>
 					<img src="images/deskops/thumb/reports.jpg" alt="The report builder" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
 				</button>
 				<div class="suite-body">
@@ -2466,6 +2507,7 @@
 
 			<div class="suite-row">
 				<button class="suite-shot" data-full="images/deskops/financials.jpg" data-cap="Financials · revenue against expenses, cash flow, and a ninety-day forecast">
+					<span class="shot-chrome"><i></i><i></i><i></i><span>Financials</span></span>
 					<img src="images/deskops/thumb/financials.jpg" alt="The financials dashboard" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
 				</button>
 				<div class="suite-body">
@@ -2481,6 +2523,7 @@
 
 			<div class="suite-row">
 				<button class="suite-shot" data-full="images/deskops/crm.jpg" data-cap="CRM · a churn radar that reads each account's own SLA record">
+					<span class="shot-chrome"><i></i><i></i><i></i><span>CRM</span></span>
 					<img src="images/deskops/thumb/crm.jpg" alt="The CRM dashboard" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
 				</button>
 				<div class="suite-body">
@@ -2496,6 +2539,7 @@
 
 			<div class="suite-row">
 				<button class="suite-shot" data-full="images/deskops/kpi.jpg" data-cap="KPI dashboards · drawn by DeskChart, the application's own canvas engine">
+					<span class="shot-chrome"><i></i><i></i><i></i><span>KPI dashboards</span></span>
 					<img src="images/deskops/thumb/kpi.jpg" alt="KPI dashboards" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
 				</button>
 				<div class="suite-body">
@@ -2511,6 +2555,7 @@
 
 			<div class="suite-row">
 				<button class="suite-shot" data-full="images/deskops/teams.jpg" data-cap="Teams · membership, tiers and per-team SLA policy">
+					<span class="shot-chrome"><i></i><i></i><i></i><span>Teams</span></span>
 					<img src="images/deskops/thumb/teams.jpg" alt="The teams screen" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
 				</button>
 				<div class="suite-body">
@@ -2526,6 +2571,7 @@
 
 			<div class="suite-row">
 				<button class="suite-shot" data-full="images/deskops/initiatives.jpg" data-cap="Initiatives · goals to epics to stories">
+					<span class="shot-chrome"><i></i><i></i><i></i><span>Initiatives</span></span>
 					<img src="images/deskops/thumb/initiatives.jpg" alt="The initiatives screen" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
 				</button>
 				<div class="suite-body">
@@ -2556,6 +2602,7 @@
 
 			<div class="suite-row">
 				<button class="suite-shot" data-full="images/deskops/cmdb.jpg" data-cap="CMDB · configuration items with health, owners and dependencies">
+					<span class="shot-chrome"><i></i><i></i><i></i><span>CMDB</span></span>
 					<img src="images/deskops/thumb/cmdb.jpg" alt="The CMDB directory" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
 				</button>
 				<div class="suite-body">
@@ -2571,6 +2618,7 @@
 
 			<div class="suite-row">
 				<button class="suite-shot" data-full="images/deskops/schema.jpg" data-cap="Schema · a live diagram read from the database itself">
+					<span class="shot-chrome"><i></i><i></i><i></i><span>Schema</span></span>
 					<img src="images/deskops/thumb/schema.jpg" alt="The live schema diagram" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
 				</button>
 				<div class="suite-body">
@@ -2586,6 +2634,7 @@
 
 			<div class="suite-row">
 				<button class="suite-shot" data-full="images/deskops/playbooks.jpg" data-cap="Playbooks · automations drawn rather than coded">
+					<span class="shot-chrome"><i></i><i></i><i></i><span>Playbooks</span></span>
 					<img src="images/deskops/thumb/playbooks.jpg" alt="The playbooks screen" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
 				</button>
 				<div class="suite-body">
@@ -2601,6 +2650,7 @@
 
 			<div class="suite-row">
 				<button class="suite-shot" data-full="images/deskops/stack.jpg" data-cap="Knowledge Directory · every team's stack, subscribable like a newspaper">
+					<span class="shot-chrome"><i></i><i></i><i></i><span>Knowledge Directory</span></span>
 					<img src="images/deskops/thumb/stack.jpg" alt="The knowledge directory" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
 				</button>
 				<div class="suite-body">
@@ -2616,6 +2666,7 @@
 
 			<div class="suite-row">
 				<button class="suite-shot" data-full="images/deskops/issues.jpg" data-cap="Issue Tracker · internal work items, grouped by status">
+					<span class="shot-chrome"><i></i><i></i><i></i><span>Issue Tracker</span></span>
 					<img src="images/deskops/thumb/issues.jpg" alt="The issue tracker" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
 				</button>
 				<div class="suite-body">
