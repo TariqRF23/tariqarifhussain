@@ -1488,17 +1488,27 @@
 			from { opacity: 0; transform: scale(0.96); }
 			to   { opacity: 1; transform: scale(1); }
 		}
+		/* Centred with auto margins rather than translateX(-50%): a percentage
+		   transform lands an odd-width pill on a half pixel, and inside an
+		   overlay that carries a backdrop-filter that renders the text blurred. */
 		.zoom-modal-caption {
 			position: absolute;
-			bottom: 24px; left: 50%;
-			transform: translateX(-50%);
-			color: rgba(255,255,255,0.85);
-			font-size: 0.85rem;
-			background: rgba(0,0,0,0.5);
-			padding: 8px 16px;
-			border-radius: 20px;
-			max-width: 80%;
+			bottom: 22px;
+			left: 0; right: 0;
+			margin: 0 auto;
+			width: max-content;
+			max-width: min(80%, 760px);
+			font-family: var(--font-main);
+			font-size: 0.83rem;
+			font-weight: 400;
+			line-height: 1.45;
+			color: #fff;
+			background: rgba(8,22,32,0.88);
+			border: 1px solid rgba(255,255,255,0.14);
+			padding: 9px 18px;
+			border-radius: 22px;
 			text-align: center;
+			box-shadow: 0 6px 20px rgba(0,0,0,0.45);
 		}
 		.zoom-modal-close {
 			position: absolute;
