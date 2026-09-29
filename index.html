@@ -926,97 +926,184 @@ The core values that I believe in are sincerity, creativity, showing initiative 
 <hr>
 <h4>AREAS OF INTEREST</h4>
 <br>
+
+<style>
+  /* Areas of Interest. Scoped here rather than in default.css, which the
+     other pages share. #skills already supplies the responsive grid. */
+  #skills { gap: 14px; padding: 18px; border-radius: 10px; align-items: start; }
+  #skills .aoi {
+    background: #ffffff;
+    border: 1px solid #dfe5ec;
+    border-radius: 10px;
+    padding: 18px 18px 16px;
+    margin: 0;
+  }
+  #skills .aoi h6 {
+    margin: 0 0 5px;
+    font-family: 'Bahnschrift', sans-serif;
+    font-size: 14.5px;
+    font-weight: 700;
+    color: #0d3349;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+  #skills .aoi .aoi-note {
+    display: block;
+    font-family: 'Bahnschrift Light', sans-serif;
+    font-size: 12px;
+    color: #6b7c93;
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+  #skills .aoi ul { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 6px; }
+  #skills .aoi li {
+    font-family: 'Bahnschrift Light', sans-serif;
+    font-size: 12px;
+    color: #1a5276;
+    background: #eef4fa;
+    border: 1px solid #dbe7f3;
+    border-radius: 20px;
+    padding: 4px 10px;
+    line-height: 1.4;
+  }
+  #skills .aoi-foot {
+    grid-column: 1 / -1;
+    font-family: 'Bahnschrift Light', sans-serif;
+    font-size: 12px;
+    color: #6b7c93;
+    line-height: 1.6;
+    padding: 2px 4px 0;
+    margin: 0;
+  }
+</style>
+
 <div id="skills">
 
-  <ul>
-    <h6>IT Operations &amp; Service Management</h6>
+  <div class="aoi">
+    <h6>Applied AI in Operations</h6>
+    <span class="aoi-note">Putting models to work inside a running service, and measuring afterwards whether they actually helped.</span>
     <ul>
-      <li>ITIL Incident, Change, Problem &amp; Release Management</li>
-      <li>SLA Management &amp; Uptime Optimization</li>
-      <li>Enterprise Architecture &amp; Governance (eGRC)</li>
+      <li>Retrieval-augmented generation</li>
+      <li>Local-first inference</li>
+      <li>llama.cpp &amp; Ollama</li>
+      <li>Qdrant &amp; ChromaDB</li>
+      <li>Planning agents with tool use</li>
+      <li>Model Context Protocol</li>
+      <li>Replayable action traces</li>
+      <li>Per-call evaluation</li>
+      <li>Model routing on accuracy, latency &amp; cost</li>
+      <li>Retrieval quality measured apart from answers</li>
+      <li>n8n orchestration</li>
+      <li>Claude, Gemini &amp; Groq APIs</li>
     </ul>
-  </ul>
+  </div>
 
-  <ul>
-    <h6>Data Engineering</h6>
+  <div class="aoi">
+    <h6>AI Governance &amp; Responsible Adoption</h6>
+    <span class="aoi-note">Controls that sit beneath the model, where they cannot be talked around.</span>
     <ul>
-      <li>Data Analytics</li>
-      <li>Data Governance</li>
-      <li>Data Visualization</li>
-      <li>Business Intelligence</li>
-      <li>ETL Pipelines (Informatica PowerCenter, Alteryx, DBT)</li>
-      <li>Cloud Data Warehousing (Snowflake, AWS, Azure Data Lake)</li>
+      <li>Guardrails enforced below the model</li>
+      <li>Constrained-grammar tool calls</li>
+      <li>Schema allow-lists</li>
+      <li>Read-only execution accounts</li>
+      <li>PII redaction with hash-based audit</li>
+      <li>Human escalation thresholds</li>
+      <li>Data residency assessment</li>
+      <li>Feasibility, cost &amp; latency review</li>
+      <li>Scoped, revocable tokens</li>
     </ul>
-  </ul>
+  </div>
 
-  <ul>
-    <h6>AI &amp; Innovation</h6>
+  <div class="aoi">
+    <h6>IT Service Management</h6>
+    <span class="aoi-note">The chain from an incident to a structural fix, governed rather than improvised.</span>
     <ul>
-      <li>AI-assisted Ticketing &amp; SLA Prediction</li>
-      <li>Copilot Studio &amp; AI Agent Development</li>
-      <li>LLM Integration</li>
+      <li>ITIL incident, problem, change &amp; release</li>
+      <li>ServiceNow under CSDM</li>
+      <li>Jira &amp; Confluence</li>
+      <li>SLA design &amp; escalation playbooks</li>
+      <li>Root-cause review</li>
+      <li>Vendor management to agreed service levels</li>
+      <li>Service KPIs &amp; reporting</li>
+      <li>Git-versioned runbooks</li>
+      <li>Change advisory &amp; impact analysis</li>
     </ul>
-  </ul>
+  </div>
 
-  <ul>
-    <h6>Digital Marketing</h6>
+  <div class="aoi">
+    <h6>IT Risk, Governance &amp; Continuity</h6>
+    <span class="aoi-note">What an application must prove before it is allowed to carry the business.</span>
     <ul>
-      <li>Email Marketing</li>
-      <li>Web Analytics</li>
-      <li>Technical SEO</li>
+      <li>eGRC on RSA Archer</li>
+      <li>ISO 27001 controls</li>
+      <li>Service Impact Assessment</li>
+      <li>Recovery time &amp; recovery point objectives</li>
+      <li>Privacy Impact Assessment</li>
+      <li>Information classification</li>
+      <li>IAM conformity, four-eyes &amp; segregation of duties</li>
+      <li>ITSCM &amp; disaster recovery exercises</li>
+      <li>SAST &amp; penetration testing tracking</li>
+      <li>Enterprise architecture onboarding</li>
     </ul>
-  </ul>
+  </div>
 
-  <ul>
-    <h6>Web 2</h6>
+  <div class="aoi">
+    <h6>Engineering</h6>
+    <span class="aoi-note">Building the thing, not only specifying it.</span>
     <ul>
-      <li>HTML &amp; CSS</li>
-      <li>SQL</li>
-      <li>JavaScript &amp; React</li>
-      <li>PHP</li>
+      <li>Python with FastAPI &amp; asyncio</li>
+      <li>PHP 8 with strict typing</li>
+      <li>Layered architecture</li>
+      <li>REST API design</li>
+      <li>OAuth2 client credentials</li>
+      <li>SQL: PostgreSQL, MySQL, Oracle, SQL Server</li>
+      <li>Relational design &amp; indexing to access patterns</li>
+      <li>Docker &amp; Docker Compose</li>
+      <li>Git, Azure DevOps &amp; CI/CD</li>
+      <li>JavaScript, HTML &amp; CSS</li>
     </ul>
-  </ul>
+  </div>
 
-  <ul>
-    <h6>Web 3</h6>
+  <div class="aoi">
+    <h6>Data &amp; Analytics</h6>
+    <span class="aoi-note">Moving warehouses, and reporting numbers people can act on.</span>
     <ul>
-      <li>Ethereum – Smart Contracts</li>
-      <li>Solidity</li>
+      <li>Data Vault 2.0</li>
+      <li>Informatica PowerCenter</li>
+      <li>Snowflake, DBT &amp; AWS Glue</li>
+      <li>Azure Data Lake</li>
+      <li>Alteryx pipelines</li>
+      <li>Power BI &amp; Power Query</li>
+      <li>Object-based migration estimation</li>
+      <li>Data governance</li>
+      <li>KPI reporting for mixed audiences</li>
     </ul>
-  </ul>
+  </div>
 
-  <ul>
-    <h6>Project Management</h6>
+  <div class="aoi">
+    <h6>Enterprise Applications &amp; Delivery</h6>
+    <span class="aoi-note">Owning a platform end to end, from the requirement to the release.</span>
     <ul>
-      <li>Business Process Mapping</li>
-      <li>AGILE &amp; SCRUM</li>
-    </ul>
-  </ul>
-
-  <ul>
-    <h6>Product Management</h6>
-    <ul>
-      <li>UI/UX Designing</li>
-      <li>Requirements Elicitation</li>
-    </ul>
-  </ul>
-
-  <ul>
-    <h6>Customer Relationship Management</h6>
-    <ul>
+      <li>Unit4 ERP functional ownership</li>
       <li>Microsoft Dynamics 365</li>
-      <li>Salesforce</li>
+      <li>Power Apps &amp; Power Automate</li>
+      <li>Copilot Studio agents</li>
+      <li>Requirements elicitation &amp; specification</li>
+      <li>Agile &amp; Scrum</li>
+      <li>WSJF &amp; RICE prioritisation</li>
+      <li>Velocity-based forecasting</li>
+      <li>Business process mapping</li>
+      <li>Single sign-on &amp; SCIM provisioning</li>
     </ul>
-  </ul>
+  </div>
 
-  <ul>
-    <h6>Nascent Technologies</h6>
-    <ul>
-      <li>Quantum Computing</li>
-    </ul>
-  </ul>
+  <p class="aoi-foot">
+    Earlier ground, still occasionally useful: Salesforce, digital marketing analytics and technical SEO,
+    and Ethereum smart contracts, the subject of a master's thesis on improving invoicing accuracy.
+  </p>
 
 </div>
+
 <hr>
 
 <h4>PROFILE HIGHLIGHTS</h4>
