@@ -31,14 +31,22 @@
 			--accent-soft: #d6eaf8;
 			--border:      #d9e7f4;
 			--radius:      10px;
-			--font-main:   Bahnschrift, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-			--font-label:  'Bahnschrift Light', 'SF Mono', Consolas, monospace;
+			/* The same two faces the rest of the site uses: Bahnschrift for
+			   headings and titles, Bahnschrift Light for running text. Asking
+			   for Bahnschrift at weight 300 is not the same thing, because
+			   Windows does not interpolate the family, so body copy came out
+			   heavier and narrower than every other page. Fallbacks follow the
+			   real faces rather than the site's monospace, which only affects
+			   machines that do not have Bahnschrift at all. */
+			--font-main:   'Bahnschrift', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+			--font-body:   'Bahnschrift Light', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+			--font-label:  'Bahnschrift Light', 'Segoe UI', Arial, sans-serif;
 		}
 
 		html { scroll-behavior: smooth; }
 
 		body {
-			font-family: var(--font-main);
+			font-family: var(--font-body);
 			font-weight: 400;
 			color: var(--text-body);
 			background: var(--white);
