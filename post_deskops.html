@@ -3920,7 +3920,7 @@
 		},
 		{
 			name: 'Ticket workbench',
-			blurb: 'One incident in full, with both clocks running beside it.',
+			blurb: 'Nine views of the crown-jewel screen: clocks, evidence, gates and the audit trail.',
 			lead: 'Opening a ticket must give an agent everything needed to act without leaving the page. The workbench carries the description, assignment, priority and policy in one column, and beside them the two clocks that decide urgency: the countdown against the agreed target, and the service clock showing how much of it has been consumed. Its other tabs put the assistant and the resolution composer on the same record.',
 			points: [
 				'<b>A countdown that respects the working day.</b> It pauses outside business hours, and can be forgiven on the record when it was set in error.',
@@ -3928,9 +3928,15 @@
 				'<b>Evidence indexed as it lands.</b> Attachments are chunked and embedded on upload, so Qleo can answer from them on the next tab immediately.'
 			],
 			shots: [
-				{ f: 'ticket', c: 'The incident itself, with the urgency countdown and the service clock', d: 'Ticket 54 open in full. The left column holds the description, status, assignee, priority and the policy that binds it; beneath sit the two clocks, the urgency countdown showing 345 of 12 working hours consumed, and the service clock reporting the breach against a 48 hour target.' },
-				{ f: 'ticketai', c: 'Ask Qleo, answering from the evidence attached to this ticket', d: 'The same ticket, one tab across. Ask Qleo answers from the material attached to this record rather than from general knowledge, and every claim it makes carries a citation back to the chunk it came from.' },
-				{ f: 'ticketres', c: 'The resolution composer, where cited notes are written', d: 'The resolution composer on the third tab. Notes are written in a fixed structure with inline citation markers, and the sources that survived screening are listed below the editor.' }
+				{ f: 'ticket', c: 'The incident, with both clocks running beside it', d: 'Ticket 54 in full. The left column holds the description, status, assignee, priority and the policy that binds it; beneath sit the two clocks, the urgency countdown showing 369 of 12 working hours consumed, and the service clock reporting the breach against a 48 hour target.' },
+				{ f: 'ticketsla', c: 'SLA at a glance: the warnings this run has already sent', d: 'The SLA panel has five views behind it. This is Warnings on run 3, listing the 50, 80, 95 and 100 per cent thresholds with the moment each was crossed and whether it was announced, so a breach is never a surprise with no paper trail.' },
+				{ f: 'ticketatt', c: 'Attachments, with the index state of every file', d: 'Twelve of twelve sources indexed and twelve chunks searchable, each tile carrying its own state and a re-index control. Evidence becomes answerable the moment it is uploaded, and when it does not, the tile says so rather than failing silently.' },
+				{ f: 'ticketai', c: 'Ask Qleo, answering from this ticket’s own evidence', d: 'Qleo answers from the material attached to this record rather than from general knowledge, and every claim it makes carries a citation back to the chunk it came from.' },
+				{ f: 'ticketres', c: 'The resolution composer, where cited notes are written', d: 'Notes are written in a fixed structure with inline citation markers, and the sources that survived the screening pass are listed below the editor.' },
+				{ f: 'ticketcomments', c: 'The conversation, including what the system wrote itself', d: 'Comments hold the human discussion and the machine’s own entries side by side. Here the SLA engine has recorded each status change and every explicit policy change, timestamped, so the history of the ticket is not only what people remembered to type.' },
+				{ f: 'ticketkam', c: 'The redaction gate, before a knowledge match is allowed to run', d: 'Asking for a knowledge-base match would send this ticket’s text to an external provider, so the gate intervenes first. It names the risk plainly and offers to start the redaction server; continuing unprotected is possible, but it is a deliberate choice rather than a default.' },
+				{ f: 'ticketaudit', c: 'The audit trail, 66 events on this ticket alone', d: 'Creation, attachments, every tag assignment, each SLA stage change and every policy switch, with the actor named on each and paged six screens deep. This is what makes a root-cause review an act of reading rather than reconstruction.' },
+				{ f: 'ticketmcp', c: 'The MCP server: scoped tokens and the redaction audit log', d: 'Reached from the same rail. External agents hold labelled, revocable tokens with explicit scopes, and every redaction call is logged with the number of personal values found, how many detection layers fired and how long it took.' }
 			]
 		},
 		{
@@ -3957,8 +3963,7 @@
 				'<b>Alerts that climb.</b> Breaches notify and reassign up the tier ladder until the ticket finds an owner.'
 			],
 			shots: [
-				{ f: 'sla', c: 'The policy list, with the computation engine switch above it', d: 'Five policies down the left, each naming the timer it runs and the calendar behind it. The engine switch at the top chooses between fixed thresholds and the policy-driven engine; the default policy carries no delete control because the database refuses to remove it.' },
-				{ f: 'slapolicy', c: 'A policy opened: its stages, calendar and the scopes it binds', d: 'A policy opened for editing: its stages, the business-hour calendar it runs against, and the scopes that decide which tickets it binds. The preview tab shows the effect on real tickets before anything is saved.' }
+				{ f: 'sla', c: 'The policy list, with the computation engine switch above it', d: 'Five policies down the left, each naming the timer it runs and the calendar behind it. The engine switch at the top chooses between fixed thresholds and the policy-driven engine; the default policy carries no delete control because the database refuses to remove it.' }
 			]
 		},
 		{
@@ -4057,8 +4062,7 @@
 				'<b>Definitions are saved and re-run,</b> and export through the application’s own hand-written PDF writer.'
 			],
 			shots: [
-				{ f: 'reports', c: 'The builder, with the plain-language request bar above the form', d: 'The builder before a run. The bar at the top takes a request in plain language; the form below is what actually executes, with source, joins, filters, type and style as separate validated fields.' },
-				{ f: 'reportsrun', c: 'A report run, returning rows from the definition the form produced', d: 'The same definition run. Rows come back from the structured report the form produced, which is the only thing that ever reaches the database.' }
+				{ f: 'reports', c: 'The builder, with the plain-language request bar above the form', d: 'The bar at the top takes a request in plain language; the form below is what actually executes, with source, joins, filters, type and style as separate validated fields. Only the definition the form produces ever reaches the database.' }
 			]
 		}
 		]
