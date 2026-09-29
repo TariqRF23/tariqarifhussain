@@ -775,6 +775,12 @@
 			font-family: inherit;
 			box-shadow: 0 4px 12px rgba(26,82,118,0.06);
 			transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+			/* A column so every tile in a row ends at the same height and the
+			   screen-count chip sits on the floor rather than wherever the
+			   blurb happens to stop. */
+			display: flex;
+			flex-direction: column;
+			align-self: stretch;
 		}
 		.mod-card:hover {
 			transform: translateY(-3px);
@@ -785,9 +791,10 @@
 			display: flex;
 			align-items: center;
 			gap: 5px;
-			padding: 7px 10px;
+			padding: 8px 14px;
 			background: var(--grey-soft);
 			border-bottom: 1px solid var(--border);
+			flex-shrink: 0;
 		}
 		.shot-chrome i { display: block; width: 6px; height: 6px; border-radius: 50%; background: var(--blue-mid); }
 		.shot-chrome i:nth-child(2) { opacity: 0.68; }
@@ -809,34 +816,45 @@
 			aspect-ratio: 16 / 10;
 			object-fit: cover;
 			object-position: top center;
+			border-bottom: 1px solid var(--border);
+			flex-shrink: 0;
 		}
-		.mod-card-text { padding: 12px 14px 14px; }
+		.mod-card-text {
+			padding: 14px 14px 15px;
+			display: flex;
+			flex-direction: column;
+			flex: 1;
+		}
 		.mod-card-name {
 			font-family: var(--font-main);
 			font-weight: 600;
 			font-size: 0.86rem;
 			color: var(--blue-ink);
 			display: block;
-			margin-bottom: 3px;
+			margin-bottom: 5px;
 		}
 		.mod-card-blurb {
 			font-size: 0.76rem;
 			color: var(--text-muted);
-			line-height: 1.5;
+			line-height: 1.55;
 			font-weight: 300;
 			display: block;
 		}
 		.mod-card-count {
-			display: inline-block;
-			margin-top: 8px;
+			align-self: flex-start;
+			margin-top: auto;
+			padding-top: 11px;
 			font-family: var(--font-label);
 			font-size: 8.5px;
 			letter-spacing: 0.08em;
 			text-transform: uppercase;
 			color: var(--accent);
+		}
+		.mod-card-count b {
 			background: var(--accent-soft);
 			border-radius: 4px;
-			padding: 2px 7px;
+			padding: 3px 7px;
+			font-weight: 600;
 		}
 
 		/* The module reader: the screen on the left, what it is for on the right. */
@@ -923,15 +941,58 @@
 			box-shadow: 0 6px 18px rgba(26,82,118,0.10);
 		}
 		.mod-stage-btn img { width: 100%; display: block; }
-		.mod-cap {
-			font-size: 0.8rem;
-			color: var(--text-muted);
-			line-height: 1.55;
-			font-weight: 300;
-			text-align: center;
-			padding: 0 6px;
+
+		/* The stage is itself a carousel when a module has more than one screen. */
+		.mod-frame { position: relative; }
+		.mod-arrow {
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			width: 38px; height: 38px;
+			border-radius: 50%;
+			border: 1px solid var(--border);
+			background: rgba(255,255,255,0.94);
+			color: var(--blue-deep);
+			cursor: pointer;
+			display: flex; align-items: center; justify-content: center;
+			font-size: 13px;
+			box-shadow: 0 4px 14px rgba(13,51,73,0.22);
+			transition: background 0.15s, opacity 0.15s;
+			z-index: 2;
 		}
-		.mod-cap b { color: var(--text-body); font-weight: 600; }
+		.mod-arrow:hover { background: #fff; }
+		.mod-arrow.prev { left: 12px; }
+		.mod-arrow.next { right: 12px; }
+		.mod-arrow[hidden] { display: none; }
+		.mod-counter {
+			position: absolute;
+			top: 12px; right: 12px;
+			font-family: var(--font-label);
+			font-size: 9px;
+			letter-spacing: 0.1em;
+			text-transform: uppercase;
+			color: #fff;
+			background: rgba(8,22,32,0.82);
+			border-radius: 20px;
+			padding: 4px 11px;
+			z-index: 2;
+		}
+		.mod-cap {
+			padding: 2px 6px 4px;
+		}
+		.mod-cap-title {
+			font-family: var(--font-main);
+			font-weight: 600;
+			font-size: 0.88rem;
+			color: var(--blue-ink);
+			margin-bottom: 5px;
+		}
+		.mod-cap-desc {
+			font-size: 0.82rem;
+			color: var(--text-muted);
+			line-height: 1.65;
+			font-weight: 300;
+		}
 
 		.mod-side {
 			width: 330px;
@@ -2463,10 +2524,18 @@
 		</div>
 		<div class="mod-body">
 			<div class="mod-stage">
-				<button class="mod-stage-btn" id="mod-stage-btn" aria-label="View full size">
-					<img id="mod-img" src="" alt="">
-				</button>
-				<div class="mod-cap" id="mod-cap"></div>
+				<div class="mod-frame">
+					<button class="mod-stage-btn" id="mod-stage-btn" aria-label="View full size">
+						<img id="mod-img" src="" alt="">
+					</button>
+					<span class="mod-counter" id="mod-counter"></span>
+					<button class="mod-arrow prev" id="mod-prev" aria-label="Previous screen"><i class="fa fa-chevron-left"></i></button>
+					<button class="mod-arrow next" id="mod-next" aria-label="Next screen"><i class="fa fa-chevron-right"></i></button>
+				</div>
+				<div class="mod-cap">
+					<div class="mod-cap-title" id="mod-cap-title"></div>
+					<div class="mod-cap-desc" id="mod-cap-desc"></div>
+				</div>
 			</div>
 			<aside class="mod-side">
 				<p class="mod-lead" id="mod-lead"></p>
@@ -3839,7 +3908,7 @@
 				'<b>Computed live.</b> SLA state is calculated per row on request rather than cached overnight, so the colour on screen is the truth now.',
 				'<b>Built to stay fast.</b> Sorting, filtering and search run in the database, so the board does not slow as the estate grows.'
 			],
-			shots: [{ f: 'dashboard', c: 'The board on arrival, every ticket with its live SLA state' }]
+			shots: [{ f: 'dashboard', c: 'The board on arrival, every ticket with its live SLA state', d: 'Ninety-two tickets in one list, each carrying its status, priority, SLA state, assignee and the customer behind it. The SLA column is computed per row at request time, which is why it can say Breached on a ticket nobody has touched today.' }]
 		},
 		{
 			name: 'Ticket workbench',
@@ -3851,9 +3920,9 @@
 				'<b>Evidence indexed as it lands.</b> Attachments are chunked and embedded on upload, so Qleo can answer from them on the next tab immediately.'
 			],
 			shots: [
-				{ f: 'ticket',    c: 'The incident itself, with the urgency countdown and the service clock' },
-				{ f: 'ticketai',  c: 'Ask Qleo, answering from the evidence attached to this ticket' },
-				{ f: 'ticketres', c: 'The resolution composer, where cited notes are written' }
+				{ f: 'ticket', c: 'The incident itself, with the urgency countdown and the service clock', d: 'Ticket 54 open in full. The left column holds the description, status, assignee, priority and the policy that binds it; beneath sit the two clocks, the urgency countdown showing 345 of 12 working hours consumed, and the service clock reporting the breach against a 48 hour target.' },
+				{ f: 'ticketai', c: 'Ask Qleo, answering from the evidence attached to this ticket', d: 'The same ticket, one tab across. Ask Qleo answers from the material attached to this record rather than from general knowledge, and every claim it makes carries a citation back to the chunk it came from.' },
+				{ f: 'ticketres', c: 'The resolution composer, where cited notes are written', d: 'The resolution composer on the third tab. Notes are written in a fixed structure with inline citation markers, and the sources that survived screening are listed below the editor.' }
 			]
 		},
 		{
@@ -3866,8 +3935,8 @@
 				'<b>A second tab ranks by breach risk,</b> so the queue can be worked in the order that protects targets rather than the order of arrival.'
 			],
 			shots: [
-				{ f: 'triage',     c: 'Drafted priorities and tags, each awaiting a human click' },
-				{ f: 'triagerisk', c: 'The same queue ranked by how close each ticket is to breaching' }
+				{ f: 'triage', c: 'Drafted priorities and tags, each awaiting a human click', d: 'Seven untriaged tickets, each with a drafted priority, suggested tags, a confidence figure and a one-line reason. The model that produced the draft is named beside the Apply button, and the figures above count how long the oldest draft has waited.' },
+				{ f: 'triagerisk', c: 'The same queue ranked by how close each ticket is to breaching', d: 'The second tab ranks the same queue by breach risk rather than arrival, so the eighty tickets already past their target can be worked in the order that protects what is still saveable.' }
 			]
 		},
 		{
@@ -3880,8 +3949,8 @@
 				'<b>Alerts that climb.</b> Breaches notify and reassign up the tier ladder until the ticket finds an owner.'
 			],
 			shots: [
-				{ f: 'sla',       c: 'The policy list, with the computation engine switch above it' },
-				{ f: 'slapolicy', c: 'A policy opened: its stages, calendar and the scopes it binds' }
+				{ f: 'sla', c: 'The policy list, with the computation engine switch above it', d: 'Five policies down the left, each naming the timer it runs and the calendar behind it. The engine switch at the top chooses between fixed thresholds and the policy-driven engine; the default policy carries no delete control because the database refuses to remove it.' },
+				{ f: 'slapolicy', c: 'A policy opened: its stages, calendar and the scopes it binds', d: 'A policy opened for editing: its stages, the business-hour calendar it runs against, and the scopes that decide which tickets it binds. The preview tab shows the effect on real tickets before anything is saved.' }
 			]
 		},
 		{
@@ -3893,7 +3962,7 @@
 				'<b>Alert history and human replies thread together,</b> so the conversation about a ticket is not split across two systems.',
 				'<b>Compose, forward and archive,</b> because an alert frequently needs to be sent on to somebody who does not use the desk.'
 			],
-			shots: [{ f: 'inbox', c: 'A breach notice with its countdown gauge and threshold markers' }]
+			shots: [{ f: 'inbox', c: 'A breach notice with its countdown gauge and threshold markers', d: 'A breach notice as it arrives. The gauge reports the whole countdown consumed, the markers show the 75, 90 and 100 per cent thresholds it crossed on the way, and the button opens the ticket itself.' }]
 		},
 		{
 			name: 'Task Tracker',
@@ -3904,7 +3973,7 @@
 				'<b>Hours feed the ledger directly.</b> Approved time becomes billable value in Financials without anyone re-entering it.',
 				'<b>The year is navigable,</b> so a question about what happened in a given week has an answer rather than an estimate.'
 			],
-			shots: [{ f: 'tasks', c: 'Weeks laid out day by day, with timesheets alongside' }]
+			shots: [{ f: 'tasks', c: 'Weeks laid out day by day, with timesheets alongside', d: 'The working week as people actually plan it, laid out day by day across weeks 39 to 42 with real commitments on it. Timesheets sit on the tab beside, so the hours are recorded where the work happened.' }]
 		}
 		]
 	},
@@ -3921,7 +3990,7 @@
 				'<b>Every edit lands on an undo ledger,</b> so a change can be inspected and reversed instead of being taken on trust.',
 				'<b>Templates that start something in one click:</b> a web starter, a dashboard, a CRUD application, a SQLite database or a Python script.'
 			],
-			shots: [{ f: 'studio', c: 'A live agent thread: six steps planned, five edits applied, the model named' }]
+			shots: [{ f: 'studio', c: 'A live agent thread: six steps planned, five edits applied, the model named', d: 'A workspace with three real files and a live agent thread. The request asked for a change to the page subject; Qleo reports six planned steps and five applied edits with the byte size of each patch, and names the local coder model that did it.' }]
 		},
 		{
 			name: 'AI Models',
@@ -3933,8 +4002,8 @@
 				'<b>Downloads and benchmarks run in the background,</b> one at a time, so the desk is never blocked by a model arriving.'
 			],
 			shots: [
-				{ f: 'aimodels',      c: 'The on-device registry: size, weight class and the job each model holds' },
-				{ f: 'aimodelsroute', c: 'Task routing, mapping each class of work to the model that suits it' }
+				{ f: 'aimodels', c: 'The on-device registry: size, weight class and the job each model holds', d: 'Nine on-device models with their sizes and the jobs each is meant for, marked required, optional or advanced. The header reports forty-seven task classes system-wide and how many the registry is currently routing.' },
+				{ f: 'aimodelsroute', c: 'Task routing, mapping each class of work to the model that suits it', d: 'Task routing, where each class of work is mapped to the model that suits it. A model can be pinned deliberately or left to the router, and the choice applies everywhere rather than being repeated in the code.' }
 			]
 		},
 		{
@@ -3946,7 +4015,7 @@
 				'<b>A live query panel</b> runs a semantic search and shows the chunks it retrieved with their distance scores, so relevance can be judged rather than assumed.',
 				'<b>The store starts from inside the application,</b> with a status indicator, so running the assistant never requires a terminal.'
 			],
-			shots: [{ f: 'chroma', c: '3,396 chunks across 170 indexed sources, grouped by ticket' }]
+			shots: [{ f: 'chroma', c: '3,396 chunks across 170 indexed sources, grouped by ticket', d: 'The vector store opened up: 3,396 chunks across 170 indexed sources, each row naming the source, the ticket it belongs to and the attachment it came from. A PDF here contributed 447 chunks on its own.' }]
 		},
 		{
 			name: 'Qleo Specs',
@@ -3957,7 +4026,7 @@
 				'<b>Every check carries its current figure,</b> so drift becomes visible the moment it begins rather than at the next review.',
 				'<b>Drafts stay separate from active specs,</b> so a half-formed idea does not start alerting people.'
 			],
-			shots: [{ f: 'specs', c: 'Starting points drawn from the estate, each with its figure as it stands' }]
+			shots: [{ f: 'specs', c: 'Starting points drawn from the estate, each with its figure as it stands', d: 'The starting points a spec can be written from, each carrying its live figure as it stands: eighty tickets breaching, a 98.8 per cent breach rate, one ticket with no team. A criterion attached to any of these compiles into a check that runs on a schedule.' }]
 		},
 		{
 			name: 'Tag Manager',
@@ -3968,7 +4037,7 @@
 				'<b>The profile does real work.</b> It feeds resolution notes, ticket tooltips, and Qleo’s own triage and suggestion passes.',
 				'<b>Scoped per application,</b> so the same word can mean different things in different parts of the estate without collision.'
 			],
-			shots: [{ f: 'tagmanager', c: 'An application’s tags, with the five-facet wizard open on one of them' }]
+			shots: [{ f: 'tagmanager', c: 'An application’s tags, with the five-facet wizard open on one of them', d: 'An application selected, its five tags listed, and the wizard open on one of them. The five tabs are the facets a tag profile carries: what it means, what signals suggest it, what to do, who owns it, and where to read further.' }]
 		},
 		{
 			name: 'Report Builder',
@@ -3980,8 +4049,8 @@
 				'<b>Definitions are saved and re-run,</b> and export through the application’s own hand-written PDF writer.'
 			],
 			shots: [
-				{ f: 'reports',    c: 'The builder, with the plain-language request bar above the form' },
-				{ f: 'reportsrun', c: 'A report run, returning rows from the definition the form produced' }
+				{ f: 'reports', c: 'The builder, with the plain-language request bar above the form', d: 'The builder before a run. The bar at the top takes a request in plain language; the form below is what actually executes, with source, joins, filters, type and style as separate validated fields.' },
+				{ f: 'reportsrun', c: 'A report run, returning rows from the definition the form produced', d: 'The same definition run. Rows come back from the structured report the form produced, which is the only thing that ever reaches the database.' }
 			]
 		}
 		]
@@ -4000,9 +4069,9 @@
 				'<b>Eight tabs, one pipeline.</b> Invoicing, expenses, accounts, ledger, ticket billing, budget and reports all obey the same rules underneath.'
 			],
 			shots: [
-				{ f: 'financials',  c: 'Revenue against expenses, cash flow, and a ninety-day forecast' },
-				{ f: 'fininvoices', c: 'Invoicing: documents, their state, and what each posted' },
-				{ f: 'finledger',   c: 'The general ledger itself, where every posting lands' }
+				{ f: 'financials', c: 'Revenue against expenses, cash flow, and a ninety-day forecast', d: 'The money side at a glance: revenue against expenses, the cash position, and a ninety-day forecast, over eight tabs that all run on one billing pipeline. The approval waiting at the top is a real expense submitted against a real supplier.' },
+				{ f: 'fininvoices', c: 'Invoicing: documents, their state, and what each posted', d: 'The invoicing tab. Documents and their state, with what each one posted to the ledger on acceptance, so the commercial record and the accounting record cannot disagree.' },
+				{ f: 'finledger', c: 'The general ledger itself, where every posting lands', d: 'The general ledger itself, where every posting lands. Invoices and expenses write balanced journal entries here automatically, which is what makes the trial balance an identity rather than a summary.' }
 			]
 		},
 		{
@@ -4015,8 +4084,8 @@
 				'<b>One customer, one universe.</b> Leads, opportunities, contacts and activities run on the same data as the desk, not a parallel address book.'
 			],
 			shots: [
-				{ f: 'crm',         c: 'Book health, and a churn radar naming the accounts that are slipping' },
-				{ f: 'crmpipeline', c: 'The pipeline: opportunities by stage, with weighted value' }
+				{ f: 'crm', c: 'Book health, and a churn radar naming the accounts that are slipping', d: 'Book health at forty, the pipeline across its stages, and a churn radar naming six accounts that are slipping. Each row states why in its own terms: ShopSmart Retail is there because seven of its tickets breached, with nineteen thousand of open value attached.' },
+				{ f: 'crmpipeline', c: 'The pipeline: opportunities by stage, with weighted value', d: 'The pipeline as deals rather than accounts: opportunities by stage with weighted value, running on the same records as the desk rather than a parallel address book.' }
 			]
 		},
 		{
@@ -4029,8 +4098,8 @@
 				'<b>One set of filters across every section:</b> period, team, product and policy apply everywhere at once.'
 			],
 			shots: [
-				{ f: 'kpi',      c: 'Team performance and category mix, drawn on canvas by DeskChart' },
-				{ f: 'kpiscore', c: 'Scorecards, holding each measure against its target' }
+				{ f: 'kpi', c: 'Team performance and category mix, drawn on canvas by DeskChart', d: 'Team performance and the category mix, both drawn on canvas by DeskChart. No charting library and no content delivery network are involved, which is why the same dashboard renders identically with the network unplugged.' },
+				{ f: 'kpiscore', c: 'Scorecards, holding each measure against its target', d: 'Scorecards, holding each measure against its target and saying plainly when a figure has no basis in the period rather than showing a comforting zero.' }
 			]
 		},
 		{
@@ -4042,7 +4111,7 @@
 				'<b>Load visible in the directory:</b> open tickets, breaches and tickets per member, without opening a report.',
 				'<b>Deliberately familiar.</b> The layout matches the ticket screens, so nothing has to be relearned to read it.'
 			],
-			shots: [{ f: 'teams', c: 'Six teams, twenty members, with open work and breaches per team' }]
+			shots: [{ f: 'teams', c: 'Six teams, twenty members, with open work and breaches per team', d: 'Six teams and twenty members, each team carrying its own membership, tiers and service-level policy, with open work and breaches per team visible without opening a report.' }]
 		},
 		{
 			name: 'Initiatives',
@@ -4053,7 +4122,7 @@
 				'<b>An access agent governs joining and altering</b> an initiative under deterministic rules rather than a manager’s memory.',
 				'<b>Blockers and cost sit beside the plan,</b> because issues and financial lines attach to the initiative directly.'
 			],
-			shots: [{ f: 'initiatives', c: 'An initiative opened, with its epics beside the portfolio' }]
+			shots: [{ f: 'initiatives', c: 'An initiative opened, with its epics beside the portfolio', d: 'An initiative opened with its epics beside it, drilling from a goal down to the stories under it. Velocities, a Gantt view and an access agent sit across the top.' }]
 		}
 		]
 	},
@@ -4070,7 +4139,7 @@
 				'<b>Subscriptions behave like a feed.</b> A new page on a stack you follow arrives in your inbox and notifications.',
 				'<b>Browsable by team,</b> with page counts and subscriber counts, so the state of each stack is visible before opening it.'
 			],
-			shots: [{ f: 'stack', c: 'The directory: featured reading above every team’s stack' }]
+			shots: [{ f: 'stack', c: 'The directory: featured reading above every team’s stack', d: 'The directory: featured deep dives hand-picked across the platform, above every team\u2019s knowledge stack with its page count and subscribers. A stack can be subscribed to, so a new page is delivered rather than discovered.' }]
 		},
 		{
 			name: 'A stack and its pages',
@@ -4082,9 +4151,9 @@
 				'<b>Comments and access requests live on the page,</b> so a reader who cannot see something can ask on the spot.'
 			],
 			shots: [
-				{ f: 'stackview',  c: 'The stack, its pages and their lifecycle states' },
-				{ f: 'stackpage',  c: 'A finalised page as a reader sees it' },
-				{ f: 'stackpage2', c: 'A longer technical page, with its structure intact' }
+				{ f: 'stackview', c: 'The stack, its pages and their lifecycle states', d: 'A stack and the pages inside it, each at a lifecycle state rather than merely saved. Draft, collaboration, restricted and finalised for public are distinct states with distinct rules about who may read and who may change.' },
+				{ f: 'stackpage', c: 'A finalised page as a reader sees it', d: 'A finalised page as a reader sees it, rendered from structured content rather than pasted formatting, with its permissions and comment thread attached.' },
+				{ f: 'stackpage2', c: 'A longer technical page, with its structure intact', d: 'A longer technical page, keeping its structure intact: headings, code, tables and images all rendered the same way for every reader.' }
 			]
 		},
 		{
@@ -4097,8 +4166,8 @@
 				'<b>Full version history per page,</b> so an edit can be read, compared and rolled back rather than argued about.'
 			],
 			shots: [
-				{ f: 'stackvc',       c: 'The repository view: pages on main, each at its own commit' },
-				{ f: 'stackversions', c: 'The version history of a single page' }
+				{ f: 'stackvc', c: 'The repository view: pages on main, each at its own commit', d: 'The repository view. Eight pages on the main branch, each at its own commit with the author and the moment it landed, over tabs for commits, the seven branches, and merge requests. Nothing reaches the live pages except through a merge request.' },
+				{ f: 'stackversions', c: 'The version history of a single page', d: 'The version history of a single page, so an edit can be read, compared and rolled back rather than argued about from memory.' }
 			]
 		},
 		{
@@ -4110,7 +4179,7 @@
 				'<b>Nothing touches live until it is finalised,</b> which is enforced by the lifecycle rather than by etiquette.',
 				'<b>Ownership is visible,</b> so a stalled draft has a name attached to it.'
 			],
-			shots: [{ f: 'stackdrafts', c: 'Drafts in progress, held apart from the published stack' }]
+			shots: [{ f: 'stackdrafts', c: 'Drafts in progress, held apart from the published stack', d: 'Drafts in progress, held apart from the published stack so the reading experience is never a building site. Ownership is explicit, which means a stalled draft has a name attached to it.' }]
 		},
 		{
 			name: 'The Knowledge Graph',
@@ -4121,7 +4190,7 @@
 				'<b>Banded by role rather than scattered:</b> sources at the top, hubs in the middle, satellites below, so the shape is readable.',
 				'<b>Structure first, then the AI passes.</b> Wikilinks and hierarchy are added instantly; the semantic relationships are inferred afterwards.'
 			],
-			shots: [{ f: 'kbgraph', c: '126 nodes and their edges, coloured by type and banded by role' }]
+			shots: [{ f: 'kbgraph', c: '126 nodes and their edges, coloured by type and banded by role', d: '126 nodes and the edges between them, banded by role: the tickets that sourced the knowledge at the top, the notebooks and pages that hold it in the middle, and the articles, concepts and tags below. Six kinds of edge are counted and can be filtered individually.' }]
 		},
 		{
 			name: 'AI Knowledge Base',
@@ -4132,7 +4201,7 @@
 				'<b>A council reviews before publication,</b> so an article is curated rather than merely generated.',
 				'<b>Quantified where it can be.</b> Several articles carry an observed proportion and a Wilson lower bound rather than an adjective.'
 			],
-			shots: [{ f: 'aiarticle', c: 'An AI-authored article in its diagnostic structure' }]
+			shots: [{ f: 'aiarticle', c: 'An AI-authored article in its diagnostic structure', d: 'An article the system drafted from real incidents, in the fixed diagnostic shape every one of them uses: symptoms, root cause and diagnosis, resolution, prevention and hardening, and related matter.' }]
 		},
 		{
 			name: 'Personal notebooks',
@@ -4143,7 +4212,7 @@
 				'<b>Suggested reading from seed topics,</b> drawing on what has been opened and what relates to it.',
 				'<b>Indexed into the graph,</b> so a personal page can still be found by meaning.'
 			],
-			shots: [{ f: 'notebooks', c: 'Personal notebooks and pages, in the shared editor' }]
+			shots: [{ f: 'notebooks', c: 'Personal notebooks and pages, in the shared editor', d: 'Personal notebooks in the same editor and the same index as the shared stacks, so a private note can be promoted into team knowledge without being rewritten anywhere.' }]
 		}
 		]
 	},
@@ -4161,8 +4230,8 @@
 				'<b>A topology view beside the directory,</b> because dependency is far easier to read as a picture than as a table.'
 			],
 			shots: [
-				{ f: 'cmdb',         c: 'The directory: health, owners and dependencies over a fleet roll-up' },
-				{ f: 'cmdbtopology', c: 'The same estate as a topology, showing what carries what' }
+				{ f: 'cmdb', c: 'The directory: health, owners and dependencies over a fleet roll-up', d: 'Fifty-three configuration items at seventy-seven per cent estate health, with the fleet split between active, in build, planned, impaired and retiring. The attention row counts what is stale, at risk, unowned or orphaned.' },
+				{ f: 'cmdbtopology', c: 'The same estate as a topology, showing what carries what', d: 'The same estate drawn as a topology, because a dependency chain is far easier to read as a picture than as a table of foreign keys.' }
 			]
 		},
 		{
@@ -4174,7 +4243,7 @@
 				'<b>Themes turn hundreds of tables into readable neighbourhoods</b> rather than one impenetrable wall of boxes.',
 				'<b>A query tab beside the diagram,</b> for reading the schema directly when a picture is not enough.'
 			],
-			shots: [{ f: 'schema', c: 'Every table and foreign key, grouped into themes' }]
+			shots: [{ f: 'schema', c: 'Every table and foreign key, grouped into themes', d: 'Two hundred and ninety-two tables and two hundred and one relationships, read from the live database and grouped into themes so the whole schema is legible. Delete behaviour is marked on each relationship.' }]
 		},
 		{
 			name: 'Playbooks',
@@ -4186,8 +4255,8 @@
 				'<b>Scheduling belongs to the database,</b> so recurring work survives a restart without an external scheduler to maintain.'
 			],
 			shots: [
-				{ f: 'playbooks',   c: 'The builder, with templates for the first automation' },
-				{ f: 'playbookcat', c: 'The catalogue of ready-made flows' }
+				{ f: 'playbooks', c: 'The builder, with templates for the first automation', d: 'The builder before the first automation, with templates for the common ones: answer from the knowledge base, flag urgent tickets, add an internal note on close.' },
+				{ f: 'playbookcat', c: 'The catalogue of ready-made flows', d: 'The catalogue of ready-made flows covering replies, service levels, routing and follow-ups, so a first automation is a choice rather than a project.' }
 			]
 		},
 		{
@@ -4200,8 +4269,8 @@
 				'<b>Median age and the seven-day done count,</b> so the health of the backlog is measured rather than assumed.'
 			],
 			shots: [
-				{ f: 'issues',      c: 'Issues grouped by status, with age and urgency across the top' },
-				{ f: 'issuesboard', c: 'The same issues on a board' }
+				{ f: 'issues', c: 'Issues grouped by status, with age and urgency across the top', d: 'The application\u2019s own defect list, grouped by status with urgency and median age across the top. The entries are the honest kind, including an automation posting a customer-visible reply it should not and a local model chosen badly after a cold start.' },
+				{ f: 'issuesboard', c: 'The same issues on a board', d: 'The same issues on a board, for working a column down rather than reading a list.' }
 			]
 		}
 		]
@@ -4247,7 +4316,7 @@
 					'<span class="mod-card-text">' +
 						'<span class="mod-card-name">' + esc(mod.name) + '</span>' +
 						'<span class="mod-card-blurb">' + esc(mod.blurb) + '</span>' +
-						'<span class="mod-card-count">' + mod.shots.length + (mod.shots.length === 1 ? ' screen' : ' screens') + '</span>' +
+						'<span class="mod-card-count"><b>' + mod.shots.length + (mod.shots.length === 1 ? ' screen' : ' screens') + '</b></span>' +
 					'</span>';
 				card.addEventListener('click', () => openModule(fi, mi));
 				track.appendChild(card);
@@ -4279,8 +4348,13 @@
 	const modOverlay = document.getElementById('mod-modal');
 	const modKicker  = document.getElementById('mod-kicker');
 	const modTitle   = document.getElementById('mod-title');
-	const modImg     = document.getElementById('mod-img');
-	const modCap     = document.getElementById('mod-cap');
+	const modImg      = document.getElementById('mod-img');
+	const modCapTitle = document.getElementById('mod-cap-title');
+	const modCapDesc  = document.getElementById('mod-cap-desc');
+	const modCounter  = document.getElementById('mod-counter');
+	const modPrev     = document.getElementById('mod-prev');
+	const modNext     = document.getElementById('mod-next');
+	let   modIndex    = 0;
 	const modLead    = document.getElementById('mod-lead');
 	const modPoints  = document.getElementById('mod-points');
 	const modRail    = document.getElementById('mod-rail');
@@ -4290,12 +4364,23 @@
 	let modCurrent   = null;
 
 	function showShot(mod, i) {
-		const s = mod.shots[i];
+		const n = mod.shots.length;
+		modIndex = ((i % n) + n) % n;
+		const s = mod.shots[modIndex];
 		modImg.src = 'images/deskops/' + s.f + '.jpg';
 		modImg.alt = mod.name + ': ' + s.c;
-		modCap.innerHTML = '<b>' + mod.name + '</b> · ' + s.c;
+		modCapTitle.textContent = s.c;
+		modCapDesc.textContent = s.d || '';
 		modStage.onclick = () => openZoom('images/deskops/' + s.f + '.jpg', mod.name + ' · ' + s.c);
-		Array.from(modRail.children).forEach((el, n) => el.classList.toggle('on', n === i));
+		// The arrows and the counter only earn their place on a module that
+		// actually has more than one screen.
+		modCounter.hidden = n < 2;
+		modPrev.hidden = n < 2;
+		modNext.hidden = n < 2;
+		modCounter.textContent = (modIndex + 1) + ' / ' + n;
+		Array.from(modRail.children).forEach((el, k) => el.classList.toggle('on', k === modIndex));
+		const active = modRail.children[modIndex];
+		if (active && active.scrollIntoView) active.scrollIntoView({ block: 'nearest' });
 	}
 
 	function openModule(fi, mi) {
@@ -4331,6 +4416,15 @@
 
 	modClose.addEventListener('click', closeModule);
 	modOverlay.addEventListener('click', e => { if (e.target === modOverlay) closeModule(); });
+	modPrev.addEventListener('click', () => { if (modCurrent) showShot(modCurrent, modIndex - 1); });
+	modNext.addEventListener('click', () => { if (modCurrent) showShot(modCurrent, modIndex + 1); });
+	// Arrow keys page the stage while the reader is open and the zoom is not.
+	document.addEventListener('keydown', e => {
+		if (!modCurrent || !modOverlay.classList.contains('open')) return;
+		if (document.getElementById('zoom-modal').classList.contains('open')) return;
+		if (e.key === 'ArrowLeft')  { showShot(modCurrent, modIndex - 1); }
+		if (e.key === 'ArrowRight') { showShot(modCurrent, modIndex + 1); }
+	});
 
 
 	// Left TOC scroll spy
