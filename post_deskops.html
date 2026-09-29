@@ -675,6 +675,7 @@
 		/* The suite gallery */
 		.gallery-section { background: var(--white); }
 		.gallery-inner { max-width: 960px; margin: 0 auto; padding: 70px 40px; }
+
 		.gallery-lead {
 			margin-top: 34px;
 			border: 1px solid var(--border);
@@ -696,14 +697,24 @@
 		}
 		.gallery-lead img { width: 100%; display: block; border-bottom: 1px solid var(--border); }
 		.gallery-lead-text { padding: 14px 20px 16px; display: block; }
-
-		.gallery-family { margin-top: 40px; }
-		.gallery-family-head {
-			display: flex;
-			align-items: center;
-			gap: 12px;
-			margin-bottom: 16px;
+		.shot-name {
+			font-family: var(--font-main);
+			font-weight: 600;
+			font-size: 0.95rem;
+			color: var(--blue-ink);
+			display: block;
+			margin-bottom: 4px;
 		}
+		.shot-note {
+			font-size: 0.83rem;
+			color: var(--text-muted);
+			line-height: 1.6;
+			font-weight: 300;
+			display: block;
+		}
+
+		.gallery-family { margin-top: 46px; }
+		.gallery-family-head { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
 		.gallery-family-name {
 			font-family: var(--font-label);
 			font-size: 10px;
@@ -724,7 +735,7 @@
 			border-left: 3px solid var(--accent);
 			border-radius: 0 var(--radius) var(--radius) 0;
 			padding: 18px 22px;
-			margin-bottom: 8px;
+			margin-bottom: 18px;
 			font-size: 0.9rem;
 			color: var(--text-muted);
 			line-height: 1.7;
@@ -732,129 +743,276 @@
 		}
 		.family-intro b { color: var(--text-body); font-weight: 600; }
 
-		/* One module, one row: the screen on the left, what it is for on the right. */
-		.suite-row {
-			display: grid;
-			grid-template-columns: 384px 1fr;
-			gap: 34px;
-			padding: 30px 0;
-			border-top: 1px solid var(--border);
-			align-items: start;
+		/* A carousel of modules per family, in the manner of the episode strip. */
+		.modcar { position: relative; }
+		.modcar-viewport { overflow: hidden; }
+		.modcar-track { display: flex; gap: 16px; transition: transform 0.4s cubic-bezier(0.4,0,0.2,1); }
+		.modcar-nav { display: flex; gap: 7px; flex-shrink: 0; }
+		.modcar-btn {
+			width: 30px; height: 30px;
+			border-radius: 50%;
+			border: 1px solid var(--border);
+			background: var(--white);
+			color: var(--blue-deep);
+			cursor: pointer;
+			display: flex; align-items: center; justify-content: center;
+			font-size: 11px;
+			transition: background 0.15s, border-color 0.15s;
 		}
-		/* The same window language the illustrative vignettes use higher up the
-		   page, so a real screenshot and a drawn one read as the same object. */
-		.suite-shot {
-			position: relative;
-			display: block;
-			width: 100%;
-			padding: 0;
+		.modcar-btn:hover { background: var(--blue-light); border-color: var(--blue-mid); }
+		.modcar-btn:disabled { opacity: 0.32; cursor: default; }
+
+		.mod-card {
+			flex: 0 0 262px;
+			width: 262px;
+			background: var(--white);
 			border: 1px solid var(--border);
 			border-radius: var(--radius);
 			overflow: hidden;
-			background: var(--white);
+			padding: 0;
 			cursor: pointer;
+			text-align: left;
 			font-family: inherit;
-			box-shadow: 0 6px 18px rgba(26,82,118,0.08);
+			box-shadow: 0 4px 12px rgba(26,82,118,0.06);
 			transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
 		}
-		.suite-shot:hover {
+		.mod-card:hover {
 			transform: translateY(-3px);
-			box-shadow: 0 16px 36px rgba(26,82,118,0.16);
+			box-shadow: 0 14px 30px rgba(26,82,118,0.15);
 			border-color: var(--blue-mid);
 		}
 		.shot-chrome {
 			display: flex;
 			align-items: center;
 			gap: 5px;
-			padding: 8px 11px;
+			padding: 7px 10px;
 			background: var(--grey-soft);
 			border-bottom: 1px solid var(--border);
 		}
-		.shot-chrome i {
-			display: block;
-			width: 7px; height: 7px;
-			border-radius: 50%;
-			background: var(--blue-mid);
-		}
+		.shot-chrome i { display: block; width: 6px; height: 6px; border-radius: 50%; background: var(--blue-mid); }
 		.shot-chrome i:nth-child(2) { opacity: 0.68; }
 		.shot-chrome i:nth-child(3) { opacity: 0.42; }
 		.shot-chrome span {
 			margin-left: 6px;
 			font-family: var(--font-label);
-			font-size: 8.5px;
+			font-size: 8px;
 			letter-spacing: 0.1em;
 			text-transform: uppercase;
 			color: var(--text-muted);
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
 		}
-		.suite-shot img {
+		.mod-card img {
 			width: 100%;
 			display: block;
 			aspect-ratio: 16 / 10;
 			object-fit: cover;
 			object-position: top center;
 		}
-		.shot-zoom {
-			position: absolute;
-			top: 8px; right: 8px;
-			width: 26px; height: 26px;
-			border-radius: 50%;
-			background: rgba(13,51,73,0.82);
-			color: #fff;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			font-size: 10px;
-			opacity: 0;
-			transition: opacity 0.18s;
-		}
-		.suite-shot:hover .shot-zoom { opacity: 1; }
-		.suite-name {
+		.mod-card-text { padding: 12px 14px 14px; }
+		.mod-card-name {
 			font-family: var(--font-main);
 			font-weight: 600;
-			font-size: 1.02rem;
+			font-size: 0.86rem;
 			color: var(--blue-ink);
-			margin-bottom: 9px;
+			display: block;
+			margin-bottom: 3px;
 		}
-		.suite-lead {
-			font-size: 0.9rem;
+		.mod-card-blurb {
+			font-size: 0.76rem;
+			color: var(--text-muted);
+			line-height: 1.5;
+			font-weight: 300;
+			display: block;
+		}
+		.mod-card-count {
+			display: inline-block;
+			margin-top: 8px;
+			font-family: var(--font-label);
+			font-size: 8.5px;
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+			color: var(--accent);
+			background: var(--accent-soft);
+			border-radius: 4px;
+			padding: 2px 7px;
+		}
+
+		/* The module reader: the screen on the left, what it is for on the right. */
+		.mod-overlay {
+			display: none;
+			position: fixed;
+			inset: 0;
+			background: rgba(8,30,44,0.78);
+			z-index: 2300;
+			align-items: center;
+			justify-content: center;
+			backdrop-filter: blur(4px);
+			padding: 22px;
+		}
+		.mod-overlay.open { display: flex; }
+		.mod-box {
+			background: var(--white);
+			border-radius: 12px;
+			width: 100%;
+			max-width: 1180px;
+			max-height: 90vh;
+			box-shadow: 0 24px 60px rgba(0,0,0,0.32);
+			display: flex;
+			flex-direction: column;
+			overflow: hidden;
+			animation: modalIn 0.25s ease;
+		}
+		.mod-head {
+			display: flex;
+			align-items: flex-start;
+			justify-content: space-between;
+			gap: 16px;
+			padding: 16px 20px 14px;
+			border-bottom: 1px solid var(--border);
+			flex-shrink: 0;
+		}
+		.mod-kicker {
+			font-family: var(--font-label);
+			font-size: 9px;
+			letter-spacing: 0.14em;
+			text-transform: uppercase;
+			color: var(--accent);
+			font-weight: 600;
+			margin-bottom: 4px;
+		}
+		.mod-title {
+			font-family: var(--font-main);
+			font-weight: 600;
+			font-size: 1.04rem;
+			color: var(--blue-ink);
+			line-height: 1.3;
+		}
+		.mod-close {
+			background: none; border: none; cursor: pointer;
+			color: var(--text-muted);
+			font-size: 18px; line-height: 1;
+			padding: 4px 6px; border-radius: 5px;
+			transition: background 0.15s;
+			flex-shrink: 0;
+		}
+		.mod-close:hover { background: var(--grey-bg); }
+
+		.mod-body { display: flex; flex: 1; min-height: 0; }
+		.mod-stage {
+			flex: 1;
+			min-width: 0;
+			background: var(--grey-bg);
+			padding: 16px;
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+			overflow-y: auto;
+		}
+		.mod-stage-btn {
+			display: block;
+			width: 100%;
+			padding: 0;
+			border: 1px solid var(--border);
+			border-radius: 9px;
+			overflow: hidden;
+			background: var(--white);
+			cursor: zoom-in;
+			font-family: inherit;
+			box-shadow: 0 6px 18px rgba(26,82,118,0.10);
+		}
+		.mod-stage-btn img { width: 100%; display: block; }
+		.mod-cap {
+			font-size: 0.8rem;
+			color: var(--text-muted);
+			line-height: 1.55;
+			font-weight: 300;
+			text-align: center;
+			padding: 0 6px;
+		}
+		.mod-cap b { color: var(--text-body); font-weight: 600; }
+
+		.mod-side {
+			width: 330px;
+			flex-shrink: 0;
+			border-left: 1px solid var(--border);
+			background: var(--white);
+			padding: 18px 20px 20px;
+			overflow-y: auto;
+			scrollbar-width: thin;
+			scrollbar-color: #cbd5e1 transparent;
+		}
+		.mod-side::-webkit-scrollbar { width: 5px; }
+		.mod-side::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+		.mod-lead {
+			font-size: 0.87rem;
 			color: var(--text-muted);
 			line-height: 1.72;
 			font-weight: 300;
 			margin-bottom: 14px;
 		}
-		.suite-points { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; }
-		.suite-points li {
-			font-size: 0.85rem;
+		.mod-points { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 9px; }
+		.mod-points li {
+			font-size: 0.82rem;
 			color: var(--text-muted);
 			line-height: 1.6;
 			font-weight: 300;
-			padding-left: 18px;
+			padding-left: 16px;
 			position: relative;
 		}
-		.suite-points li::before {
+		.mod-points li::before {
 			content: '';
 			position: absolute;
-			left: 0; top: 0.62em;
-			width: 6px; height: 6px;
+			left: 0; top: 0.6em;
+			width: 5px; height: 5px;
 			border-radius: 50%;
 			background: var(--blue-mid);
 		}
-		.suite-points li b { color: var(--text-body); font-weight: 600; }
-		.shot-name {
-			font-family: var(--font-main);
+		.mod-points li b { color: var(--text-body); font-weight: 600; }
+		.mod-rail-head {
+			font-family: var(--font-label);
+			font-size: 9px;
+			letter-spacing: 0.14em;
+			text-transform: uppercase;
+			color: var(--accent);
 			font-weight: 600;
-			font-size: 0.95rem;
-			color: var(--blue-ink);
-			display: block;
-			margin-bottom: 4px;
+			margin: 20px 0 9px;
+			padding-top: 14px;
+			border-top: 1px solid var(--border);
 		}
-		.shot-note {
-			font-size: 0.83rem;
+		.mod-rail { display: flex; flex-direction: column; gap: 8px; }
+		.mod-rail-item {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			padding: 6px;
+			border: 1px solid var(--border);
+			border-radius: 8px;
+			background: var(--white);
+			cursor: pointer;
+			text-align: left;
+			font-family: inherit;
+			transition: background 0.15s, border-color 0.15s;
+		}
+		.mod-rail-item:hover { background: var(--grey-soft); border-color: var(--blue-mid); }
+		.mod-rail-item.on { border-color: var(--accent); background: rgba(46,134,193,0.07); }
+		.mod-rail-item img {
+			width: 74px;
+			aspect-ratio: 16 / 10;
+			object-fit: cover;
+			object-position: top center;
+			border-radius: 4px;
+			flex-shrink: 0;
+			border: 1px solid var(--border);
+		}
+		.mod-rail-item span {
+			font-size: 0.74rem;
 			color: var(--text-muted);
-			line-height: 1.6;
+			line-height: 1.45;
 			font-weight: 300;
-			display: block;
 		}
+		.mod-rail-item.on span { color: var(--blue-deep); font-weight: 600; }
 
 		/* Engines band */
 		.engines-section {
@@ -2277,8 +2435,8 @@
 		<h2 class="section-title">The Suite, Screen by Screen</h2>
 		<p class="section-desc">
 			What follows is the application itself, photographed on a live instance carrying its
-			own data. Twenty-two surfaces in four families, each with the problem it was built to
-			solve set out beside it. Select any screen to see it full size.
+			own data. Twenty-eight modules in five families, each with the problem it was built to
+			solve set out beside it. Open any module to read it and to page through its screens.
 		</p>
 
 		<button class="gallery-lead" data-full="images/deskops/login.jpg" data-cap="The entry card · sign-in, over the schema of the system it opens">
@@ -2289,419 +2447,36 @@
 			</span>
 		</button>
 
-		<!-- Family 1 -->
-		<div class="gallery-family">
-			<div class="gallery-family-head">
-				<span class="gallery-family-name">Where the work happens</span>
-				<span class="gallery-family-rule"></span>
-				<span class="gallery-family-count">6 screens</span>
-			</div>
-			<p class="family-intro">
-				A service desk is a machine for keeping promises. These six surfaces are where a
-				promise is made, tracked, escalated and kept. <b>Everything else in DeskOps exists
-				to make what happens here cheaper, faster, or better evidenced.</b>
-			</p>
-
-			<div class="suite-row">
-				<button class="suite-shot" data-full="images/deskops/dashboard.jpg" data-cap="Dashboard · every ticket on one board, with its live SLA state">
-					<span class="shot-chrome"><i></i><i></i><i></i><span>Dashboard</span></span>
-					<img src="images/deskops/thumb/dashboard.jpg" alt="The DeskOps dashboard" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
-				</button>
-				<div class="suite-body">
-					<div class="suite-name">Dashboard</div>
-					<p class="suite-lead">The first screen after sign-in answers the only question that matters on arrival: what is on fire, and whose is it. Every ticket appears on one board with its status, priority, assignee, the customer behind it and the live state of its service-level clock, so a queue never has to be reconstructed from memory or from a spreadsheet.</p>
-					<ul class="suite-points">
-						<li><b>Scoped by role.</b> Five tiers each see the slice their remit covers and nothing beyond it, so the same board is safe to put in front of anyone.</li>
-						<li><b>Computed live.</b> SLA state is calculated per row on request rather than cached overnight, so the colour on screen is the truth now.</li>
-						<li><b>Built to stay fast.</b> Sorting, filtering and search run in the database, so the board does not slow as the estate grows.</li>
-					</ul>
-				</div>
-			</div>
-
-			<div class="suite-row">
-				<button class="suite-shot" data-full="images/deskops/ticket.jpg" data-cap="Ticket workbench · the urgency countdown and the service clock beside the incident">
-					<span class="shot-chrome"><i></i><i></i><i></i><span>Ticket workbench</span></span>
-					<img src="images/deskops/thumb/ticket.jpg" alt="A ticket open in the workbench" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
-				</button>
-				<div class="suite-body">
-					<div class="suite-name">Ticket workbench</div>
-					<p class="suite-lead">Opening a ticket must give an agent everything needed to act without leaving the page. The workbench carries the description, assignment, priority and policy in one column, and beside them the two clocks that decide urgency: the countdown against the agreed target, and the service clock showing how much of it has been consumed.</p>
-					<ul class="suite-points">
-						<li><b>A countdown that respects the working day.</b> It pauses outside business hours, and can be forgiven on the record when it was set in error.</li>
-						<li><b>The whole SLA picture in one panel.</b> The clock, the calendar behind it, holds taken, warnings sent, and every run of the engine.</li>
-						<li><b>Evidence indexed as it lands.</b> Attachments are chunked and embedded on upload, so the assistant can answer from them immediately.</li>
-					</ul>
-				</div>
-			</div>
-
-			<div class="suite-row">
-				<button class="suite-shot" data-full="images/deskops/triage.jpg" data-cap="Triage Sentinel · Qleo drafts, a person decides">
-					<span class="shot-chrome"><i></i><i></i><i></i><span>Triage Sentinel</span></span>
-					<img src="images/deskops/thumb/triage.jpg" alt="The Triage Sentinel screen" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
-				</button>
-				<div class="suite-body">
-					<div class="suite-name">Triage Sentinel</div>
-					<p class="suite-lead">Untriaged tickets are the most expensive thing on a service desk, because every hour one waits is an hour of its target spent on nothing. The Sentinel has Qleo read each one and propose a priority and tags, with a confidence figure and a one-line reason, and then stops. A person accepts, re-prioritises or dismisses. Nothing is applied on the model's own authority.</p>
-					<ul class="suite-points">
-						<li><b>Every decision teaches the router.</b> Accepting or overriding a draft is recorded as a signal about which model triages this kind of work best.</li>
-						<li><b>The drafting model is named on each card,</b> so a poor suggestion is traceable to its source rather than to the system in general.</li>
-						<li><b>A second tab ranks by breach risk,</b> so the queue can be worked in the order that protects targets rather than the order of arrival.</li>
-					</ul>
-				</div>
-			</div>
-
-			<div class="suite-row">
-				<button class="suite-shot" data-full="images/deskops/sla.jpg" data-cap="SLA Policy Manager · calendars, stages and scopes, with a protected default">
-					<span class="shot-chrome"><i></i><i></i><i></i><span>SLA Policy Manager</span></span>
-					<img src="images/deskops/thumb/sla.jpg" alt="The SLA policy manager" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
-				</button>
-				<div class="suite-body">
-					<div class="suite-name">SLA Policy Manager</div>
-					<p class="suite-lead">Service levels mean nothing if the clock disagrees with how the business actually works. Policies are built here from business-hour calendars, staged targets and scopes that decide which tickets they bind, with a preview showing the effect before anything is saved.</p>
-					<ul class="suite-points">
-						<li><b>Two engines, side by side.</b> Fixed thresholds for simple estates, or the policy-driven engine with real calendars and stages for everything else.</li>
-						<li><b>The default cannot be deleted by accident.</b> Database triggers protect the fallback policy and its calendar, because losing them would silently un-govern every ticket.</li>
-						<li><b>Alerts that climb.</b> Breaches notify and reassign up the tier ladder until the ticket finds an owner.</li>
-					</ul>
-				</div>
-			</div>
-
-			<div class="suite-row">
-				<button class="suite-shot" data-full="images/deskops/inbox.jpg" data-cap="Inbox · SLA alerts arrive as mail, with the countdown consumed">
-					<span class="shot-chrome"><i></i><i></i><i></i><span>Inbox</span></span>
-					<img src="images/deskops/thumb/inbox.jpg" alt="The inbox showing SLA alerts" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
-				</button>
-				<div class="suite-body">
-					<div class="suite-name">Inbox</div>
-					<p class="suite-lead">An escalation nobody sees is not an escalation. Every warning the SLA engine raises arrives here as a message with its evidence attached: how much of the countdown has been consumed, which thresholds were crossed and when, and a button that opens the ticket itself.</p>
-					<ul class="suite-points">
-						<li><b>Thresholds drawn, not described.</b> Markers at 75, 90 and 100 per cent show how close the target already was when the warning fired.</li>
-						<li><b>Alert history and human replies thread together,</b> so the conversation about a ticket is not split across two systems.</li>
-						<li><b>Compose, forward and archive,</b> because an alert frequently needs to be sent on to somebody who does not use the desk.</li>
-					</ul>
-				</div>
-			</div>
-
-			<div class="suite-row">
-				<button class="suite-shot" data-full="images/deskops/tasks.jpg" data-cap="Task Tracker · the working week, with timesheets on the next tab">
-					<span class="shot-chrome"><i></i><i></i><i></i><span>Task Tracker</span></span>
-					<img src="images/deskops/thumb/tasks.jpg" alt="The weekly task tracker" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
-				</button>
-				<div class="suite-body">
-					<div class="suite-name">Task Tracker</div>
-					<p class="suite-lead">Not all work arrives as a ticket. The tracker holds the week the way people actually plan it, day by day, with the time each item consumed recorded on the tab beside it, so billable hours are captured where the work happened rather than reconstructed on a Friday afternoon.</p>
-					<ul class="suite-points">
-						<li><b>Weeks copy forward,</b> so recurring commitments are not retyped fifty times a year.</li>
-						<li><b>Hours feed the ledger directly.</b> Approved time becomes billable value in Financials without anyone re-entering it.</li>
-						<li><b>The year is navigable,</b> so a question about what happened in a given week has an answer rather than an estimate.</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-
-		<!-- Family 2 -->
-		<div class="gallery-family">
-			<div class="gallery-family-head">
-				<span class="gallery-family-name">Qleo, the resident AI</span>
-				<span class="gallery-family-rule"></span>
-				<span class="gallery-family-count">6 screens</span>
-			</div>
-			<p class="family-intro">
-				Qleo is an assistant with a residence rather than a subscription. Its everyday
-				reasoning runs on a model on this machine, beside the data it serves; the cloud is
-				a fallback for the hardest work, and every cloud-bound request is scrubbed of
-				personal data first. <b>These six screens are where that intelligence is configured,
-				fed, bounded and put to work.</b>
-			</p>
-
-			<div class="suite-row">
-				<button class="suite-shot" data-full="images/deskops/studio.jpg" data-cap="Qleo Studio · an agent that plans, edits, and reports every patch it applied">
-					<span class="shot-chrome"><i></i><i></i><i></i><span>Qleo Studio</span></span>
-					<img src="images/deskops/thumb/studio.jpg" alt="Qleo Studio with an agent conversation" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
-				</button>
-				<div class="suite-body">
-					<div class="suite-name">Qleo Studio</div>
-					<p class="suite-lead">The application can be extended from inside itself. Studio is a workspace with real files, an editor, and an agent that plans a change before making one, then reports precisely which files it patched and by how many bytes. The model that did the work is named at the foot of the conversation, and in this capture it is a coder model running locally.</p>
-					<ul class="suite-points">
-						<li><b>Plan, then act.</b> The agent proposes its steps and works through them under supervision, rather than editing and explaining afterwards.</li>
-						<li><b>Every edit lands on an undo ledger,</b> so a change can be inspected and reversed instead of being taken on trust.</li>
-						<li><b>Templates that start something in one click:</b> a web starter, a dashboard, a CRUD application, a SQLite database or a Python script.</li>
-					</ul>
-				</div>
-			</div>
-
-			<div class="suite-row">
-				<button class="suite-shot" data-full="images/deskops/aimodels.jpg" data-cap="AI Models · every on-device model with its size and its job">
-					<span class="shot-chrome"><i></i><i></i><i></i><span>AI Models</span></span>
-					<img src="images/deskops/thumb/aimodels.jpg" alt="The AI models screen" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
-				</button>
-				<div class="suite-body">
-					<div class="suite-name">AI Models</div>
-					<p class="suite-lead">An assistant is only as good as the model behind the task, and no single model is best at everything. This screen is the registry: every on-device model with its size, its weight class and the jobs it is meant for, so routing becomes a decision made once and applied everywhere rather than hard-coded across the application.</p>
-					<ul class="suite-points">
-						<li><b>Required, optional and advanced tiers,</b> so a modest machine still runs the features that matter and a larger one uses what it has.</li>
-						<li><b>Task routing maps each class of work to a model,</b> with the option to pin one deliberately or let the router judge.</li>
-						<li><b>Downloads and benchmarks run in the background,</b> one at a time, so the desk is never blocked by a model arriving.</li>
-					</ul>
-				</div>
-			</div>
-
-			<div class="suite-row">
-				<button class="suite-shot" data-full="images/deskops/chroma.jpg" data-cap="ChromaDB Admin · the vector store behind Ask Qleo">
-					<span class="shot-chrome"><i></i><i></i><i></i><span>ChromaDB Admin</span></span>
-					<img src="images/deskops/thumb/chroma.jpg" alt="The ChromaDB admin screen" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
-				</button>
-				<div class="suite-body">
-					<div class="suite-name">ChromaDB Admin</div>
-					<p class="suite-lead">Retrieval is only trustworthy if you can see what was indexed. This screen exposes the vector store directly: how many chunks exist, which source produced each one, and which ticket and attachment it belongs to, with the ability to delete a source or index it again.</p>
-					<ul class="suite-points">
-						<li><b>The whole record is queryable.</b> Ticket descriptions and comments are indexed alongside file attachments, not just the files.</li>
-						<li><b>A live query panel</b> runs a semantic search and shows the chunks it retrieved with their distance scores, so relevance can be judged rather than assumed.</li>
-						<li><b>The store starts from inside the application,</b> with a status indicator, so running the assistant never requires a terminal.</li>
-					</ul>
-				</div>
-			</div>
-
-			<div class="suite-row">
-				<button class="suite-shot" data-full="images/deskops/specs.jpg" data-cap="Qleo Specs · a requirement that executes cannot silently rot">
-					<span class="shot-chrome"><i></i><i></i><i></i><span>Qleo Specs</span></span>
-					<img src="images/deskops/thumb/specs.jpg" alt="The Qleo Specs screen" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
-				</button>
-				<div class="suite-body">
-					<div class="suite-name">Qleo Specs</div>
-					<p class="suite-lead">A requirement written in a document rots quietly. A spec written here states an outcome, attaches a criterion that compiles into a live check over the real data, and then reports on a schedule whether the number actually moved. The starting points it offers are drawn from the estate as it stands, not from examples.</p>
-					<ul class="suite-points">
-						<li><b>Criteria compile to queries against live tickets,</b> so a spec is evaluated rather than merely asserted.</li>
-						<li><b>Every check carries its current figure,</b> so drift becomes visible the moment it begins rather than at the next review.</li>
-						<li><b>Drafts stay separate from active specs,</b> so a half-formed idea does not start alerting people.</li>
-					</ul>
-				</div>
-			</div>
-
-			<div class="suite-row">
-				<button class="suite-shot" data-full="images/deskops/tagmanager.jpg" data-cap="Tag Manager · tag knowledge in five facets">
-					<span class="shot-chrome"><i></i><i></i><i></i><span>Tag Manager</span></span>
-					<img src="images/deskops/thumb/tagmanager.jpg" alt="The advanced tag manager" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
-				</button>
-				<div class="suite-body">
-					<div class="suite-name">Tag Manager</div>
-					<p class="suite-lead">A tag is usually a label and nothing more. Here it carries a written profile in five facets, so the knowledge an experienced agent holds about a topic becomes something both people and the assistant can apply: what the tag means, what signals suggest it, what to do about it, who owns it, and where to read further.</p>
-					<ul class="suite-points">
-						<li><b>Structured, not prose.</b> Profiles are authored in Markdown with a live preview and stored as separate fields the system can actually use.</li>
-						<li><b>The profile does real work.</b> It feeds resolution notes, ticket tooltips, and Qleo's own triage and suggestion passes.</li>
-						<li><b>Scoped per application,</b> so the same word can mean different things in different parts of the estate without collision.</li>
-					</ul>
-				</div>
-			</div>
-
-			<div class="suite-row">
-				<button class="suite-shot" data-full="images/deskops/reports.jpg" data-cap="Report Builder · the form decides what runs, never free-hand SQL">
-					<span class="shot-chrome"><i></i><i></i><i></i><span>Report Builder</span></span>
-					<img src="images/deskops/thumb/reports.jpg" alt="The report builder" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
-				</button>
-				<div class="suite-body">
-					<div class="suite-name">Report Builder</div>
-					<p class="suite-lead">Letting a language model write SQL against a production database is an unacceptable risk. Refusing to let anyone ask a question in plain language is an unacceptable cost. The builder settles it by making the form the firewall: a request in words becomes a structured report definition, and only that definition is ever executed.</p>
-					<ul class="suite-points">
-						<li><b>Every part of the query is a validated field.</b> Source, joins, filters, type and style are checked before anything reaches the database.</li>
-						<li><b>The model proposes the shape of the report,</b> never the statement. There is no path from a sentence to raw SQL.</li>
-						<li><b>Definitions are saved and re-run,</b> and export through the application's own hand-written PDF writer.</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-
-		<!-- Family 3 -->
-		<div class="gallery-family">
-			<div class="gallery-family-head">
-				<span class="gallery-family-name">The business side</span>
-				<span class="gallery-family-rule"></span>
-				<span class="gallery-family-count">5 screens</span>
-			</div>
-			<p class="family-intro">
-				Most service desks stop at the ticket and hand the commercial consequences to a
-				separate system. DeskOps keeps the books, the customers and the numbers in the same
-				database as the work, <b>so a breached target, an unhappy account and an unpaid
-				invoice can be seen as the single fact they usually are.</b>
-			</p>
-
-			<div class="suite-row">
-				<button class="suite-shot" data-full="images/deskops/financials.jpg" data-cap="Financials · revenue against expenses, cash flow, and a ninety-day forecast">
-					<span class="shot-chrome"><i></i><i></i><i></i><span>Financials</span></span>
-					<img src="images/deskops/thumb/financials.jpg" alt="The financials dashboard" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
-				</button>
-				<div class="suite-body">
-					<div class="suite-name">Financials</div>
-					<p class="suite-lead">The money side of service work, kept as genuine double-entry bookkeeping rather than a totals column. Invoices and expenses post balanced journal entries automatically against a chart of accounts, so the trial balance is an arithmetic identity rather than a hopeful summary.</p>
-					<ul class="suite-points">
-						<li><b>A promise is not a transaction.</b> Quotes post nothing until accepted, and retainers stand as client credit that drains only as work is billed.</li>
-						<li><b>Hours become money without retyping.</b> Time approved in the tracker arrives here as billable value automatically.</li>
-						<li><b>Eight tabs, one pipeline.</b> Invoicing, expenses, accounts, ledger, ticket billing, budget and reports all obey the same rules underneath.</li>
-					</ul>
-				</div>
-			</div>
-
-			<div class="suite-row">
-				<button class="suite-shot" data-full="images/deskops/crm.jpg" data-cap="CRM · a churn radar that reads each account's own SLA record">
-					<span class="shot-chrome"><i></i><i></i><i></i><span>CRM</span></span>
-					<img src="images/deskops/thumb/crm.jpg" alt="The CRM dashboard" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
-				</button>
-				<div class="suite-body">
-					<div class="suite-name">CRM</div>
-					<p class="suite-lead">The commercial read on a customer is usually assembled by hand from three systems. Here it is computed: an account's health score is built from the tickets it raised, the targets missed on them and the invoices it was sent, so the churn radar names the accounts that are slipping and says why in the same row.</p>
-					<ul class="suite-points">
-						<li><b>Churn radar with the value at stake.</b> Paying accounts are ranked by service record, each with its open deal value beside it.</li>
-						<li><b>Expansion signals quoted from real tickets.</b> Customers asking for things you sell, in their own words, with the ticket linked.</li>
-						<li><b>One customer, one universe.</b> Leads, opportunities, contacts and activities run on the same data as the desk, not a parallel address book.</li>
-					</ul>
-				</div>
-			</div>
-
-			<div class="suite-row">
-				<button class="suite-shot" data-full="images/deskops/kpi.jpg" data-cap="KPI dashboards · drawn by DeskChart, the application's own canvas engine">
-					<span class="shot-chrome"><i></i><i></i><i></i><span>KPI dashboards</span></span>
-					<img src="images/deskops/thumb/kpi.jpg" alt="KPI dashboards" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
-				</button>
-				<div class="suite-body">
-					<div class="suite-name">KPI Dashboards</div>
-					<p class="suite-lead">Performance reporting that cannot be trusted is worse than none at all. Every figure here is computed from the ticket record on demand, across nine sections covering trends, status and service levels, teams and categories, backlog and risk, resolution mix and scorecards.</p>
-					<ul class="suite-points">
-						<li><b>Every chart is the application's own code.</b> DeskChart draws each axis, tooltip and legend, so a dashboard renders identically offline with no library and no content delivery network.</li>
-						<li><b>Honest about what it cannot know.</b> A figure that has no basis in the period says so rather than showing a comforting zero.</li>
-						<li><b>One set of filters across every section:</b> period, team, product and policy apply everywhere at once.</li>
-					</ul>
-				</div>
-			</div>
-
-			<div class="suite-row">
-				<button class="suite-shot" data-full="images/deskops/teams.jpg" data-cap="Teams · membership, tiers and per-team SLA policy">
-					<span class="shot-chrome"><i></i><i></i><i></i><span>Teams</span></span>
-					<img src="images/deskops/thumb/teams.jpg" alt="The teams screen" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
-				</button>
-				<div class="suite-body">
-					<div class="suite-name">Teams</div>
-					<p class="suite-lead">A team in most systems is a label on a user row. Here it is a record with its own membership, tiers, skills and service-level policy, so the question of who is carrying the load has an answer that does not require writing a query.</p>
-					<ul class="suite-points">
-						<li><b>Per-team service levels,</b> so a front-line tier and a specialist group can be held to targets that suit each.</li>
-						<li><b>Load visible in the directory:</b> open tickets, breaches and tickets per member, without opening a report.</li>
-						<li><b>Deliberately familiar.</b> The layout matches the ticket screens, so nothing has to be relearned to read it.</li>
-					</ul>
-				</div>
-			</div>
-
-			<div class="suite-row">
-				<button class="suite-shot" data-full="images/deskops/initiatives.jpg" data-cap="Initiatives · goals to epics to stories">
-					<span class="shot-chrome"><i></i><i></i><i></i><span>Initiatives</span></span>
-					<img src="images/deskops/thumb/initiatives.jpg" alt="The initiatives screen" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
-				</button>
-				<div class="suite-body">
-					<div class="suite-name">Initiatives</div>
-					<p class="suite-lead">Longer work needs somewhere to live that is not a ticket queue. Initiatives hold goals, break them into epics and stories, and connect them to the issues and budgets they depend on, so a piece of project work can be traced from the intent down to the hour logged against it.</p>
-					<ul class="suite-points">
-						<li><b>Velocities and a Gantt view</b> for planning, with global permissions deciding who may change what.</li>
-						<li><b>An access agent governs joining and altering</b> an initiative under deterministic rules rather than a manager's memory.</li>
-						<li><b>Blockers and cost sit beside the plan,</b> because issues and financial lines attach to the initiative directly.</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-
-		<!-- Family 4 -->
-		<div class="gallery-family">
-			<div class="gallery-family-head">
-				<span class="gallery-family-name">The platform</span>
-				<span class="gallery-family-rule"></span>
-				<span class="gallery-family-count">5 screens</span>
-			</div>
-			<p class="family-intro">
-				The last five surfaces are the ones that make the rest defensible: what the estate is
-				made of, what the database actually looks like, how repetitive work is automated,
-				where knowledge is kept, and what is currently broken. <b>None of them are glamorous,
-				and the system is not credible without them.</b>
-			</p>
-
-			<div class="suite-row">
-				<button class="suite-shot" data-full="images/deskops/cmdb.jpg" data-cap="CMDB · configuration items with health, owners and dependencies">
-					<span class="shot-chrome"><i></i><i></i><i></i><span>CMDB</span></span>
-					<img src="images/deskops/thumb/cmdb.jpg" alt="The CMDB directory" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
-				</button>
-				<div class="suite-body">
-					<div class="suite-name">CMDB</div>
-					<p class="suite-lead">Incidents happen to things. The configuration database holds those things with typed, polymorphic relationships, so any record can depend on any other, and a failing server can be traced to the services it carries and the tickets those services generated.</p>
-					<ul class="suite-points">
-						<li><b>A health score per item and a fleet-state roll-up,</b> showing at a glance what is active, impaired, retiring or merely planned.</li>
-						<li><b>Queues for what needs attention:</b> critically stale items, services at risk, items with no owner, and orphans with no dependencies at all.</li>
-						<li><b>A topology view beside the directory,</b> because dependency is far easier to read as a picture than as a table.</li>
-					</ul>
-				</div>
-			</div>
-
-			<div class="suite-row">
-				<button class="suite-shot" data-full="images/deskops/schema.jpg" data-cap="Schema · a live diagram read from the database itself">
-					<span class="shot-chrome"><i></i><i></i><i></i><span>Schema</span></span>
-					<img src="images/deskops/thumb/schema.jpg" alt="The live schema diagram" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
-				</button>
-				<div class="suite-body">
-					<div class="suite-name">Schema</div>
-					<p class="suite-lead">A system that cannot show you its own structure is asking to be taken on faith. This screen reads the live database and draws every table and foreign key in it, grouped into themes, with the delete behaviour marked on each relationship.</p>
-					<ul class="suite-points">
-						<li><b>Generated from the database itself,</b> so the diagram cannot drift from what is actually deployed.</li>
-						<li><b>Themes turn hundreds of tables into readable neighbourhoods</b> rather than one impenetrable wall of boxes.</li>
-						<li><b>A query tab beside the diagram,</b> for reading the schema directly when a picture is not enough.</li>
-					</ul>
-				</div>
-			</div>
-
-			<div class="suite-row">
-				<button class="suite-shot" data-full="images/deskops/playbooks.jpg" data-cap="Playbooks · automations drawn rather than coded">
-					<span class="shot-chrome"><i></i><i></i><i></i><span>Playbooks</span></span>
-					<img src="images/deskops/thumb/playbooks.jpg" alt="The playbooks screen" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
-				</button>
-				<div class="suite-body">
-					<div class="suite-name">Playbooks</div>
-					<p class="suite-lead">Repetition is treated as a defect. A playbook is drawn rather than coded: a trigger, the conditions that qualify it, and the actions that follow, wired together on a canvas so the person who knows the process can build the automation without learning to script it.</p>
-					<ul class="suite-points">
-						<li><b>What is drawn is what executes.</b> The engine runs the canvas directly, and every run is recorded step by step.</li>
-						<li><b>A catalogue of ready-made flows</b> covers replies, service levels, routing and follow-ups, so the first automation is a choice rather than a project.</li>
-						<li><b>Scheduling belongs to the database,</b> so recurring work survives a restart without an external scheduler to maintain.</li>
-					</ul>
-				</div>
-			</div>
-
-			<div class="suite-row">
-				<button class="suite-shot" data-full="images/deskops/stack.jpg" data-cap="Knowledge Directory · every team's stack, subscribable like a newspaper">
-					<span class="shot-chrome"><i></i><i></i><i></i><span>Knowledge Directory</span></span>
-					<img src="images/deskops/thumb/stack.jpg" alt="The knowledge directory" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
-				</button>
-				<div class="suite-body">
-					<div class="suite-name">Knowledge Directory</div>
-					<p class="suite-lead">Knowledge that must be hunted for decays. Every team's knowledge stack is published here in one place and can be subscribed to like a newspaper, so a newly published page is delivered to the people who need it rather than waiting to be discovered.</p>
-					<ul class="suite-points">
-						<li><b>Featured deep dives hand-picked across the platform,</b> each naming the stack it came from.</li>
-						<li><b>Pages carry versions, permissions, comments and access requests,</b> so a stack can be opened up without being exposed.</li>
-						<li><b>Searchable by meaning.</b> The same vector store behind Ask Qleo indexes this corpus, not just keywords.</li>
-					</ul>
-				</div>
-			</div>
-
-			<div class="suite-row">
-				<button class="suite-shot" data-full="images/deskops/issues.jpg" data-cap="Issue Tracker · internal work items, grouped by status">
-					<span class="shot-chrome"><i></i><i></i><i></i><span>Issue Tracker</span></span>
-					<img src="images/deskops/thumb/issues.jpg" alt="The issue tracker" loading="lazy"><span class="shot-zoom"><i class="fa fa-search-plus"></i></span>
-				</button>
-				<div class="suite-body">
-					<div class="suite-name">Issue Tracker</div>
-					<p class="suite-lead">The application keeps its own defect list, scoped to an initiative or standing alone, so the work of fixing DeskOps is tracked inside DeskOps. Several entries visible in this capture are the honest kind: an automation posting a customer-visible reply it should not, a local model chosen badly after a cold start, an export missing a column.</p>
-					<ul class="suite-points">
-						<li><b>Grouped by status, as a list or a board,</b> with urgency and age counts across the top.</li>
-						<li><b>Labels, assignees and initiative links,</b> so a defect can be traced to the work it is blocking.</li>
-						<li><b>Median age and the seven-day done count,</b> so the health of the backlog is measured rather than assumed.</li>
-					</ul>
-				</div>
-			</div>
-		</div>
+		<div id="suite-families"></div>
 	</div>
 </section>
+
+<!-- The module reader -->
+<div class="mod-overlay" id="mod-modal">
+	<div class="mod-box">
+		<div class="mod-head">
+			<div>
+				<div class="mod-kicker" id="mod-kicker"></div>
+				<div class="mod-title" id="mod-title"></div>
+			</div>
+			<button class="mod-close" id="mod-close" aria-label="Close">&#10005;</button>
+		</div>
+		<div class="mod-body">
+			<div class="mod-stage">
+				<button class="mod-stage-btn" id="mod-stage-btn" aria-label="View full size">
+					<img id="mod-img" src="" alt="">
+				</button>
+				<div class="mod-cap" id="mod-cap"></div>
+			</div>
+			<aside class="mod-side">
+				<p class="mod-lead" id="mod-lead"></p>
+				<ul class="mod-points" id="mod-points"></ul>
+				<div class="mod-rail-head" id="mod-rail-head">Screens in this module</div>
+				<div class="mod-rail" id="mod-rail"></div>
+			</aside>
+		</div>
+	</div>
+</div>
 
 <!-- Built, not borrowed -->
 <section class="engines-section" id="engines">
@@ -3916,9 +3691,11 @@
 	const readerModal = document.getElementById('reader-modal');
 	const modal       = document.getElementById('video-modal');
 	function syncScrollLock() {
-		const anyOpen = modal.classList.contains('open')
-			|| readerModal.classList.contains('open')
-			|| zoomModal.classList.contains('open');
+		// Queried at call time rather than captured: the module reader is
+		// defined further down, and this runs from all four layers.
+		const anyOpen = Array.from(document.querySelectorAll(
+			'#video-modal, #reader-modal, #zoom-modal, #mod-modal'
+		)).some(el => el.classList.contains('open'));
 		document.body.style.overflow = anyOpen ? 'hidden' : '';
 	}
 
@@ -4040,12 +3817,521 @@
 	readerClose.addEventListener('click', closeReader);
 	readerModal.addEventListener('click', e => { if (e.target === readerModal) closeReader(); });
 
-	// The suite gallery: a screen opens full size in the zoom layer
-	document.querySelectorAll('.suite-shot, .gallery-lead').forEach(card => {
-		card.addEventListener('click', () => {
-			openZoom(card.dataset.full, card.dataset.cap || '');
-		});
+	// The lead entry card opens full size in the zoom layer.
+	document.querySelectorAll('.gallery-lead').forEach(card => {
+		card.addEventListener('click', () => openZoom(card.dataset.full, card.dataset.cap || ''));
 	});
+
+	// ── The suite: modules, their screens, and what each is for ──────────
+	// Held as data rather than markup because twenty-eight modules carrying
+	// forty-four screens between them is not something to hand-write twice.
+	const SUITE = [
+	{
+		family: 'Where the work happens',
+		intro: 'A service desk is a machine for keeping promises. These six modules are where a promise is made, tracked, escalated and kept. <b>Everything else in DeskOps exists to make what happens here cheaper, faster, or better evidenced.</b>',
+		modules: [
+		{
+			name: 'Dashboard',
+			blurb: 'Every ticket on one board, with its live service-level state.',
+			lead: 'The first screen after sign-in answers the only question that matters on arrival: what is on fire, and whose is it. Every ticket appears on one board with its status, priority, assignee, the customer behind it and the live state of its service-level clock, so a queue never has to be reconstructed from memory or from a spreadsheet.',
+			points: [
+				'<b>Scoped by role.</b> Five tiers each see the slice their remit covers and nothing beyond it, so the same board is safe to put in front of anyone.',
+				'<b>Computed live.</b> SLA state is calculated per row on request rather than cached overnight, so the colour on screen is the truth now.',
+				'<b>Built to stay fast.</b> Sorting, filtering and search run in the database, so the board does not slow as the estate grows.'
+			],
+			shots: [{ f: 'dashboard', c: 'The board on arrival, every ticket with its live SLA state' }]
+		},
+		{
+			name: 'Ticket workbench',
+			blurb: 'One incident in full, with both clocks running beside it.',
+			lead: 'Opening a ticket must give an agent everything needed to act without leaving the page. The workbench carries the description, assignment, priority and policy in one column, and beside them the two clocks that decide urgency: the countdown against the agreed target, and the service clock showing how much of it has been consumed. Its other tabs put the assistant and the resolution composer on the same record.',
+			points: [
+				'<b>A countdown that respects the working day.</b> It pauses outside business hours, and can be forgiven on the record when it was set in error.',
+				'<b>The whole SLA picture in one panel.</b> The clock, the calendar behind it, holds taken, warnings sent, and every run of the engine.',
+				'<b>Evidence indexed as it lands.</b> Attachments are chunked and embedded on upload, so Qleo can answer from them on the next tab immediately.'
+			],
+			shots: [
+				{ f: 'ticket',    c: 'The incident itself, with the urgency countdown and the service clock' },
+				{ f: 'ticketai',  c: 'Ask Qleo, answering from the evidence attached to this ticket' },
+				{ f: 'ticketres', c: 'The resolution composer, where cited notes are written' }
+			]
+		},
+		{
+			name: 'Triage Sentinel',
+			blurb: 'Qleo drafts a priority and tags; a person decides.',
+			lead: 'Untriaged tickets are the most expensive thing on a service desk, because every hour one waits is an hour of its target spent on nothing. The Sentinel has Qleo read each one and propose a priority and tags, with a confidence figure and a one-line reason, and then stops. A person accepts, re-prioritises or dismisses. Nothing is applied on the model’s own authority.',
+			points: [
+				'<b>Every decision teaches the router.</b> Accepting or overriding a draft is recorded as a signal about which model triages this kind of work best.',
+				'<b>The drafting model is named on each card,</b> so a poor suggestion is traceable to its source rather than to the system in general.',
+				'<b>A second tab ranks by breach risk,</b> so the queue can be worked in the order that protects targets rather than the order of arrival.'
+			],
+			shots: [
+				{ f: 'triage',     c: 'Drafted priorities and tags, each awaiting a human click' },
+				{ f: 'triagerisk', c: 'The same queue ranked by how close each ticket is to breaching' }
+			]
+		},
+		{
+			name: 'SLA Policy Manager',
+			blurb: 'Calendars, stages and scopes, with a protected default.',
+			lead: 'Service levels mean nothing if the clock disagrees with how the business actually works. Policies are built here from business-hour calendars, staged targets and scopes that decide which tickets they bind, with a preview showing the effect before anything is saved.',
+			points: [
+				'<b>Two engines, side by side.</b> Fixed thresholds for simple estates, or the policy-driven engine with real calendars and stages for everything else.',
+				'<b>The default cannot be deleted by accident.</b> Database triggers protect the fallback policy and its calendar, because losing them would silently un-govern every ticket.',
+				'<b>Alerts that climb.</b> Breaches notify and reassign up the tier ladder until the ticket finds an owner.'
+			],
+			shots: [
+				{ f: 'sla',       c: 'The policy list, with the computation engine switch above it' },
+				{ f: 'slapolicy', c: 'A policy opened: its stages, calendar and the scopes it binds' }
+			]
+		},
+		{
+			name: 'Inbox',
+			blurb: 'Escalations arrive as mail, with their evidence attached.',
+			lead: 'An escalation nobody sees is not an escalation. Every warning the SLA engine raises arrives here as a message with its evidence attached: how much of the countdown has been consumed, which thresholds were crossed and when, and a button that opens the ticket itself.',
+			points: [
+				'<b>Thresholds drawn, not described.</b> Markers at 75, 90 and 100 per cent show how close the target already was when the warning fired.',
+				'<b>Alert history and human replies thread together,</b> so the conversation about a ticket is not split across two systems.',
+				'<b>Compose, forward and archive,</b> because an alert frequently needs to be sent on to somebody who does not use the desk.'
+			],
+			shots: [{ f: 'inbox', c: 'A breach notice with its countdown gauge and threshold markers' }]
+		},
+		{
+			name: 'Task Tracker',
+			blurb: 'The working week, with timesheets on the next tab.',
+			lead: 'Not all work arrives as a ticket. The tracker holds the week the way people actually plan it, day by day, with the time each item consumed recorded on the tab beside it, so billable hours are captured where the work happened rather than reconstructed on a Friday afternoon.',
+			points: [
+				'<b>Weeks copy forward,</b> so recurring commitments are not retyped fifty times a year.',
+				'<b>Hours feed the ledger directly.</b> Approved time becomes billable value in Financials without anyone re-entering it.',
+				'<b>The year is navigable,</b> so a question about what happened in a given week has an answer rather than an estimate.'
+			],
+			shots: [{ f: 'tasks', c: 'Weeks laid out day by day, with timesheets alongside' }]
+		}
+		]
+	},
+	{
+		family: 'Qleo, the resident AI',
+		intro: 'Qleo is an assistant with a residence rather than a subscription. Its everyday reasoning runs on a model on this machine, beside the data it serves; the cloud is a fallback for the hardest work, and every cloud-bound request is scrubbed of personal data first. <b>These six modules are where that intelligence is configured, fed, bounded and put to work.</b>',
+		modules: [
+		{
+			name: 'Qleo Studio',
+			blurb: 'A workspace, an agent, and a record of every patch it applied.',
+			lead: 'The application can be extended from inside itself. Studio is a workspace with real files, an editor, and an agent that plans a change before making one, then reports precisely which files it patched and by how many bytes. The model that did the work is named at the foot of the conversation, and in this capture it is a coder model running locally.',
+			points: [
+				'<b>Plan, then act.</b> The agent proposes its steps and works through them under supervision, rather than editing and explaining afterwards.',
+				'<b>Every edit lands on an undo ledger,</b> so a change can be inspected and reversed instead of being taken on trust.',
+				'<b>Templates that start something in one click:</b> a web starter, a dashboard, a CRUD application, a SQLite database or a Python script.'
+			],
+			shots: [{ f: 'studio', c: 'A live agent thread: six steps planned, five edits applied, the model named' }]
+		},
+		{
+			name: 'AI Models',
+			blurb: 'Every on-device model with its size, its job and its routing.',
+			lead: 'An assistant is only as good as the model behind the task, and no single model is best at everything. This screen is the registry: every on-device model with its size, its weight class and the jobs it is meant for, so routing becomes a decision made once and applied everywhere rather than hard-coded across the application.',
+			points: [
+				'<b>Required, optional and advanced tiers,</b> so a modest machine still runs the features that matter and a larger one uses what it has.',
+				'<b>Task routing maps each class of work to a model,</b> with the option to pin one deliberately or let the router judge.',
+				'<b>Downloads and benchmarks run in the background,</b> one at a time, so the desk is never blocked by a model arriving.'
+			],
+			shots: [
+				{ f: 'aimodels',      c: 'The on-device registry: size, weight class and the job each model holds' },
+				{ f: 'aimodelsroute', c: 'Task routing, mapping each class of work to the model that suits it' }
+			]
+		},
+		{
+			name: 'ChromaDB Admin',
+			blurb: 'The vector store behind Ask Qleo, opened up.',
+			lead: 'Retrieval is only trustworthy if you can see what was indexed. This screen exposes the vector store directly: how many chunks exist, which source produced each one, and which ticket and attachment it belongs to, with the ability to delete a source or index it again.',
+			points: [
+				'<b>The whole record is queryable.</b> Ticket descriptions and comments are indexed alongside file attachments, not just the files.',
+				'<b>A live query panel</b> runs a semantic search and shows the chunks it retrieved with their distance scores, so relevance can be judged rather than assumed.',
+				'<b>The store starts from inside the application,</b> with a status indicator, so running the assistant never requires a terminal.'
+			],
+			shots: [{ f: 'chroma', c: '3,396 chunks across 170 indexed sources, grouped by ticket' }]
+		},
+		{
+			name: 'Qleo Specs',
+			blurb: 'A requirement that executes cannot silently rot.',
+			lead: 'A requirement written in a document rots quietly. A spec written here states an outcome, attaches a criterion that compiles into a live check over the real data, and then reports on a schedule whether the number actually moved. The starting points it offers are drawn from the estate as it stands, not from examples.',
+			points: [
+				'<b>Criteria compile to queries against live tickets,</b> so a spec is evaluated rather than merely asserted.',
+				'<b>Every check carries its current figure,</b> so drift becomes visible the moment it begins rather than at the next review.',
+				'<b>Drafts stay separate from active specs,</b> so a half-formed idea does not start alerting people.'
+			],
+			shots: [{ f: 'specs', c: 'Starting points drawn from the estate, each with its figure as it stands' }]
+		},
+		{
+			name: 'Tag Manager',
+			blurb: 'Tag knowledge written in five facets.',
+			lead: 'A tag is usually a label and nothing more. Here it carries a written profile in five facets, so the knowledge an experienced agent holds about a topic becomes something both people and the assistant can apply: what the tag means, what signals suggest it, what to do about it, who owns it, and where to read further.',
+			points: [
+				'<b>Structured, not prose.</b> Profiles are authored in Markdown with a live preview and stored as separate fields the system can actually use.',
+				'<b>The profile does real work.</b> It feeds resolution notes, ticket tooltips, and Qleo’s own triage and suggestion passes.',
+				'<b>Scoped per application,</b> so the same word can mean different things in different parts of the estate without collision.'
+			],
+			shots: [{ f: 'tagmanager', c: 'An application’s tags, with the five-facet wizard open on one of them' }]
+		},
+		{
+			name: 'Report Builder',
+			blurb: 'Ask in plain language; the form decides what runs.',
+			lead: 'Letting a language model write SQL against a production database is an unacceptable risk. Refusing to let anyone ask a question in plain language is an unacceptable cost. The builder settles it by making the form the firewall: a request in words becomes a structured report definition, and only that definition is ever executed.',
+			points: [
+				'<b>Every part of the query is a validated field.</b> Source, joins, filters, type and style are checked before anything reaches the database.',
+				'<b>The model proposes the shape of the report,</b> never the statement. There is no path from a sentence to raw SQL.',
+				'<b>Definitions are saved and re-run,</b> and export through the application’s own hand-written PDF writer.'
+			],
+			shots: [
+				{ f: 'reports',    c: 'The builder, with the plain-language request bar above the form' },
+				{ f: 'reportsrun', c: 'A report run, returning rows from the definition the form produced' }
+			]
+		}
+		]
+	},
+	{
+		family: 'The business side',
+		intro: 'Most service desks stop at the ticket and hand the commercial consequences to a separate system. DeskOps keeps the books, the customers and the numbers in the same database as the work, <b>so a breached target, an unhappy account and an unpaid invoice can be seen as the single fact they usually are.</b>',
+		modules: [
+		{
+			name: 'Financials',
+			blurb: 'Double-entry books behind the desk, in eight tabs.',
+			lead: 'The money side of service work, kept as genuine double-entry bookkeeping rather than a totals column. Invoices and expenses post balanced journal entries automatically against a chart of accounts, so the trial balance is an arithmetic identity rather than a hopeful summary.',
+			points: [
+				'<b>A promise is not a transaction.</b> Quotes post nothing until accepted, and retainers stand as client credit that drains only as work is billed.',
+				'<b>Hours become money without retyping.</b> Time approved in the tracker arrives here as billable value automatically.',
+				'<b>Eight tabs, one pipeline.</b> Invoicing, expenses, accounts, ledger, ticket billing, budget and reports all obey the same rules underneath.'
+			],
+			shots: [
+				{ f: 'financials',  c: 'Revenue against expenses, cash flow, and a ninety-day forecast' },
+				{ f: 'fininvoices', c: 'Invoicing: documents, their state, and what each posted' },
+				{ f: 'finledger',   c: 'The general ledger itself, where every posting lands' }
+			]
+		},
+		{
+			name: 'CRM',
+			blurb: 'A churn radar that reads each account’s own service record.',
+			lead: 'The commercial read on a customer is usually assembled by hand from three systems. Here it is computed: an account’s health score is built from the tickets it raised, the targets missed on them and the invoices it was sent, so the churn radar names the accounts that are slipping and says why in the same row.',
+			points: [
+				'<b>Churn radar with the value at stake.</b> Paying accounts are ranked by service record, each with its open deal value beside it.',
+				'<b>Expansion signals quoted from real tickets.</b> Customers asking for things you sell, in their own words, with the ticket linked.',
+				'<b>One customer, one universe.</b> Leads, opportunities, contacts and activities run on the same data as the desk, not a parallel address book.'
+			],
+			shots: [
+				{ f: 'crm',         c: 'Book health, and a churn radar naming the accounts that are slipping' },
+				{ f: 'crmpipeline', c: 'The pipeline: opportunities by stage, with weighted value' }
+			]
+		},
+		{
+			name: 'KPI Dashboards',
+			blurb: 'Nine sections, every chart drawn by the app itself.',
+			lead: 'Performance reporting that cannot be trusted is worse than none at all. Every figure here is computed from the ticket record on demand, across nine sections covering trends, status and service levels, teams and categories, backlog and risk, resolution mix and scorecards.',
+			points: [
+				'<b>Every chart is the application’s own code.</b> DeskChart draws each axis, tooltip and legend, so a dashboard renders identically offline with no library and no content delivery network.',
+				'<b>Honest about what it cannot know.</b> A figure that has no basis in the period says so rather than showing a comforting zero.',
+				'<b>One set of filters across every section:</b> period, team, product and policy apply everywhere at once.'
+			],
+			shots: [
+				{ f: 'kpi',      c: 'Team performance and category mix, drawn on canvas by DeskChart' },
+				{ f: 'kpiscore', c: 'Scorecards, holding each measure against its target' }
+			]
+		},
+		{
+			name: 'Teams',
+			blurb: 'Membership, tiers and per-team service levels.',
+			lead: 'A team in most systems is a label on a user row. Here it is a record with its own membership, tiers, skills and service-level policy, so the question of who is carrying the load has an answer that does not require writing a query.',
+			points: [
+				'<b>Per-team service levels,</b> so a front-line tier and a specialist group can be held to targets that suit each.',
+				'<b>Load visible in the directory:</b> open tickets, breaches and tickets per member, without opening a report.',
+				'<b>Deliberately familiar.</b> The layout matches the ticket screens, so nothing has to be relearned to read it.'
+			],
+			shots: [{ f: 'teams', c: 'Six teams, twenty members, with open work and breaches per team' }]
+		},
+		{
+			name: 'Initiatives',
+			blurb: 'Goals to epics to stories, with the budget attached.',
+			lead: 'Longer work needs somewhere to live that is not a ticket queue. Initiatives hold goals, break them into epics and stories, and connect them to the issues and budgets they depend on, so a piece of project work can be traced from the intent down to the hour logged against it.',
+			points: [
+				'<b>Velocities and a Gantt view</b> for planning, with global permissions deciding who may change what.',
+				'<b>An access agent governs joining and altering</b> an initiative under deterministic rules rather than a manager’s memory.',
+				'<b>Blockers and cost sit beside the plan,</b> because issues and financial lines attach to the initiative directly.'
+			],
+			shots: [{ f: 'initiatives', c: 'An initiative opened, with its epics beside the portfolio' }]
+		}
+		]
+	},
+	{
+		family: 'The Stack: knowledge that compounds',
+		intro: 'The Stack is a knowledge product in its own right, not a notes tab bolted to a helpdesk. Team knowledge bases are versioned like source code, published like a newspaper, and indexed into a graph that connects a page to the tickets it came from. <b>This is where a resolved ticket stops being an ending.</b>',
+		modules: [
+		{
+			name: 'Knowledge Directory',
+			blurb: 'Every team’s stack, subscribable like a newspaper.',
+			lead: 'Knowledge that must be hunted for decays. Every team’s knowledge stack is published here in one place and can be subscribed to, so a newly published page is delivered to the people who need it rather than waiting to be discovered.',
+			points: [
+				'<b>Featured deep dives hand-picked across the platform,</b> each naming the stack it came from.',
+				'<b>Subscriptions behave like a feed.</b> A new page on a stack you follow arrives in your inbox and notifications.',
+				'<b>Browsable by team,</b> with page counts and subscriber counts, so the state of each stack is visible before opening it.'
+			],
+			shots: [{ f: 'stack', c: 'The directory: featured reading above every team’s stack' }]
+		},
+		{
+			name: 'A stack and its pages',
+			blurb: 'The team knowledge base, and the pages inside it.',
+			lead: 'A stack is a set of living documents a team edits together. Pages carry a lifecycle from draft through collaboration to finalised, with permissions, comments and access requests attached, so a stack can be opened up to the organisation without being exposed to it.',
+			points: [
+				'<b>A lifecycle rather than a save button.</b> Draft, in collaboration, restricted and finalised for public are distinct states with distinct rules.',
+				'<b>Rich pages, not plain notes.</b> Structured content with images, tables and links, rendered the same way everywhere.',
+				'<b>Comments and access requests live on the page,</b> so a reader who cannot see something can ask on the spot.'
+			],
+			shots: [
+				{ f: 'stackview',  c: 'The stack, its pages and their lifecycle states' },
+				{ f: 'stackpage',  c: 'A finalised page as a reader sees it' },
+				{ f: 'stackpage2', c: 'A longer technical page, with its structure intact' }
+			]
+		},
+		{
+			name: 'Version control for a wiki',
+			blurb: 'Branches, commits and merge requests over documents.',
+			lead: 'Version control gives a stack the safety net engineers get from git: you never type straight onto the page everyone is reading. You work on a copy, record your progress, get it reviewed, and only then does it replace the live page. The one rule that makes the rest safe is that nothing reaches the live pages except through a merge request into main.',
+			points: [
+				'<b>Branches, commits and merge requests,</b> the same shape as a code repository, without the terminal.',
+				'<b>Every page carries its commit,</b> with the author and the moment it landed, so a change is never anonymous.',
+				'<b>Full version history per page,</b> so an edit can be read, compared and rolled back rather than argued about.'
+			],
+			shots: [
+				{ f: 'stackvc',       c: 'The repository view: pages on main, each at its own commit' },
+				{ f: 'stackversions', c: 'The version history of a single page' }
+			]
+		},
+		{
+			name: 'Collaboration drafts',
+			blurb: 'Work in progress, invisible to readers until it lands.',
+			lead: 'Between an idea and a published page there is a draft that several people are working on at once. Drafts are held apart from the live stack so the reading experience is never a building site, and the editorial state of each one is explicit rather than implied by a naming convention.',
+			points: [
+				'<b>Two doors, one engine.</b> A quick draft and a version-controlled branch end in the same place, through the same review.',
+				'<b>Nothing touches live until it is finalised,</b> which is enforced by the lifecycle rather than by etiquette.',
+				'<b>Ownership is visible,</b> so a stalled draft has a name attached to it.'
+			],
+			shots: [{ f: 'stackdrafts', c: 'Drafts in progress, held apart from the published stack' }]
+		},
+		{
+			name: 'The Knowledge Graph',
+			blurb: '126 nodes connecting pages, articles, concepts and tickets.',
+			lead: 'The most valuable thing a knowledge base holds is not its pages but the relationships between them. The graph indexes notebooks, pages, AI articles, concepts and the tickets they came from, then draws how they connect, so a concept can be traced back to the incident that first raised it.',
+			points: [
+				'<b>Six kinds of edge, counted and filterable:</b> parent and child, in notebook, mentions, related, shares tag, and from ticket.',
+				'<b>Banded by role rather than scattered:</b> sources at the top, hubs in the middle, satellites below, so the shape is readable.',
+				'<b>Structure first, then the AI passes.</b> Wikilinks and hierarchy are added instantly; the semantic relationships are inferred afterwards.'
+			],
+			shots: [{ f: 'kbgraph', c: '126 nodes and their edges, coloured by type and banded by role' }]
+		},
+		{
+			name: 'AI Knowledge Base',
+			blurb: 'Articles the system wrote, curated before they publish.',
+			lead: 'When a ticket is resolved, what was learned should not die with it. The AI knowledge base holds articles the system drafted from real incidents, written in a fixed diagnostic shape, and moves them through review before any of them becomes organisation-wide reading.',
+			points: [
+				'<b>A fixed structure every time:</b> symptoms, root cause and diagnosis, resolution, prevention and hardening, and related matter.',
+				'<b>A council reviews before publication,</b> so an article is curated rather than merely generated.',
+				'<b>Quantified where it can be.</b> Several articles carry an observed proportion and a Wilson lower bound rather than an adjective.'
+			],
+			shots: [{ f: 'aiarticle', c: 'An AI-authored article in its diagnostic structure' }]
+		},
+		{
+			name: 'Personal notebooks',
+			blurb: 'Your own pages, beside the team’s.',
+			lead: 'Not everything belongs to a team. Notebooks hold personal working knowledge in the same editor and the same index as the shared stacks, so a private note can be promoted into team knowledge without being rewritten somewhere else.',
+			points: [
+				'<b>The same editor and index as the stacks,</b> so nothing has to be migrated when a note becomes worth sharing.',
+				'<b>Suggested reading from seed topics,</b> drawing on what has been opened and what relates to it.',
+				'<b>Indexed into the graph,</b> so a personal page can still be found by meaning.'
+			],
+			shots: [{ f: 'notebooks', c: 'Personal notebooks and pages, in the shared editor' }]
+		}
+		]
+	},
+	{
+		family: 'The platform',
+		intro: 'The last four modules are the ones that make the rest defensible: what the estate is made of, what the database actually looks like, how repetitive work is automated, and what is currently broken. <b>None of them are glamorous, and the system is not credible without them.</b>',
+		modules: [
+		{
+			name: 'CMDB',
+			blurb: 'Configuration items, their health and their dependencies.',
+			lead: 'Incidents happen to things. The configuration database holds those things with typed, polymorphic relationships, so any record can depend on any other, and a failing server can be traced to the services it carries and the tickets those services generated.',
+			points: [
+				'<b>A health score per item and a fleet-state roll-up,</b> showing at a glance what is active, impaired, retiring or merely planned.',
+				'<b>Queues for what needs attention:</b> critically stale items, services at risk, items with no owner, and orphans with no dependencies at all.',
+				'<b>A topology view beside the directory,</b> because dependency is far easier to read as a picture than as a table.'
+			],
+			shots: [
+				{ f: 'cmdb',         c: 'The directory: health, owners and dependencies over a fleet roll-up' },
+				{ f: 'cmdbtopology', c: 'The same estate as a topology, showing what carries what' }
+			]
+		},
+		{
+			name: 'Schema',
+			blurb: 'A live diagram read from the database itself.',
+			lead: 'A system that cannot show you its own structure is asking to be taken on faith. This screen reads the live database and draws every table and foreign key in it, grouped into themes, with the delete behaviour marked on each relationship.',
+			points: [
+				'<b>Generated from the database itself,</b> so the diagram cannot drift from what is actually deployed.',
+				'<b>Themes turn hundreds of tables into readable neighbourhoods</b> rather than one impenetrable wall of boxes.',
+				'<b>A query tab beside the diagram,</b> for reading the schema directly when a picture is not enough.'
+			],
+			shots: [{ f: 'schema', c: 'Every table and foreign key, grouped into themes' }]
+		},
+		{
+			name: 'Playbooks',
+			blurb: 'Automation drawn as a canvas, not written as a script.',
+			lead: 'Repetition is treated as a defect. A playbook is drawn rather than coded: a trigger, the conditions that qualify it, and the actions that follow, wired together on a canvas so the person who knows the process can build the automation without learning to script it.',
+			points: [
+				'<b>What is drawn is what executes.</b> The engine runs the canvas directly, and every run is recorded step by step.',
+				'<b>A catalogue of ready-made flows</b> covers replies, service levels, routing and follow-ups, so the first automation is a choice rather than a project.',
+				'<b>Scheduling belongs to the database,</b> so recurring work survives a restart without an external scheduler to maintain.'
+			],
+			shots: [
+				{ f: 'playbooks',   c: 'The builder, with templates for the first automation' },
+				{ f: 'playbookcat', c: 'The catalogue of ready-made flows' }
+			]
+		},
+		{
+			name: 'Issue Tracker',
+			blurb: 'The application’s own defect list, kept in the open.',
+			lead: 'The application keeps its own defect list, scoped to an initiative or standing alone, so the work of fixing DeskOps is tracked inside DeskOps. Several entries visible in this capture are the honest kind: an automation posting a customer-visible reply it should not, a local model chosen badly after a cold start, an export missing a column.',
+			points: [
+				'<b>Grouped by status, as a list or a board,</b> with urgency and age counts across the top.',
+				'<b>Labels, assignees and initiative links,</b> so a defect can be traced to the work it is blocking.',
+				'<b>Median age and the seven-day done count,</b> so the health of the backlog is measured rather than assumed.'
+			],
+			shots: [
+				{ f: 'issues',      c: 'Issues grouped by status, with age and urgency across the top' },
+				{ f: 'issuesboard', c: 'The same issues on a board' }
+			]
+		}
+		]
+	}
+	];
+
+	// ── Render the families and their carousels ──────────────────────────
+	(function buildSuite() {
+		const host = document.getElementById('suite-families');
+		if (!host) return;
+		const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+		SUITE.forEach((fam, fi) => {
+			const wrap = document.createElement('div');
+			wrap.className = 'gallery-family';
+			const shotTotal = fam.modules.reduce((n, m) => n + m.shots.length, 0);
+			wrap.innerHTML =
+				'<div class="gallery-family-head">' +
+					'<span class="gallery-family-name">' + esc(fam.family) + '</span>' +
+					'<span class="gallery-family-rule"></span>' +
+					'<span class="gallery-family-count">' + fam.modules.length + ' modules · ' + shotTotal + ' screens</span>' +
+					'<span class="modcar-nav">' +
+						'<button class="modcar-btn" data-dir="-1" aria-label="Previous"><i class="fa fa-chevron-left"></i></button>' +
+						'<button class="modcar-btn" data-dir="1" aria-label="Next"><i class="fa fa-chevron-right"></i></button>' +
+					'</span>' +
+				'</div>' +
+				'<p class="family-intro">' + fam.intro + '</p>' +
+				'<div class="modcar">' +
+					'<div class="modcar-viewport"><div class="modcar-track"></div></div>' +
+				'</div>';
+
+			const track = wrap.querySelector('.modcar-track');
+			fam.modules.forEach((mod, mi) => {
+				const card = document.createElement('button');
+				card.className = 'mod-card';
+				card.type = 'button';
+				card.dataset.fi = fi;
+				card.dataset.mi = mi;
+				const first = mod.shots[0];
+				card.innerHTML =
+					'<span class="shot-chrome"><i></i><i></i><i></i><span>' + esc(mod.name) + '</span></span>' +
+					'<img src="images/deskops/thumb/' + first.f + '.jpg" alt="' + esc(mod.name) + '" loading="lazy">' +
+					'<span class="mod-card-text">' +
+						'<span class="mod-card-name">' + esc(mod.name) + '</span>' +
+						'<span class="mod-card-blurb">' + esc(mod.blurb) + '</span>' +
+						'<span class="mod-card-count">' + mod.shots.length + (mod.shots.length === 1 ? ' screen' : ' screens') + '</span>' +
+					'</span>';
+				card.addEventListener('click', () => openModule(fi, mi));
+				track.appendChild(card);
+			});
+
+			// Each carousel tracks its own offset, in whole cards.
+			let idx = 0;
+			const CARD = 262 + 16;
+			const prev = wrap.querySelector('[data-dir="-1"]');
+			const next = wrap.querySelector('[data-dir="1"]');
+			const view = wrap.querySelector('.modcar-viewport');
+			function sync() {
+				const visible = Math.max(1, Math.floor(view.offsetWidth / CARD));
+				const maxIdx = Math.max(0, fam.modules.length - visible);
+				idx = Math.max(0, Math.min(idx, maxIdx));
+				track.style.transform = 'translateX(-' + (idx * CARD) + 'px)';
+				prev.disabled = idx === 0;
+				next.disabled = idx >= maxIdx;
+			}
+			prev.addEventListener('click', () => { idx--; sync(); });
+			next.addEventListener('click', () => { idx++; sync(); });
+			window.addEventListener('resize', sync);
+			host.appendChild(wrap);
+			sync();
+		});
+	})();
+
+	// ── The module reader ────────────────────────────────────────────────
+	const modOverlay = document.getElementById('mod-modal');
+	const modKicker  = document.getElementById('mod-kicker');
+	const modTitle   = document.getElementById('mod-title');
+	const modImg     = document.getElementById('mod-img');
+	const modCap     = document.getElementById('mod-cap');
+	const modLead    = document.getElementById('mod-lead');
+	const modPoints  = document.getElementById('mod-points');
+	const modRail    = document.getElementById('mod-rail');
+	const modRailHd  = document.getElementById('mod-rail-head');
+	const modStage   = document.getElementById('mod-stage-btn');
+	const modClose   = document.getElementById('mod-close');
+	let modCurrent   = null;
+
+	function showShot(mod, i) {
+		const s = mod.shots[i];
+		modImg.src = 'images/deskops/' + s.f + '.jpg';
+		modImg.alt = mod.name + ': ' + s.c;
+		modCap.innerHTML = '<b>' + mod.name + '</b> · ' + s.c;
+		modStage.onclick = () => openZoom('images/deskops/' + s.f + '.jpg', mod.name + ' · ' + s.c);
+		Array.from(modRail.children).forEach((el, n) => el.classList.toggle('on', n === i));
+	}
+
+	function openModule(fi, mi) {
+		const fam = SUITE[fi];
+		const mod = fam.modules[mi];
+		modCurrent = mod;
+		modKicker.textContent = fam.family;
+		modTitle.textContent = mod.name;
+		modLead.textContent = mod.lead;
+		modPoints.innerHTML = mod.points.map(p => '<li>' + p + '</li>').join('');
+		modRail.innerHTML = '';
+		mod.shots.forEach((s, i) => {
+			const b = document.createElement('button');
+			b.className = 'mod-rail-item';
+			b.type = 'button';
+			b.innerHTML = '<img src="images/deskops/thumb/' + s.f + '.jpg" alt="" loading="lazy"><span>' + s.c + '</span>';
+			b.addEventListener('click', () => showShot(mod, i));
+			modRail.appendChild(b);
+		});
+		modRailHd.style.display = mod.shots.length > 1 ? '' : 'none';
+		modRail.style.display   = mod.shots.length > 1 ? '' : 'none';
+		showShot(mod, 0);
+		modOverlay.classList.add('open');
+		syncScrollLock();
+	}
+
+	function closeModule() {
+		modOverlay.classList.remove('open');
+		modImg.src = '';
+		modCurrent = null;
+		syncScrollLock();
+	}
+
+	modClose.addEventListener('click', closeModule);
+	modOverlay.addEventListener('click', e => { if (e.target === modOverlay) closeModule(); });
+
 
 	// Left TOC scroll spy
 	const tocLinks = Array.from(document.querySelectorAll('.side-toc a[href^="#"]'));
@@ -4066,8 +4352,12 @@
 
 	document.addEventListener('keydown', e => {
 		if (e.key !== 'Escape') return;
+		// Innermost layer first: the zoom sits above the module reader, which
+		// sits above everything else.
 		if (zoomModal.classList.contains('open')) {
 			closeZoom();
+		} else if (modOverlay.classList.contains('open')) {
+			closeModule();
 		} else if (readerModal.classList.contains('open')) {
 			closeReader();
 		} else if (modal.classList.contains('open')) {
