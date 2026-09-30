@@ -818,12 +818,16 @@
 			overflow: hidden;
 			text-overflow: ellipsis;
 		}
+		/* Some shots are cropped to a panel rather than a whole page, so they
+		   arrive tall or wide. Contain rather than cover: a thumbnail that
+		   crops a shot which was already cropped shows nothing useful. */
 		.mod-card img {
 			width: 100%;
 			display: block;
 			aspect-ratio: 16 / 10;
-			object-fit: cover;
-			object-position: top center;
+			object-fit: contain;
+			object-position: center;
+			background: var(--grey-soft);
 			border-bottom: 1px solid var(--border);
 			flex-shrink: 0;
 		}
@@ -1069,8 +1073,9 @@
 		.mod-rail-item img {
 			width: 74px;
 			aspect-ratio: 16 / 10;
-			object-fit: cover;
-			object-position: top center;
+			object-fit: contain;
+			object-position: center;
+			background: var(--grey-soft);
 			border-radius: 4px;
 			flex-shrink: 0;
 			border: 1px solid var(--border);
@@ -4164,8 +4169,7 @@
 			],
 			shots: [
 				{ f: 'stackview', c: 'The stack, its pages and their lifecycle states', d: 'A stack and the pages inside it, each at a lifecycle state rather than merely saved. Draft, collaboration, restricted and finalised for public are distinct states with distinct rules about who may read and who may change.' },
-				{ f: 'stackpage', c: 'A finalised page as a reader sees it', d: 'A finalised page as a reader sees it, rendered from structured content rather than pasted formatting, with its permissions and comment thread attached.' },
-				{ f: 'stackpage2', c: 'A longer technical page, with its structure intact', d: 'A longer technical page, keeping its structure intact: headings, code, tables and images all rendered the same way for every reader.' }
+				{ f: 'stackpage', c: 'A finalised page as a reader sees it', d: 'A finalised page as a reader sees it, rendered from structured content rather than pasted formatting, with its permissions and comment thread attached.' }
 			]
 		},
 		{
@@ -4179,7 +4183,7 @@
 			],
 			shots: [
 				{ f: 'stackvc', c: 'The repository view: pages on main, each at its own commit', d: 'The repository view. Eight pages on the main branch, each at its own commit with the author and the moment it landed, over tabs for commits, the seven branches, and merge requests. Nothing reaches the live pages except through a merge request.' },
-				{ f: 'stackversions', c: 'The version history of a single page', d: 'The version history of a single page, so an edit can be read, compared and rolled back rather than argued about from memory.' }
+				{ f: 'stackversions', c: 'The version history of a single page, and the way back', d: 'Eight versions of one page, each with the moment it was saved, who saved it and the note they left. The live version is marked, and any earlier one can be made live again, so a bad edit is a reversible event rather than an argument about what the page used to say.' }
 			]
 		},
 		{
