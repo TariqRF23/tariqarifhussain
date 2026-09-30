@@ -11,8 +11,10 @@
 	<link rel="stylesheet" type="text/css" href="default.css">
 	<link rel="stylesheet" type="text/css" href="bootstrap2.css">
 
-	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- jQuery and the Bootstrap bundle were loaded here and never called: this
+	     page's behaviour is all vanilla. Both were parser-blocking, so they cost
+	     roughly a second before anything could render. Removed after checking
+	     for every call site. Font Awesome stays, because 66 icons use it. -->
 
 	<style>
 		*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -4402,15 +4404,24 @@
 	const modClose   = document.getElementById('mod-close');
 	let modCurrent   = null;
 
+	// The stage shows the view-size file; only magnifying fetches the full one.
+	const VIEW = f => 'images/deskops/view/' + f + '.jpg';
+	const FULL = f => 'images/deskops/' + f + '.jpg';
+
 	function showShot(mod, i) {
 		const n = mod.shots.length;
 		modIndex = ((i % n) + n) % n;
 		const s = mod.shots[modIndex];
-		modImg.src = 'images/deskops/' + s.f + '.jpg';
+		modImg.src = VIEW(s.f);
 		modImg.alt = mod.name + ': ' + s.c;
+		// Warm the neighbours so paging does not wait on the network.
+		if (n > 1) {
+			[mod.shots[(modIndex + 1) % n], mod.shots[(modIndex - 1 + n) % n]]
+				.forEach(o => { const im = new Image(); im.src = VIEW(o.f); });
+		}
 		modCapTitle.textContent = s.c;
 		modCapDesc.textContent = s.d || '';
-		modStage.onclick = () => openZoom('images/deskops/' + s.f + '.jpg', mod.name + ' · ' + s.c);
+		modStage.onclick = () => openZoom(FULL(s.f), mod.name + ' · ' + s.c);
 		// The arrows and the counter only earn their place on a module that
 		// actually has more than one screen.
 		modCounter.hidden = n < 2;
