@@ -928,15 +928,29 @@ The core values that I believe in are sincerity, creativity, showing initiative 
 <br>
 
 <style>
-  /* Areas of Interest. Scoped here rather than in default.css, which the
-     other pages share. #skills already supplies the responsive grid. */
-  #skills { gap: 14px; padding: 18px; border-radius: 10px; align-items: start; }
+  /* Areas of Interest. Scoped here rather than in default.css, which the other
+     pages share. The column count is pinned rather than auto-filled: seven
+     cards in an auto-filled four-column grid left a hole in the second row,
+     and stretch keeps every card in a row the same height. */
+  #skills {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-items: stretch;
+    gap: 14px;
+    padding: 18px;
+    border-radius: 10px;
+  }
+  @media (max-width: 1250px) { #skills { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 660px)  { #skills { grid-template-columns: minmax(0, 1fr); } }
+
   #skills .aoi {
     background: #ffffff;
     border: 1px solid #dfe5ec;
     border-radius: 10px;
     padding: 18px 18px 16px;
     margin: 0;
+    display: flex;
+    flex-direction: column;
   }
   #skills .aoi h6 {
     margin: 0 0 5px;
@@ -946,6 +960,7 @@ The core values that I believe in are sincerity, creativity, showing initiative 
     color: #0d3349;
     letter-spacing: 0;
     text-transform: none;
+    line-height: 1.3;
   }
   #skills .aoi .aoi-note {
     display: block;
@@ -954,8 +969,17 @@ The core values that I believe in are sincerity, creativity, showing initiative 
     color: #6b7c93;
     line-height: 1.6;
     margin-bottom: 12px;
+    min-height: 38px;
   }
-  #skills .aoi ul { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 6px; }
+  #skills .aoi ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: 6px;
+  }
   #skills .aoi li {
     font-family: 'Bahnschrift Light', sans-serif;
     font-size: 12px;
@@ -972,7 +996,8 @@ The core values that I believe in are sincerity, creativity, showing initiative 
     font-size: 12px;
     color: #6b7c93;
     line-height: 1.6;
-    padding: 2px 4px 0;
+    text-align: center;
+    padding: 6px 4px 0;
     margin: 0;
   }
 </style>
@@ -981,7 +1006,7 @@ The core values that I believe in are sincerity, creativity, showing initiative 
 
   <div class="aoi">
     <h6>Applied AI in Operations</h6>
-    <span class="aoi-note">Putting models to work inside a running service, and measuring afterwards whether they actually helped.</span>
+    <span class="aoi-note">Putting models to work inside a running service, and measuring whether they helped.</span>
     <ul>
       <li>Retrieval-augmented generation</li>
       <li>Local-first inference</li>
@@ -990,11 +1015,23 @@ The core values that I believe in are sincerity, creativity, showing initiative 
       <li>Planning agents with tool use</li>
       <li>Model Context Protocol</li>
       <li>Replayable action traces</li>
-      <li>Per-call evaluation</li>
-      <li>Model routing on accuracy, latency &amp; cost</li>
-      <li>Retrieval quality measured apart from answers</li>
       <li>n8n orchestration</li>
-      <li>Claude, Gemini &amp; Groq APIs</li>
+      <li>Claude, Gemini &amp; Groq</li>
+    </ul>
+  </div>
+
+  <div class="aoi">
+    <h6>Evaluation &amp; Model Routing</h6>
+    <span class="aoi-note">Deciding which model runs next, on evidence rather than reputation.</span>
+    <ul>
+      <li>Deterministic per-call evaluation</li>
+      <li>Routing on accuracy, latency &amp; cost</li>
+      <li>Retrieval quality measured separately</li>
+      <li>Prompt &amp; context refinement</li>
+      <li>Chunking &amp; splitter tuning</li>
+      <li>Benchmarking on-device models</li>
+      <li>Failure-rate tracking</li>
+      <li>Model registries &amp; task classes</li>
     </ul>
   </div>
 
@@ -1002,14 +1039,13 @@ The core values that I believe in are sincerity, creativity, showing initiative 
     <h6>AI Governance &amp; Responsible Adoption</h6>
     <span class="aoi-note">Controls that sit beneath the model, where they cannot be talked around.</span>
     <ul>
-      <li>Guardrails enforced below the model</li>
+      <li>Guardrails below the model</li>
       <li>Constrained-grammar tool calls</li>
       <li>Schema allow-lists</li>
       <li>Read-only execution accounts</li>
-      <li>PII redaction with hash-based audit</li>
+      <li>PII redaction with hash audit</li>
       <li>Human escalation thresholds</li>
       <li>Data residency assessment</li>
-      <li>Feasibility, cost &amp; latency review</li>
       <li>Scoped, revocable tokens</li>
     </ul>
   </div>
@@ -1018,15 +1054,15 @@ The core values that I believe in are sincerity, creativity, showing initiative 
     <h6>IT Service Management</h6>
     <span class="aoi-note">The chain from an incident to a structural fix, governed rather than improvised.</span>
     <ul>
-      <li>ITIL incident, problem, change &amp; release</li>
+      <li>ITIL incident, problem &amp; change</li>
+      <li>Release management</li>
       <li>ServiceNow under CSDM</li>
       <li>Jira &amp; Confluence</li>
       <li>SLA design &amp; escalation playbooks</li>
       <li>Root-cause review</li>
-      <li>Vendor management to agreed service levels</li>
+      <li>Vendor management to service levels</li>
       <li>Service KPIs &amp; reporting</li>
       <li>Git-versioned runbooks</li>
-      <li>Change advisory &amp; impact analysis</li>
     </ul>
   </div>
 
@@ -1037,13 +1073,12 @@ The core values that I believe in are sincerity, creativity, showing initiative 
       <li>eGRC on RSA Archer</li>
       <li>ISO 27001 controls</li>
       <li>Service Impact Assessment</li>
-      <li>Recovery time &amp; recovery point objectives</li>
+      <li>Recovery time &amp; point objectives</li>
       <li>Privacy Impact Assessment</li>
       <li>Information classification</li>
-      <li>IAM conformity, four-eyes &amp; segregation of duties</li>
-      <li>ITSCM &amp; disaster recovery exercises</li>
-      <li>SAST &amp; penetration testing tracking</li>
-      <li>Enterprise architecture onboarding</li>
+      <li>IAM conformity &amp; four-eyes</li>
+      <li>ITSCM &amp; disaster recovery</li>
+      <li>SAST &amp; penetration testing</li>
     </ul>
   </div>
 
@@ -1056,44 +1091,41 @@ The core values that I believe in are sincerity, creativity, showing initiative 
       <li>Layered architecture</li>
       <li>REST API design</li>
       <li>OAuth2 client credentials</li>
-      <li>SQL: PostgreSQL, MySQL, Oracle, SQL Server</li>
-      <li>Relational design &amp; indexing to access patterns</li>
-      <li>Docker &amp; Docker Compose</li>
-      <li>Git, Azure DevOps &amp; CI/CD</li>
+      <li>SQL across four engines</li>
+      <li>Relational design &amp; indexing</li>
       <li>JavaScript, HTML &amp; CSS</li>
     </ul>
   </div>
 
   <div class="aoi">
-    <h6>Data &amp; Analytics</h6>
-    <span class="aoi-note">Moving warehouses, and reporting numbers people can act on.</span>
+    <h6>Cloud &amp; DevOps</h6>
+    <span class="aoi-note">Where the thing actually runs, and how it gets there.</span>
     <ul>
-      <li>Data Vault 2.0</li>
-      <li>Informatica PowerCenter</li>
-      <li>Snowflake, DBT &amp; AWS Glue</li>
+      <li>Docker &amp; Docker Compose</li>
+      <li>Multi-container stacks</li>
+      <li>Microsoft Azure &amp; Entra ID</li>
       <li>Azure Data Lake</li>
-      <li>Alteryx pipelines</li>
-      <li>Power BI &amp; Power Query</li>
-      <li>Object-based migration estimation</li>
-      <li>Data governance</li>
-      <li>KPI reporting for mixed audiences</li>
+      <li>AWS-hosted environments</li>
+      <li>Git &amp; Azure DevOps</li>
+      <li>CI/CD pipelines</li>
+      <li>Windows &amp; Linux</li>
+      <li>Single sign-on &amp; SCIM</li>
     </ul>
   </div>
 
   <div class="aoi">
-    <h6>Enterprise Applications &amp; Delivery</h6>
-    <span class="aoi-note">Owning a platform end to end, from the requirement to the release.</span>
+    <h6>Data, Applications &amp; Delivery</h6>
+    <span class="aoi-note">Moving warehouses, owning platforms, and shipping against a plan.</span>
     <ul>
-      <li>Unit4 ERP functional ownership</li>
-      <li>Microsoft Dynamics 365</li>
-      <li>Power Apps &amp; Power Automate</li>
-      <li>Copilot Studio agents</li>
-      <li>Requirements elicitation &amp; specification</li>
-      <li>Agile &amp; Scrum</li>
-      <li>WSJF &amp; RICE prioritisation</li>
-      <li>Velocity-based forecasting</li>
-      <li>Business process mapping</li>
-      <li>Single sign-on &amp; SCIM provisioning</li>
+      <li>Data Vault 2.0</li>
+      <li>Informatica PowerCenter</li>
+      <li>Snowflake, DBT &amp; AWS Glue</li>
+      <li>Power BI &amp; Power Query</li>
+      <li>Alteryx pipelines</li>
+      <li>Unit4 ERP &amp; Dynamics 365</li>
+      <li>Requirements &amp; specification</li>
+      <li>Agile, Scrum &amp; WSJF</li>
+      <li>Object-based estimation</li>
     </ul>
   </div>
 
