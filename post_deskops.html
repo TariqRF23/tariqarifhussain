@@ -818,15 +818,14 @@
 			overflow: hidden;
 			text-overflow: ellipsis;
 		}
-		/* Some shots are cropped to a panel rather than a whole page, so they
-		   arrive tall or wide. Contain rather than cover: a thumbnail that
-		   crops a shot which was already cropped shows nothing useful. */
+		/* Every screen is the same 16:10 viewport, so cover and contain agree
+		   and the tiles line up exactly. */
 		.mod-card img {
 			width: 100%;
 			display: block;
 			aspect-ratio: 16 / 10;
-			object-fit: contain;
-			object-position: center;
+			object-fit: cover;
+			object-position: top center;
 			background: var(--grey-soft);
 			border-bottom: 1px solid var(--border);
 			flex-shrink: 0;
@@ -937,7 +936,7 @@
 			padding: 16px;
 			display: flex;
 			flex-direction: column;
-			gap: 10px;
+			gap: 12px;
 			overflow-y: auto;
 		}
 		.mod-stage-btn {
@@ -951,8 +950,31 @@
 			cursor: zoom-in;
 			font-family: inherit;
 			box-shadow: 0 6px 18px rgba(26,82,118,0.10);
+			flex-shrink: 0;
 		}
-		.mod-stage-btn img { width: 100%; display: block; }
+		.mod-stage-btn img { width: 100%; display: block; aspect-ratio: 16 / 10; object-fit: cover; object-position: top center; }
+		/* Every screen is a full 1600x1000 viewport, so the stage can hold a
+		   fixed frame and nothing jumps as you page through a module. */
+		.mod-zoomhint {
+			position: absolute;
+			bottom: 12px; right: 12px;
+			display: inline-flex;
+			align-items: center;
+			gap: 7px;
+			font-family: var(--font-label);
+			font-size: 9.5px;
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+			color: #fff;
+			background: rgba(8,22,32,0.82);
+			border: 1px solid rgba(255,255,255,0.16);
+			border-radius: 20px;
+			padding: 6px 13px;
+			pointer-events: none;
+			z-index: 2;
+			transition: background 0.15s;
+		}
+		.mod-frame:hover .mod-zoomhint { background: rgba(8,22,32,0.95); }
 
 		/* The stage is itself a carousel when a module has more than one screen. */
 		.mod-frame { position: relative; }
@@ -1073,8 +1095,8 @@
 		.mod-rail-item img {
 			width: 74px;
 			aspect-ratio: 16 / 10;
-			object-fit: contain;
-			object-position: center;
+			object-fit: cover;
+			object-position: top center;
 			background: var(--grey-soft);
 			border-radius: 4px;
 			flex-shrink: 0;
@@ -2542,6 +2564,7 @@
 						<img id="mod-img" src="" alt="">
 					</button>
 					<span class="mod-counter" id="mod-counter"></span>
+					<span class="mod-zoomhint"><i class="fa fa-search-plus"></i> Click to magnify</span>
 					<button class="mod-arrow prev" id="mod-prev" aria-label="Previous screen"><i class="fa fa-chevron-left"></i></button>
 					<button class="mod-arrow next" id="mod-next" aria-label="Next screen"><i class="fa fa-chevron-right"></i></button>
 				</div>
@@ -3925,7 +3948,7 @@
 		},
 		{
 			name: 'Ticket workbench',
-			blurb: 'Nine views of the crown-jewel screen: clocks, evidence, gates and the audit trail.',
+			blurb: 'Nine views across four real tickets: clocks, evidence, citations, gates and the audit trail.',
 			lead: 'Opening a ticket must give an agent everything needed to act without leaving the page. The workbench carries the description, assignment, priority and policy in one column, and beside them the two clocks that decide urgency: the countdown against the agreed target, and the service clock showing how much of it has been consumed. Its other tabs put the assistant and the resolution composer on the same record.',
 			points: [
 				'<b>A countdown that respects the working day.</b> It pauses outside business hours, and can be forgiven on the record when it was set in error.',
@@ -3935,10 +3958,10 @@
 			shots: [
 				{ f: 'ticket', c: 'The incident, with both clocks running beside it', d: 'Ticket 54 in full. The left column holds the description, status, assignee, priority and the policy that binds it; beneath sit the two clocks, the urgency countdown showing 369 of 12 working hours consumed, and the service clock reporting the breach against a 48 hour target.' },
 				{ f: 'ticketsla', c: 'SLA at a glance: the warnings this run has already sent', d: 'The SLA panel has five views behind it. This is Warnings on run 3, listing the 50, 80, 95 and 100 per cent thresholds with the moment each was crossed and whether it was announced, so a breach is never a surprise with no paper trail.' },
-				{ f: 'ticketatt', c: 'Attachments, with the index state of every file', d: 'Twelve of twelve sources indexed and twelve chunks searchable, each tile carrying its own state and a re-index control. Evidence becomes answerable the moment it is uploaded, and when it does not, the tile says so rather than failing silently.' },
-				{ f: 'ticketai', c: 'Ask Qleo, answering from this ticket’s own evidence', d: 'Qleo answers from the material attached to this record rather than from general knowledge, and every claim it makes carries a citation back to the chunk it came from.' },
-				{ f: 'ticketres', c: 'The resolution composer, where cited notes are written', d: 'Notes are written in a fixed structure with inline citation markers, and the sources that survived the screening pass are listed below the editor.' },
-				{ f: 'ticketcomments', c: 'The conversation, including what the system wrote itself', d: 'Comments hold the human discussion and the machine’s own entries side by side. Here the SLA engine has recorded each status change and every explicit policy change, timestamped, so the history of the ticket is not only what people remembered to type.' },
+				{ f: 'ticketatt', c: 'Attachments, with the index state of every file', d: 'A ticket carrying twenty images, each tile showing whether it is indexed and how many chunks it contributed, with a re-index control per file. Evidence becomes answerable the moment it is uploaded, and where it is not, the tile says so rather than failing quietly.' },
+				{ f: 'ticketai', c: 'Ask Qleo, answering from this ticket’s own evidence', d: 'A research ticket whose attached report alone produced 447 indexed chunks. Qleo answers from that material rather than from general knowledge, and each claim carries a citation back to the passage it came from.' },
+				{ f: 'ticketres', c: 'The resolution composer, with its sources open beside it', d: 'The causal-reasoning investigation, written across six sections with inline citation markers, and the source panel open on the right showing the exact passage behind a reference. Ask Qleo, View trace and Analysis sit above the editor, so the note can be interrogated rather than only read.' },
+				{ f: 'ticketcomments', c: 'The discussion, tables and all', d: 'Markdown is rendered rather than escaped, so an analyst can argue in the form the argument needs. Here a reviewer reopens a regression ticket and lays out six test areas in a table against what has changed since, which is the kind of comment a plain-text field would have destroyed.' },
 				{ f: 'ticketkam', c: 'The redaction gate, before a knowledge match is allowed to run', d: 'Asking for a knowledge-base match would send this ticket’s text to an external provider, so the gate intervenes first. It names the risk plainly and offers to start the redaction server; continuing unprotected is possible, but it is a deliberate choice rather than a default.' },
 				{ f: 'ticketaudit', c: 'The audit trail, 66 events on this ticket alone', d: 'Creation, attachments, every tag assignment, each SLA stage change and every policy switch, with the actor named on each and paged six screens deep. This is what makes a root-cause review an act of reading rather than reconstruction.' },
 				{ f: 'ticketmcp', c: 'The MCP server: scoped tokens and the redaction audit log', d: 'Reached from the same rail. External agents hold labelled, revocable tokens with explicit scopes, and every redaction call is logged with the number of personal values found, how many detection layers fired and how long it took.' }
@@ -4395,8 +4418,9 @@
 		modNext.hidden = n < 2;
 		modCounter.textContent = (modIndex + 1) + ' / ' + n;
 		Array.from(modRail.children).forEach((el, k) => el.classList.toggle('on', k === modIndex));
-		const active = modRail.children[modIndex];
-		if (active && active.scrollIntoView) active.scrollIntoView({ block: 'nearest' });
+		// Deliberately no scrollIntoView on the active rail item: the rail lives
+		// inside the side pane, so scrolling to it dragged the module's own
+		// explanation off the top and every page-turn started mid-sentence.
 	}
 
 	function openModule(fi, mi) {
