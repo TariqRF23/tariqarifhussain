@@ -920,6 +920,26 @@
 			color: var(--blue-ink);
 			line-height: 1.3;
 		}
+		.mod-head-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+		.mod-link {
+			display: inline-flex;
+			align-items: center;
+			gap: 7px;
+			background: var(--white);
+			border: 1px solid var(--border);
+			border-radius: 20px;
+			padding: 6px 14px;
+			cursor: pointer;
+			font-family: var(--font-label);
+			font-size: 10px;
+			font-weight: 600;
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+			color: var(--blue-deep);
+			transition: background 0.15s, border-color 0.15s;
+		}
+		.mod-link:hover { background: var(--blue-light); border-color: var(--blue-mid); }
+		.mod-link.done { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
 		.mod-close {
 			background: none; border: none; cursor: pointer;
 			color: var(--text-muted);
@@ -929,6 +949,7 @@
 			flex-shrink: 0;
 		}
 		.mod-close:hover { background: var(--grey-bg); }
+		@media (max-width: 760px) { .mod-link span { display: none; } }
 
 		.mod-body { display: flex; flex: 1; min-height: 0; }
 		.mod-stage {
@@ -2033,7 +2054,7 @@
 		<div class="feature-card">
 			<div class="feature-icon"><i class="fa fa-ticket"></i></div>
 			<div class="feature-title">Full Incident Lifecycle</div>
-			<div class="feature-body">Ticket creation through closure with RBAC across five support tiers, SLA timers, escalation paths, and role-scoped views.</div>
+			<div class="feature-body">Ticket creation through closure with RBAC across four support tiers and admin, SLA timers, escalation paths, and role-scoped views.</div>
 		</div>
 		<div class="feature-card">
 			<div class="feature-icon"><i class="fa fa-database"></i></div>
@@ -2134,6 +2155,21 @@
 			<div class="feature-icon"><i class="fa fa-heartbeat"></i></div>
 			<div class="feature-title">Customer Health &amp; Churn Radar</div>
 			<div class="feature-body">An account's health is computed from the tickets it raised, the targets missed on them and the invoices it was sent, so the radar names the customers who are slipping and states why in the same row.</div>
+		</div>
+		<div class="feature-card">
+			<div class="feature-icon"><i class="fa fa-address-book"></i></div>
+			<div class="feature-title">Active Directory Sync</div>
+			<div class="feature-body">Users and security groups read from Active Directory over LDAPS, with the certificate verified, and mapped to DeskOps roles and teams. Read-only in both directions, off by default, and every run previewed before it is applied.</div>
+		</div>
+		<div class="feature-card">
+			<div class="feature-icon"><i class="fa fa-key"></i></div>
+			<div class="feature-title">Secrets Outside the Repository</div>
+			<div class="feature-body">Database passwords are generated per machine into an owner-only file that is never committed, never passed on a command line, and rotated by deleting it. Three accounts, each holding only the rights its job needs.</div>
+		</div>
+		<div class="feature-card">
+			<div class="feature-icon"><i class="fa fa-lock"></i></div>
+			<div class="feature-title">Audit by Construction</div>
+			<div class="feature-body">The records that matter are append-only because the database refuses otherwise. Sync runs freeze on completion and change rows cannot be edited or deleted, so the history is evidence rather than a convention everyone agreed to follow.</div>
 		</div>
 	</div>
 </div>
@@ -2533,7 +2569,7 @@
 		<h2 class="section-title">The Suite, Screen by Screen</h2>
 		<p class="section-desc">
 			What follows is the application itself, photographed on a live instance carrying its
-			own data. Twenty-eight modules in five families, each with the problem it was built to
+			own data. Twenty-nine modules in five families, each with the problem it was built to
 			solve set out beside it. Open any module to read it and to page through its screens.
 		</p>
 
@@ -2557,7 +2593,10 @@
 				<div class="mod-kicker" id="mod-kicker"></div>
 				<div class="mod-title" id="mod-title"></div>
 			</div>
-			<button class="mod-close" id="mod-close" aria-label="Close">&#10005;</button>
+			<div class="mod-head-actions">
+				<button class="mod-link" id="mod-link" title="Copy a direct link to this module"><i class="fa fa-link"></i> <span id="mod-link-label">Copy link</span></button>
+				<button class="mod-close" id="mod-close" aria-label="Close">&#10005;</button>
+			</div>
 		</div>
 		<div class="mod-body">
 			<div class="mod-stage">
@@ -2805,7 +2844,7 @@
 			<div class="accordion-panel-inner">
 				<ul>
 					<li>Full ticket lifecycle: creation, triage, assignment, escalation, and closure</li>
-					<li>RBAC across five tiers - Admin, Tier 1 through Tier 4 - with scoped views and permissions</li>
+					<li>RBAC across four tiers plus admin - Tier 1 through Tier 4, and Admin - with scoped views and permissions</li>
 					<li>SLA tracking with colour-coded urgency indicators and breach threshold alerts</li>
 					<li>Ticket tags with AI-generated profiles: context, signals, actions, examples, and facets in structured JSON</li>
 					<li>Comment system with Markdown rendering, system-generated comments, and attachment linking</li>
@@ -3457,7 +3496,7 @@
 <template id="dd-desk" data-kicker="Deep Dive · Chapter 01" data-title="The Desk, Considered">
 	<p class="ka-overview">A service desk is, at bottom, a machine for keeping promises. DeskOps treats every commitment as a first-class object: measured, displayed, and enforced.</p>
 	<p>Most ticketing systems record time; few reason about it. DeskOps binds every ticket to a service-level policy whose clock respects the organisation's actual working calendar, pausing at closing time and resuming at opening. The countdown a technician sees is therefore not an abstraction but an obligation, rendered in colour and updated continuously, and the moment it threatens to lapse the escalation machinery begins to act on its own initiative, notifying and reassigning up the tier ladder until the problem finds an owner.</p>
-	<p>Access follows the same philosophy of explicitness. Five tiers, from front-line intake to administration, each see precisely the views and actions their remit warrants, and no more. The consequence is subtle but considerable: a ticket's history becomes a trustworthy narrative, because every comment, system event, and attachment entered it through a role that was entitled to put it there.</p>
+	<p>Access follows the same philosophy of explicitness. Four support tiers and an administrator role, from front-line intake upward, each see precisely the views and actions their remit warrants, and no more. The consequence is subtle but considerable: a ticket's history becomes a trustworthy narrative, because every comment, system event, and attachment entered it through a role that was entitled to put it there.</p>
 	<p>That narrative is not inert. Attachments are indexed for retrieval, tags carry structured profiles written by the AI and curated by people, and the whole record becomes the evidence base from which resolution notes and future automations are drawn. The desk is not merely where work is tracked; it is where the system's memory begins.</p>
 </template>
 
@@ -3942,7 +3981,7 @@
 			blurb: 'Every ticket on one board, with its live service-level state.',
 			lead: 'The first screen after sign-in answers the only question that matters on arrival: what is on fire, and whose is it. Every ticket appears on one board with its status, priority, assignee, the customer behind it and the live state of its service-level clock, so a queue never has to be reconstructed from memory or from a spreadsheet.',
 			points: [
-				'<b>Scoped by role.</b> Five tiers each see the slice their remit covers and nothing beyond it, so the same board is safe to put in front of anyone.',
+				'<b>Scoped by role.</b> Four support tiers and admin each see the slice their remit covers and nothing beyond it, so the same board is safe to put in front of anyone.',
 				'<b>Computed live.</b> SLA state is calculated per row on request rather than cached overnight, so the colour on screen is the truth now.',
 				'<b>Built to stay fast.</b> Sorting, filtering and search run in the database, so the board does not slow as the estate grows.'
 			],
@@ -4259,7 +4298,7 @@
 	},
 	{
 		family: 'The platform',
-		intro: 'The last four modules are the ones that make the rest defensible: what the estate is made of, what the database actually looks like, how repetitive work is automated, and what is currently broken. <b>None of them are glamorous, and the system is not credible without them.</b>',
+		intro: 'The last five modules are the ones that make the rest defensible: what the estate is made of, what the database actually looks like, how repetitive work is automated, where staff accounts come from, and what is currently broken. <b>None of them are glamorous, and the system is not credible without them.</b>',
 		modules: [
 		{
 			name: 'CMDB',
@@ -4301,6 +4340,24 @@
 			]
 		},
 		{
+			name: 'Directory Sync',
+			blurb: 'Active Directory users and groups into DeskOps roles and teams, read-only over LDAPS.',
+			lead: 'Staff accounts should have one source of truth, and in most organisations that is the directory. This connector reads users and security groups from Active Directory over LDAPS and sets each person’s DeskOps role, team and whether they are still active. It never writes to the directory, the bind account is an ordinary domain user without write rights, and the whole thing is off by default. It was built against a purpose-built lab: a Windows Server 2025 Core domain controller running its own certificate authority, with the nineteen real DeskOps staff accounts mirrored into it.',
+			points: [
+				'<b>Encrypted and verified, or it does not run.</b> LDAPS only, with the server certificate checked against a configured CA file. Plain LDAP is refused in code, and the bind password lives outside the database and outside the repository.',
+				'<b>Preview before anything moves.</b> A dry run reports every change it would make and makes none. Apply is one transaction, and safety brakes refuse a run that would disable too many people or whose mapped group has vanished, unless an administrator overrides them.',
+				'<b>Nobody is ever deleted, and nothing is guessed.</b> A disabled or removed directory account is soft-deactivated and blocked at the password step, the two-factor step and for API tokens. Matching uses the directory’s own object identifier, then an email match only when exactly one DeskOps user fits; anything ambiguous becomes a conflict for a person to settle.'
+			],
+			shots: [
+				{ f: 'dsync', c: 'The connector, and what it is bound to', d: 'Nineteen users linked, two deactivated because the directory disabled them, no open conflicts. The connection strip states the server and that it is LDAPS, the service account, the CA file being enforced, and that the schedule is off. The settings are shown read-only: an administrator sets them outside the screen, and the bind password is never among them.' },
+				{ f: 'dsyncmap', c: 'Group mappings: who becomes what', d: 'Directory groups map to a DeskOps role, a team, or both, with the full distinguished name kept beside each. A person in several mapped groups takes the highest role; the team comes from the lowest priority number. Mappings are held against the directory’s object identifier, so renaming or moving a group does not break them.' },
+				{ f: 'dsyncadd', c: 'The group list is read live from the directory', d: 'Adding a mapping opens the security groups as they exist in Active Directory at that moment, fetched over LDAPS rather than typed in from memory. The built-in groups visible here are the ones any domain has, which is the plainest evidence that this is a real directory read and not a fixture.' },
+				{ f: 'dsyncdry', c: 'A dry run: nineteen in scope, nothing to change', d: 'The preview runs the entire plan and writes nothing, reporting what it would link, update, create, disable or re-enable. Here DeskOps already matches the directory, so every count is zero and Apply stays unavailable. Apply only becomes available after a dry run that actually found something.' },
+				{ f: 'dsynchist', c: 'Every run audited, dry runs included', d: 'Twelve runs with their mode, who started them and what they touched. Three different callers appear: a named administrator from this screen, the command line, and the optional schedule. The run rows are frozen by a database trigger once a run finishes, and the change rows are append-only, so the history cannot be quietly tidied.' },
+				{ f: 'dsyncaudit', c: 'One run, opened: twenty-one changes with reasons', d: 'The first apply, recorded change by change. Each row names the directory account, the DeskOps user it was linked to, what happened and why it happened, down to the email that matched. This is what makes the connector auditable rather than merely automatic.' }
+			]
+		},
+		{
 			name: 'Issue Tracker',
 			blurb: 'The application’s own defect list, kept in the open.',
 			lead: 'The application keeps its own defect list, scoped to an initiative or standing alone, so the work of fixing DeskOps is tracked inside DeskOps. Several entries visible in this capture are the honest kind: an automation posting a customer-visible reply it should not, a local model chosen badly after a cold start, an export missing a column.',
@@ -4317,6 +4374,28 @@
 		]
 	}
 	];
+
+	// ── Deep links ───────────────────────────────────────────────────────
+	// Every module has a stable slug so a single screen can be linked to
+	// directly, which is the whole point when the link goes on a CV. The hash
+	// reads #m-directory-sync, or #m-directory-sync/3 for a particular screen.
+	const slugOf = name => String(name).toLowerCase()
+		.replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+	const MOD_BY_SLUG = {};
+	SUITE.forEach((fam, fi) => fam.modules.forEach((mod, mi) => {
+		mod.slug = slugOf(mod.name);
+		MOD_BY_SLUG[mod.slug] = { fi: fi, mi: mi };
+	}));
+
+	function hashFor(mod, i) {
+		return '#m-' + mod.slug + (i > 0 ? '/' + (i + 1) : '');
+	}
+	function parseHash() {
+		const m = /^#m-([a-z0-9-]+?)(?:\/(\d+))?$/.exec(location.hash || '');
+		if (!m || !MOD_BY_SLUG[m[1]]) return null;
+		const at = MOD_BY_SLUG[m[1]];
+		return { fi: at.fi, mi: at.mi, i: m[2] ? (parseInt(m[2], 10) - 1) : 0 };
+	}
 
 	// ── Render the families and their carousels ──────────────────────────
 	(function buildSuite() {
@@ -4402,6 +4481,8 @@
 	const modRailHd  = document.getElementById('mod-rail-head');
 	const modStage   = document.getElementById('mod-stage-btn');
 	const modClose   = document.getElementById('mod-close');
+	const modLinkBtn   = document.getElementById('mod-link');
+	const modLinkLabel = document.getElementById('mod-link-label');
 	let modCurrent   = null;
 
 	// The stage shows the view-size file; only magnifying fetches the full one.
@@ -4422,6 +4503,9 @@
 		modCapTitle.textContent = s.c;
 		modCapDesc.textContent = s.d || '';
 		modStage.onclick = () => openZoom(FULL(s.f), mod.name + ' · ' + s.c);
+		// Keep the address bar pointing at exactly what is on screen, without
+		// stacking a history entry for every page-turn.
+		try { history.replaceState(null, '', hashFor(mod, modIndex)); } catch (e) {}
 		// The arrows and the counter only earn their place on a module that
 		// actually has more than one screen.
 		modCounter.hidden = n < 2;
@@ -4434,10 +4518,15 @@
 		// explanation off the top and every page-turn started mid-sentence.
 	}
 
-	function openModule(fi, mi) {
+	function openModule(fi, mi, startAt, fromHistory) {
 		const fam = SUITE[fi];
 		const mod = fam.modules[mi];
 		modCurrent = mod;
+		if (!fromHistory) {
+			// Opening pushes, so the browser's Back button closes the reader
+			// rather than leaving the page.
+			try { history.pushState({ mod: mod.slug }, '', hashFor(mod, 0)); } catch (e) {}
+		}
 		modKicker.textContent = fam.family;
 		modTitle.textContent = mod.name;
 		modLead.textContent = mod.lead;
@@ -4453,20 +4542,54 @@
 		});
 		modRailHd.style.display = mod.shots.length > 1 ? '' : 'none';
 		modRail.style.display   = mod.shots.length > 1 ? '' : 'none';
-		showShot(mod, 0);
+		showShot(mod, startAt || 0);
+		modLinkLabel.textContent = 'Copy link';
+		modLinkBtn.classList.remove('done');
 		modOverlay.classList.add('open');
 		syncScrollLock();
 	}
 
-	function closeModule() {
+	function closeModule(fromHistory) {
 		modOverlay.classList.remove('open');
 		modImg.src = '';
 		modCurrent = null;
+		if (!fromHistory) {
+			try { history.pushState(null, '', '#suite'); } catch (e) {}
+		}
 		syncScrollLock();
 	}
 
-	modClose.addEventListener('click', closeModule);
+	modClose.addEventListener('click', () => closeModule());
 	modOverlay.addEventListener('click', e => { if (e.target === modOverlay) closeModule(); });
+
+	// Copy the link to this exact screen.
+	modLinkBtn.addEventListener('click', () => {
+		if (!modCurrent) return;
+		const url = location.href.split('#')[0] + hashFor(modCurrent, modIndex);
+		const done = () => {
+			modLinkLabel.textContent = 'Copied';
+			modLinkBtn.classList.add('done');
+			setTimeout(() => { modLinkLabel.textContent = 'Copy link'; modLinkBtn.classList.remove('done'); }, 2000);
+		};
+		if (navigator.clipboard && navigator.clipboard.writeText) {
+			navigator.clipboard.writeText(url).then(done, () => { prompt('Copy this link', url); });
+		} else {
+			prompt('Copy this link', url);
+		}
+	});
+
+	// Back and forward move between the reader and the page, and a pasted link
+	// opens the module it names.
+	function applyHash(fromHistory) {
+		const at = parseHash();
+		if (at) {
+			openModule(at.fi, at.mi, at.i, true);
+		} else if (modOverlay.classList.contains('open')) {
+			closeModule(true);
+		}
+	}
+	window.addEventListener('popstate', () => applyHash(true));
+	applyHash(true);
 	modPrev.addEventListener('click', () => { if (modCurrent) showShot(modCurrent, modIndex - 1); });
 	modNext.addEventListener('click', () => { if (modCurrent) showShot(modCurrent, modIndex + 1); });
 	// Arrow keys page the stage while the reader is open and the zoom is not.
