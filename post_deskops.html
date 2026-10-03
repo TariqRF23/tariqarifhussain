@@ -185,6 +185,20 @@
 			-webkit-text-fill-color: transparent;
 			color: transparent;
 		}
+		/* Unregistered trade mark. This is the symbol to use for a mark in use
+		   but not registered; the R in a circle is reserved for registered
+		   marks and claiming it without a registration is an offence in the UK
+		   and actionable in the US, so it stays off until there is one. */
+		.hero-brand-name .wm-tm {
+			font-size: 0.42em;
+			font-weight: 400;
+			vertical-align: super;
+			line-height: 1;
+			margin-left: 2px;
+			letter-spacing: 0.02em;
+			color: rgba(214,234,248,0.72);
+			-webkit-text-fill-color: currentColor;
+		}
 		.hero-brand-role {
 			font-family: var(--font-label);
 			font-size: 10px;
@@ -2145,6 +2159,14 @@
 		/* Footer + preloader */
 		footer { background: var(--white); border-top: 1px solid var(--border); padding: 28px 40px; text-align: center; }
 		footer img { width: 70px; height: 70px; opacity: 0.85; }
+		.footer-legal {
+			max-width: 640px;
+			margin: 10px auto 0;
+			font-family: var(--font-label);
+			font-size: 11px;
+			line-height: 1.7;
+			color: var(--text-muted);
+		}
 		#preloader2 {
 			position: fixed;
 			inset: 0;
@@ -2210,8 +2232,25 @@
 		<div class="hero-brand hero-rise">
 			<span class="hero-mark">
 				<!-- The DeskOps mark, carried verbatim from the application's
-				     includes/qleo_mark.php so the two never drift apart. -->
+				     includes/qleo_mark.php so the two never drift apart.
+				     DeskOps(TM) and this mark are works of Tariq Hussain.
+				     Copyright (c) 2024-2026 Tariq Hussain. All rights reserved.
+				     The title, desc and metadata below travel with the file, so
+				     the attribution survives a copy and paste. -->
 				<svg class="qleo-mark" viewBox="0 0 64 64" fill="none" role="img" aria-label="DeskOps">
+					<title>DeskOps</title>
+					<desc>The DeskOps mark. Copyright (c) 2024-2026 Tariq Hussain. All rights reserved. DeskOps is a trade mark of Tariq Hussain.</desc>
+					<metadata>
+						<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+						         xmlns:dc="http://purl.org/dc/elements/1.1/">
+							<rdf:Description>
+								<dc:title>DeskOps</dc:title>
+								<dc:creator>Tariq Hussain</dc:creator>
+								<dc:rights>Copyright (c) 2024-2026 Tariq Hussain. All rights reserved.</dc:rights>
+								<dc:source>https://tariqrf23.github.io/tariqarifhussain/</dc:source>
+							</rdf:Description>
+						</rdf:RDF>
+					</metadata>
 					<defs>
 						<linearGradient id="om-head" x1="32" y1="12" x2="32" y2="58" gradientUnits="userSpaceOnUse">
 							<stop stop-color="#d7dbe4"/><stop offset=".5" stop-color="#a9b0bf"/><stop offset="1" stop-color="#6f7788"/>
@@ -2280,7 +2319,7 @@
 				</svg>
 			</span>
 			<span class="hero-brand-text">
-				<span class="hero-brand-name">Desk<span class="wm-o">O</span>ps</span>
+				<span class="hero-brand-name">Desk<span class="wm-o">O</span>ps<span class="wm-tm" aria-hidden="true">&trade;</span></span>
 				<span class="hero-brand-role">Designed and built by Tariq Hussain</span>
 			</span>
 		</div>
@@ -3782,6 +3821,11 @@
 
 <footer>
 	<a href="index.html"><img src="images/tH.png" alt="Tariq Hussain"></a>
+	<p class="footer-legal">
+		&copy; 2024-2026 Tariq Hussain. All rights reserved.
+		DeskOps&trade;, the DeskOps mark and Qleo&trade; are trade marks of Tariq Hussain.
+		The screenshots on this page show the author's own system and its demonstration data.
+	</p>
 </footer>
 
 <!-- Video Modal, with side rail -->
