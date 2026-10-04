@@ -2951,8 +2951,8 @@
 			solve set out beside it. Open any module to read it and to page through its screens.
 		</p>
 
-		<button class="gallery-lead" data-full="images/deskops/login.jpg" data-cap="The entry card · sign-in, over the schema of the system it opens">
-			<img src="images/deskops/login.jpg" alt="The DeskOps sign-in card" loading="lazy">
+		<button class="gallery-lead" data-full="images/deskops/login.jpg?v=3" data-cap="The entry card · sign-in, over the schema of the system it opens">
+			<img src="images/deskops/login.jpg?v=3" alt="The DeskOps sign-in card" loading="lazy">
 			<span class="gallery-lead-text">
 				<span class="shot-name">The entry card</span>
 				<span class="shot-note">Sign-in, drawn over the schema of the system it opens. The helpdesk that compounds, before you have typed a word.</span>
@@ -4855,7 +4855,7 @@
 				const first = mod.shots[0];
 				card.innerHTML =
 					'<span class="shot-chrome"><i></i><i></i><i></i><span>' + esc(mod.name) + '</span></span>' +
-					'<img src="images/deskops/thumb/' + first.f + '.jpg" alt="' + esc(mod.name) + '" loading="lazy">' +
+					'<img src="' + THUMB(first.f) + '" alt="' + esc(mod.name) + '" loading="lazy">' +
 					'<span class="mod-card-text">' +
 						'<span class="mod-card-name">' + esc(mod.name) + '</span>' +
 						'<span class="mod-card-blurb">' + esc(mod.blurb) + '</span>' +
@@ -4908,9 +4908,15 @@
 	const modLinkLabel = document.getElementById('mod-link-label');
 	let modCurrent   = null;
 
+	// Bump IMG_V whenever a screenshot is replaced in place. Pages serves these
+	// with a ten-minute max-age, so without it a returning reader keeps the old
+	// file at the same URL and sees a shot that was fixed hours ago. The query
+	// changes the URL, so the replacement takes effect at once for everyone.
+	const IMG_V = '?v=3';
 	// The stage shows the view-size file; only magnifying fetches the full one.
-	const VIEW = f => 'images/deskops/view/' + f + '.jpg';
-	const FULL = f => 'images/deskops/' + f + '.jpg';
+	const VIEW = f => 'images/deskops/view/' + f + '.jpg' + IMG_V;
+	const FULL = f => 'images/deskops/' + f + '.jpg' + IMG_V;
+	const THUMB = f => 'images/deskops/thumb/' + f + '.jpg' + IMG_V;
 
 	function showShot(mod, i) {
 		const n = mod.shots.length;
@@ -4959,7 +4965,7 @@
 			const b = document.createElement('button');
 			b.className = 'mod-rail-item';
 			b.type = 'button';
-			b.innerHTML = '<img src="images/deskops/thumb/' + s.f + '.jpg" alt="" loading="lazy"><span>' + s.c + '</span>';
+			b.innerHTML = '<img src="' + THUMB(s.f) + '" alt="" loading="lazy"><span>' + s.c + '</span>';
 			b.addEventListener('click', () => showShot(mod, i));
 			modRail.appendChild(b);
 		});
