@@ -416,6 +416,85 @@
 		@media (max-width: 900px) { .plan-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 		@media (max-width: 560px) { .plan-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; } }
 
+		/* ─── Diagrams ────────────────────────────────────────────────────
+		   Each drawing is one inline SVG on a fixed viewBox, so nothing can
+		   drift out of alignment as the column changes width and there is no
+		   image to fetch. Below the breakpoint the frame scrolls sideways at a
+		   floor width rather than shrinking the type past reading size. */
+		.dg-section { background: var(--grey-soft); border-top: 1px solid var(--border); padding: 58px 40px 64px; }
+		.dg-inner { max-width: 1180px; margin: 0 auto; }
+		.dg-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 26px 0 20px; }
+		.dg-tab {
+			font-family: var(--font-label);
+			font-size: 11.5px;
+			letter-spacing: 0.04em;
+			color: var(--blue-deep);
+			background: var(--white);
+			border: 1px solid var(--border);
+			border-radius: 20px;
+			padding: 8px 16px;
+			cursor: pointer;
+			transition: border-color .2s ease, background .2s ease, color .2s ease;
+		}
+		.dg-tab b { color: var(--accent); font-weight: 600; margin-right: 6px; }
+		.dg-tab:hover { border-color: var(--accent); }
+		.dg-tab.is-on { background: var(--blue-ink); border-color: var(--blue-ink); color: #ffffff; }
+		.dg-tab.is-on b { color: #6fc3f0; }
+
+		.dg-panel { display: none; margin: 0; }
+		.dg-panel.is-on { display: block; }
+		.dg-cap { margin: 0 0 16px; max-width: 820px; }
+		.dg-cap b {
+			display: block;
+			font-family: var(--font-main);
+			font-size: 1.15rem;
+			color: var(--blue-ink);
+			margin-bottom: 6px;
+		}
+		.dg-cap { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; }
+		.dg-frame {
+			background: #0a2a3d;
+			border-radius: 14px;
+			overflow: hidden;
+			box-shadow: 0 16px 42px rgba(10,42,61,0.20);
+		}
+		.dg-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+		.dg-frame svg { display: block; width: 100%; height: auto; }
+		.dg-foot {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 14px;
+			margin-top: 10px;
+		}
+		.dg-hint {
+			font-family: var(--font-label);
+			font-size: 10px;
+			letter-spacing: 0.1em;
+			text-transform: uppercase;
+			color: var(--text-muted);
+			visibility: hidden;
+		}
+		.dg-link {
+			font-family: var(--font-label);
+			font-size: 11px;
+			letter-spacing: 0.06em;
+			color: var(--blue-deep);
+			background: var(--white);
+			border: 1px solid var(--border);
+			border-radius: 16px;
+			padding: 6px 13px;
+			cursor: pointer;
+			transition: border-color .2s ease, color .2s ease;
+		}
+		.dg-link:hover { border-color: var(--accent); color: var(--accent); }
+		.dg-link.done { border-color: var(--accent); color: var(--accent); }
+		@media (max-width: 900px) {
+			.dg-section { padding: 44px 20px 50px; }
+			.dg-scroll svg { width: 900px; }
+			.dg-hint { visibility: visible; }
+		}
+
 		/* Chapter nav strip */
 		.chapnav {
 			background: var(--white);
@@ -2413,6 +2492,7 @@
 	<a href="#ch-automation"><b>06</b>The Automation</a>
 	<a href="#ch-foundation"><b>07</b>The Foundation</a>
 	<a href="#suite"><b>08</b>The Suite</a>
+	<a href="#diagrams">How it works</a>
 	<a href="#engines">Built, not borrowed</a>
 	<a href="#library">The Library</a>
 	<a href="#research">Research spotlight</a>
@@ -3001,6 +3081,665 @@
 		</div>
 	</div>
 </div>
+
+<!-- Diagrams -->
+<section class="dg-section" id="diagrams">
+	<div class="dg-inner">
+		<div class="section-label">How it works</div>
+		<h2 class="section-title">Three things, drawn</h2>
+		<p class="section-desc">Architecture diagrams of the three mechanisms that are hardest to convey in prose. Each was drawn from the code rather than from the design notes, and each marks its own limits as plainly as its claims.</p>
+
+		<div class="dg-tabs" role="tablist" aria-label="Choose a diagram">
+			<button type="button" class="dg-tab is-on" role="tab" aria-selected="true" data-dg="the-model-path"><b>01</b> The model path</button>
+			<button type="button" class="dg-tab" role="tab" aria-selected="false" data-dg="what-compounds"><b>02</b> What compounds</button>
+			<button type="button" class="dg-tab" role="tab" aria-selected="false" data-dg="the-directory"><b>03</b> The directory</button>
+		</div>
+
+		<figure class="dg-panel is-on" id="dg-the-model-path" data-dg="the-model-path">
+			<figcaption class="dg-cap"><b>How a request reaches a model</b>Seven gates stand between a person and a language model, and every one of them is ordinary server-side code rather than an instruction in a prompt. Most requests never leave the machine at all.</figcaption>
+			<div class="dg-frame"><div class="dg-scroll">
+<svg viewBox="0 0 1320 880" role="img" aria-labelledby="dgTitle dgDesc"
+     font-family="'Bahnschrift Light','Segoe UI',Arial,sans-serif">
+	<title id="dgTitle">How a request reaches a model in DeskOps</title>
+	<desc id="dgDesc">A request is authorised in server-side code, given a task class, routed to a starting tier by recorded pass rates, tried against local models first, redacted before any cloud call, sent down a three-provider chain only if needed, then verified and recorded so the next routing decision is better informed.</desc>
+
+	<defs>
+		<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+			<stop offset="0" stop-color="#0c3047"/>
+			<stop offset="0.55" stop-color="#0a2a3d"/>
+			<stop offset="1" stop-color="#061c2b"/>
+		</linearGradient>
+		<pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+			<path d="M40 0H0V40" fill="none" stroke="rgba(214,234,248,0.055)" stroke-width="1"/>
+		</pattern>
+		<radialGradient id="glowCube" cx="0.5" cy="0.5" r="0.5">
+			<stop offset="0" stop-color="#6fc3f0" stop-opacity="0.26"/>
+			<stop offset="1" stop-color="#6fc3f0" stop-opacity="0"/>
+		</radialGradient>
+	</defs>
+
+	<rect width="1320" height="880" fill="url(#bg)"/>
+	<rect width="1320" height="880" fill="url(#grid)"/>
+
+	<!-- ─── Heading ──────────────────────────────────────────────────── -->
+	<text x="660" y="56" text-anchor="middle" fill="#ffffff"
+	      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif"
+	      font-size="33" letter-spacing="1.2">HOW A REQUEST REACHES A MODEL</text>
+	<text x="660" y="84" text-anchor="middle" fill="rgba(214,234,248,0.62)" font-size="14.5">
+		Seven gates between a person and a language model, every one of them ordinary server-side code
+	</text>
+
+	<!-- ─── Connector paths, drawn before the boxes so they tuck behind ─ -->
+	<g fill="none" stroke-width="2.1" stroke-linecap="round">
+		<!-- actors into the cube; the guard pill sits on this wire -->
+		<path d="M204 352 H362" stroke="#f87171" opacity="0.85"/>
+		<!-- cube out to each lane -->
+		<path d="M622 318 C 668 318, 660 196, 712 196" stroke="#34d399" opacity="0.85"/>
+		<path d="M622 336 C 670 336, 662 330, 712 330" stroke="#fb7185" opacity="0.85"/>
+		<path d="M622 354 C 668 354, 660 466, 712 466" stroke="#38bdf8" opacity="0.85"/>
+		<path d="M622 372 C 666 372, 658 602, 712 602" stroke="#fbbf24" opacity="0.85"/>
+		<!-- the gearbox sits under the cube and decides which tier is tried first -->
+		<path d="M490 404 V 452" stroke="#a78bfa" opacity="0.7" stroke-dasharray="5 5"/>
+		<!-- the verdict returns to the gearbox: this is the loop that learns -->
+		<path d="M880 648 C 880 706, 640 710, 586 710 C 536 710, 536 560, 536 540"
+		      stroke="#fbbf24" opacity="0.45" stroke-dasharray="6 6"/>
+	</g>
+	<!-- dots on the wires -->
+	<g fill="#0a2a3d" stroke-width="2">
+		<circle cx="664" cy="196" r="4" stroke="#34d399"/>
+		<circle cx="664" cy="330" r="4" stroke="#fb7185"/>
+		<circle cx="664" cy="466" r="4" stroke="#38bdf8"/>
+		<circle cx="664" cy="602" r="4" stroke="#fbbf24"/>
+	</g>
+
+	<!-- ─── Left column: who asks ────────────────────────────────────── -->
+	<g>
+		<rect x="36" y="214" width="168" height="276" rx="14"
+		      fill="rgba(255,255,255,0.035)" stroke="rgba(214,234,248,0.18)"/>
+		<rect x="62" y="200" width="116" height="28" rx="14" fill="#0e3850" stroke="rgba(214,234,248,0.30)"/>
+		<text x="120" y="219" text-anchor="middle" fill="#ffffff" font-size="12.5"
+		      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif" letter-spacing="0.4">Who asks</text>
+
+		<g font-size="11.5" fill="rgba(226,239,248,0.88)">
+			<rect x="52" y="248" width="136" height="34" rx="9" fill="rgba(255,255,255,0.05)" stroke="rgba(214,234,248,0.14)"/>
+			<text x="120" y="269" text-anchor="middle">Tier 1 to Tier 4, Admin</text>
+
+			<rect x="52" y="292" width="136" height="34" rx="9" fill="rgba(255,255,255,0.05)" stroke="rgba(214,234,248,0.14)"/>
+			<text x="120" y="313" text-anchor="middle">Resolution composer</text>
+
+			<rect x="52" y="336" width="136" height="34" rx="9" fill="rgba(255,255,255,0.05)" stroke="rgba(214,234,248,0.14)"/>
+			<text x="120" y="357" text-anchor="middle">Report Builder</text>
+
+			<rect x="52" y="380" width="136" height="34" rx="9" fill="rgba(255,255,255,0.05)" stroke="rgba(214,234,248,0.14)"/>
+			<text x="120" y="401" text-anchor="middle">Triage Sentinel</text>
+
+			<rect x="52" y="424" width="136" height="34" rx="9" fill="rgba(255,255,255,0.05)" stroke="rgba(214,234,248,0.14)"/>
+			<text x="120" y="445" text-anchor="middle">Playbooks, Studio</text>
+		</g>
+	</g>
+
+	<!-- step 1, sitting on the wire between the callers and the Cube -->
+	<g>
+		<rect x="204" y="337" width="150" height="30" rx="15" fill="#2a1114" stroke="#f87171"/>
+		<circle cx="222" cy="352" r="11" fill="#f87171"/>
+		<text x="222" y="356.5" text-anchor="middle" fill="#2a1114" font-size="12"
+		      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif">1</text>
+		<text x="239" y="356.5" fill="#fecaca" font-size="11">Session and role guard</text>
+	</g>
+	<text x="288" y="388" text-anchor="middle" fill="rgba(214,234,248,0.40)" font-size="10.5">
+		no model is reached
+	</text>
+
+	<!-- ─── Centre: the Cube ─────────────────────────────────────────── -->
+	<ellipse cx="490" cy="340" rx="190" ry="130" fill="url(#glowCube)"/>
+	<g>
+		<rect x="408" y="248" width="164" height="28" rx="14" fill="#123b53" stroke="#6fc3f0"/>
+		<circle cx="428" cy="262" r="11" fill="#6fc3f0"/>
+		<text x="428" y="266.5" text-anchor="middle" fill="#0a2a3d" font-size="12"
+		      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif">2</text>
+		<text x="446" y="266.5" fill="#9fd8f5" font-size="12.5"
+		      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif" letter-spacing="0.4">Control plane</text>
+
+		<rect x="362" y="282" width="260" height="122" rx="14"
+		      fill="rgba(111,195,240,0.08)" stroke="#6fc3f0" stroke-width="1.4"/>
+		<text x="492" y="318" text-anchor="middle" fill="#ffffff" font-size="21"
+		      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif">The Cube</text>
+		<text x="492" y="344" text-anchor="middle" fill="rgba(226,239,248,0.78)" font-size="11">one entry point for every AI call</text>
+		<text x="492" y="364" text-anchor="middle" fill="rgba(226,239,248,0.78)" font-size="11">the caller names a task class, not a model</text>
+		<text x="492" y="388" text-anchor="middle" fill="rgba(214,234,248,0.46)" font-size="10">22 task classes, from triage to resolution</text>
+	</g>
+
+	<!-- ─── The Gearbox ──────────────────────────────────────────────── -->
+	<g>
+		<rect x="404" y="452" width="172" height="28" rx="14" fill="#231a3d" stroke="#a78bfa"/>
+		<circle cx="424" cy="466" r="11" fill="#a78bfa"/>
+		<text x="424" y="470.5" text-anchor="middle" fill="#1b1230" font-size="12"
+		      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif">3</text>
+		<text x="442" y="470.5" fill="#d9ccfb" font-size="11.5">Routed by the Gearbox</text>
+
+		<rect x="336" y="492" width="308" height="112" rx="14"
+		      fill="rgba(167,139,250,0.07)" stroke="rgba(167,139,250,0.52)"/>
+		<text x="490" y="519" text-anchor="middle" fill="rgba(226,239,248,0.80)" font-size="12">
+			It picks the starting tier from what has worked
+		</text>
+		<g font-size="11" fill="#d9ccfb">
+			<rect x="354" y="532" width="132" height="26" rx="13" fill="rgba(167,139,250,0.12)" stroke="rgba(167,139,250,0.34)"/>
+			<text x="420" y="549" text-anchor="middle">Thompson sampling</text>
+			<rect x="494" y="532" width="132" height="26" rx="13" fill="rgba(167,139,250,0.12)" stroke="rgba(167,139,250,0.34)"/>
+			<text x="560" y="549" text-anchor="middle">pass rate per class</text>
+			<rect x="354" y="566" width="132" height="26" rx="13" fill="rgba(167,139,250,0.12)" stroke="rgba(167,139,250,0.34)"/>
+			<text x="420" y="583" text-anchor="middle">cost discounted</text>
+			<rect x="494" y="566" width="132" height="26" rx="13" fill="rgba(167,139,250,0.12)" stroke="rgba(167,139,250,0.34)"/>
+			<text x="560" y="583" text-anchor="middle">cold start is fixed</text>
+		</g>
+	</g>
+
+	<!-- ─── Lane 1: local tiers ──────────────────────────────────────── -->
+	<g>
+		<rect x="712" y="140" width="568" height="112" rx="14"
+		      fill="rgba(52,211,153,0.05)" stroke="rgba(52,211,153,0.55)"/>
+		<rect x="888" y="126" width="216" height="28" rx="14" fill="#0b3124" stroke="#34d399"/>
+		<circle cx="908" cy="140" r="11" fill="#34d399"/>
+		<text x="908" y="144.5" text-anchor="middle" fill="#07261c" font-size="12"
+		      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif">4</text>
+		<text x="926" y="144.5" fill="#8af0c8" font-size="12.5"
+		      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif" letter-spacing="0.4">Local first, on this machine</text>
+
+		<g font-size="11.5">
+			<rect x="732" y="170" width="126" height="60" rx="10" fill="rgba(255,255,255,0.05)" stroke="rgba(214,234,248,0.14)"/>
+			<text x="795" y="192" text-anchor="middle" fill="#ffffff" font-size="12.5"
+			      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif">fast</text>
+			<text x="795" y="212" text-anchor="middle" fill="rgba(214,234,248,0.62)">qwen2.5-coder:7b</text>
+
+			<rect x="870" y="170" width="126" height="60" rx="10" fill="rgba(255,255,255,0.05)" stroke="rgba(214,234,248,0.14)"/>
+			<text x="933" y="192" text-anchor="middle" fill="#ffffff" font-size="12.5"
+			      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif">reason</text>
+			<text x="933" y="212" text-anchor="middle" fill="rgba(214,234,248,0.62)">deepseek-r1:8b</text>
+
+			<rect x="1008" y="170" width="126" height="60" rx="10" fill="rgba(255,255,255,0.05)" stroke="rgba(214,234,248,0.14)"/>
+			<text x="1071" y="192" text-anchor="middle" fill="#ffffff" font-size="12.5"
+			      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif">heavy</text>
+			<text x="1071" y="212" text-anchor="middle" fill="rgba(214,234,248,0.62)">deepseek-r1:14b</text>
+
+			<rect x="1146" y="170" width="114" height="60" rx="10" fill="rgba(255,255,255,0.05)" stroke="rgba(214,234,248,0.14)"/>
+			<text x="1203" y="192" text-anchor="middle" fill="#ffffff" font-size="12.5"
+			      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif">coder</text>
+			<text x="1203" y="212" text-anchor="middle" fill="rgba(214,234,248,0.62)">qwen2.5-coder:14b</text>
+		</g>
+		<text x="996" y="244" text-anchor="middle" fill="rgba(214,234,248,0.44)" font-size="10.5">
+			QleoMotor, a local inference server on 127.0.0.1:11435. Most requests end here.
+		</text>
+	</g>
+
+	<!-- ─── Lane 2: the redaction gate ───────────────────────────────── -->
+	<g>
+		<rect x="712" y="286" width="568" height="104" rx="14"
+		      fill="rgba(251,113,133,0.05)" stroke="rgba(251,113,133,0.55)"/>
+		<rect x="884" y="272" width="224" height="28" rx="14" fill="#36131b" stroke="#fb7185"/>
+		<circle cx="904" cy="286" r="11" fill="#fb7185"/>
+		<text x="904" y="290.5" text-anchor="middle" fill="#2a0d13" font-size="12"
+		      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif">5</text>
+		<text x="922" y="290.5" fill="#ffc9d1" font-size="12.5"
+		      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif">Nothing leaves unredacted</text>
+
+		<text x="996" y="326" text-anchor="middle" fill="rgba(226,239,248,0.84)" font-size="12.5">
+			Every cloud-bound prompt passes a redaction service before it is sent
+		</text>
+		<g font-size="11.5" fill="#ffc9d1">
+			<rect x="744" y="340" width="150" height="26" rx="13" fill="rgba(251,113,133,0.12)" stroke="rgba(251,113,133,0.34)"/>
+			<text x="819" y="357" text-anchor="middle">MCP server, port 8765</text>
+			<rect x="904" y="340" width="130" height="26" rx="13" fill="rgba(251,113,133,0.12)" stroke="rgba(251,113,133,0.34)"/>
+			<text x="969" y="357" text-anchor="middle">layered detection</text>
+			<rect x="1044" y="340" width="206" height="26" rx="13" fill="rgba(251,113,133,0.18)" stroke="#fb7185"/>
+			<text x="1147" y="357" text-anchor="middle" fill="#ffe0e5">fails closed: unsure means stay local</text>
+		</g>
+		<text x="996" y="382" text-anchor="middle" fill="rgba(214,234,248,0.44)" font-size="10.5">
+			Each call is logged with how many values were found and how many layers fired
+		</text>
+	</g>
+
+	<!-- ─── Lane 3: the cloud chain ──────────────────────────────────── -->
+	<g>
+		<rect x="712" y="414" width="568" height="112" rx="14"
+		      fill="rgba(56,189,248,0.05)" stroke="rgba(56,189,248,0.55)"/>
+		<rect x="880" y="400" width="232" height="28" rx="14" fill="#07293c" stroke="#38bdf8"/>
+		<circle cx="900" cy="414" r="11" fill="#38bdf8"/>
+		<text x="900" y="418.5" text-anchor="middle" fill="#04202f" font-size="12"
+		      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif">6</text>
+		<text x="918" y="418.5" fill="#a5e4ff" font-size="12.5"
+		      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif">Only if local cannot answer</text>
+
+		<g font-size="11.5">
+			<rect x="738" y="444" width="156" height="56" rx="10" fill="rgba(255,255,255,0.05)" stroke="rgba(214,234,248,0.14)"/>
+			<text x="816" y="465" text-anchor="middle" fill="#ffffff" font-size="12.5"
+			      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif">Gemini</text>
+			<text x="816" y="484" text-anchor="middle" fill="rgba(214,234,248,0.62)">three models, in order</text>
+
+			<text x="912" y="477" text-anchor="middle" fill="rgba(214,234,248,0.52)" font-size="16">&#8594;</text>
+
+			<rect x="930" y="444" width="156" height="56" rx="10" fill="rgba(255,255,255,0.05)" stroke="rgba(214,234,248,0.14)"/>
+			<text x="1008" y="465" text-anchor="middle" fill="#ffffff" font-size="12.5"
+			      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif">Groq</text>
+			<text x="1008" y="484" text-anchor="middle" fill="rgba(214,234,248,0.62)">GPT-OSS 120B, free tier</text>
+
+			<text x="1104" y="477" text-anchor="middle" fill="rgba(214,234,248,0.52)" font-size="16">&#8594;</text>
+
+			<rect x="1122" y="444" width="140" height="56" rx="10" fill="rgba(255,255,255,0.05)" stroke="rgba(214,234,248,0.14)"/>
+			<text x="1192" y="465" text-anchor="middle" fill="#ffffff" font-size="12.5"
+			      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif">Claude</text>
+			<text x="1192" y="484" text-anchor="middle" fill="rgba(214,234,248,0.62)">Sonnet, paid, last</text>
+		</g>
+		<text x="996" y="518" text-anchor="middle" fill="rgba(214,234,248,0.44)" font-size="10.5">
+			Free before paid, on purpose. A provider that is rate limited hands on rather than failing the request.
+		</text>
+	</g>
+
+	<!-- ─── Lane 4: verify and record ────────────────────────────────── -->
+	<g>
+		<rect x="712" y="550" width="568" height="98" rx="14"
+		      fill="rgba(251,191,36,0.05)" stroke="rgba(251,191,36,0.55)"/>
+		<rect x="890" y="536" width="212" height="28" rx="14" fill="#3a2a05" stroke="#fbbf24"/>
+		<circle cx="910" cy="550" r="11" fill="#fbbf24"/>
+		<text x="910" y="554.5" text-anchor="middle" fill="#3a2a05" font-size="12"
+		      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif">7</text>
+		<text x="928" y="554.5" fill="#ffe29a" font-size="12.5"
+		      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif">Checked, then written down</text>
+
+		<text x="996" y="590" text-anchor="middle" fill="rgba(226,239,248,0.84)" font-size="12.5">
+			The answer is verified, and the verdict is the reward the router learns from
+		</text>
+		<g font-size="11.5" fill="#ffe29a">
+			<rect x="760" y="604" width="150" height="26" rx="13" fill="rgba(251,191,36,0.12)" stroke="rgba(251,191,36,0.34)"/>
+			<text x="835" y="621" text-anchor="middle">consult and check</text>
+			<rect x="920" y="604" width="150" height="26" rx="13" fill="rgba(251,191,36,0.12)" stroke="rgba(251,191,36,0.34)"/>
+			<text x="995" y="621" text-anchor="middle">pass or fail recorded</text>
+			<rect x="1080" y="604" width="152" height="26" rx="13" fill="rgba(251,191,36,0.12)" stroke="rgba(251,191,36,0.34)"/>
+			<text x="1156" y="621" text-anchor="middle">per task class and tier</text>
+		</g>
+	</g>
+
+	<!-- The loop, unnumbered: it is not an eighth step but the consequence of
+	     the seventh, feeding the routing decision at step 3. -->
+	<g>
+		<rect x="586" y="695" width="212" height="30" rx="15" fill="#2a2008" stroke="rgba(251,191,36,0.6)"/>
+		<text x="692" y="714.5" text-anchor="middle" fill="#ffe29a" font-size="11.5">
+			and the next call routes better
+		</text>
+	</g>
+
+	<!-- ─── Footer: the principles ───────────────────────────────────── -->
+	<line x1="40" y1="762" x2="1280" y2="762" stroke="rgba(214,234,248,0.12)"/>
+	<g>
+		<text x="40" y="800" fill="#ffffff" font-size="18"
+		      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif">DeskOps&#8482;</text>
+		<text x="40" y="822" fill="#6fc3f0" font-size="11" letter-spacing="0.14em">TARIQ HUSSAIN</text>
+		<text x="40" y="844" fill="rgba(214,234,248,0.46)" font-size="10.5">Self-hosted service management</text>
+
+		<g font-size="11">
+			<text x="286" y="792" fill="#ffffff" font-size="12.5"
+			      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif">Local by default</text>
+			<text x="286" y="812" fill="rgba(214,234,248,0.56)">Most work never leaves</text>
+			<text x="286" y="828" fill="rgba(214,234,248,0.56)">the machine at all.</text>
+			<line x1="262" y1="778" x2="262" y2="836" stroke="rgba(214,234,248,0.14)"/>
+
+			<text x="494" y="792" fill="#ffffff" font-size="12.5"
+			      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif">Enforced below the model</text>
+			<text x="494" y="812" fill="rgba(214,234,248,0.56)">Authorisation is code, not</text>
+			<text x="494" y="828" fill="rgba(214,234,248,0.56)">an instruction in a prompt.</text>
+			<line x1="470" y1="778" x2="470" y2="836" stroke="rgba(214,234,248,0.14)"/>
+
+			<text x="716" y="792" fill="#ffffff" font-size="12.5"
+			      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif">Fails closed</text>
+			<text x="716" y="812" fill="rgba(214,234,248,0.56)">If redaction cannot be</text>
+			<text x="716" y="828" fill="rgba(214,234,248,0.56)">confirmed, it stays local.</text>
+			<line x1="692" y1="778" x2="692" y2="836" stroke="rgba(214,234,248,0.14)"/>
+
+			<text x="920" y="792" fill="#ffffff" font-size="12.5"
+			      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif">Learns from outcomes</text>
+			<text x="920" y="812" fill="rgba(214,234,248,0.56)">Routing is trained by its</text>
+			<text x="920" y="828" fill="rgba(214,234,248,0.56)">own verdict history.</text>
+			<line x1="896" y1="778" x2="896" y2="836" stroke="rgba(214,234,248,0.14)"/>
+
+			<text x="1124" y="792" fill="#ffffff" font-size="12.5"
+			      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif">Auditable</text>
+			<text x="1124" y="812" fill="rgba(214,234,248,0.56)">Every redaction and every</text>
+			<text x="1124" y="828" fill="rgba(214,234,248,0.56)">verdict is written down.</text>
+			<line x1="1100" y1="778" x2="1100" y2="836" stroke="rgba(214,234,248,0.14)"/>
+		</g>
+	</g>
+</svg>
+			</div></div>
+			<div class="dg-foot"><span class="dg-hint">Scroll the diagram sideways on a narrow screen</span>
+				<button type="button" class="dg-link" data-slug="the-model-path">Copy link</button></div>
+		</figure>
+		<figure class="dg-panel" id="dg-what-compounds" data-dg="what-compounds">
+			<figcaption class="dg-cap"><b>What a closed ticket becomes</b>Closing a ticket writes knowledge without anyone asking it to, and five deterministic checks stand between the model and the page. The second half of the drawing is the part that is not built yet, marked as such.</figcaption>
+			<div class="dg-frame"><div class="dg-scroll">
+<svg viewBox="0 0 1320 760" role="img" aria-labelledby="dg2Title dg2Desc"
+     font-family="'Bahnschrift Light','Segoe UI',Arial,sans-serif">
+	<title id="dg2Title">What a closed ticket becomes</title>
+	<desc id="dg2Desc">Closing a ticket enqueues a knowledge run in the same transaction. A detached worker matches the ticket against a vector index of earlier ticket signatures, merges into up to five existing articles or writes a new one, and only commits once five deterministic checks pass. The diagram also marks what does not travel back: the next ticket's resolution reads none of it.</desc>
+
+	<rect width="1320" height="760" fill="url(#bg)"/>
+	<rect width="1320" height="760" fill="url(#grid)"/>
+
+	<text x="660" y="56" text-anchor="middle" fill="#ffffff"
+	      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif"
+	      font-size="33" letter-spacing="1.2">WHAT A CLOSED TICKET BECOMES</text>
+	<text x="660" y="84" text-anchor="middle" fill="rgba(214,234,248,0.62)" font-size="14.5">
+		One path runs without a human in it, and five deterministic checks stand in the way
+	</text>
+
+	<!-- the spine -->
+	<g fill="none" stroke="#34d399" stroke-width="2.1" opacity="0.8">
+		<path d="M250 230 H298"/>
+		<path d="M520 230 H568"/>
+		<path d="M790 230 H838"/>
+		<path d="M660 320 V 372"/>
+	</g>
+	<g fill="#0a2a3d" stroke-width="2">
+		<circle cx="274" cy="230" r="4" stroke="#34d399"/>
+		<circle cx="544" cy="230" r="4" stroke="#34d399"/>
+		<circle cx="814" cy="230" r="4" stroke="#34d399"/>
+	</g>
+
+	<!-- stage 1 -->
+	<g>
+		<rect x="60" y="168" width="190" height="124" rx="13"
+		      fill="rgba(255,255,255,0.05)" stroke="rgba(214,234,248,0.22)"/>
+		<circle cx="84" cy="192" r="12" fill="#34d399"/>
+		<text x="84" y="196.5" text-anchor="middle" fill="#07261c" font-size="12"
+		      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif">1</text>
+		<text x="104" y="196.5" fill="#ffffff" font-size="14"
+		      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif">A ticket closes</text>
+		<text x="80" y="226" fill="rgba(226,239,248,0.74)" font-size="11.5">The run is enqueued in</text>
+		<text x="80" y="244" fill="rgba(226,239,248,0.74)" font-size="11.5">the same transaction, so</text>
+		<text x="80" y="262" fill="rgba(226,239,248,0.74)" font-size="11.5">it cannot be lost.</text>
+		<text x="80" y="282" fill="rgba(214,234,248,0.44)" font-size="10.5">Tier decides revise or create.</text>
+	</g>
+
+	<!-- stage 2 -->
+	<g>
+		<rect x="298" y="168" width="222" height="124" rx="13"
+		      fill="rgba(255,255,255,0.05)" stroke="rgba(214,234,248,0.22)"/>
+		<circle cx="322" cy="192" r="12" fill="#34d399"/>
+		<text x="322" y="196.5" text-anchor="middle" fill="#07261c" font-size="12"
+		      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif">2</text>
+		<text x="342" y="196.5" fill="#ffffff" font-size="14"
+		      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif">It looks for its relatives</text>
+		<text x="318" y="226" fill="rgba(226,239,248,0.74)" font-size="11.5">Title, tags and the opening</text>
+		<text x="318" y="244" fill="rgba(226,239,248,0.74)" font-size="11.5">of the description are matched</text>
+		<text x="318" y="262" fill="rgba(226,239,248,0.74)" font-size="11.5">against earlier ticket signatures.</text>
+		<g font-size="10.5" fill="#8af0c8">
+			<rect x="318" y="272" width="92" height="22" rx="11" fill="rgba(52,211,153,0.12)" stroke="rgba(52,211,153,0.34)"/>
+			<text x="364" y="287" text-anchor="middle">distance 0.85</text>
+			<rect x="418" y="272" width="94" height="22" rx="11" fill="rgba(52,211,153,0.12)" stroke="rgba(52,211,153,0.34)"/>
+			<text x="465" y="287" text-anchor="middle">up to 5 articles</text>
+		</g>
+	</g>
+
+	<!-- stage 3 -->
+	<g>
+		<rect x="568" y="168" width="222" height="124" rx="13"
+		      fill="rgba(255,255,255,0.05)" stroke="rgba(214,234,248,0.22)"/>
+		<circle cx="592" cy="192" r="12" fill="#34d399"/>
+		<text x="592" y="196.5" text-anchor="middle" fill="#07261c" font-size="12"
+		      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif">3</text>
+		<text x="612" y="196.5" fill="#ffffff" font-size="14"
+		      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif">It merges, never appends</text>
+		<text x="588" y="226" fill="rgba(226,239,248,0.74)" font-size="11.5">An existing article is rewritten</text>
+		<text x="588" y="244" fill="rgba(226,239,248,0.74)" font-size="11.5">into a living dossier, or a new</text>
+		<text x="588" y="262" fill="rgba(226,239,248,0.74)" font-size="11.5">one is founded.</text>
+		<text x="588" y="282" fill="rgba(214,234,248,0.44)" font-size="10.5">Counts read "observed in N incidents".</text>
+	</g>
+
+	<!-- stage 4 -->
+	<g>
+		<rect x="838" y="168" width="222" height="124" rx="13"
+		      fill="rgba(255,255,255,0.05)" stroke="rgba(214,234,248,0.22)"/>
+		<circle cx="862" cy="192" r="12" fill="#34d399"/>
+		<text x="862" y="196.5" text-anchor="middle" fill="#07261c" font-size="12"
+		      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif">4</text>
+		<text x="882" y="196.5" fill="#ffffff" font-size="14"
+		      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif">It is written down</text>
+		<text x="858" y="226" fill="rgba(226,239,248,0.74)" font-size="11.5">A version row, a derived-from</text>
+		<text x="858" y="244" fill="rgba(226,239,248,0.74)" font-size="11.5">edge in the graph, a fresh</text>
+		<text x="858" y="262" fill="rgba(226,239,248,0.74)" font-size="11.5">signature, and a re-index.</text>
+		<text x="858" y="282" fill="rgba(214,234,248,0.44)" font-size="10.5">Those three agree with each other.</text>
+	</g>
+
+	<!-- the gates -->
+	<g>
+		<rect x="1086" y="150" width="174" height="28" rx="14" fill="#3a2a05" stroke="#fbbf24"/>
+		<text x="1173" y="169" text-anchor="middle" fill="#ffe29a" font-size="12.5"
+		      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif">Five gates, no model</text>
+		<rect x="1086" y="186" width="174" height="140" rx="13"
+		      fill="rgba(251,191,36,0.05)" stroke="rgba(251,191,36,0.5)"/>
+		<g font-size="11" fill="rgba(226,239,248,0.84)">
+			<text x="1104" y="212">Parses as JSON</text>
+			<text x="1104" y="236">Holds its HTML shape</text>
+			<text x="1104" y="260">Content hash changed</text>
+			<text x="1104" y="284">Sections still present</text>
+			<text x="1104" y="308">Every figure re-checked</text>
+		</g>
+		<text x="1173" y="344" text-anchor="middle" fill="rgba(214,234,248,0.44)" font-size="10">
+			Any one fails, nothing is written
+		</text>
+	</g>
+
+	<!-- the honest boundary -->
+	<g>
+		<rect x="60" y="400" width="1200" height="188" rx="14"
+		      fill="rgba(251,113,133,0.045)" stroke="rgba(251,113,133,0.5)" stroke-dasharray="7 5"/>
+		<rect x="512" y="386" width="296" height="28" rx="14" fill="#36131b" stroke="#fb7185"/>
+		<text x="660" y="405" text-anchor="middle" fill="#ffc9d1" font-size="12.5"
+		      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif" letter-spacing="0.3">And here is what does not come back</text>
+
+		<text x="660" y="442" text-anchor="middle" fill="rgba(226,239,248,0.80)" font-size="12.5">
+			Knowledge accumulates on one side of this line. The next ticket is on the other side of it.
+		</text>
+
+		<g font-size="11.5">
+			<rect x="88" y="462" width="356" height="104" rx="11" fill="rgba(255,255,255,0.04)" stroke="rgba(214,234,248,0.16)"/>
+			<text x="110" y="488" fill="#ffffff" font-size="12.5"
+			      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif">The composer does not read it</text>
+			<text x="110" y="512" fill="rgba(226,239,248,0.72)">A resolution is written from that ticket's</text>
+			<text x="110" y="530" fill="rgba(226,239,248,0.72)">own attachments and its tag profiles. It</text>
+			<text x="110" y="548" fill="rgba(226,239,248,0.72)">retrieves no past ticket and no article.</text>
+
+			<rect x="482" y="462" width="356" height="104" rx="11" fill="rgba(255,255,255,0.04)" stroke="rgba(214,234,248,0.16)"/>
+			<text x="504" y="488" fill="#ffffff" font-size="12.5"
+			      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif">A ticket sees titles, not content</text>
+			<text x="504" y="512" fill="rgba(226,239,248,0.72)">The match tab offers predicted article</text>
+			<text x="504" y="530" fill="rgba(226,239,248,0.72)">titles and a distance. Opening one is a</text>
+			<text x="504" y="548" fill="rgba(226,239,248,0.72)">decision a person makes, not the system.</text>
+
+			<rect x="876" y="462" width="356" height="104" rx="11" fill="rgba(255,255,255,0.04)" stroke="rgba(214,234,248,0.16)"/>
+			<text x="898" y="488" fill="#ffffff" font-size="12.5"
+			      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif">The write has no human gate</text>
+			<text x="898" y="512" fill="rgba(226,239,248,0.72)">The council gates who may read an</text>
+			<text x="898" y="530" fill="rgba(226,239,248,0.72)">article, not whether one is written. A</text>
+			<text x="898" y="548" fill="rgba(226,239,248,0.72)">later close can rewrite a settled page.</text>
+		</g>
+	</g>
+
+	<line x1="60" y1="632" x2="1260" y2="632" stroke="rgba(214,234,248,0.12)"/>
+	<text x="60" y="668" fill="#ffffff" font-size="18"
+	      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif">DeskOps&#8482;</text>
+	<text x="60" y="690" fill="#6fc3f0" font-size="11" letter-spacing="0.14em">TARIQ HUSSAIN</text>
+	<text x="330" y="664" fill="rgba(226,239,248,0.78)" font-size="12">
+		Drawn from a read-only audit of the running system, not from the design documents.
+	</text>
+	<text x="330" y="686" fill="rgba(214,234,248,0.52)" font-size="12">
+		The gap between the two halves of this diagram is the subject of the write-up, and the next thing to build.
+	</text>
+</svg>
+			</div></div>
+			<div class="dg-foot"><span class="dg-hint">Scroll the diagram sideways on a narrow screen</span>
+				<button type="button" class="dg-link" data-slug="what-compounds">Copy link</button></div>
+		</figure>
+		<figure class="dg-panel" id="dg-the-directory" data-dg="the-directory">
+			<figcaption class="dg-cap"><b>A directory the application only reads</b>Active Directory over LDAPS, against a domain and a certificate authority built for the purpose. Keyed on an identifier that survives a rename, previewed before it writes, and audited by the database rather than by the code.</figcaption>
+			<div class="dg-frame"><div class="dg-scroll">
+<svg viewBox="0 0 1320 760" role="img" aria-labelledby="dg3Title dg3Desc"
+     font-family="'Bahnschrift Light','Segoe UI',Arial,sans-serif">
+	<title id="dg3Title">A directory the application only reads</title>
+	<desc id="dg3Desc">A Windows Server domain controller in an isolated lab publishes users and groups over LDAPS on port 636, validated against a certificate authority built for the purpose. DeskOps maps directory groups to application roles by objectGUID, previews every change as a dry run, deactivates rather than deletes, and records every run in an append-only table written by database triggers.</desc>
+
+	<rect width="1320" height="760" fill="url(#bg)"/>
+	<rect width="1320" height="760" fill="url(#grid)"/>
+
+	<text x="660" y="56" text-anchor="middle" fill="#ffffff"
+	      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif"
+	      font-size="33" letter-spacing="1.2">A DIRECTORY THE APPLICATION ONLY READS</text>
+	<text x="660" y="84" text-anchor="middle" fill="rgba(214,234,248,0.62)" font-size="14.5">
+		Active Directory over LDAPS, keyed on something that does not change when a person is renamed
+	</text>
+
+	<!-- wires -->
+	<g fill="none" stroke-width="2.1" stroke-linecap="round">
+		<path d="M352 268 H470" stroke="#38bdf8" opacity="0.85"/>
+		<path d="M740 268 H852" stroke="#a78bfa" opacity="0.85"/>
+	</g>
+	<g fill="#0a2a3d" stroke-width="2">
+		<circle cx="411" cy="268" r="4" stroke="#38bdf8"/>
+		<circle cx="796" cy="268" r="4" stroke="#a78bfa"/>
+	</g>
+
+	<!-- the lab -->
+	<g>
+		<rect x="60" y="150" width="292" height="236" rx="14"
+		      fill="rgba(255,255,255,0.04)" stroke="rgba(214,234,248,0.22)"/>
+		<rect x="120" y="136" width="172" height="28" rx="14" fill="#0e3850" stroke="rgba(214,234,248,0.34)"/>
+		<text x="206" y="155" text-anchor="middle" fill="#ffffff" font-size="12.5"
+		      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif" letter-spacing="0.3">An isolated lab</text>
+
+		<text x="86" y="196" fill="#ffffff" font-size="14"
+		      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif">dc01.corp.lab</text>
+		<text x="86" y="218" fill="rgba(226,239,248,0.72)" font-size="11.5">Windows Server 2025 Core</text>
+		<text x="86" y="238" fill="rgba(226,239,248,0.72)" font-size="11.5">AD DS and DNS, host-only network</text>
+
+		<g font-size="10.5" fill="rgba(226,239,248,0.80)">
+			<rect x="86" y="256" width="240" height="24" rx="12" fill="rgba(255,255,255,0.05)" stroke="rgba(214,234,248,0.16)"/>
+			<text x="98" y="272">Organisational units and role groups</text>
+			<rect x="86" y="288" width="240" height="24" rx="12" fill="rgba(255,255,255,0.05)" stroke="rgba(214,234,248,0.16)"/>
+			<text x="98" y="304">svc-deskops-ldap, read and nothing else</text>
+			<rect x="86" y="320" width="240" height="24" rx="12" fill="rgba(255,255,255,0.05)" stroke="rgba(214,234,248,0.16)"/>
+			<text x="98" y="336">AD CS root CA issues the controller cert</text>
+		</g>
+		<text x="206" y="366" text-anchor="middle" fill="rgba(214,234,248,0.44)" font-size="10">
+			Built for this, on a network with no route out
+		</text>
+	</g>
+
+	<!-- the wire: LDAPS -->
+	<g>
+		<rect x="356" y="196" width="112" height="28" rx="14" fill="#07293c" stroke="#38bdf8"/>
+		<text x="412" y="215" text-anchor="middle" fill="#a5e4ff" font-size="12.5"
+		      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif">LDAPS 636</text>
+		<text x="412" y="298" text-anchor="middle" fill="rgba(226,239,248,0.72)" font-size="11">validated against</text>
+		<text x="412" y="316" text-anchor="middle" fill="rgba(226,239,248,0.72)" font-size="11">the exported root,</text>
+		<text x="412" y="334" text-anchor="middle" fill="rgba(226,239,248,0.72)" font-size="11">not trusted blindly</text>
+	</g>
+
+	<!-- the connector -->
+	<g>
+		<rect x="470" y="150" width="270" height="236" rx="14"
+		      fill="rgba(111,195,240,0.07)" stroke="#6fc3f0" stroke-width="1.3"/>
+		<rect x="528" y="136" width="154" height="28" rx="14" fill="#123b53" stroke="#6fc3f0"/>
+		<text x="605" y="155" text-anchor="middle" fill="#9fd8f5" font-size="12.5"
+		      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif" letter-spacing="0.3">The connector</text>
+
+		<text x="605" y="194" text-anchor="middle" fill="#ffffff" font-size="15"
+		      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif">Read only, off by default</text>
+
+		<g font-size="11" fill="rgba(226,239,248,0.84)">
+			<rect x="490" y="210" width="230" height="26" rx="13" fill="rgba(255,255,255,0.05)" stroke="rgba(214,234,248,0.16)"/>
+			<text x="605" y="227" text-anchor="middle">Groups map to roles by objectGUID</text>
+			<rect x="490" y="244" width="230" height="26" rx="13" fill="rgba(255,255,255,0.05)" stroke="rgba(214,234,248,0.16)"/>
+			<text x="605" y="261" text-anchor="middle">A dry run shows every change first</text>
+			<rect x="490" y="278" width="230" height="26" rx="13" fill="rgba(255,255,255,0.05)" stroke="rgba(214,234,248,0.16)"/>
+			<text x="605" y="295" text-anchor="middle">Leavers deactivate, never delete</text>
+			<rect x="490" y="312" width="230" height="26" rx="13" fill="rgba(255,255,255,0.05)" stroke="rgba(214,234,248,0.16)"/>
+			<text x="605" y="329" text-anchor="middle">The bind lives outside the repository</text>
+		</g>
+		<text x="605" y="362" text-anchor="middle" fill="rgba(214,234,248,0.46)" font-size="10">
+			A rename in the directory does not break the link
+		</text>
+	</g>
+
+	<!-- the audit -->
+	<g>
+		<rect x="852" y="150" width="408" height="180" rx="14"
+		      fill="rgba(251,191,36,0.05)" stroke="rgba(251,191,36,0.52)"/>
+		<rect x="960" y="136" width="192" height="28" rx="14" fill="#3a2a05" stroke="#fbbf24"/>
+		<text x="1056" y="155" text-anchor="middle" fill="#ffe29a" font-size="12.5"
+		      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif" letter-spacing="0.3">Audit by construction</text>
+
+		<text x="1056" y="192" text-anchor="middle" fill="rgba(226,239,248,0.84)" font-size="12">
+			The record is not written by the application
+		</text>
+		<text x="1056" y="214" text-anchor="middle" fill="rgba(226,239,248,0.84)" font-size="12">
+			but by triggers on an append-only table
+		</text>
+		<g font-size="11" fill="#ffe29a">
+			<rect x="876" y="232" width="176" height="26" rx="13" fill="rgba(251,191,36,0.12)" stroke="rgba(251,191,36,0.34)"/>
+			<text x="964" y="249" text-anchor="middle">a code path cannot forget</text>
+			<rect x="1064" y="232" width="172" height="26" rx="13" fill="rgba(251,191,36,0.12)" stroke="rgba(251,191,36,0.34)"/>
+			<text x="1150" y="249" text-anchor="middle">dry runs recorded too</text>
+			<rect x="876" y="266" width="176" height="26" rx="13" fill="rgba(251,191,36,0.12)" stroke="rgba(251,191,36,0.34)"/>
+			<text x="964" y="283" text-anchor="middle">every change has a reason</text>
+			<rect x="1064" y="266" width="172" height="26" rx="13" fill="rgba(251,191,36,0.12)" stroke="rgba(251,191,36,0.34)"/>
+			<text x="1150" y="283" text-anchor="middle">history answers both</text>
+		</g>
+		<text x="1056" y="316" text-anchor="middle" fill="rgba(214,234,248,0.46)" font-size="10">
+			What did we change, and what did we only look at
+		</text>
+	</g>
+
+	<!-- what it never does -->
+	<g>
+		<rect x="60" y="430" width="1200" height="150" rx="14"
+		      fill="rgba(251,113,133,0.045)" stroke="rgba(251,113,133,0.5)" stroke-dasharray="7 5"/>
+		<rect x="546" y="416" width="228" height="28" rx="14" fill="#36131b" stroke="#fb7185"/>
+		<text x="660" y="435" text-anchor="middle" fill="#ffc9d1" font-size="12.5"
+		      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif" letter-spacing="0.3">What it deliberately does not do</text>
+
+		<g font-size="11.5" fill="rgba(226,239,248,0.78)">
+			<rect x="88" y="468" width="268" height="44" rx="11" fill="rgba(255,255,255,0.04)" stroke="rgba(214,234,248,0.14)"/>
+			<text x="222" y="495" text-anchor="middle">It does not authenticate anyone</text>
+
+			<rect x="378" y="468" width="268" height="44" rx="11" fill="rgba(255,255,255,0.04)" stroke="rgba(214,234,248,0.14)"/>
+			<text x="512" y="495" text-anchor="middle">It writes nothing back to the directory</text>
+
+			<rect x="668" y="468" width="268" height="44" rx="11" fill="rgba(255,255,255,0.04)" stroke="rgba(214,234,248,0.14)"/>
+			<text x="802" y="495" text-anchor="middle">It syncs no passwords</text>
+
+			<rect x="958" y="468" width="274" height="44" rx="11" fill="rgba(255,255,255,0.04)" stroke="rgba(214,234,248,0.14)"/>
+			<text x="1095" y="495" text-anchor="middle">It touches no cloud directory</text>
+		</g>
+		<text x="660" y="548" text-anchor="middle" fill="rgba(214,234,248,0.52)" font-size="11">
+			Single sign-on is a different feature. This one answers who exists and what they may see.
+		</text>
+	</g>
+
+	<line x1="60" y1="624" x2="1260" y2="624" stroke="rgba(214,234,248,0.12)"/>
+	<text x="60" y="660" fill="#ffffff" font-size="18"
+	      font-family="'Bahnschrift','Segoe UI',Arial,sans-serif">DeskOps&#8482;</text>
+	<text x="60" y="682" fill="#6fc3f0" font-size="11" letter-spacing="0.14em">TARIQ HUSSAIN</text>
+	<text x="330" y="656" fill="rgba(226,239,248,0.78)" font-size="12">
+		The domain, the certificate authority and the service account were built for this integration, not mocked.
+	</text>
+	<text x="330" y="678" fill="rgba(214,234,248,0.52)" font-size="12">
+		Lab values on a host-only network. Nothing here is a production system.
+	</text>
+</svg>
+			</div></div>
+			<div class="dg-foot"><span class="dg-hint">Scroll the diagram sideways on a narrow screen</span>
+				<button type="button" class="dg-link" data-slug="the-directory">Copy link</button></div>
+		</figure>
+	</div>
+</section>
 
 <!-- Built, not borrowed -->
 <section class="engines-section" id="engines">
@@ -4203,17 +4942,76 @@
 		if ('requestAnimationFrame' in window) setTimeout(start, 620);
 	})();
 
+	// Diagram tabs. One drawing is shown at a time, each addressable as
+	// #d-<slug> so a diagram can be linked to on its own, the same way the
+	// suite modules are. Back and forward move between them.
+	(function () {
+		const tabs   = Array.from(document.querySelectorAll('.dg-tab'));
+		const panels = Array.from(document.querySelectorAll('.dg-panel'));
+		if (!tabs.length || !panels.length) return;
+
+		function show(slug, fromHistory) {
+			const found = panels.some(p => p.dataset.dg === slug);
+			if (!found) return false;
+			tabs.forEach(t => {
+				const on = t.dataset.dg === slug;
+				t.classList.toggle('is-on', on);
+				t.setAttribute('aria-selected', on ? 'true' : 'false');
+			});
+			panels.forEach(p => p.classList.toggle('is-on', p.dataset.dg === slug));
+			if (!fromHistory) {
+				try { history.pushState({ dg: slug }, '', '#d-' + slug); } catch (e) {}
+			}
+			return true;
+		}
+
+		tabs.forEach(t => t.addEventListener('click', () => show(t.dataset.dg, false)));
+
+		document.querySelectorAll('.dg-link').forEach(btn => {
+			btn.addEventListener('click', () => {
+				const url = location.origin + location.pathname + '#d-' + btn.dataset.slug;
+				const done = () => {
+					btn.textContent = 'Link copied';
+					btn.classList.add('done');
+					setTimeout(() => { btn.textContent = 'Copy link'; btn.classList.remove('done'); }, 1800);
+				};
+				if (navigator.clipboard && navigator.clipboard.writeText) {
+					navigator.clipboard.writeText(url).then(done, () => window.prompt('Copy this link', url));
+				} else {
+					window.prompt('Copy this link', url);
+				}
+			});
+		});
+
+		function applyDiagramHash(fromHistory) {
+			const m = /^#d-([a-z0-9-]+)$/.exec(location.hash || '');
+			if (m) show(m[1], true);
+		}
+		window.addEventListener('popstate', () => applyDiagramHash(true));
+		applyDiagramHash(true);
+	})();
+
 	// Hold the contents card back until the hero has gone by. Guarded on
 	// IntersectionObserver, so an older browser keeps the previous behaviour
 	// of showing it throughout rather than losing it altogether.
 	(function () {
 		const toc = document.getElementById('side-toc');
-		const hero = document.querySelector('.hero');
-		if (!toc || !hero || !('IntersectionObserver' in window)) return;
+		if (!toc || !('IntersectionObserver' in window)) return;
+		// The hero, and the diagrams, which are figures wider than the reading
+		// column and would otherwise sit under the card on a 1360 to 1600 wide
+		// screen. Either one on screen hides it; it returns when both are past.
+		const blockers = [document.querySelector('.hero'), document.getElementById('diagrams')]
+			.filter(Boolean);
+		if (!blockers.length) return;
+		const covering = new Set();
 		toc.classList.add('toc-hidden');
-		new IntersectionObserver(entries => {
-			entries.forEach(e => toc.classList.toggle('toc-hidden', e.isIntersecting));
-		}, { rootMargin: '-45% 0px 0px 0px' }).observe(hero);
+		const io = new IntersectionObserver(entries => {
+			entries.forEach(e => {
+				if (e.isIntersecting) covering.add(e.target); else covering.delete(e.target);
+			});
+			toc.classList.toggle('toc-hidden', covering.size > 0);
+		}, { rootMargin: '-45% 0px -10% 0px' });
+		blockers.forEach(b => io.observe(b));
 	})();
 
 	// Accordion
