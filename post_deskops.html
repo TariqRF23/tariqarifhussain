@@ -5618,6 +5618,21 @@
 		return { fi: at.fi, mi: at.mi, i: m[2] ? (parseInt(m[2], 10) - 1) : 0 };
 	}
 
+	// Bump IMG_V whenever a screenshot is replaced in place. Pages serves these
+	// with a ten-minute max-age, so without it a returning reader keeps the old
+	// file at the same URL and sees a shot that was fixed hours ago. The query
+	// changes the URL, so the replacement takes effect at once for everyone.
+	//
+	// These sit ABOVE buildSuite deliberately. They are const, so they have a
+	// temporal dead zone: buildSuite runs the moment it is defined, and when
+	// these were declared below it the first THUMB() call threw before a single
+	// card was rendered, which emptied the whole suite section.
+	const IMG_V = '?v=3';
+	// The stage shows the view-size file; only magnifying fetches the full one.
+	const VIEW  = f => 'images/deskops/view/'  + f + '.jpg' + IMG_V;
+	const FULL  = f => 'images/deskops/'       + f + '.jpg' + IMG_V;
+	const THUMB = f => 'images/deskops/thumb/' + f + '.jpg' + IMG_V;
+
 	// ── Render the families and their carousels ──────────────────────────
 	(function buildSuite() {
 		const host = document.getElementById('suite-families');
@@ -5705,16 +5720,6 @@
 	const modLinkBtn   = document.getElementById('mod-link');
 	const modLinkLabel = document.getElementById('mod-link-label');
 	let modCurrent   = null;
-
-	// Bump IMG_V whenever a screenshot is replaced in place. Pages serves these
-	// with a ten-minute max-age, so without it a returning reader keeps the old
-	// file at the same URL and sees a shot that was fixed hours ago. The query
-	// changes the URL, so the replacement takes effect at once for everyone.
-	const IMG_V = '?v=3';
-	// The stage shows the view-size file; only magnifying fetches the full one.
-	const VIEW = f => 'images/deskops/view/' + f + '.jpg' + IMG_V;
-	const FULL = f => 'images/deskops/' + f + '.jpg' + IMG_V;
-	const THUMB = f => 'images/deskops/thumb/' + f + '.jpg' + IMG_V;
 
 	function showShot(mod, i) {
 		const n = mod.shots.length;
