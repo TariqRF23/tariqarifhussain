@@ -5352,7 +5352,9 @@
 				'<b>Definitions are saved and re-run,</b> and export through the application’s own hand-written PDF writer.'
 			],
 			shots: [
-				{ f: 'reports', c: 'The builder, with the plain-language request bar above the form', d: 'The bar at the top takes a request in plain language; the form below is what actually executes, with source, joins, filters, type and style as separate validated fields. Only the definition the form produces ever reaches the database.' }
+				{ f: 'reports', c: 'Saved definitions, each owned and scoped', d: 'The bar at the top takes a request in plain language; the form below is what actually executes, with source, joins, filters, type and style as separate validated fields. A definition is saved rather than a result set, so the same report can be reopened and re-run against current data, and each one carries its owner and its visibility.' },
+			{ f: 'reportprev', c: 'A saved report reopened and run against live data', d: 'Open tickets by team, reopened from the saved list and run. Three rows in a millisecond, joined across tickets and teams, with the result exportable as CSV or JSON. The preview shows what the definition produced, not a cached copy.' },
+			{ f: 'reportpdf', c: 'The same report as a PDF, written by the application itself', d: 'No print dialog and no PDF library: the document is composed by a hand-written writer inside DeskOps. It carries the report title, the filter that produced it, the row count, who generated it and when, a totals row, page numbering and a confidential footer.' }
 			]
 		}
 		]
