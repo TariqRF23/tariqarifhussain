@@ -928,109 +928,126 @@ The core values that I believe in are sincerity, creativity, showing initiative 
 <br>
 
 <style>
-  /* Areas of Interest.
+  /* Areas of Interest: editorial type set on a ledger's tabular bones.
 
-     Two earlier passes failed in opposite directions. A four-column card grid
-     put eighty identical lozenges into ladders, because a 280px card cannot
-     hold a 200px pill beside anything. Widening them into coloured bands with
-     icons and numbers fixed the ladders and cost the density: each band was as
-     tall as its rail and the end of every pill row was empty.
+     The history is worth keeping, because three earlier passes failed in
+     different directions. A four-column card grid laddered eighty identical
+     pills one per line, because a 280px card cannot hold a 200px pill beside
+     anything. Widening them into coloured bands with numbers and icons fixed
+     the ladders, wasted the height and read as generated. Stripping it to
+     plain running text read as plain.
 
-     Both were the same mistake, which was dressing a list in chrome. There is
-     no box, no pill, no icon and no colour-coding here now. It is set as an
-     index: a rule, a number, a heading, a line about why it is on the list,
-     and then the terms as running text. The type does the work. */
+     What is here takes the ruled columns from a ledger and the large numerals,
+     generous type and slash separators from an editorial layout. The markup
+     did not change; the three children are placed into explicit cells and the
+     number is drawn by a counter. */
   #skills {
     counter-reset: aoi;
     display: block;
-    /* default.css paints #skills grey and pads it, which is right for the card
-       grid it was written for and wrong here: the hairlines between entries
-       vanish against it. This block comes later in the document, so it wins. */
+    /* default.css paints #skills grey and pads it for the card grid it was
+       written for. This block comes later in the document, so it wins. */
     background: transparent;
-    padding: 2px 0 0;
+    padding: 0;
     max-width: 1180px;
+    border-top: 2px solid #0d3349;
+    border-bottom: 2px solid #0d3349;
   }
 
   #skills .aoi {
     counter-increment: aoi;
+    display: grid;
+    grid-template-columns: 92px 250px minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
     border-top: 1px solid #e6ecf2;
-    padding: 15px 0 16px;
-    margin: 0;
-  }
-  #skills .aoi:first-child { border-top: 0; padding-top: 4px; }
-
-  #skills .aoi h6 {
-    margin: 0;
-    font-family: 'Bahnschrift', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    color: #0d3349;
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
-    line-height: 1.3;
-  }
-  /* Numbered by a counter rather than in the markup, so reordering renumbers. */
-  #skills .aoi h6::before {
-    content: counter(aoi, decimal-leading-zero) "  ";
-    font-family: 'Bahnschrift Light', sans-serif;
-    font-weight: 400;
-    letter-spacing: 0.1em;
-    color: #9db4c8;
-    white-space: pre;
-  }
-
-  #skills .aoi .aoi-note {
-    display: block;
-    font-family: 'Bahnschrift Light', sans-serif;
-    font-size: 12.5px;
-    color: #8a99ab;
-    line-height: 1.55;
-    margin: 3px 0 9px;
-    max-width: 70ch;
-  }
-
-  /* The terms run as text, separated by a middot, not as a stack of chips.
-     This is the whole point of the section: it reads, and it takes a third of
-     the height the pills did. */
-  #skills .aoi ul {
     margin: 0;
     padding: 0;
-    list-style: none;
+    background: transparent;
+    transition: background .18s ease;
+  }
+  #skills .aoi:first-child { border-top: 0; }
+  #skills .aoi:hover { background: #fbfdff; }
+
+  /* The number is a grid item in its own right, drawn by a counter so that
+     reordering the entries renumbers them. */
+  #skills .aoi::before {
+    content: counter(aoi, decimal-leading-zero);
+    grid-area: 1 / 1 / 3 / 2;
+    font-family: 'Bahnschrift', sans-serif;
+    font-size: 40px;
+    line-height: .85;
+    color: #e1eaf3;
+    letter-spacing: -.035em;
+    padding: 20px 20px 20px 0;
+  }
+
+  #skills .aoi h6 {
+    grid-area: 1 / 2 / 2 / 3;
+    margin: 0 0 5px;
+    padding: 20px 20px 0 22px;
+    border-left: 1px solid #e6ecf2;
+    font-family: 'Bahnschrift', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #0d3349;
+    letter-spacing: -.01em;
+    text-transform: none;
+    line-height: 1.25;
+  }
+  #skills .aoi .aoi-note {
+    grid-area: 2 / 2 / 3 / 3;
     display: block;
-    max-width: 104ch;
+    margin: 0;
+    padding: 0 20px 20px 22px;
+    border-left: 1px solid #e6ecf2;
+    font-family: 'Bahnschrift Light', sans-serif;
+    font-size: 12px;
+    color: #8a99ab;
+    line-height: 1.6;
+  }
+
+  #skills .aoi ul {
+    grid-area: 1 / 3 / 3 / 4;
+    margin: 0;
+    padding: 20px 0 20px 22px;
+    border-left: 1px solid #e6ecf2;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    row-gap: 1px;
   }
   #skills .aoi li {
-    display: inline;
     font-family: 'Bahnschrift Light', sans-serif;
     font-size: 13px;
     color: #44566b;
-    line-height: 1.85;
+    line-height: 1.95;
   }
-  #skills .aoi li::after {
-    content: " \00B7 ";
-    color: #c6d2de;
-  }
-  #skills .aoi li:last-child::after { content: ""; }
-  /* The first two in each line are the ones worth leading with. */
+  #skills .aoi li::after { content: '/'; color: #d2dce6; padding: 0 9px; }
+  #skills .aoi li:last-child::after { content: ''; }
+  /* The two worth leading with in each row. */
   #skills .aoi li:nth-child(-n+2) {
     font-family: 'Bahnschrift', sans-serif;
-    color: #1a5276;
+    color: #0d3349;
   }
 
   #skills .aoi-foot {
+    grid-column: 1 / -1;
     font-family: 'Bahnschrift Light', sans-serif;
     font-size: 12px;
     color: #94a3b4;
     line-height: 1.6;
     margin: 0;
-    padding: 14px 0 0;
+    padding: 14px 0 16px;
     border-top: 1px solid #e6ecf2;
-    max-width: 104ch;
   }
 
-  @media (max-width: 700px) {
-    #skills .aoi .aoi-note { max-width: none; }
-    #skills .aoi li { font-size: 12.5px; }
+  /* The rail stops earning its width once it is narrower than its own title. */
+  @media (max-width: 860px) {
+    #skills .aoi { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto auto; }
+    #skills .aoi::before { grid-area: auto; padding: 16px 0 0; font-size: 26px; }
+    #skills .aoi h6 { grid-area: auto; border-left: 0; padding: 4px 0 0; }
+    #skills .aoi .aoi-note { grid-area: auto; border-left: 0; padding: 4px 0 0; }
+    #skills .aoi ul { grid-area: auto; border-left: 0; padding: 10px 0 18px; }
   }
 </style>
 
