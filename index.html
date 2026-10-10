@@ -928,67 +928,69 @@ The core values that I believe in are sincerity, creativity, showing initiative 
 <br>
 
 <style>
-  /* Areas of Interest: editorial type set on a ledger's tabular bones.
+  /* Areas of Interest: a technical schematic carrying editorial type.
 
-     The history is worth keeping, because three earlier passes failed in
-     different directions. A four-column card grid laddered eighty identical
-     pills one per line, because a 280px card cannot hold a 200px pill beside
-     anything. Widening them into coloured bands with numbers and icons fixed
-     the ladders, wasted the height and read as generated. Stripping it to
-     plain running text read as plain.
+     The schematic supplies the ground: deep ink, a faint engineering grid,
+     hairline rules, monospace for the numbers and the scores. The editorial
+     side supplies the type: large numerals, generous sizing, and terms as
+     running text separated by slashes rather than packed into pills.
 
-     What is here takes the ruled columns from a ledger and the large numerals,
-     generous type and slash separators from an editorial layout. The markup
-     did not change; the three children are placed into explicit cells and the
-     number is drawn by a counter. */
+     Every term is a button. Clicking one opens its note and puts #i-<id> in
+     the address bar, so a single interest can be linked to directly. */
   #skills {
-    counter-reset: aoi;
     display: block;
-    /* default.css paints #skills grey and pads it for the card grid it was
-       written for. This block comes later in the document, so it wins. */
-    background: transparent;
+    background: #0a2a3d;
+    border-radius: 12px;
     padding: 0;
+    overflow: hidden;
+    position: relative;
+    counter-reset: aoi;
     max-width: 1180px;
-    border-top: 2px solid #0d3349;
-    border-bottom: 2px solid #0d3349;
+  }
+  #skills::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(214,234,248,.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(214,234,248,.055) 1px, transparent 1px);
+    background-size: 38px 38px;
+    pointer-events: none;
   }
 
   #skills .aoi {
     counter-increment: aoi;
+    position: relative;
     display: grid;
-    grid-template-columns: 92px 250px minmax(0, 1fr);
+    grid-template-columns: 86px 236px minmax(0, 1fr);
     grid-template-rows: auto 1fr;
-    border-top: 1px solid #e6ecf2;
+    column-gap: 24px;
+    border-top: 1px solid rgba(214,234,248,.12);
     margin: 0;
-    padding: 0;
+    padding: 20px 28px 20px 26px;
     background: transparent;
-    transition: background .18s ease;
   }
   #skills .aoi:first-child { border-top: 0; }
-  #skills .aoi:hover { background: #fbfdff; }
 
-  /* The number is a grid item in its own right, drawn by a counter so that
-     reordering the entries renumbers them. */
-  #skills .aoi::before {
+  /* Editorial numeral, drawn by a counter so reordering renumbers. */
+  #skills .aoi::after {
     content: counter(aoi, decimal-leading-zero);
     grid-area: 1 / 1 / 3 / 2;
     font-family: 'Bahnschrift', sans-serif;
-    font-size: 40px;
-    line-height: .85;
-    color: #e1eaf3;
+    font-size: 42px;
+    line-height: .82;
     letter-spacing: -.035em;
-    padding: 20px 20px 20px 0;
+    color: rgba(111,195,240,.34);
   }
 
   #skills .aoi h6 {
     grid-area: 1 / 2 / 2 / 3;
-    margin: 0 0 5px;
-    padding: 20px 20px 0 22px;
-    border-left: 1px solid #e6ecf2;
+    margin: 0 0 6px;
+    padding: 0;
     font-family: 'Bahnschrift', sans-serif;
     font-size: 16px;
     font-weight: 700;
-    color: #0d3349;
+    color: #ffffff;
     letter-spacing: -.01em;
     text-transform: none;
     line-height: 1.25;
@@ -997,196 +999,206 @@ The core values that I believe in are sincerity, creativity, showing initiative 
     grid-area: 2 / 2 / 3 / 3;
     display: block;
     margin: 0;
-    padding: 0 20px 20px 22px;
-    border-left: 1px solid #e6ecf2;
     font-family: 'Bahnschrift Light', sans-serif;
     font-size: 12px;
-    color: #8a99ab;
+    color: rgba(214,234,248,.52);
     line-height: 1.6;
   }
 
   #skills .aoi ul {
     grid-area: 1 / 3 / 3 / 4;
     margin: 0;
-    padding: 20px 0 20px 22px;
-    border-left: 1px solid #e6ecf2;
+    padding: 2px 0 0;
     list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    align-content: flex-start;
-    row-gap: 1px;
+    display: block;
   }
-  #skills .aoi li {
+  #skills .aoi li { display: inline; }
+  /* A non-breaking space glues the slash to the end of its own term, so a
+     separator can never begin a line. The trailing space still allows a
+     break after it. */
+  #skills .aoi li::after { content: '\00A0 / '; color: rgba(214,234,248,.26); }
+  #skills .aoi li:last-child::after { content: ''; }
+
+  /* The term itself is the button. It stays text: no pill, no box. */
+  #skills .aoi .aoi-t {
+    display: inline;
+    background: none;
+    border: 0;
+    padding: 0;
+    margin: 0;
     font-family: 'Bahnschrift Light', sans-serif;
     font-size: 13px;
-    color: #44566b;
-    line-height: 1.95;
+    line-height: 2.05;
+    color: rgba(226,239,248,.86);
+    cursor: pointer;
+    border-bottom: 1px solid transparent;
+    transition: color .15s ease, border-color .15s ease;
   }
-  #skills .aoi li::after { content: '/'; color: #d2dce6; padding: 0 9px; }
-  #skills .aoi li:last-child::after { content: ''; }
-  /* The two worth leading with in each row. */
-  #skills .aoi li:nth-child(-n+2) {
-    font-family: 'Bahnschrift', sans-serif;
-    color: #0d3349;
+  #skills .aoi .aoi-t:hover,
+  #skills .aoi .aoi-t:focus-visible { color: #6fc3f0; border-bottom-color: #6fc3f0; outline: none; }
+  #skills .aoi .aoi-t.is-open { color: #6fc3f0; border-bottom-color: #6fc3f0; }
+
+  /* One dot per term, its weight carrying the score. */
+  #skills .aoi .aoi-s {
+    display: inline-block;
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    margin-right: 7px;
+    vertical-align: 1px;
+    background: #6fc3f0;
   }
+  #skills .aoi .aoi-s[data-s="1"] { opacity: .22; }
+  #skills .aoi .aoi-s[data-s="2"] { opacity: .38; }
+  #skills .aoi .aoi-s[data-s="3"] { opacity: .56; }
+  #skills .aoi .aoi-s[data-s="4"] { opacity: .78; }
+  #skills .aoi .aoi-s[data-s="5"] { opacity: 1; box-shadow: 0 0 6px rgba(111,195,240,.7); }
 
   #skills .aoi-foot {
-    grid-column: 1 / -1;
+    position: relative;
     font-family: 'Bahnschrift Light', sans-serif;
-    font-size: 12px;
-    color: #94a3b4;
+    font-size: 11.5px;
+    color: rgba(214,234,248,.44);
     line-height: 1.6;
     margin: 0;
-    padding: 14px 0 16px;
-    border-top: 1px solid #e6ecf2;
+    padding: 15px 28px 18px 26px;
+    border-top: 1px solid rgba(214,234,248,.12);
   }
 
-  /* The rail stops earning its width once it is narrower than its own title. */
-  @media (max-width: 860px) {
-    #skills .aoi { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto auto; }
-    #skills .aoi::before { grid-area: auto; padding: 16px 0 0; font-size: 26px; }
-    #skills .aoi h6 { grid-area: auto; border-left: 0; padding: 4px 0 0; }
-    #skills .aoi .aoi-note { grid-area: auto; border-left: 0; padding: 4px 0 0; }
-    #skills .aoi ul { grid-area: auto; border-left: 0; padding: 10px 0 18px; }
+  /* ── the note ──────────────────────────────────────────────────────── */
+  .aoi-ov {
+    position: fixed; inset: 0; z-index: 950;
+    background: rgba(6,24,36,.6);
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+  }
+  .aoi-ov[hidden] { display: none; }
+  .aoi-bx {
+    background: #0e3348;
+    border: 1px solid rgba(214,234,248,.18);
+    border-radius: 12px;
+    width: 100%; max-width: 540px;
+    max-height: 86vh;
+    display: flex; flex-direction: column;
+    box-shadow: 0 26px 70px rgba(4,18,28,.6);
+  }
+  .aoi-bh {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 18px 20px 12px;
+  }
+  .aoi-grp {
+    display: block;
+    font-family: 'Bahnschrift Light', sans-serif;
+    font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+    color: #6fc3f0; margin-bottom: 5px;
+  }
+  .aoi-bh h5 {
+    margin: 0; font-family: 'Bahnschrift', sans-serif;
+    font-size: 17px; color: #fff; line-height: 1.25; letter-spacing: -.01em;
+  }
+  .aoi-x {
+    margin-left: auto; background: none; border: 0; cursor: pointer;
+    font-size: 22px; line-height: 1; color: rgba(214,234,248,.5); padding: 0 2px;
+  }
+  .aoi-x:hover { color: #fff; }
+
+  .aoi-score { display: flex; align-items: center; gap: 10px; padding: 0 20px 14px; }
+  .aoi-dots { display: inline-flex; gap: 4px; }
+  .aoi-dots i { width: 7px; height: 7px; border-radius: 50%; background: rgba(214,234,248,.2); display: block; }
+  .aoi-dots i.on { background: #6fc3f0; }
+  .aoi-lab {
+    font-family: 'Consolas','Cascadia Mono',ui-monospace,monospace;
+    font-size: 11px; letter-spacing: .06em; color: #9fd8f5;
+  }
+
+  .aoi-bb { padding: 0 20px 4px; overflow-y: auto; }
+  .aoi-why {
+    margin: 0 0 14px;
+    font-family: 'Bahnschrift Light', sans-serif;
+    font-size: 13px; line-height: 1.7; color: rgba(226,239,248,.88);
+  }
+  .aoi-w { display: grid; grid-template-columns: auto minmax(0,1fr); gap: 4px 12px; margin-bottom: 14px; }
+  .aoi-w dt {
+    font-family: 'Consolas','Cascadia Mono',ui-monospace,monospace;
+    font-size: 10.5px; letter-spacing: .04em; color: #6fc3f0;
+    white-space: nowrap; padding-top: 3px;
+  }
+  .aoi-w dd {
+    margin: 0;
+    font-family: 'Bahnschrift Light', sans-serif;
+    font-size: 12.5px; line-height: 1.6; color: rgba(214,234,248,.76);
+  }
+  .aoi-links { display: flex; flex-wrap: wrap; gap: 8px; padding-bottom: 6px; }
+  .aoi-links a {
+    font-family: 'Bahnschrift Light', sans-serif;
+    font-size: 11.5px; color: #9fd8f5; text-decoration: none;
+    border: 1px solid rgba(111,195,240,.34); border-radius: 16px; padding: 4px 11px;
+  }
+  .aoi-links a:hover { border-color: #6fc3f0; color: #fff; }
+
+  .aoi-bf { padding: 12px 20px 16px; border-top: 1px solid rgba(214,234,248,.12); }
+  .aoi-copy {
+    font-family: 'Bahnschrift Light', sans-serif;
+    font-size: 11px; letter-spacing: .05em;
+    color: rgba(214,234,248,.66); background: none;
+    border: 1px solid rgba(214,234,248,.22); border-radius: 16px;
+    padding: 5px 12px; cursor: pointer;
+  }
+  .aoi-copy:hover, .aoi-copy.done { color: #6fc3f0; border-color: #6fc3f0; }
+
+  @media (max-width: 880px) {
+    #skills .aoi { grid-template-columns: minmax(0,1fr); padding: 18px 18px; }
+    #skills .aoi::after { grid-area: auto; font-size: 26px; margin-bottom: 6px; }
+    #skills .aoi h6, #skills .aoi .aoi-note, #skills .aoi ul { grid-area: auto; }
+    #skills .aoi ul { padding-top: 10px; }
+    #skills .aoi-foot { padding: 14px 18px 16px; }
+    /* On a phone the note is a sheet rather than a centred card. */
+    .aoi-ov { align-items: flex-end; padding: 0; }
+    .aoi-bx { max-width: none; border-radius: 14px 14px 0 0; max-height: 82vh; }
   }
 </style>
 
 <div id="skills">
-
-  <div class="aoi">
+  <div class="aoi" id="aoi-applied-ai">
     <h6>Applied AI in Operations</h6>
     <span class="aoi-note">Putting models to work inside a running service, and measuring whether they helped.</span>
-    <ul>
-      <li>Retrieval-augmented generation</li>
-      <li>Local-first inference</li>
-      <li>llama.cpp &amp; Ollama</li>
-      <li>Qdrant &amp; ChromaDB</li>
-      <li>Planning agents with tool use</li>
-      <li>Model Context Protocol</li>
-      <li>Replayable action traces</li>
-      <li>n8n orchestration</li>
-      <li>Claude, Gemini &amp; Groq</li>
-    </ul>
+    <ul><li><button type="button" class="aoi-t" data-id="rag" aria-haspopup="dialog"><i class="aoi-s" data-s="5" aria-hidden="true"></i>Retrieval-augmented generation</button></li><li><button type="button" class="aoi-t" data-id="local-inference" aria-haspopup="dialog"><i class="aoi-s" data-s="4" aria-hidden="true"></i>Local-first inference</button></li><li><button type="button" class="aoi-t" data-id="llamacpp-ollama" aria-haspopup="dialog"><i class="aoi-s" data-s="4" aria-hidden="true"></i>llama.cpp &amp; Ollama</button></li><li><button type="button" class="aoi-t" data-id="vector-stores" aria-haspopup="dialog"><i class="aoi-s" data-s="3" aria-hidden="true"></i>Qdrant &amp; ChromaDB</button></li><li><button type="button" class="aoi-t" data-id="planning-agents" aria-haspopup="dialog"><i class="aoi-s" data-s="4" aria-hidden="true"></i>Planning agents with tool use</button></li><li><button type="button" class="aoi-t" data-id="mcp" aria-haspopup="dialog"><i class="aoi-s" data-s="4" aria-hidden="true"></i>Model Context Protocol</button></li><li><button type="button" class="aoi-t" data-id="action-traces" aria-haspopup="dialog"><i class="aoi-s" data-s="3" aria-hidden="true"></i>Replayable action traces</button></li><li><button type="button" class="aoi-t" data-id="n8n" aria-haspopup="dialog"><i class="aoi-s" data-s="4" aria-hidden="true"></i>n8n orchestration</button></li><li><button type="button" class="aoi-t" data-id="cloud-llms" aria-haspopup="dialog"><i class="aoi-s" data-s="4" aria-hidden="true"></i>Claude, Gemini &amp; Groq</button></li></ul>
   </div>
-
-  <div class="aoi">
-    <h6>Evaluation &amp; Model Routing</h6>
+  <div class="aoi" id="aoi-evaluation">
+    <h6>Evaluation & Model Routing</h6>
     <span class="aoi-note">Deciding which model runs next, on evidence rather than reputation.</span>
-    <ul>
-      <li>Deterministic per-call evaluation</li>
-      <li>Routing on accuracy, latency &amp; cost</li>
-      <li>Retrieval quality measured separately</li>
-      <li>Prompt &amp; context refinement</li>
-      <li>Chunking &amp; splitter tuning</li>
-      <li>Benchmarking on-device models</li>
-      <li>Failure-rate tracking</li>
-      <li>Model registries &amp; task classes</li>
-    </ul>
+    <ul><li><button type="button" class="aoi-t" data-id="per-call-eval" aria-haspopup="dialog"><i class="aoi-s" data-s="4" aria-hidden="true"></i>Deterministic per-call evaluation</button></li><li><button type="button" class="aoi-t" data-id="routing" aria-haspopup="dialog"><i class="aoi-s" data-s="3" aria-hidden="true"></i>Routing on accuracy, latency &amp; cost</button></li><li><button type="button" class="aoi-t" data-id="retrieval-quality" aria-haspopup="dialog"><i class="aoi-s" data-s="3" aria-hidden="true"></i>Retrieval quality measured separately</button></li><li><button type="button" class="aoi-t" data-id="prompt-context" aria-haspopup="dialog"><i class="aoi-s" data-s="4" aria-hidden="true"></i>Prompt &amp; context refinement</button></li><li><button type="button" class="aoi-t" data-id="chunking" aria-haspopup="dialog"><i class="aoi-s" data-s="3" aria-hidden="true"></i>Chunking &amp; splitter tuning</button></li><li><button type="button" class="aoi-t" data-id="on-device-bench" aria-haspopup="dialog"><i class="aoi-s" data-s="3" aria-hidden="true"></i>Benchmarking on-device models</button></li><li><button type="button" class="aoi-t" data-id="failure-rate" aria-haspopup="dialog"><i class="aoi-s" data-s="3" aria-hidden="true"></i>Failure-rate tracking</button></li><li><button type="button" class="aoi-t" data-id="model-registry" aria-haspopup="dialog"><i class="aoi-s" data-s="2" aria-hidden="true"></i>Model registries &amp; task classes</button></li></ul>
   </div>
-
-  <div class="aoi">
-    <h6>AI Governance &amp; Responsible Adoption</h6>
+  <div class="aoi" id="aoi-ai-governance">
+    <h6>AI Governance & Responsible Adoption</h6>
     <span class="aoi-note">Controls that sit beneath the model, where they cannot be talked around.</span>
-    <ul>
-      <li>Guardrails below the model</li>
-      <li>Constrained-grammar tool calls</li>
-      <li>Schema allow-lists</li>
-      <li>Read-only execution accounts</li>
-      <li>PII redaction with hash audit</li>
-      <li>Human escalation thresholds</li>
-      <li>Data residency assessment</li>
-      <li>Scoped, revocable tokens</li>
-    </ul>
+    <ul><li><button type="button" class="aoi-t" data-id="guardrails-below" aria-haspopup="dialog"><i class="aoi-s" data-s="5" aria-hidden="true"></i>Guardrails below the model</button></li><li><button type="button" class="aoi-t" data-id="constrained-grammar" aria-haspopup="dialog"><i class="aoi-s" data-s="4" aria-hidden="true"></i>Constrained-grammar tool calls</button></li><li><button type="button" class="aoi-t" data-id="schema-allowlist" aria-haspopup="dialog"><i class="aoi-s" data-s="4" aria-hidden="true"></i>Schema allow-lists</button></li><li><button type="button" class="aoi-t" data-id="readonly-accounts" aria-haspopup="dialog"><i class="aoi-s" data-s="4" aria-hidden="true"></i>Read-only execution accounts</button></li><li><button type="button" class="aoi-t" data-id="pii-redaction" aria-haspopup="dialog"><i class="aoi-s" data-s="3" aria-hidden="true"></i>PII redaction with hash audit</button></li><li><button type="button" class="aoi-t" data-id="human-escalation" aria-haspopup="dialog"><i class="aoi-s" data-s="3" aria-hidden="true"></i>Human escalation thresholds</button></li><li><button type="button" class="aoi-t" data-id="data-residency" aria-haspopup="dialog"><i class="aoi-s" data-s="3" aria-hidden="true"></i>Data residency assessment</button></li><li><button type="button" class="aoi-t" data-id="scoped-tokens" aria-haspopup="dialog"><i class="aoi-s" data-s="4" aria-hidden="true"></i>Scoped, revocable tokens</button></li></ul>
   </div>
-
-  <div class="aoi">
+  <div class="aoi" id="aoi-itsm">
     <h6>IT Service Management</h6>
     <span class="aoi-note">The chain from an incident to a structural fix, governed rather than improvised.</span>
-    <ul>
-      <li>ITIL incident, problem &amp; change</li>
-      <li>Release management</li>
-      <li>ServiceNow under CSDM</li>
-      <li>Jira &amp; Confluence</li>
-      <li>SLA design &amp; escalation playbooks</li>
-      <li>Root-cause review</li>
-      <li>Vendor management to service levels</li>
-      <li>Service KPIs &amp; reporting</li>
-      <li>Git-versioned runbooks</li>
-    </ul>
+    <ul><li><button type="button" class="aoi-t" data-id="itil-ipc" aria-haspopup="dialog"><i class="aoi-s" data-s="5" aria-hidden="true"></i>ITIL incident, problem &amp; change</button></li><li><button type="button" class="aoi-t" data-id="release-mgmt" aria-haspopup="dialog"><i class="aoi-s" data-s="4" aria-hidden="true"></i>Release management</button></li><li><button type="button" class="aoi-t" data-id="servicenow-csdm" aria-haspopup="dialog"><i class="aoi-s" data-s="5" aria-hidden="true"></i>ServiceNow under CSDM</button></li><li><button type="button" class="aoi-t" data-id="jira-confluence" aria-haspopup="dialog"><i class="aoi-s" data-s="4" aria-hidden="true"></i>Jira &amp; Confluence</button></li><li><button type="button" class="aoi-t" data-id="sla-escalation" aria-haspopup="dialog"><i class="aoi-s" data-s="4" aria-hidden="true"></i>SLA design &amp; escalation playbooks</button></li><li><button type="button" class="aoi-t" data-id="rca" aria-haspopup="dialog"><i class="aoi-s" data-s="4" aria-hidden="true"></i>Root-cause review</button></li><li><button type="button" class="aoi-t" data-id="vendor-mgmt" aria-haspopup="dialog"><i class="aoi-s" data-s="5" aria-hidden="true"></i>Vendor management to service levels</button></li><li><button type="button" class="aoi-t" data-id="service-kpis" aria-haspopup="dialog"><i class="aoi-s" data-s="4" aria-hidden="true"></i>Service KPIs &amp; reporting</button></li><li><button type="button" class="aoi-t" data-id="git-runbooks" aria-haspopup="dialog"><i class="aoi-s" data-s="2" aria-hidden="true"></i>Git-versioned runbooks</button></li></ul>
   </div>
-
-  <div class="aoi">
-    <h6>IT Risk, Governance &amp; Continuity</h6>
+  <div class="aoi" id="aoi-risk-continuity">
+    <h6>IT Risk, Governance & Continuity</h6>
     <span class="aoi-note">What an application must prove before it is allowed to carry the business.</span>
-    <ul>
-      <li>eGRC on RSA Archer</li>
-      <li>ISO 27001 controls</li>
-      <li>Service Impact Assessment</li>
-      <li>Recovery time &amp; point objectives</li>
-      <li>Privacy Impact Assessment</li>
-      <li>Information classification</li>
-      <li>IAM conformity &amp; four-eyes</li>
-      <li>ITSCM &amp; disaster recovery</li>
-      <li>SAST &amp; penetration testing</li>
-      <li>Active Directory over LDAPS</li>
-      <li>Certificate authority &amp; PKI</li>
-    </ul>
+    <ul><li><button type="button" class="aoi-t" data-id="archer" aria-haspopup="dialog"><i class="aoi-s" data-s="5" aria-hidden="true"></i>eGRC on RSA Archer</button></li><li><button type="button" class="aoi-t" data-id="iso27001" aria-haspopup="dialog"><i class="aoi-s" data-s="4" aria-hidden="true"></i>ISO 27001 controls</button></li><li><button type="button" class="aoi-t" data-id="sia" aria-haspopup="dialog"><i class="aoi-s" data-s="5" aria-hidden="true"></i>Service Impact Assessment</button></li><li><button type="button" class="aoi-t" data-id="rto-rpo" aria-haspopup="dialog"><i class="aoi-s" data-s="5" aria-hidden="true"></i>Recovery time &amp; point objectives</button></li><li><button type="button" class="aoi-t" data-id="pia" aria-haspopup="dialog"><i class="aoi-s" data-s="4" aria-hidden="true"></i>Privacy Impact Assessment</button></li><li><button type="button" class="aoi-t" data-id="info-classification" aria-haspopup="dialog"><i class="aoi-s" data-s="4" aria-hidden="true"></i>Information classification</button></li><li><button type="button" class="aoi-t" data-id="iam-four-eyes" aria-haspopup="dialog"><i class="aoi-s" data-s="4" aria-hidden="true"></i>IAM conformity &amp; four-eyes</button></li><li><button type="button" class="aoi-t" data-id="itscm-dr" aria-haspopup="dialog"><i class="aoi-s" data-s="4" aria-hidden="true"></i>ITSCM &amp; disaster recovery</button></li><li><button type="button" class="aoi-t" data-id="sast-pentest" aria-haspopup="dialog"><i class="aoi-s" data-s="3" aria-hidden="true"></i>SAST &amp; penetration testing</button></li><li><button type="button" class="aoi-t" data-id="ad-ldaps" aria-haspopup="dialog"><i class="aoi-s" data-s="3" aria-hidden="true"></i>Active Directory over LDAPS</button></li><li><button type="button" class="aoi-t" data-id="pki" aria-haspopup="dialog"><i class="aoi-s" data-s="3" aria-hidden="true"></i>Certificate authority &amp; PKI</button></li></ul>
   </div>
-
-  <div class="aoi">
+  <div class="aoi" id="aoi-engineering">
     <h6>Engineering</h6>
     <span class="aoi-note">Building the thing, not only specifying it.</span>
-    <ul>
-      <li>Python with FastAPI &amp; asyncio</li>
-      <li>PHP 8 with strict typing</li>
-      <li>Layered architecture</li>
-      <li>REST API design</li>
-      <li>OAuth2 client credentials</li>
-      <li>SQL across four engines</li>
-      <li>Relational design &amp; indexing</li>
-      <li>JavaScript, HTML &amp; CSS</li>
-    </ul>
+    <ul><li><button type="button" class="aoi-t" data-id="python-fastapi" aria-haspopup="dialog"><i class="aoi-s" data-s="3" aria-hidden="true"></i>Python with FastAPI &amp; asyncio</button></li><li><button type="button" class="aoi-t" data-id="php8" aria-haspopup="dialog"><i class="aoi-s" data-s="4" aria-hidden="true"></i>PHP 8 with strict typing</button></li><li><button type="button" class="aoi-t" data-id="layered-arch" aria-haspopup="dialog"><i class="aoi-s" data-s="4" aria-hidden="true"></i>Layered architecture</button></li><li><button type="button" class="aoi-t" data-id="rest" aria-haspopup="dialog"><i class="aoi-s" data-s="4" aria-hidden="true"></i>REST API design</button></li><li><button type="button" class="aoi-t" data-id="oauth2" aria-haspopup="dialog"><i class="aoi-s" data-s="3" aria-hidden="true"></i>OAuth2 client credentials</button></li><li><button type="button" class="aoi-t" data-id="sql-engines" aria-haspopup="dialog"><i class="aoi-s" data-s="4" aria-hidden="true"></i>SQL across four engines</button></li><li><button type="button" class="aoi-t" data-id="relational-design" aria-haspopup="dialog"><i class="aoi-s" data-s="4" aria-hidden="true"></i>Relational design &amp; indexing</button></li><li><button type="button" class="aoi-t" data-id="frontend" aria-haspopup="dialog"><i class="aoi-s" data-s="3" aria-hidden="true"></i>JavaScript, HTML &amp; CSS</button></li></ul>
   </div>
-
-  <div class="aoi">
-    <h6>Cloud &amp; DevOps</h6>
+  <div class="aoi" id="aoi-cloud-devops">
+    <h6>Cloud & DevOps</h6>
     <span class="aoi-note">Where the thing actually runs, and how it gets there.</span>
-    <ul>
-      <li>Docker &amp; Docker Compose</li>
-      <li>Multi-container stacks</li>
-      <li>Microsoft Azure &amp; Entra ID</li>
-      <li>Azure Data Lake</li>
-      <li>AWS-hosted environments</li>
-      <li>Git &amp; Azure DevOps</li>
-      <li>CI/CD pipelines</li>
-      <li>Windows &amp; Linux</li>
-      <li>Single sign-on &amp; SCIM</li>
-      <li>Windows Server &amp; AD DS</li>
-      <li>VMware Workstation labs</li>
-    </ul>
+    <ul><li><button type="button" class="aoi-t" data-id="docker" aria-haspopup="dialog"><i class="aoi-s" data-s="4" aria-hidden="true"></i>Docker &amp; Docker Compose</button></li><li><button type="button" class="aoi-t" data-id="multi-container" aria-haspopup="dialog"><i class="aoi-s" data-s="4" aria-hidden="true"></i>Multi-container stacks</button></li><li><button type="button" class="aoi-t" data-id="azure-entra" aria-haspopup="dialog"><i class="aoi-s" data-s="3" aria-hidden="true"></i>Microsoft Azure &amp; Entra ID</button></li><li><button type="button" class="aoi-t" data-id="azure-datalake" aria-haspopup="dialog"><i class="aoi-s" data-s="2" aria-hidden="true"></i>Azure Data Lake</button></li><li><button type="button" class="aoi-t" data-id="aws" aria-haspopup="dialog"><i class="aoi-s" data-s="2" aria-hidden="true"></i>AWS-hosted environments</button></li><li><button type="button" class="aoi-t" data-id="git-azdo" aria-haspopup="dialog"><i class="aoi-s" data-s="4" aria-hidden="true"></i>Git &amp; Azure DevOps</button></li><li><button type="button" class="aoi-t" data-id="cicd" aria-haspopup="dialog"><i class="aoi-s" data-s="2" aria-hidden="true"></i>CI/CD pipelines</button></li><li><button type="button" class="aoi-t" data-id="win-linux" aria-haspopup="dialog"><i class="aoi-s" data-s="3" aria-hidden="true"></i>Windows &amp; Linux</button></li><li><button type="button" class="aoi-t" data-id="sso-scim" aria-haspopup="dialog"><i class="aoi-s" data-s="4" aria-hidden="true"></i>Single sign-on &amp; SCIM</button></li><li><button type="button" class="aoi-t" data-id="winserver-adds" aria-haspopup="dialog"><i class="aoi-s" data-s="3" aria-hidden="true"></i>Windows Server &amp; AD DS</button></li><li><button type="button" class="aoi-t" data-id="vmware-labs" aria-haspopup="dialog"><i class="aoi-s" data-s="2" aria-hidden="true"></i>VMware Workstation labs</button></li></ul>
   </div>
-
-  <div class="aoi">
-    <h6>Data, Applications &amp; Delivery</h6>
+  <div class="aoi" id="aoi-data-delivery">
+    <h6>Data, Applications & Delivery</h6>
     <span class="aoi-note">Moving warehouses, owning platforms, and shipping against a plan.</span>
-    <ul>
-      <li>Data Vault 2.0</li>
-      <li>Informatica PowerCenter</li>
-      <li>Snowflake, DBT &amp; AWS Glue</li>
-      <li>Power BI &amp; Power Query</li>
-      <li>Alteryx pipelines</li>
-      <li>Unit4 ERP &amp; Dynamics 365</li>
-      <li>Requirements &amp; specification</li>
-      <li>Agile, Scrum &amp; WSJF</li>
-      <li>Object-based estimation</li>
-    </ul>
+    <ul><li><button type="button" class="aoi-t" data-id="data-vault" aria-haspopup="dialog"><i class="aoi-s" data-s="4" aria-hidden="true"></i>Data Vault 2.0</button></li><li><button type="button" class="aoi-t" data-id="informatica" aria-haspopup="dialog"><i class="aoi-s" data-s="3" aria-hidden="true"></i>Informatica PowerCenter</button></li><li><button type="button" class="aoi-t" data-id="snowflake-dbt" aria-haspopup="dialog"><i class="aoi-s" data-s="3" aria-hidden="true"></i>Snowflake, DBT &amp; AWS Glue</button></li><li><button type="button" class="aoi-t" data-id="powerbi" aria-haspopup="dialog"><i class="aoi-s" data-s="4" aria-hidden="true"></i>Power BI &amp; Power Query</button></li><li><button type="button" class="aoi-t" data-id="alteryx" aria-haspopup="dialog"><i class="aoi-s" data-s="2" aria-hidden="true"></i>Alteryx pipelines</button></li><li><button type="button" class="aoi-t" data-id="unit4-d365" aria-haspopup="dialog"><i class="aoi-s" data-s="4" aria-hidden="true"></i>Unit4 ERP &amp; Dynamics 365</button></li><li><button type="button" class="aoi-t" data-id="requirements" aria-haspopup="dialog"><i class="aoi-s" data-s="5" aria-hidden="true"></i>Requirements &amp; specification</button></li><li><button type="button" class="aoi-t" data-id="agile-wsjf" aria-haspopup="dialog"><i class="aoi-s" data-s="4" aria-hidden="true"></i>Agile, Scrum &amp; WSJF</button></li><li><button type="button" class="aoi-t" data-id="object-estimation" aria-haspopup="dialog"><i class="aoi-s" data-s="4" aria-hidden="true"></i>Object-based estimation</button></li></ul>
   </div>
-
-  <p class="aoi-foot">
-    Earlier ground, still occasionally useful: Salesforce, digital marketing analytics and technical SEO,
-    and Ethereum smart contracts, the subject of a master's thesis on improving invoicing accuracy.
-  </p>
-
+  <p class="aoi-foot">Earlier ground, still occasionally useful: Salesforce, digital marketing analytics and technical SEO, and Ethereum smart contracts, the subject of a master's thesis on improving invoicing accuracy.</p>
 </div>
 
 <hr>
@@ -1748,5 +1760,156 @@ window.addEventListener("load", function(){
 </script>
 
 <script type="text/javascript" src="script.js"></script>
+
+<!-- Areas of Interest: the note behind each term -->
+<div class="aoi-ov" id="aoi-ov" hidden>
+  <div class="aoi-bx" role="dialog" aria-modal="true" aria-labelledby="aoi-term">
+    <div class="aoi-bh">
+      <div>
+        <span class="aoi-grp" id="aoi-grp"></span>
+        <h5 id="aoi-term"></h5>
+      </div>
+      <button type="button" class="aoi-x" id="aoi-x" aria-label="Close">&times;</button>
+    </div>
+    <div class="aoi-score"><span class="aoi-dots" id="aoi-dots"></span><span class="aoi-lab" id="aoi-lab"></span></div>
+    <div class="aoi-bb">
+      <p class="aoi-why" id="aoi-why"></p>
+      <div id="aoi-where"></div>
+      <div class="aoi-links" id="aoi-links"></div>
+    </div>
+    <div class="aoi-bf"><button type="button" class="aoi-copy" id="aoi-copy">Copy link</button></div>
+  </div>
+</div>
+<script>
+/* Areas of Interest: the note behind each term.
+
+   One panel at a time. Escape, a click outside, the close button or clicking
+   the same term again all close it. Opening a term writes #i-<id> to the
+   address bar, so any single interest can be linked to and will open on load.
+   Back and forward move through the notes. */
+(function () {
+	var DATA = [{"i":"rag","t":"Retrieval-augmented generation","g":"Applied AI in Operations","s":5,"l":"Core","w":"A model is only useful in operations if its answers can be traced back to the organisation's own knowledge. Retrieval with citations is what turns a chatbot into something an engineer can trust at 3 a.m.","h":[["BMW NL","Built a knowledge platform over a Confluence space: n8n, Qdrant, Ollama and Open WebUI in an eleven-container Docker stack, running fully locally."],["DeskOps","Resolution notes are drafted from retrieved tickets and knowledge articles, with a two-pass citation filter that drops sources the answer does not actually use."]],"k":[["DeskOps tour","post_deskops.html"]]},{"i":"local-inference","t":"Local-first inference","g":"Applied AI in Operations","s":4,"l":"Strong","w":"Running the model on hardware you control settles the data-residency question before it is asked, and keeps working when a cloud quota runs out.","h":[["DeskOps","The model chain starts with a local llama.cpp engine and only falls through to cloud providers on failure. Qwen 3 Coder 14B (Q4_K_M) chosen as the best fit for its workloads."],["BMW NL","The Confluence knowledge platform runs its models through Ollama, with nothing leaving the machine."]],"k":[]},{"i":"llamacpp-ollama","t":"llama.cpp & Ollama","g":"Applied AI in Operations","s":4,"l":"Strong","w":"They make open-weight models practical on ordinary hardware, which is where most real organisations start.","h":[["DeskOps","llama.cpp is the first engine in the fallback chain."],["BMW NL","Ollama serves the models behind the Confluence knowledge platform."],["Lab","Tested on a 16 GB laptop without a discrete GPU, which forces honest choices about model size and quantisation."]],"k":[]},{"i":"vector-stores","t":"Qdrant & ChromaDB","g":"Applied AI in Operations","s":3,"l":"Working","w":"The vector store decides what the model gets to see, so retrieval quality starts here, not in the prompt.","h":[["BMW NL","Qdrant holds the embeddings for the Confluence knowledge platform."],["DeskOps","Vector stores run as persistent volumes in the Kubernetes deployment."]],"k":[]},{"i":"planning-agents","t":"Planning agents with tool use","g":"Applied AI in Operations","s":4,"l":"Strong","w":"Agents are where AI stops answering questions and starts taking actions, which is exactly where the controls have to be designed in.","h":[["DeskOps","The Access Agent handles access requests inside a bounded envelope: just-in-time grants, a blast-radius check before anything changes, and an immutable audit row per action. A separate coding agent edits files with single-edit or full revert."]],"k":[["DeskOps access-control demo","https://youtu.be/qP6_R3X1Iwc"],["Every Gate is Ordinary Code","https://www.linkedin.com/pulse/every-gate-ordinary-code-tariq-hussain-nclye"]]},{"i":"mcp","t":"Model Context Protocol","g":"Applied AI in Operations","s":4,"l":"Strong","w":"A standard way for models to reach tools means one integration serves every assistant, instead of one per vendor.","h":[["DeskOps","Runs its own MCP server, with scoped, revocable tokens. Knowledge-article and document endpoints were designed MCP-ready from the start. Next step: exposing the Access Agent's request, approve and decision flow over MCP."]],"k":[]},{"i":"action-traces","t":"Replayable action traces","g":"Applied AI in Operations","s":3,"l":"Working","w":"If an agent changes something, you should be able to see every step and undo it. Without that, nobody responsible for production will let an agent near it.","h":[["DeskOps","The coding agent versions every file it touches and supports single-edit or full revert. Every Access Agent decision writes an append-only audit row."],["Status","A single replayable ledger across all agent actions is on the backlog, not built yet."]],"k":[]},{"i":"n8n","t":"n8n orchestration","g":"Applied AI in Operations","s":4,"l":"Strong","w":"Visual workflows let an operations team see and change the pipeline themselves, without waiting for a developer.","h":[["BMW NL","n8n orchestrates ingestion and retrieval in the Confluence knowledge platform, one of the two initiatives I started there alongside Beacon."]],"k":[]},{"i":"cloud-llms","t":"Claude, Gemini & Groq","g":"Applied AI in Operations","s":4,"l":"Strong","w":"No single provider is always available, cheap and good at the task. A fallback chain treats them as interchangeable parts.","h":[["DeskOps","After the local engine, requests fall through Gemini, then Groq, then Claude, on rate limit or empty response."],["Beacon (BMW NL)","Connects ServiceNow, Jira and Confluence to BMW's internal LLM platform."]],"k":[]},{"i":"per-call-eval","t":"Deterministic per-call evaluation","g":"Evaluation & Model Routing","s":4,"l":"Strong","w":"\"The model seems good\" is not evidence. A rule that passes or fails on every call is.","h":[["DeskOps","Each resolution note is checked against concrete rules. Each generated SQL statement is scored by whether the database planner accepts it. Both results are logged per call."],["Status","There is no regression suite and no LLM-as-judge pipeline yet. These are per-call checks, not benchmarks tracked across releases."]],"k":[]},{"i":"routing","t":"Routing on accuracy, latency & cost","g":"Evaluation & Model Routing","s":3,"l":"Working","w":"The cheapest model that does the job well is the right one, and that changes as models change.","h":[["DeskOps","Per-call results feed the choice of which model runs next, on top of the local-first fallback chain."]],"k":[]},{"i":"retrieval-quality","t":"Retrieval quality measured separately","g":"Evaluation & Model Routing","s":3,"l":"Working","w":"When an answer is wrong, you need to know whether retrieval found the wrong thing or the model misused the right thing. Mixing the two hides the cause.","h":[["DeskOps","The two-pass citation filter separates \"was this source retrieved\" from \"was it actually used\"."],["BMW NL","Tuned on the Confluence knowledge platform, where retrieval was the main lever on answer quality."]],"k":[]},{"i":"prompt-context","t":"Prompt & context refinement","g":"Evaluation & Model Routing","s":4,"l":"Strong","w":"What the model is given matters more than what it is asked. Trimming context is often a bigger win than rewording a prompt.","h":[["DeskOps","Prompts for resolution notes, knowledge articles and SQL generation refined against the per-call checks."],["BMW NL","Context assembly for Beacon and the Confluence platform."]],"k":[]},{"i":"chunking","t":"Chunking & splitter tuning","g":"Evaluation & Model Routing","s":3,"l":"Working","w":"Bad chunk boundaries cut an instruction from its warning. It is unglamorous work that decides retrieval quality.","h":[["BMW NL","Splitter settings tuned for long, structured Confluence pages on the knowledge platform."]],"k":[]},{"i":"on-device-bench","t":"Benchmarking on-device models","g":"Evaluation & Model Routing","s":3,"l":"Working","w":"On limited hardware, the difference between two quantisations is the difference between usable and unusable.","h":[["DeskOps / Lab","Compared local models on a 16 GB laptop for DeskOps workloads and settled on Qwen 3 Coder 14B (Q4_K_M)."]],"k":[]},{"i":"failure-rate","t":"Failure-rate tracking","g":"Evaluation & Model Routing","s":3,"l":"Working","w":"Average quality hides the tail. Operations lives in the tail.","h":[["DeskOps","Pass and fail results are logged per call and per model, so a model that starts failing more often drops down the order."]],"k":[]},{"i":"model-registry","t":"Model registries & task classes","g":"Evaluation & Model Routing","s":2,"l":"Supporting","w":"Different tasks need different models; a registry makes that a configuration choice instead of a code change.","h":[["DeskOps","Models are mapped to task types (drafting, SQL generation, coding) in the routing layer."]],"k":[]},{"i":"guardrails-below","t":"Guardrails below the model","g":"AI Governance & Responsible Adoption","s":5,"l":"Core","w":"A prompt is a request, not a control. Enforcement belongs in ordinary code the model cannot talk its way around. The language model is the interface, never the authority.","h":[["DeskOps","The design principle behind the whole platform. Role checks, grants and audit all run before and after the model, in code."],["Writing","\"Every Gate is Ordinary Code\" walks every control between a request and a database row, and names where the platform is not yet uniform."]],"k":[["Every Gate is Ordinary Code","https://www.linkedin.com/pulse/every-gate-ordinary-code-tariq-hussain-nclye"],["DeskOps access-control demo","https://youtu.be/qP6_R3X1Iwc"]]},{"i":"constrained-grammar","t":"Constrained-grammar tool calls","g":"AI Governance & Responsible Adoption","s":4,"l":"Strong","w":"If the model can only emit valid calls, a whole class of failures disappears before validation even starts.","h":[["DeskOps","Tool calls across the agent pipelines are constrained by grammar, so output is structurally valid by construction."]],"k":[]},{"i":"schema-allowlist","t":"Schema allow-lists","g":"AI Governance & Responsible Adoption","s":4,"l":"Strong","w":"Letting a model write SQL is safe only when it can see a known set of tables and nothing else.","h":[["DeskOps","Generated SQL is validated, then run through a select-only database account scoped to a single schema."],["Next","Row-level scoping per requesting user."]],"k":[]},{"i":"readonly-accounts","t":"Read-only execution accounts","g":"AI Governance & Responsible Adoption","s":4,"l":"Strong","w":"The safest permission is the one the account never had.","h":[["DeskOps","Model-generated queries never use the application's read-write account. The Access Agent has its own least-privilege MySQL account, and automated tests use a dedicated test account."],["BMW NL / Lab","The Active Directory connector is read-only and off by default."]],"k":[]},{"i":"pii-redaction","t":"PII redaction with hash audit","g":"AI Governance & Responsible Adoption","s":3,"l":"Working","w":"Personal data should not reach a third-party model, but you still need to prove what was removed.","h":[["DeskOps","Two redaction passes, one strict and one advisory. The advisory pass fails open, which is documented rather than hidden."]],"k":[]},{"i":"human-escalation","t":"Human escalation thresholds","g":"AI Governance & Responsible Adoption","s":3,"l":"Working","w":"Some decisions should never be automated. The skill is deciding where that line sits, before an incident decides it for you.","h":[["DeskOps","Access requests outside the agent's bounded envelope go to a human approver instead of being granted."],["BMW NL","Redesigned the priority-one escalation chain around explicit decision points."]],"k":[]},{"i":"data-residency","t":"Data residency assessment","g":"AI Governance & Responsible Adoption","s":3,"l":"Working","w":"Where the data is processed is often the first question legal asks, and the answer shapes the architecture.","h":[["DeskOps","Assessed EU-hosted model providers (including Vertex AI in the EU) for the hosted edition, and subprocessor disclosure for a compliance-platform integration."],["BMW NL","Information classification and privacy assessments for every application in scope."]],"k":[]},{"i":"scoped-tokens","t":"Scoped, revocable tokens","g":"AI Governance & Responsible Adoption","s":4,"l":"Strong","w":"Every integration should be able to lose its access in one click without breaking anything else.","h":[["DeskOps","MCP and API tokens are scoped per capability and revocable. Revocation is checked on every call."],["Beacon (BMW NL)","OAuth2 client-credentials flows between services."]],"k":[]},{"i":"itil-ipc","t":"ITIL incident, problem & change","g":"IT Service Management","s":5,"l":"Core","w":"Restoring service is the easy half. Making sure the same incident cannot happen again is the job.","h":[["BMW NL","Run incident, problem and change for business-critical applications. Every change goes through a review board with impact analysis."],["Haskoning","Operations Analyst and Daily Manager, running the team's daily incident and request work."],["Education","ITIL course in the ICT & Business degree at Fontys."],["DeskOps","The ITSM core of the platform is built around these processes."]],"k":[]},{"i":"release-mgmt","t":"Release management","g":"IT Service Management","s":4,"l":"Strong","w":"A release that users notice is a release that went wrong.","h":[["BMW NL","Coordinated releases with TCS and IBM with no customer-facing downtime. Ran the iterative rewrite of the IDE application with IBM through to its handover."],["DeskOps","Over 1,400 numbered improvements, each verified before release."]],"k":[]},{"i":"servicenow-csdm","t":"ServiceNow under CSDM","g":"IT Service Management","s":5,"l":"Core","w":"CSDM ties every incident to a service and every service to its dependencies. That is what makes impact analysis possible.","h":[["BMW NL","ServiceNow is the ITSM platform. Service Impact Assessments have lived in CSDM since November 2025."],["DeskOps","Its data model and workbench draw directly on ServiceNow conventions."]],"k":[]},{"i":"jira-confluence","t":"Jira & Confluence","g":"IT Service Management","s":4,"l":"Strong","w":"Most of an organisation's operational knowledge lives here, often unsearchable. Making it findable is a quick win.","h":[["BMW NL","Beacon joins Jira and Confluence with ServiceNow. The knowledge platform indexes a Confluence space."],["BMW NL","Wrote reference documentation in Confluence (around 7,100 words) for that platform."]],"k":[]},{"i":"sla-escalation","t":"SLA design & escalation playbooks","g":"IT Service Management","s":4,"l":"Strong","w":"A service level is only as good as the escalation behind it. Unclear ownership at a handoff costs more time than any technical fault.","h":[["BMW NL","Redesigned the priority-one escalation chain around explicit decision points; mean time to restore fell by a quarter."],["DeskOps","Playbooks are a module of the platform."]],"k":[]},{"i":"rca","t":"Root-cause review","g":"IT Service Management","s":4,"l":"Strong","w":"The first explanation is rarely the real one. Slow recovery usually turns out to be an organisational cause, not a technical one.","h":[["BMW NL","Traced persistently slow priority-one recovery to unclear ownership at each handoff, which led to the escalation redesign."],["Beacon","Traced an application-wide freeze to blocking calls starving the async event loop."],["Writing","Published a blameless post-incident write-up of a DNS failure during a live demo."]],"k":[]},{"i":"vendor-mgmt","t":"Vendor management to service levels","g":"IT Service Management","s":5,"l":"Core","w":"With outsourcing partners, the contract sets the floor. The relationship decides whether you ever get above it.","h":[["BMW NL","Steer TCS and IBM against agreed service levels for business-critical applications."],["Haskoning","Single point of contact towards the ERP supplier for the Unit4 estate."]],"k":[]},{"i":"service-kpis","t":"Service KPIs & reporting","g":"IT Service Management","s":4,"l":"Strong","w":"Choosing the metric is a decision about behaviour. Mean time to restore drives a different team than ticket counts do.","h":[["BMW NL","Mean time to restore as the measure behind the escalation redesign."],["LionRock Maritime","Built Power BI reporting as a freelance consultant (2022)."],["DeskOps","Dashboards and a report builder inside the platform."]],"k":[]},{"i":"git-runbooks","t":"Git-versioned runbooks","g":"IT Service Management","s":2,"l":"Supporting","w":"A runbook that is not versioned is a runbook nobody trusts.","h":[["DeskOps","Platform documentation, including security and lab notes, lives in the Git repository next to the code."]],"k":[]},{"i":"archer","t":"eGRC on RSA Archer","g":"IT Risk, Governance & Continuity","s":5,"l":"Core","w":"Risk posture only means something if it is current, so the register has to be part of the daily routine.","h":[["BMW NL","Maintain each application's governance record on RSA Archer: security documentation, threat assessments, conformity statements, SAST and pen-test status, IAM conformity, privacy assessments and information classification."]],"k":[]},{"i":"iso27001","t":"ISO 27001 controls","g":"IT Risk, Governance & Continuity","s":4,"l":"Strong","w":"The standard turns \"we are secure\" into a set of things you can check.","h":[["BMW NL","ISO 27001 work as part of the application responsibility, alongside the Archer records."]],"k":[]},{"i":"sia","t":"Service Impact Assessment","g":"IT Risk, Governance & Continuity","s":5,"l":"Core","w":"It is the one document that decides how much protection an application gets, so it has to be right.","h":[["BMW NL","Run the assessment for each application, weighing financial, legal, reputational and operational impact over time. The result sets recovery targets and criticality tier, which in turn dictates architecture and recovery procedures. Held in ServiceNow CSDM since November 2025."]],"k":[]},{"i":"rto-rpo","t":"Recovery time & point objectives","g":"IT Risk, Governance & Continuity","s":5,"l":"Core","w":"Two numbers that decide how much money is spent on resilience, and they should come from the business impact, not from habit.","h":[["BMW NL","Set RTO and RPO per application through the Service Impact Assessment."]],"k":[]},{"i":"pia","t":"Privacy Impact Assessment","g":"IT Risk, Governance & Continuity","s":4,"l":"Strong","w":"Privacy is easier to design in than to retrofit.","h":[["BMW NL","Keep privacy impact assessments current for every application in scope, including the data-governance register entries on vendor involvement and data-quality controls."]],"k":[]},{"i":"info-classification","t":"Information classification","g":"IT Risk, Governance & Continuity","s":4,"l":"Strong","w":"Every other control depends on knowing how sensitive the data is.","h":[["BMW NL","Classification maintained per application as part of the governance record."]],"k":[]},{"i":"iam-four-eyes","t":"IAM conformity & four-eyes","g":"IT Risk, Governance & Continuity","s":4,"l":"Strong","w":"Access is the most common control failure and the easiest to prove right or wrong.","h":[["BMW NL","IAM conformity per application in the governance record."],["DeskOps","Privileged grants are split into separate audit rows; requests outside the envelope need human approval."]],"k":[]},{"i":"itscm-dr","t":"ITSCM & disaster recovery","g":"IT Risk, Governance & Continuity","s":4,"l":"Strong","w":"A recovery plan is only real once it has been exercised.","h":[["BMW NL","Coordinated an enterprise disaster-recovery exercise for financial-services applications in the Netherlands and Belgium: more than ten technical teams, failover within strict timelines, through to formal sign-off with audit-compliant evidence."]],"k":[]},{"i":"sast-pentest","t":"SAST & penetration testing","g":"IT Risk, Governance & Continuity","s":3,"l":"Working","w":"Testing finds what reviews miss, but only if the findings are tracked to closure.","h":[["BMW NL","Track SAST and pen-test status per application in the governance record."],["DeskOps","Published a self-review naming where the platform is not yet uniform (CSRF coverage, session guarding, upload handling, about seven in ten files using bound parameters)."]],"k":[["Every Gate is Ordinary Code","https://www.linkedin.com/pulse/every-gate-ordinary-code-tariq-hussain-nclye"]]},{"i":"ad-ldaps","t":"Active Directory over LDAPS","g":"IT Risk, Governance & Continuity","s":3,"l":"Working","w":"Identity is where enterprise integration starts. A tool that does not speak to the directory does not get adopted.","h":[["Lab / DeskOps","Built a read-only directory connector: syncs AD users and security groups over LDAPS, maps groups to roles, previews before applying, and audits every change. Verified against a lab domain built for the purpose."]],"k":[]},{"i":"pki","t":"Certificate authority & PKI","g":"IT Risk, Governance & Continuity","s":3,"l":"Working","w":"Most \"the integration is down\" incidents I have seen are expired certificates.","h":[["BMW NL","Handled certificate renewals as operations manager for the IDE application."],["Lab","Built an enterprise certificate authority (AD CS) on Windows Server 2025 to issue the LDAPS certificate."]],"k":[]},{"i":"python-fastapi","t":"Python with FastAPI & asyncio","g":"Engineering","s":3,"l":"Working","w":"Async Python is the quickest way to glue enterprise APIs together, and the easiest to get subtly wrong.","h":[["Beacon (BMW NL)","The service joining ServiceNow, Jira and Confluence to the internal LLM platform. Traced an application-wide freeze to blocking calls starving the event loop, moved them to a thread pool and verified under concurrent load."]],"k":[]},{"i":"php8","t":"PHP 8 with strict typing","g":"Engineering","s":4,"l":"Strong","w":"Strict types catch at build time what would otherwise be a support ticket.","h":[["DeskOps","The whole platform is PHP 8 with strict typing, built with AI coding agents under my design and review."],["Internship","The OCS Consulting web application (2018 to 2019) was PHP and SQL."]],"k":[["DeskOps tour","post_deskops.html"],["OCS Consulting capstone","post1.html"]]},{"i":"layered-arch","t":"Layered architecture","g":"Engineering","s":4,"l":"Strong","w":"Separating routing, services, data access and presentation is what lets a codebase keep growing.","h":[["DeskOps","Routing, services, data access and presentation kept in separate layers across the platform."]],"k":[]},{"i":"rest","t":"REST API design","g":"Engineering","s":4,"l":"Strong","w":"A clean API is what lets other teams (and agents) build on your system without asking you.","h":[["DeskOps","Around 590 endpoints, many designed MCP-ready from the start."],["Beacon (BMW NL)","Consumes the ServiceNow, Jira and Confluence REST APIs."]],"k":[]},{"i":"oauth2","t":"OAuth2 client credentials","g":"Engineering","s":3,"l":"Working","w":"Service-to-service authentication done properly removes shared passwords from the picture.","h":[["Beacon (BMW NL)","OAuth2 client-credentials flows between Beacon and the systems it connects."]],"k":[]},{"i":"sql-engines","t":"SQL across four engines","g":"Engineering","s":4,"l":"Strong","w":"The SQL is mostly the same; the differences between engines are where migrations go wrong.","h":[["DeskOps","MySQL 8."],["BMW NL","Oracle behind the REDS data warehouse; Snowflake as the Belgian target platform."]],"k":[]},{"i":"relational-design","t":"Relational design & indexing","g":"Engineering","s":4,"l":"Strong","w":"The data model outlives every screen built on top of it.","h":[["DeskOps","Over 300 tables and views, typed relationships, indexes chosen against real access patterns, and a double-entry ledger whose integrity is enforced in the database."]],"k":[]},{"i":"frontend","t":"JavaScript, HTML & CSS","g":"Engineering","s":3,"l":"Working","w":"The interface is where users decide whether the system is any good.","h":[["DeskOps","78 screens in vanilla JavaScript, including a hand-written canvas charting library and Kanban and Gantt views."],["Portfolio","This site."]],"k":[]},{"i":"docker","t":"Docker & Docker Compose","g":"Cloud & DevOps","s":4,"l":"Strong","w":"If it does not run the same on every machine, it is not done.","h":[["BMW NL","The knowledge platform runs as an eleven-container Docker Compose stack."],["DeskOps","Containerised, then moved from Compose to Kubernetes with declarative manifests, probes, resource limits and persistent volumes."]],"k":[]},{"i":"multi-container","t":"Multi-container stacks","g":"Cloud & DevOps","s":4,"l":"Strong","w":"Real systems are several services that have to start, find each other and fail gracefully together.","h":[["BMW NL / DeskOps","The eleven-service stack, now running on Kubernetes with liveness and readiness probes."]],"k":[]},{"i":"azure-entra","t":"Microsoft Azure & Entra ID","g":"Cloud & DevOps","s":3,"l":"Working","w":"Most enterprises I work with run identity through Entra ID, so integration starts there.","h":[["Haskoning","Single sign-on and automated provisioning at enterprise scale."],["DeskOps","An Azure-hosted edition is planned."]],"k":[]},{"i":"azure-datalake","t":"Azure Data Lake","g":"Cloud & DevOps","s":2,"l":"Supporting","w":"Where enterprise data lands before anyone decides what it means.","h":[],"k":[]},{"i":"aws","t":"AWS-hosted environments","g":"Cloud & DevOps","s":2,"l":"Supporting","w":"Migration planning needs to understand the target platform, even when another team will run it.","h":[["BMW NL","The Belgian target architecture for the REDS migration runs Snowflake, DBT and AWS Glue on AWS."]],"k":[]},{"i":"git-azdo","t":"Git & Azure DevOps","g":"Cloud & DevOps","s":4,"l":"Strong","w":"Version control is the audit trail for code. Without it, nobody can say what changed.","h":[["DeskOps","Every change in Git, in a private repository."]],"k":[]},{"i":"cicd","t":"CI/CD pipelines","g":"Cloud & DevOps","s":2,"l":"Supporting","w":"Automating the path to production makes small, frequent releases cheaper than big risky ones.","h":[],"k":[]},{"i":"win-linux","t":"Windows & Linux","g":"Cloud & DevOps","s":3,"l":"Working","w":"Enterprise estates are mixed, so operations has to be comfortable on both.","h":[["DeskOps","Developed on Windows (WAMP), with a Linux and Docker port for hosting."],["Lab","Windows Server 2025 Server Core domain controller."]],"k":[]},{"i":"sso-scim","t":"Single sign-on & SCIM","g":"Cloud & DevOps","s":4,"l":"Strong","w":"Joiner, mover and leaver handled automatically is one of the cheapest security wins there is.","h":[["Haskoning","Implemented single sign-on and automated provisioning at enterprise scale."]],"k":[]},{"i":"winserver-adds","t":"Windows Server & AD DS","g":"Cloud & DevOps","s":3,"l":"Working","w":"Building the directory yourself is the fastest way to understand how others depend on it.","h":[["Lab","Built a Windows Server 2025 Server Core domain controller with AD DS, AD CS and LDAPS to test the DeskOps directory connector."]],"k":[]},{"i":"vmware-labs","t":"VMware Workstation labs","g":"Cloud & DevOps","s":2,"l":"Supporting","w":"A lab you can snapshot and break is where you learn what production cannot let you try.","h":[["Lab","The domain lab runs in VMware Workstation Pro. vSphere discovery into the DeskOps CMDB is planned."]],"k":[]},{"i":"data-vault","t":"Data Vault 2.0","g":"Data, Applications & Delivery","s":4,"l":"Strong","w":"It separates what happened from how the business wants to see it, which is what makes a warehouse auditable.","h":[["BMW NL","REDS, the Dutch data warehouse, is built on Data Vault 2.0 on Oracle. Planned its migration across two country organisations."]],"k":[]},{"i":"informatica","t":"Informatica PowerCenter","g":"Data, Applications & Delivery","s":3,"l":"Working","w":"Legacy ETL is where most migration effort hides.","h":[["BMW NL","REDS loads run on Informatica PowerCenter; estimated the migration effort object by object."]],"k":[]},{"i":"snowflake-dbt","t":"Snowflake, DBT & AWS Glue","g":"Data, Applications & Delivery","s":3,"l":"Working","w":"The modern stack makes transformations testable and versioned, which the old one never was.","h":[["BMW NL","The Belgian single-step target architecture. One migration route translated REDS onto it; the other lifted and shifted the Dutch architecture. Both estimated object by object."]],"k":[]},{"i":"powerbi","t":"Power BI & Power Query","g":"Data, Applications & Delivery","s":4,"l":"Strong","w":"A good dashboard answers the question before the meeting starts.","h":[["LionRock Maritime","Power BI consultant (2022), freelance."],["Internship (Antenna Company)","An IBCS-standard dashboard on Dynamics NAV data."],["BMW NL / Haskoning","Process mining and data analysis on ERP and warehouse data."]],"k":[]},{"i":"alteryx","t":"Alteryx pipelines","g":"Data, Applications & Delivery","s":2,"l":"Supporting","w":"Visual data prep lets analysts automate what they would otherwise redo by hand every month.","h":[],"k":[]},{"i":"unit4-d365","t":"Unit4 ERP & Dynamics 365","g":"Data, Applications & Delivery","s":4,"l":"Strong","w":"ERP is where finance, projects and people meet. Owning one teaches you the whole business.","h":[["Haskoning","Functional owner and single point of contact for the Unit4 ERP estate. Hands-on with Dynamics (CRM side) and Power Automate."],["Education (Berlin)","Ran a Dynamics environment and marketing analytics in student work."],["DeskOps","Includes its own ERP module with a double-entry general ledger."]],"k":[]},{"i":"requirements","t":"Requirements & specification","g":"Data, Applications & Delivery","s":5,"l":"Core","w":"Most failed projects built the wrong thing well. Getting the requirement right is the cheapest fix there is.","h":[["BMW NL","Applications onboarded only once functional and operational requirements are agreed against enterprise architecture standards."],["Internship (Antenna Company)","Requirements analysis for Dynamics NAV across six stakeholder groups."],["DeskOps","Every one of over 1,400 improvements specified before it was built."]],"k":[]},{"i":"agile-wsjf","t":"Agile, Scrum & WSJF","g":"Data, Applications & Delivery","s":4,"l":"Strong","w":"Prioritisation is the real product decision. WSJF makes the reasoning visible.","h":[["DeskOps","A roadmap of over 1,400 numbered improvements, prioritised with WSJF and RICE."],["Internship (OCS Consulting)","Built the web application in time-boxed Agile stages."],["BMW NL","Iterative delivery of the IDE rewrite with IBM."]],"k":[]},{"i":"object-estimation","t":"Object-based estimation","g":"Data, Applications & Delivery","s":4,"l":"Strong","w":"Estimating each object separately turns a guess into a number someone can challenge line by line.","h":[["BMW NL","Estimated the REDS migration object by object at 618 man-days, for both migration routes, and assessed a combined approach."]],"k":[]}];
+
+	var byId = {};
+	for (var i = 0; i < DATA.length; i++) { byId[DATA[i].i] = DATA[i]; }
+
+	var ov    = document.getElementById('aoi-ov');
+	var elGrp = document.getElementById('aoi-grp');
+	var elTrm = document.getElementById('aoi-term');
+	var elDot = document.getElementById('aoi-dots');
+	var elLab = document.getElementById('aoi-lab');
+	var elWhy = document.getElementById('aoi-why');
+	var elWhr = document.getElementById('aoi-where');
+	var elLnk = document.getElementById('aoi-links');
+	var elCpy = document.getElementById('aoi-copy');
+	if (!ov || !elTrm) { return; }
+
+	var openId = null;
+
+	function esc(s) {
+		return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+	}
+
+	function paint(d) {
+		elGrp.textContent = d.g;
+		elTrm.textContent = d.t;
+
+		var dots = '';
+		for (var n = 1; n <= 5; n++) { dots += '<i class="' + (n <= d.s ? 'on' : '') + '"></i>'; }
+		elDot.innerHTML = dots;
+		elLab.textContent = d.l + ' · ' + d.s + ' of 5';
+
+		elWhy.textContent = d.w;
+
+		if (d.h && d.h.length) {
+			var rows = '';
+			for (var k = 0; k < d.h.length; k++) {
+				rows += '<dt>' + esc(d.h[k][0]) + '</dt><dd>' + esc(d.h[k][1]) + '</dd>';
+			}
+			elWhr.innerHTML = '<dl class="aoi-w">' + rows + '</dl>';
+		} else {
+			elWhr.innerHTML = '';
+		}
+
+		if (d.k && d.k.length) {
+			var links = '';
+			for (var j = 0; j < d.k.length; j++) {
+				var ext = /^https?:/.test(d.k[j][1]);
+				links += '<a href="' + esc(d.k[j][1]) + '"' +
+				         (ext ? ' target="_blank" rel="noopener"' : '') + '>' + esc(d.k[j][0]) + '</a>';
+			}
+			elLnk.innerHTML = links;
+		} else {
+			elLnk.innerHTML = '';
+		}
+	}
+
+	function mark(id) {
+		var all = document.querySelectorAll('#skills .aoi-t');
+		for (var i = 0; i < all.length; i++) {
+			all[i].classList.toggle('is-open', all[i].dataset.id === id);
+		}
+	}
+
+	function open(id, fromHistory) {
+		var d = byId[id];
+		if (!d) { return false; }
+		paint(d);
+		ov.hidden = false;
+		openId = id;
+		mark(id);
+		if (!fromHistory) {
+			try { history.pushState({ aoi: id }, '', '#i-' + id); } catch (e) {}
+		}
+		return true;
+	}
+
+	function close(fromHistory) {
+		if (ov.hidden) { return; }
+		ov.hidden = true;
+		openId = null;
+		mark(null);
+		if (!fromHistory) {
+			try { history.pushState({ aoi: null }, '', location.pathname + location.search); } catch (e) {}
+		}
+	}
+
+	document.addEventListener('click', function (e) {
+		var btn = e.target.closest ? e.target.closest('#skills .aoi-t') : null;
+		if (!btn) { return; }
+		e.preventDefault();
+		// Clicking the term that is already open closes it.
+		if (openId === btn.dataset.id) { close(false); } else { open(btn.dataset.id, false); }
+	});
+
+	document.getElementById('aoi-x').addEventListener('click', function () { close(false); });
+	ov.addEventListener('click', function (e) { if (e.target === ov) { close(false); } });
+	document.addEventListener('keydown', function (e) {
+		if (e.key === 'Escape' && !ov.hidden) { close(false); }
+	});
+
+	elCpy.addEventListener('click', function () {
+		if (!openId) { return; }
+		var url = location.origin + location.pathname + '#i-' + openId;
+		var done = function () {
+			elCpy.textContent = 'Link copied';
+			elCpy.classList.add('done');
+			setTimeout(function () { elCpy.textContent = 'Copy link'; elCpy.classList.remove('done'); }, 1800);
+		};
+		if (navigator.clipboard && navigator.clipboard.writeText) {
+			navigator.clipboard.writeText(url).then(done, function () { window.prompt('Copy this link', url); });
+		} else {
+			window.prompt('Copy this link', url);
+		}
+	});
+
+	function applyHash() {
+		var m = /^#i-([a-z0-9-]+)$/.exec(location.hash || '');
+		if (m && byId[m[1]]) { open(m[1], true); } else { close(true); }
+	}
+	window.addEventListener('popstate', applyHash);
+	applyHash();
+})();
+</script>
 </body>
 </html>
