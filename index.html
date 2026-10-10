@@ -928,18 +928,21 @@ The core values that I believe in are sincerity, creativity, showing initiative 
 <br>
 
 <style>
-  /* Areas of Interest: a technical schematic carrying editorial type.
+  /* Areas of Interest: the schematic's structure carrying editorial type, on
+     the page's own white ground.
 
-     The schematic supplies the ground: deep ink, a faint engineering grid,
-     hairline rules, monospace for the numbers and the scores. The editorial
-     side supplies the type: large numerals, generous sizing, and terms as
-     running text separated by slashes rather than packed into pills.
+     The schematic supplies the bones: a faint surveyor's grid, hairline rules
+     between rows, monospace for the context tags and the score. The editorial
+     side supplies the type: large numerals drawn by a counter, generous
+     sizing, and terms as running text separated by slashes rather than packed
+     into pills.
 
-     Every term is a button. Clicking one opens its note and puts #i-<id> in
-     the address bar, so a single interest can be linked to directly. */
+     Every term is a button. Opening one writes #i-<id> to the address bar, so
+     a single interest can be linked to directly. */
   #skills {
     display: block;
-    background: #0a2a3d;
+    background: #ffffff;
+    border: 1px solid #e3e9f0;
     border-radius: 12px;
     padding: 0;
     overflow: hidden;
@@ -952,8 +955,8 @@ The core values that I believe in are sincerity, creativity, showing initiative 
     position: absolute;
     inset: 0;
     background-image:
-      linear-gradient(rgba(214,234,248,.055) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(214,234,248,.055) 1px, transparent 1px);
+      linear-gradient(rgba(26,82,118,.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(26,82,118,.045) 1px, transparent 1px);
     background-size: 38px 38px;
     pointer-events: none;
   }
@@ -965,14 +968,15 @@ The core values that I believe in are sincerity, creativity, showing initiative 
     grid-template-columns: 86px 236px minmax(0, 1fr);
     grid-template-rows: auto 1fr;
     column-gap: 24px;
-    border-top: 1px solid rgba(214,234,248,.12);
+    border-top: 1px solid #eaeff5;
     margin: 0;
     padding: 20px 28px 20px 26px;
     background: transparent;
+    transition: background .18s ease;
   }
   #skills .aoi:first-child { border-top: 0; }
+  #skills .aoi:hover { background: #fbfdff; }
 
-  /* Editorial numeral, drawn by a counter so reordering renumbers. */
   #skills .aoi::after {
     content: counter(aoi, decimal-leading-zero);
     grid-area: 1 / 1 / 3 / 2;
@@ -980,7 +984,7 @@ The core values that I believe in are sincerity, creativity, showing initiative 
     font-size: 42px;
     line-height: .82;
     letter-spacing: -.035em;
-    color: rgba(111,195,240,.34);
+    color: #dfe9f2;
   }
 
   #skills .aoi h6 {
@@ -990,7 +994,7 @@ The core values that I believe in are sincerity, creativity, showing initiative 
     font-family: 'Bahnschrift', sans-serif;
     font-size: 16px;
     font-weight: 700;
-    color: #ffffff;
+    color: #0d3349;
     letter-spacing: -.01em;
     text-transform: none;
     line-height: 1.25;
@@ -1001,7 +1005,7 @@ The core values that I believe in are sincerity, creativity, showing initiative 
     margin: 0;
     font-family: 'Bahnschrift Light', sans-serif;
     font-size: 12px;
-    color: rgba(214,234,248,.52);
+    color: #8a99ab;
     line-height: 1.6;
   }
 
@@ -1016,7 +1020,7 @@ The core values that I believe in are sincerity, creativity, showing initiative 
   /* A non-breaking space glues the slash to the end of its own term, so a
      separator can never begin a line. The trailing space still allows a
      break after it. */
-  #skills .aoi li::after { content: '\00A0 / '; color: rgba(214,234,248,.26); }
+  #skills .aoi li::after { content: '\00A0 / '; color: #cfdae5; }
   #skills .aoi li:last-child::after { content: ''; }
 
   /* The term itself is the button. It stays text: no pill, no box. */
@@ -1029,14 +1033,14 @@ The core values that I believe in are sincerity, creativity, showing initiative 
     font-family: 'Bahnschrift Light', sans-serif;
     font-size: 13px;
     line-height: 2.05;
-    color: rgba(226,239,248,.86);
+    color: #44566b;
     cursor: pointer;
     border-bottom: 1px solid transparent;
     transition: color .15s ease, border-color .15s ease;
   }
   #skills .aoi .aoi-t:hover,
-  #skills .aoi .aoi-t:focus-visible { color: #6fc3f0; border-bottom-color: #6fc3f0; outline: none; }
-  #skills .aoi .aoi-t.is-open { color: #6fc3f0; border-bottom-color: #6fc3f0; }
+  #skills .aoi .aoi-t:focus-visible { color: #2e86c1; border-bottom-color: #2e86c1; outline: none; }
+  #skills .aoi .aoi-t.is-open { color: #2e86c1; border-bottom-color: #2e86c1; }
 
   /* One dot per term, its weight carrying the score. */
   #skills .aoi .aoi-s {
@@ -1045,105 +1049,111 @@ The core values that I believe in are sincerity, creativity, showing initiative 
     border-radius: 50%;
     margin-right: 7px;
     vertical-align: 1px;
-    background: #6fc3f0;
+    background: #2e86c1;
   }
-  #skills .aoi .aoi-s[data-s="1"] { opacity: .22; }
-  #skills .aoi .aoi-s[data-s="2"] { opacity: .38; }
-  #skills .aoi .aoi-s[data-s="3"] { opacity: .56; }
-  #skills .aoi .aoi-s[data-s="4"] { opacity: .78; }
-  #skills .aoi .aoi-s[data-s="5"] { opacity: 1; box-shadow: 0 0 6px rgba(111,195,240,.7); }
+  #skills .aoi .aoi-s[data-s="1"] { opacity: .2; }
+  #skills .aoi .aoi-s[data-s="2"] { opacity: .36; }
+  #skills .aoi .aoi-s[data-s="3"] { opacity: .54; }
+  #skills .aoi .aoi-s[data-s="4"] { opacity: .76; }
+  #skills .aoi .aoi-s[data-s="5"] { opacity: 1; }
 
   #skills .aoi-foot {
     position: relative;
     font-family: 'Bahnschrift Light', sans-serif;
     font-size: 11.5px;
-    color: rgba(214,234,248,.44);
+    color: #94a3b4;
     line-height: 1.6;
     margin: 0;
     padding: 15px 28px 18px 26px;
-    border-top: 1px solid rgba(214,234,248,.12);
+    border-top: 1px solid #eaeff5;
   }
 
   /* ── the note ──────────────────────────────────────────────────────── */
   .aoi-ov {
     position: fixed; inset: 0; z-index: 950;
-    background: rgba(6,24,36,.6);
+    background: rgba(13,51,73,.34);
     display: flex; align-items: center; justify-content: center;
     padding: 24px;
   }
   .aoi-ov[hidden] { display: none; }
   .aoi-bx {
-    background: #0e3348;
-    border: 1px solid rgba(214,234,248,.18);
+    background: #ffffff;
+    border: 1px solid #e3e9f0;
     border-radius: 12px;
     width: 100%; max-width: 540px;
     max-height: 86vh;
     display: flex; flex-direction: column;
-    box-shadow: 0 26px 70px rgba(4,18,28,.6);
+    box-shadow: 0 26px 70px rgba(13,51,73,.26);
   }
   .aoi-bh {
-    display: flex; align-items: flex-start; gap: 14px;
-    padding: 18px 20px 12px;
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 18px 18px 12px 20px;
   }
+  .aoi-bh > div:first-child { flex: 1; min-width: 0; }
   .aoi-grp {
     display: block;
     font-family: 'Bahnschrift Light', sans-serif;
     font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
-    color: #6fc3f0; margin-bottom: 5px;
+    color: #2e86c1; margin-bottom: 5px;
   }
   .aoi-bh h5 {
     margin: 0; font-family: 'Bahnschrift', sans-serif;
-    font-size: 17px; color: #fff; line-height: 1.25; letter-spacing: -.01em;
+    font-size: 17px; color: #0d3349; line-height: 1.25; letter-spacing: -.01em;
   }
+
+  /* The mark doubles as the copy-link control, beside the close button. */
+  .aoi-copy {
+    flex: none;
+    background: none; border: 1px solid transparent; border-radius: 8px;
+    padding: 2px; cursor: pointer; line-height: 0;
+    transition: border-color .18s ease, background .18s ease;
+  }
+  .aoi-copy img { width: 34px; height: 34px; display: block; opacity: .72; transition: opacity .18s ease; }
+  .aoi-copy:hover img, .aoi-copy:focus-visible img { opacity: 1; }
+  .aoi-copy:hover, .aoi-copy:focus-visible { border-color: #cfe0ee; background: #f4f9fd; outline: none; }
+  .aoi-copy.done { border-color: #2e86c1; background: #eef6fc; }
+  .aoi-copy.done img { opacity: 1; }
+
   .aoi-x {
-    margin-left: auto; background: none; border: 0; cursor: pointer;
-    font-size: 22px; line-height: 1; color: rgba(214,234,248,.5); padding: 0 2px;
+    flex: none;
+    background: none; border: 0; cursor: pointer;
+    font-size: 22px; line-height: 1; color: #9db0c2; padding: 2px 2px 0;
   }
-  .aoi-x:hover { color: #fff; }
+  .aoi-x:hover { color: #0d3349; }
 
   .aoi-score { display: flex; align-items: center; gap: 10px; padding: 0 20px 14px; }
   .aoi-dots { display: inline-flex; gap: 4px; }
-  .aoi-dots i { width: 7px; height: 7px; border-radius: 50%; background: rgba(214,234,248,.2); display: block; }
-  .aoi-dots i.on { background: #6fc3f0; }
+  .aoi-dots i { width: 7px; height: 7px; border-radius: 50%; background: #dbe5ee; display: block; }
+  .aoi-dots i.on { background: #2e86c1; }
   .aoi-lab {
     font-family: 'Consolas','Cascadia Mono',ui-monospace,monospace;
-    font-size: 11px; letter-spacing: .06em; color: #9fd8f5;
+    font-size: 11px; letter-spacing: .06em; color: #5b7a93;
   }
 
-  .aoi-bb { padding: 0 20px 4px; overflow-y: auto; }
+  .aoi-bb { padding: 0 20px 18px; overflow-y: auto; }
   .aoi-why {
     margin: 0 0 14px;
     font-family: 'Bahnschrift Light', sans-serif;
-    font-size: 13px; line-height: 1.7; color: rgba(226,239,248,.88);
+    font-size: 13px; line-height: 1.7; color: #3b4e62;
   }
   .aoi-w { display: grid; grid-template-columns: auto minmax(0,1fr); gap: 4px 12px; margin-bottom: 14px; }
   .aoi-w dt {
     font-family: 'Consolas','Cascadia Mono',ui-monospace,monospace;
-    font-size: 10.5px; letter-spacing: .04em; color: #6fc3f0;
+    font-size: 10.5px; letter-spacing: .04em; color: #2e86c1;
     white-space: nowrap; padding-top: 3px;
   }
   .aoi-w dd {
     margin: 0;
     font-family: 'Bahnschrift Light', sans-serif;
-    font-size: 12.5px; line-height: 1.6; color: rgba(214,234,248,.76);
+    font-size: 12.5px; line-height: 1.6; color: #5b6b7d;
   }
-  .aoi-links { display: flex; flex-wrap: wrap; gap: 8px; padding-bottom: 6px; }
+  .aoi-links { display: flex; flex-wrap: wrap; gap: 8px; }
   .aoi-links a {
     font-family: 'Bahnschrift Light', sans-serif;
-    font-size: 11.5px; color: #9fd8f5; text-decoration: none;
-    border: 1px solid rgba(111,195,240,.34); border-radius: 16px; padding: 4px 11px;
+    font-size: 11.5px; color: #1a5276; text-decoration: none;
+    border: 1px solid #cfe0ee; border-radius: 16px; padding: 4px 11px;
   }
-  .aoi-links a:hover { border-color: #6fc3f0; color: #fff; }
-
-  .aoi-bf { padding: 12px 20px 16px; border-top: 1px solid rgba(214,234,248,.12); }
-  .aoi-copy {
-    font-family: 'Bahnschrift Light', sans-serif;
-    font-size: 11px; letter-spacing: .05em;
-    color: rgba(214,234,248,.66); background: none;
-    border: 1px solid rgba(214,234,248,.22); border-radius: 16px;
-    padding: 5px 12px; cursor: pointer;
-  }
-  .aoi-copy:hover, .aoi-copy.done { color: #6fc3f0; border-color: #6fc3f0; }
+  .aoi-links a:hover { border-color: #2e86c1; color: #2e86c1; }
 
   @media (max-width: 880px) {
     #skills .aoi { grid-template-columns: minmax(0,1fr); padding: 18px 18px; }
@@ -1769,6 +1779,7 @@ window.addEventListener("load", function(){
         <span class="aoi-grp" id="aoi-grp"></span>
         <h5 id="aoi-term"></h5>
       </div>
+      <button type="button" class="aoi-copy" id="aoi-copy" title="Copy a link to this interest" aria-label="Copy a link to this interest"><img src="images/tH.png" alt=""></button>
       <button type="button" class="aoi-x" id="aoi-x" aria-label="Close">&times;</button>
     </div>
     <div class="aoi-score"><span class="aoi-dots" id="aoi-dots"></span><span class="aoi-lab" id="aoi-lab"></span></div>
@@ -1777,8 +1788,7 @@ window.addEventListener("load", function(){
       <div id="aoi-where"></div>
       <div class="aoi-links" id="aoi-links"></div>
     </div>
-    <div class="aoi-bf"><button type="button" class="aoi-copy" id="aoi-copy">Copy link</button></div>
-  </div>
+    </div>
 </div>
 <script>
 /* Areas of Interest: the note behind each term.
@@ -1891,10 +1901,15 @@ window.addEventListener("load", function(){
 	elCpy.addEventListener('click', function () {
 		if (!openId) { return; }
 		var url = location.origin + location.pathname + '#i-' + openId;
+		// The control is the mark itself, so the acknowledgement is a state
+		// on the button and its tooltip, not replacement text.
 		var done = function () {
-			elCpy.textContent = 'Link copied';
 			elCpy.classList.add('done');
-			setTimeout(function () { elCpy.textContent = 'Copy link'; elCpy.classList.remove('done'); }, 1800);
+			elCpy.title = 'Link copied';
+			setTimeout(function () {
+				elCpy.classList.remove('done');
+				elCpy.title = 'Copy a link to this interest';
+			}, 1800);
 		};
 		if (navigator.clipboard && navigator.clipboard.writeText) {
 			navigator.clipboard.writeText(url).then(done, function () { window.prompt('Copy this link', url); });
