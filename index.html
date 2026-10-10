@@ -1102,17 +1102,22 @@ The core values that I believe in are sincerity, creativity, showing initiative 
   }
 
   /* The mark doubles as the copy-link control, beside the close button. */
+  /* Copy the address of whichever note is open. A chain link, which is what
+     the action is, sitting beside the close button. */
   .aoi-copy {
     flex: none;
-    background: none; border: 1px solid transparent; border-radius: 8px;
-    padding: 2px; cursor: pointer; line-height: 0;
-    transition: border-color .18s ease, background .18s ease;
+    width: 28px; height: 28px;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: none; border: 1px solid transparent; border-radius: 7px;
+    cursor: pointer; padding: 0;
+    transition: border-color .18s ease, background .18s ease, color .18s ease;
+    color: #9db0c2;
   }
-  .aoi-copy img { width: 34px; height: 34px; display: block; opacity: .72; transition: opacity .18s ease; }
-  .aoi-copy:hover img, .aoi-copy:focus-visible img { opacity: 1; }
-  .aoi-copy:hover, .aoi-copy:focus-visible { border-color: #cfe0ee; background: #f4f9fd; outline: none; }
-  .aoi-copy.done { border-color: #2e86c1; background: #eef6fc; }
-  .aoi-copy.done img { opacity: 1; }
+  .aoi-copy .fa { font-size: 13px; line-height: 1; }
+  .aoi-copy:hover, .aoi-copy:focus-visible {
+    color: #2e86c1; border-color: #cfe0ee; background: #f4f9fd; outline: none;
+  }
+  .aoi-copy.done { color: #2e86c1; border-color: #2e86c1; background: #eef6fc; }
 
   .aoi-x {
     flex: none;
@@ -1779,7 +1784,7 @@ window.addEventListener("load", function(){
         <span class="aoi-grp" id="aoi-grp"></span>
         <h5 id="aoi-term"></h5>
       </div>
-      <button type="button" class="aoi-copy" id="aoi-copy" title="Copy a link to this interest" aria-label="Copy a link to this interest"><img src="images/tH.png" alt=""></button>
+      <button type="button" class="aoi-copy" id="aoi-copy" title="Copy a link to this interest" aria-label="Copy a link to this interest"><i class="fa fa-link" aria-hidden="true"></i></button>
       <button type="button" class="aoi-x" id="aoi-x" aria-label="Close">&times;</button>
     </div>
     <div class="aoi-score"><span class="aoi-dots" id="aoi-dots"></span><span class="aoi-lab" id="aoi-lab"></span></div>
@@ -1904,11 +1909,14 @@ window.addEventListener("load", function(){
 		// The control is the mark itself, so the acknowledgement is a state
 		// on the button and its tooltip, not replacement text.
 		var done = function () {
+			var ico = elCpy.querySelector('.fa');
 			elCpy.classList.add('done');
 			elCpy.title = 'Link copied';
+			if (ico) { ico.className = 'fa fa-check'; }
 			setTimeout(function () {
 				elCpy.classList.remove('done');
 				elCpy.title = 'Copy a link to this interest';
+				if (ico) { ico.className = 'fa fa-link'; }
 			}, 1800);
 		};
 		if (navigator.clipboard && navigator.clipboard.writeText) {
