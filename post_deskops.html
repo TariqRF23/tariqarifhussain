@@ -2314,6 +2314,7 @@
 /* Every capture is a 16:9 viewport shot, so the frame holds that ratio and a
    mis-sized file letterboxes instead of changing the rhythm of the page. */
 #finance-tour figure.fx-shot .fx-frame, #deskops-cases figure.fx-shot .fx-frame, #reader-body .fx-frame { aspect-ratio: 16 / 9; background: #e9eaec; }
+figure.fx-shot picture { display: block; width: 100%; height: 100%; }
 #finance-tour figure.fx-shot img, #deskops-cases figure.fx-shot img, #reader-body figure.fx-shot img { display: block; width: 100%; height: 100%; object-fit: contain; }
 #finance-tour figure.fx-shot figcaption, #deskops-cases figure.fx-shot figcaption, #reader-body figure.fx-shot figcaption {
 	display: flex; gap: 10px; align-items: flex-start; padding: 13px 16px;
@@ -2400,6 +2401,7 @@
 /* The tile keeps the same 16:9 as the captures, so the grid stays even
    whether or not a given card has an image behind it yet. */
 #deskops-cases .fx-card-img { aspect-ratio: 16 / 9; background: #e9eaec; overflow: hidden; }
+#deskops-cases .fx-card-img picture { display: block; width: 100%; height: 100%; }
 #deskops-cases .fx-card-img img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top left; }
 #deskops-cases .fx-card-body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 7px; flex: 1; }
 #deskops-cases .fx-card-body .fx-cs-tag { margin: 0; align-self: flex-start; }
@@ -2439,6 +2441,7 @@
 .fx-modal-body li { margin-bottom: 7px; }
 .fx-modal-body figure.fx-shot { margin: 20px 0 22px; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: none; }
 .fx-modal-body .fx-frame { aspect-ratio: 16 / 9; background: #e9eaec; }
+.fx-modal-body figure.fx-shot picture { display: block; width: 100%; height: 100%; }
 .fx-modal-body figure.fx-shot img { display: block; width: 100%; height: 100%; object-fit: contain; }
 .fx-modal-body figure.fx-shot figcaption {
 	display: flex; gap: 10px; align-items: flex-start; padding: 12px 15px;
@@ -2450,6 +2453,16 @@
 .fx-modal-body table.fx-nums th, .fx-modal-body table.fx-nums td { text-align: left; padding: 8px 11px; border-bottom: 1px solid var(--border); }
 .fx-modal-body table.fx-nums th { color: var(--blue-ink); font-family: var(--font-main); font-size: 12.5px; }
 .fx-modal-body table.fx-nums td.n { text-align: right; font-variant-numeric: tabular-nums; }
+
+#deskops-cases .fx-chips { list-style: none; margin: 22px 0 14px; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+#deskops-cases .fx-chips li {
+	font-family: var(--font-label); font-size: 12.5px; color: var(--blue-deep);
+	border: 1px solid var(--border); background: var(--white);
+	border-radius: 999px; padding: 6px 14px;
+}
+#deskops-cases .fx-provenance { font-family: var(--font-label); font-size: 13px; color: var(--text-muted); margin: 0 0 4px; }
+#reader-body .fx-tour-head { margin-top: 34px; }
+#reader-body .fx-tour-lede { color: var(--text-muted); }
 
 body.fx-locked { overflow: hidden; }
 
@@ -3959,6 +3972,17 @@ body.fx-locked { overflow: hidden; }
 			capability beside them, and a closing statement of what none of it
 			claims. Each card opens the full study.
 		</p>
+		<ul class="fx-chips">
+			<li>Double-entry general ledger</li>
+			<li>Period close and audit trail</li>
+			<li>Bank reconciliation</li>
+			<li>Budget versus actual</li>
+			<li>Local OCR and document intelligence</li>
+			<li>Workflow automation</li>
+			<li>Reporting and dashboards</li>
+			<li>Segregation of duties</li>
+		</ul>
+		<p class="fx-provenance">DeskOps is an independent build, developed with AI coding agents under my own design, specification and review. Every screen shows demonstration data.</p>
 		<div class="fx-grid" id="fx-grid"></div>
 	</div>
 </section>
@@ -4863,7 +4887,8 @@ body.fx-locked { overflow: hidden; }
 	<p>The financial module is not a reporting veneer. Every invoice and every expense posts balanced journal entries against a real Chart of Accounts, so the trial balance is not a hopeful summary but an arithmetic identity. When a document changes state, the ledger follows automatically; no one reconciles by hand what the system can reconcile by construction.</p>
 	<p>Discipline shows most clearly at the edges. A quote, however confident, posts nothing to the ledger until it is accepted, because a promise is not a transaction. A retainer is not treated as revenue smuggled in early; it stands as client credit, a liability that diminishes only as work is actually billed. And because a single pipeline underlies every document type, an invoice, a quote and a credit note cannot develop divergent behaviours: they are one mechanism wearing three faces.</p>
 	<p>Above the ledger sit budgets tracked against actuals in real time, drawn as gauges and series by the application's own chart engine. The intent is that a manager should apprehend the financial position the way a pilot reads instruments: at a glance, and with reason to believe the needle.</p>
-	<p>What follows is the module itself, screen by screen, captured against live data.</p>
+	<h3 class="fx-tour-head">The finance tour</h3>
+	<p class="fx-tour-lede">What the paragraphs above claim, shown screen by screen against live data. Every figure is numbered and carries its own link, so a single screen can be cited on its own. All twenty-five captures are 16:9, taken from the running application, and none of them is a mock-up.</p>
 	<div id="dd-money-tour"></div>
 </template>
 
@@ -6121,7 +6146,20 @@ body.fx-locked { overflow: hidden; }
 // means every figure gets its anchor, its caption and its copy control on the
 // same terms, and a caption can be corrected in one place.
 var FX_V = '?v=1';
-var SHOT  = function (f) { return 'images/deskops/finance/' + f + '.jpg' + FX_V; };
+var SHOT  = function (f, sub) {
+	var base = 'images/deskops/finance/' + (sub ? sub + '/' : '') + f;
+	return { webp: base + '.webp' + FX_V, png: base + '.png' + FX_V };
+};
+// Both sources are lossless. A picture element lets the browser take the
+// smaller one without the page having to guess what it supports.
+var PICTURE = function (f, sub, alt, cls) {
+	var src = SHOT(f, sub);
+	return '<picture>'
+	     +   '<source type="image/webp" srcset="' + src.webp + '">'
+	     +   '<img loading="lazy"' + (cls ? ' class="' + cls + '"' : '')
+	     +     ' alt="' + alt.replace(/"/g, '&quot;') + '" src="' + src.png + '">'
+	     + '</picture>';
+};
 
 var FIGS = {
 	'accounts':      ['fin-accounts',      'Chart of accounts: forty-one accounts by type and category, each carrying its balance.'],
@@ -6162,7 +6200,7 @@ function fig(key) {
 	figSeen[key] = (figSeen[key] || 0) + 1;
 	var id = 'fig-' + key + (figSeen[key] > 1 ? '-' + figSeen[key] : '');
 	return '<figure class="fx-shot" id="' + id + '">'
-	     +   '<div class="fx-frame"><img loading="lazy" alt="' + f[1].replace(/"/g, '&quot;') + '" src="' + SHOT(f[0]) + '"></div>'
+	     +   '<div class="fx-frame">' + PICTURE(f[0], '', f[1]) + '</div>'
 	     +   '<figcaption>'
 	     +     '<span class="cap"><b>Figure ' + figNum[key] + '.</b> ' + f[1] + '</span>'
 	     +     '<button class="fx-link" data-anchor="fig-' + key + '" title="Copy a link to this figure" aria-label="Copy a link to this figure"><i class="fa fa-link"></i></button>'
@@ -6436,7 +6474,7 @@ var CASES = [
 	var grid = '';
 	CASES.forEach(function (c) {
 		var tile = c[4]
-			? '<div class="fx-card-img"><img loading="lazy" alt="" src="images/deskops/finance/thumb/' + c[4] + '.jpg' + FX_V + '"></div>'
+			? '<div class="fx-card-img">' + PICTURE(c[4], 'thumb', '') + '</div>'
 			: '';
 		grid += '<button type="button" class="fx-card' + (c[4] ? '' : ' is-note') + '" data-case="' + c[0] + '">'
 		     +    tile
