@@ -2464,6 +2464,82 @@ figure.fx-shot picture { display: block; width: 100%; height: 100%; }
 #reader-body .fx-tour-head { margin-top: 34px; }
 #reader-body .fx-tour-lede { color: var(--text-muted); }
 
+/* ─── The finance tour, as a two pane reader ──────────────────────────────
+   Only while the Chapter 02 tour is the thing on screen. The reader is shared
+   with the other deep dives, which are prose and want to stay narrow, so every
+   rule here hangs off a body class that is set and cleared by watching what
+   the reader is actually showing. */
+body.fx-tourmode .reader { max-width: 1180px; height: 88vh; }
+body.fx-tourmode .reader-body { overflow: hidden; padding: 0; display: flex; min-height: 0; }
+
+.fx-tour { flex: 1; display: grid; grid-template-columns: 268px minmax(0, 1fr); min-height: 0; }
+
+.fx-tour-lane {
+	border-right: 1px solid var(--border); background: var(--grey-soft);
+	overflow-y: auto; padding: 16px 0 20px;
+}
+.fx-tour-lane::-webkit-scrollbar { width: 10px; }
+.fx-tour-lane::-webkit-scrollbar-track { background: transparent; }
+.fx-tour-lane::-webkit-scrollbar-thumb {
+	background: var(--accent); border-radius: 999px;
+	border: 2px solid transparent; background-clip: padding-box; min-height: 40px;
+}
+.fx-lane-head {
+	font-family: var(--font-label); font-size: 10.5px; letter-spacing: .18em;
+	text-transform: uppercase; color: var(--text-muted); padding: 4px 18px 10px;
+}
+.fx-lane-sec, .fx-lane-fig {
+	display: block; width: 100%; text-align: left; border: 0; background: none;
+	cursor: pointer; font: inherit; color: var(--text-body);
+	border-left: 3px solid transparent;
+}
+.fx-lane-sec {
+	font-family: var(--font-main); font-size: 13.5px; padding: 9px 18px 9px 15px;
+	color: var(--blue-ink);
+}
+.fx-lane-fig {
+	font-family: var(--font-label); font-size: 12.5px; color: var(--text-muted);
+	padding: 5px 18px 5px 34px; line-height: 1.45;
+}
+.fx-lane-sec:hover, .fx-lane-fig:hover { background: #e8eef5; }
+.fx-lane-sec.is-on { background: var(--accent-soft); border-left-color: var(--accent); color: var(--blue-deep); }
+.fx-lane-fig.is-on { color: var(--accent); }
+.fx-lane-n { color: var(--text-muted); font-size: 11px; margin-right: 6px; font-family: var(--font-label); }
+
+.fx-tour-right { display: flex; flex-direction: column; min-height: 0; }
+.fx-tour-pane { overflow-y: auto; padding: 22px 26px 28px; flex: 1; min-height: 0; }
+.fx-tour-pane::-webkit-scrollbar { width: 10px; }
+.fx-tour-pane::-webkit-scrollbar-track { background: transparent; }
+.fx-tour-pane::-webkit-scrollbar-thumb {
+	background: var(--accent); border-radius: 999px;
+	border: 2px solid transparent; background-clip: padding-box; min-height: 40px;
+}
+.fx-tour-sec { display: none; }
+.fx-tour-sec.is-on { display: block; }
+.fx-tour-sec > h3 { margin-top: 0; }
+
+.fx-tour-bar {
+	border-top: 1px solid var(--border); background: var(--grey-soft);
+	padding: 11px 18px; display: flex; align-items: center; justify-content: space-between;
+	gap: 12px; flex: 0 0 auto;
+}
+.fx-tour-pos { font-family: var(--font-label); font-size: 12.5px; color: var(--text-muted); }
+.fx-tour-nav {
+	border: 1px solid var(--border); background: var(--white); color: var(--blue-deep);
+	border-radius: 7px; padding: 7px 15px; cursor: pointer;
+	font-family: var(--font-label); font-size: 13px;
+}
+.fx-tour-nav:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+.fx-tour-nav:disabled { opacity: .4; cursor: default; }
+
+@media (max-width: 900px) {
+	body.fx-tourmode .reader { height: 92vh; }
+	.fx-tour { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); }
+	.fx-tour-lane { border-right: 0; border-bottom: 1px solid var(--border); max-height: 32vh; }
+	.fx-lane-fig { display: none; }
+	.fx-tour-pane { padding: 18px 16px 22px; }
+}
+
 body.fx-locked { overflow: hidden; }
 
 /* The reader is the one long scrolling surface this page owns, so it carries a
@@ -4883,13 +4959,13 @@ body.fx-locked { overflow: hidden; }
 </template>
 
 <template id="dd-money" data-kicker="Deep Dive · Chapter 02" data-title="Books That Balance Themselves">
+<div id="dd-money-essay">
 	<p class="ka-overview">DeskOps keeps genuine double-entry books because operational truth and financial truth are the same truth, viewed from different sides of the ledger.</p>
 	<p>The financial module is not a reporting veneer. Every invoice and every expense posts balanced journal entries against a real Chart of Accounts, so the trial balance is not a hopeful summary but an arithmetic identity. When a document changes state, the ledger follows automatically; no one reconciles by hand what the system can reconcile by construction.</p>
 	<p>Discipline shows most clearly at the edges. A quote, however confident, posts nothing to the ledger until it is accepted, because a promise is not a transaction. A retainer is not treated as revenue smuggled in early; it stands as client credit, a liability that diminishes only as work is actually billed. And because a single pipeline underlies every document type, an invoice, a quote and a credit note cannot develop divergent behaviours: they are one mechanism wearing three faces.</p>
 	<p>Above the ledger sit budgets tracked against actuals in real time, drawn as gauges and series by the application's own chart engine. The intent is that a manager should apprehend the financial position the way a pilot reads instruments: at a glance, and with reason to believe the needle.</p>
-	<h3 class="fx-tour-head">The finance tour</h3>
-	<p class="fx-tour-lede">What the paragraphs above claim, shown screen by screen against live data. Every figure is numbered and carries its own link, so a single screen can be cited on its own. All twenty-five captures are 16:9, taken from the running application, and none of them is a mock-up.</p>
-	<div id="dd-money-tour"></div>
+</div>
+<div id="dd-money-tour"></div>
 </template>
 
 <template id="dd-knowledge" data-kicker="Deep Dive · Chapter 04" data-title="From Article to Auditorium">
@@ -6489,6 +6565,153 @@ var CASES = [
 	document.getElementById('fx-grid').innerHTML = grid;
 })();
 
+// ── The tour, as a two pane reader ────────────────────────────────────────
+// One long scroll through fifteen figures was the wrong shape for a reference.
+// The lane lists the sections and their figures, the pane shows one section,
+// and the bar steps through them. Every section stays in the DOM so a figure
+// link can select its section and then scroll to it.
+var TOUR_SECS = [];     // [{id, label, html, figs:[{id,label}]}]
+var FIG_SEC = {};       // figure id -> section id
+
+(function buildTour() {
+	var essay = null;
+	var tpl = document.getElementById('dd-money');
+	if (!tpl) return;
+	var slot = tpl.content.querySelector('#dd-money-tour');
+	if (!slot) return;
+
+	// The chapter essay becomes the first stop rather than sitting above the
+	// tour, so the reader has one shape rather than two.
+	var essayNode = tpl.content.querySelector('#dd-money-essay');
+	if (essayNode) {
+		essay = essayNode.innerHTML;
+		essayNode.parentNode.removeChild(essayNode);
+	}
+
+	if (essay) {
+		TOUR_SECS.push({ id: 'fin-overview', label: 'The argument', html: essay, figs: [] });
+	}
+	TOUR.forEach(function (t) {
+		var html = '<h3>' + t[1] + '</h3>' + t[2].join('');
+		var figs = [];
+		var re = /<figure class="fx-shot" id="(fig-[a-z0-9-]+)"[\s\S]*?<b>Figure (\d+)\.<\/b>\s*([^<]*)/g;
+		var m;
+		while ((m = re.exec(html)) !== null) {
+			figs.push({ id: m[1], n: m[2], label: m[3].trim() });
+			FIG_SEC[m[1]] = 'fin-' + t[0];
+		}
+		TOUR_SECS.push({ id: 'fin-' + t[0], label: t[1], html: html, figs: figs });
+	});
+
+	var lane = '<div class="fx-lane-head">The finance tour</div>';
+	var panes = '';
+	TOUR_SECS.forEach(function (s, i) {
+		lane += '<button type="button" class="fx-lane-sec" data-sec="' + s.id + '">'
+		     +    '<span class="fx-lane-n">' + (i + 1) + '</span>' + s.label
+		     +  '</button>';
+		s.figs.forEach(function (f) {
+			lane += '<button type="button" class="fx-lane-fig" data-sec="' + s.id + '" data-fig="' + f.id + '">'
+			     +    '<span class="fx-lane-n">' + f.n + '</span>' + shorten(f.label)
+			     +  '</button>';
+		});
+		panes += '<section class="fx-tour-sec" id="' + s.id + '">' + s.html + '</section>';
+	});
+
+	// outerHTML is not settable on a child of a DocumentFragment, so the slot
+	// itself becomes the container rather than being replaced by one.
+	slot.className = 'fx-tour';
+	slot.innerHTML =
+		  '<nav class="fx-tour-lane">' + lane + '</nav>'
+		+ '<div class="fx-tour-right">'
+		+   '<div class="fx-tour-pane">' + panes + '</div>'
+		+   '<footer class="fx-tour-bar">'
+		+     '<button type="button" class="fx-tour-nav" data-nav="prev"><i class="fa fa-arrow-left"></i> Previous</button>'
+		+     '<span class="fx-tour-pos"></span>'
+		+     '<button type="button" class="fx-tour-nav" data-nav="next">Next <i class="fa fa-arrow-right"></i></button>'
+		+   '</footer>'
+		+ '</div>';
+
+	function shorten(t) {
+		t = t.replace(/\s+/g, ' ').trim();
+		return t.length > 46 ? t.slice(0, 44).replace(/[ ,.:;]+$/, '') + '...' : t;
+	}
+})();
+
+// The reader is shared with the other deep dives, which are prose and want to
+// stay narrow, so tour mode is driven by what the reader is actually showing
+// rather than by who opened it.
+(function watchReader() {
+	var body = document.getElementById('reader-body');
+	if (!body) return;
+	var sync = function () {
+		var on = !!body.querySelector('.fx-tour');
+		document.body.classList.toggle('fx-tourmode', on);
+		if (on && !body.querySelector('.fx-tour-sec.is-on')) tourGoto(TOUR_SECS[0].id, null);
+	};
+	new MutationObserver(sync).observe(body, { childList: true });
+	sync();
+})();
+
+function tourIndex(id) {
+	for (var i = 0; i < TOUR_SECS.length; i++) { if (TOUR_SECS[i].id === id) return i; }
+	return -1;
+}
+
+function tourGoto(secId, figId) {
+	var body = document.getElementById('reader-body');
+	var root = body && body.querySelector('.fx-tour');
+	if (!root) return false;
+	var i = tourIndex(secId);
+	if (i < 0) return false;
+
+	root.querySelectorAll('.fx-tour-sec').forEach(function (el) {
+		el.classList.toggle('is-on', el.id === secId);
+	});
+	root.querySelectorAll('.fx-lane-sec').forEach(function (el) {
+		el.classList.toggle('is-on', el.dataset.sec === secId);
+	});
+	root.querySelectorAll('.fx-lane-fig').forEach(function (el) {
+		el.classList.toggle('is-on', !!figId && el.dataset.fig === figId);
+	});
+
+	var pane = root.querySelector('.fx-tour-pane');
+	if (figId) {
+		var fig = root.querySelector('#' + figId);
+		if (fig) fig.scrollIntoView({ block: 'start' });
+		else if (pane) pane.scrollTop = 0;
+	} else if (pane) {
+		pane.scrollTop = 0;
+	}
+
+	var pos = root.querySelector('.fx-tour-pos');
+	if (pos) pos.textContent = (i + 1) + ' of ' + TOUR_SECS.length + ' \u00b7 ' + TOUR_SECS[i].label;
+	var prev = root.querySelector('[data-nav="prev"]');
+	var next = root.querySelector('[data-nav="next"]');
+	if (prev) prev.disabled = i === 0;
+	if (next) next.disabled = i === TOUR_SECS.length - 1;
+
+	// The lane can be taller than its box, so keep the active row in view.
+	var laneBtn = root.querySelector('.fx-lane-sec.is-on');
+	if (laneBtn) {
+		var lane = root.querySelector('.fx-tour-lane');
+		var lr = lane.getBoundingClientRect(), br = laneBtn.getBoundingClientRect();
+		if (br.top < lr.top || br.bottom > lr.bottom) laneBtn.scrollIntoView({ block: 'nearest' });
+	}
+	return true;
+}
+
+document.addEventListener('click', function (e) {
+	var lane = e.target.closest('.fx-lane-sec, .fx-lane-fig');
+	if (lane) { tourGoto(lane.dataset.sec, lane.dataset.fig || null); return; }
+	var nav = e.target.closest('.fx-tour-nav');
+	if (nav) {
+		var cur = document.querySelector('#reader-body .fx-tour-sec.is-on');
+		var i = cur ? tourIndex(cur.id) : 0;
+		var j = nav.dataset.nav === 'prev' ? i - 1 : i + 1;
+		if (j >= 0 && j < TOUR_SECS.length) tourGoto(TOUR_SECS[j].id, null);
+	}
+});
+
 // ── The anchor contract ───────────────────────────────────────────────────
 // A CV and a cover letter cite these names, so they are the real names rather
 // than a redirect sitting on top of different ones. The #cs- ids published
@@ -6530,16 +6753,23 @@ function openDeepDive(inner) {
 	var btn = document.querySelector('[data-doc="dd-money"]');
 	if (!btn) return false;
 	btn.click();
-	if (!inner) return true;
-	// The reader clones the template on open, so the target only exists now.
+	// The reader clones the template on open, so the lane and panes only exist
+	// after this. Retry until they do, then select rather than scroll: a figure
+	// link should land on its section, not scroll past everything above it.
 	var tries = 0;
-	var find = function () {
-		var body = document.getElementById('reader-body');
-		var el = body && body.querySelector('#' + inner);
-		if (el) { el.scrollIntoView(); return; }
-		if (++tries < 12) setTimeout(find, 120);
+	var land = function () {
+		var ok;
+		if (!inner) {
+			ok = tourGoto(TOUR_SECS[0].id, null);
+		} else if (inner.indexOf('fig-') === 0) {
+			var sec = FIG_SEC[inner];
+			ok = sec ? tourGoto(sec, inner) : tourGoto(TOUR_SECS[0].id, null);
+		} else {
+			ok = tourGoto(inner, null) || tourGoto(TOUR_SECS[0].id, null);
+		}
+		if (!ok && ++tries < 15) setTimeout(land, 120);
 	};
-	setTimeout(find, 120);
+	setTimeout(land, 120);
 	return true;
 }
 
