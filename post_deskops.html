@@ -6850,7 +6850,10 @@ document.addEventListener('keydown', function (e) {
 
 window.addEventListener('popstate', function () {
 	var key = location.hash.slice(1);
-	if (CASE_ANCHOR[key]) openCaseStudy(CASE_ANCHOR[key], false);
+	// A figure that lives in a case study has to restore the same way its
+	// study does, or back and forward stop agreeing with the address bar.
+	var slug = CASE_ANCHOR[key] || CASE_FIG[key];
+	if (slug) openCaseStudy(slug, false);
 	else closeCaseStudy(false);
 });
 
