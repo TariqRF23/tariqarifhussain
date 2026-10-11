@@ -6891,7 +6891,7 @@ document.addEventListener('click', function (e) {
 
 	var go = function () {
 		if (CASE_ANCHOR[key]) { openCaseStudy(CASE_ANCHOR[key], false); return; }
-		if (TOUR_ANCHOR[key]) { openDeepDive(key === 'finance-tour' || key === 'fin-overview' ? null : key); return; }
+		if (TOUR_ANCHOR[key]) { openDeepDive(key === 'finance-tour' ? null : key); return; }
 		if (CASE_FIG[key]) { openCaseStudy(CASE_FIG[key], false); return; }
 		if (key.indexOf('fig-') === 0) { openDeepDive(FIG_ALIAS[key] || key); return; }
 
