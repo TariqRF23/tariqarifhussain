@@ -1217,10 +1217,58 @@ The core values that I believe in are sincerity, creativity, showing initiative 
     #skills .aoi::after { grid-area: auto; font-size: 26px; margin-bottom: 6px; }
     #skills .aoi h6, #skills .aoi .aoi-note, #skills .aoi ul { grid-area: auto; }
     #skills .aoi ul { padding-top: 10px; }
+    /* The terms are inline text, so they are not turned into buttons on a
+       phone. A little more leading lifts the tap area without changing how
+       the index reads. */
+    #skills .aoi .aoi-t { line-height: 2.35; }
     #skills .aoi-foot { padding: 14px 18px 16px; }
     /* On a phone the note is a sheet rather than a centred card. */
     .aoi-ov { align-items: flex-end; padding: 0; }
     .aoi-bx { max-width: none; border-radius: 14px 14px 0 0; max-height: 82vh; }
+  }
+</style>
+
+<style>
+  /* The self-guided project card. Its layout used to live in inline styles,
+     which no media query can reach, so the 60/40 split survived all the way
+     down to a phone and squeezed the description into a 78px column, two
+     words to a line. It is a grid now, and it stacks. */
+  .proj-card {
+    display: grid;
+    grid-template-columns: 60% minmax(0, 1fr);
+    align-items: center;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,.1);
+    margin: 0 20px 20px;
+  }
+  .proj-card-img { width: 100%; height: auto; object-fit: contain; background: #fff; display: block; }
+  .proj-card-body { padding: 24px; display: flex; flex-direction: column; justify-content: center; }
+  .proj-card-body h5 { margin: 0 0 6px; }
+  .proj-card-body .meta {
+    margin: 0 0 12px; color: #888; font-size: 13px;
+    font-family: 'Bahnschrift Light', monospace;
+  }
+  .proj-card-body .desc {
+    margin: 0 0 20px; font-family: 'Bahnschrift Light', monospace;
+    color: #555; font-size: 14px; line-height: 1.7;
+  }
+  .proj-card-body a {
+    color: #17A2B8; font-weight: bold; font-family: 'Bahnschrift Light', monospace;
+    display: inline-block; padding: 6px 0;
+  }
+
+  /* ── phones ─────────────────────────────────────────────────────────── */
+  @media (max-width: 760px) {
+    .proj-card { grid-template-columns: minmax(0, 1fr); margin: 0 14px 18px; }
+    .proj-card-img { max-height: 190px; object-position: center; }
+    .proj-card-body { padding: 18px; }
+
+    /* Links set as bare text are hard to hit at arm's length. Give the ones
+       that act as buttons a real target without changing how they look. */
+    .proj-card-body a,
+    section.s1 h6 a { padding-top: 8px; padding-bottom: 8px; }
   }
 </style>
 
@@ -1420,15 +1468,15 @@ The core values that I believe in are sincerity, creativity, showing initiative 
 
 <section class="s1">
     <h5 style="text-align:center; padding:20px 0 10px 0;">SELF-GUIDED PROJECTS</h5>
-    <div style="background:#fff; border-radius:8px; overflow:hidden; display:flex; flex-direction:row; box-shadow:0 2px 8px rgba(0,0,0,0.1); margin:0 20px 20px 20px;">
-      <img src="images/DeskOps_Portfolio_Picture.png" style="width:60%; height:auto; object-fit:contain; flex-shrink:0; background:#fff;">
-      <div style="width:40%; padding:24px; display:flex; flex-direction:column; justify-content:center;">
-        <h5 style="margin:0 0 6px 0;">DeskOps</h5>
-        <p style="margin:0 0 12px 0; color:#888; font-size:13px; font-family:'Bahnschrift Light',monospace;">Sep 2024 – Present</p>
-        <p style="margin:0 0 20px 0; font-family:'Bahnschrift Light',monospace; color:#555; font-size:14px; line-height:1.7;">
+    <div class="proj-card">
+      <img class="proj-card-img" src="images/DeskOps_Portfolio_Picture.png" alt="DeskOps">
+      <div class="proj-card-body">
+        <h5>DeskOps</h5>
+        <p class="meta">Sep 2024 – Present</p>
+        <p class="desc">
           A full-stack helpdesk and ERP system built from scratch, solo, featuring role-based access, SLA monitoring, a financials module, knowledge management, and a RAG-powered AI research layer with ChromaDB, multi-model LLM fallback, and two-pass citation generation.
         </p>
-        <a href="post_deskops.html" style="color:#17A2B8; font-weight:bold; font-family:'Bahnschrift Light',monospace;">EXPLORE</a>
+        <a href="post_deskops.html">EXPLORE</a>
       </div>
     </div>
 </section>
