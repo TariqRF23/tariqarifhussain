@@ -2300,37 +2300,37 @@
 	font-family: var(--font-main); font-size: clamp(23px, 3.4vw, 33px);
 	color: var(--blue-ink); margin-bottom: 14px; line-height: 1.22;
 }
-#finance-tour h3, #deskops-cases h3 {
+#finance-tour h3, #deskops-cases h3, #reader-body h3 {
 	font-family: var(--font-main); font-size: 19px; color: var(--blue-deep); margin: 30px 0 10px;
 }
 #finance-tour .fx-lede, #deskops-cases .fx-lede { max-width: 78ch; color: var(--text-muted); font-size: 16.5px; }
 #finance-tour p, #deskops-cases p { max-width: 78ch; margin-bottom: 14px; }
 
-#finance-tour figure.fx-shot, #deskops-cases figure.fx-shot {
+#finance-tour figure.fx-shot, #deskops-cases figure.fx-shot, #reader-body figure.fx-shot {
 	margin: 26px 0 30px; border: 1px solid var(--border); border-radius: var(--radius);
 	overflow: hidden; background: var(--white); box-shadow: 0 2px 14px rgba(13,51,73,.07);
 	scroll-margin-top: 90px;
 }
 /* Every capture is a 16:9 viewport shot, so the frame holds that ratio and a
    mis-sized file letterboxes instead of changing the rhythm of the page. */
-#finance-tour figure.fx-shot .fx-frame, #deskops-cases figure.fx-shot .fx-frame { aspect-ratio: 16 / 9; background: #e9eaec; }
-#finance-tour figure.fx-shot img, #deskops-cases figure.fx-shot img { display: block; width: 100%; height: 100%; object-fit: contain; }
-#finance-tour figure.fx-shot figcaption, #deskops-cases figure.fx-shot figcaption {
+#finance-tour figure.fx-shot .fx-frame, #deskops-cases figure.fx-shot .fx-frame, #reader-body .fx-frame { aspect-ratio: 16 / 9; background: #e9eaec; }
+#finance-tour figure.fx-shot img, #deskops-cases figure.fx-shot img, #reader-body figure.fx-shot img { display: block; width: 100%; height: 100%; object-fit: contain; }
+#finance-tour figure.fx-shot figcaption, #deskops-cases figure.fx-shot figcaption, #reader-body figure.fx-shot figcaption {
 	display: flex; gap: 10px; align-items: flex-start; padding: 13px 16px;
 	border-top: 1px solid var(--border); font-family: var(--font-label);
 	font-size: 13.5px; color: var(--text-muted); background: var(--grey-soft);
 }
 #deskops-cases figure.fx-shot figcaption { background: var(--grey-soft); }
 #finance-tour figure.fx-shot figcaption .cap, #deskops-cases figure.fx-shot figcaption .cap { flex: 1; }
-#finance-tour .fx-link, #deskops-cases .fx-link {
+.fx-link {
 	border: 1px solid var(--border); background: var(--white); color: var(--text-muted);
 	border-radius: 6px; width: 30px; height: 30px; flex: 0 0 30px; cursor: pointer;
 	font-size: 12.5px; line-height: 1;
 }
-#finance-tour .fx-link:hover, #deskops-cases .fx-link:hover { color: var(--accent); border-color: var(--accent); }
-#finance-tour .fx-link.done, #deskops-cases .fx-link.done { color: #1e8449; border-color: #1e8449; }
+.fx-link:hover { color: var(--accent); border-color: var(--accent); }
+.fx-link.done { color: #1e8449; border-color: #1e8449; }
 
-#finance-tour .fx-figs2, #deskops-cases .fx-figs2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+#finance-tour .fx-figs2, #deskops-cases .fx-figs2, #reader-body .fx-figs2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
 #finance-tour .fx-figs2 figure.fx-shot, #deskops-cases .fx-figs2 figure.fx-shot { margin: 26px 0; }
 
 #deskops-cases article.fx-cs {
@@ -2670,9 +2670,8 @@ body.fx-locked { overflow: hidden; }
 		<a href="#ch-automation"><b>06</b> The Automation</a>
 		<a href="#ch-foundation"><b>07</b> The Foundation</a>
 		<a href="#suite"><b>08</b> The Suite</a>
-		<a href="#finance-tour"><b>09</b> The Finance</a>
-		<a href="#deskops-cases"><b>10</b> Case Studies</a>
-		<a href="#library"><b>11</b> The Library</a>
+		<a href="#deskops-cases"><b>09</b> Case Studies</a>
+		<a href="#library"><b>10</b> The Library</a>
 		<a href="#episodes"><b>&#9654;</b> Episodes</a>
 	</div>
 </nav>
@@ -2691,7 +2690,6 @@ body.fx-locked { overflow: hidden; }
 	<a href="#ch-foundation"><b>07</b>The Foundation</a>
 	<a href="#suite"><b>08</b>The Suite</a>
 	<a href="#diagrams">How it works</a>
-	<a href="#finance-tour">The finance tour</a>
 	<a href="#deskops-cases">Case Studies</a>
 	<a href="#engines">Built, not borrowed</a>
 	<a href="#library">The Library</a>
@@ -2960,10 +2958,10 @@ body.fx-locked { overflow: hidden; }
 			<li><b>Budgets against actuals</b> - targets per account category, tracked live, drawn as gauges by the application's own charts</li>
 			<li><b>Period close, reconciliation and audit</b> - closing a month locks every ledger write dated inside it, and every posting leaves a trail</li>
 		</ul>
-		<button class="deepdive-btn" data-doc="dd-money">Read the deep dive <i class="fa fa-arrow-right"></i></button>
+		<button class="deepdive-btn" data-doc="dd-money">Read the deep dive and the full finance tour <i class="fa fa-arrow-right"></i></button>
 		<p style="margin-top:14px">
-			<a href="#finance-tour" style="font-weight:bold">
-				See the finance tour and the case studies further down
+			<a href="#deskops-cases" style="font-weight:bold">
+				Or read the finance processes end to end in the case studies
 				<i class="fa fa-arrow-down"></i>
 			</a>
 		</p>
@@ -3950,20 +3948,6 @@ body.fx-locked { overflow: hidden; }
 
 <!-- Built, not borrowed -->
 
-<!-- ─── The finance tour ─────────────────────────────────────────────── -->
-<section id="finance-tour">
-	<div class="fx-wrap">
-		<div class="fx-label">Chapter 02, in full</div>
-		<h2>The finance tour</h2>
-		<p class="fx-lede">
-			Chapter 02 said the module keeps real books. This is that claim shown
-			screen by screen against live data, with every figure numbered so it can
-			be linked to directly.
-		</p>
-		<div id="fx-tour-body"></div>
-	</div>
-</section>
-
 <!-- ─── Case studies ─────────────────────────────────────────────────── -->
 <section id="deskops-cases">
 	<div class="fx-wrap">
@@ -4879,6 +4863,8 @@ body.fx-locked { overflow: hidden; }
 	<p>The financial module is not a reporting veneer. Every invoice and every expense posts balanced journal entries against a real Chart of Accounts, so the trial balance is not a hopeful summary but an arithmetic identity. When a document changes state, the ledger follows automatically; no one reconciles by hand what the system can reconcile by construction.</p>
 	<p>Discipline shows most clearly at the edges. A quote, however confident, posts nothing to the ledger until it is accepted, because a promise is not a transaction. A retainer is not treated as revenue smuggled in early; it stands as client credit, a liability that diminishes only as work is actually billed. And because a single pipeline underlies every document type, an invoice, a quote and a credit note cannot develop divergent behaviours: they are one mechanism wearing three faces.</p>
 	<p>Above the ledger sit budgets tracked against actuals in real time, drawn as gauges and series by the application's own chart engine. The intent is that a manager should apprehend the financial position the way a pilot reads instruments: at a glance, and with reason to believe the needle.</p>
+	<p>What follows is the module itself, screen by screen, captured against live data.</p>
+	<div id="dd-money-tour"></div>
 </template>
 
 <template id="dd-knowledge" data-kicker="Deep Dive · Chapter 04" data-title="From Article to Auditorium">
@@ -6433,13 +6419,19 @@ var CASES = [
 	 ]]
 ];
 
-// ── Render: the tour inline, the case studies as cards ────────────────────
+// ── Render ────────────────────────────────────────────────────────────────
+// The tour is written into the Chapter 02 deep dive template, because a full
+// technical tour of the money chapter belongs behind that chapter's own button
+// rather than in a section competing with it. The case studies stay on the
+// page, because a recruiter scanning for thirty seconds should see them.
 (function build() {
 	var tour = '';
 	TOUR.forEach(function (t) {
-		tour += '<div id="fin-' + t[0] + '" style="scroll-margin-top:90px"><h3>' + t[1] + '</h3>' + t[2].join('') + '</div>';
+		tour += '<div id="fin-' + t[0] + '"><h3>' + t[1] + '</h3>' + t[2].join('') + '</div>';
 	});
-	document.getElementById('fx-tour-body').innerHTML = tour;
+	var tpl = document.getElementById('dd-money');
+	var slot = tpl && tpl.content.querySelector('#dd-money-tour');
+	if (slot) slot.innerHTML = tour;
 
 	var grid = '';
 	CASES.forEach(function (c) {
@@ -6459,6 +6451,60 @@ var CASES = [
 	document.getElementById('fx-grid').innerHTML = grid;
 })();
 
+// ── The anchor contract ───────────────────────────────────────────────────
+// A CV and a cover letter cite these names, so they are the real names rather
+// than a redirect sitting on top of different ones. The #cs- ids published
+// earlier are kept because they are already in the wild.
+var CASE_ANCHOR = {
+	'fin-r2r': 'r2r',               'cs-r2r': 'r2r',
+	'fin-o2c': 'o2c',               'cs-o2c': 'o2c',
+	'fin-bank-rec': 'o2c',          // reconciliation is a section of that study
+	'fin-p2p': 'p2p',               'cs-p2p': 'p2p',
+	'fin-fpa': 'fpa',               'cs-fpa': 'fpa',
+	'fin-automation': 'workflow',   'cs-workflow': 'workflow',
+	'fin-ai': 'reporting',          'cs-reporting': 'reporting',
+	'fin-controls': 'platform',     'cs-platform': 'platform',
+	'fin-ocr': 'docint',            'cs-docint': 'docint',
+	'fin-limits': 'limits',         'cs-limits': 'limits'
+};
+// The name each study reports when you copy its link.
+var CANON = {
+	r2r: 'fin-r2r', o2c: 'fin-o2c', p2p: 'fin-p2p', fpa: 'fin-fpa',
+	workflow: 'fin-automation', reporting: 'fin-ai', platform: 'fin-controls',
+	docint: 'fin-ocr', limits: 'fin-limits'
+};
+// Anything that lives inside the deep dive: the tour itself, its sections, and
+// every figure. The brief's figure names resolve to the figures that exist;
+// names with no capture behind them are deliberately absent, because a link
+// landing on the wrong claim is worse than one that does not land.
+var FIG_ALIAS = {
+	'fig-fin-dashboard': 'fig-dashboard', 'fig-fin-ledger': 'fig-ledger',
+	'fig-fin-coa': 'fig-accounts', 'fig-fin-period-close': 'fig-periods',
+	'fig-fin-invoice': 'fig-invoice', 'fig-fin-bank-rec': 'fig-reconcile',
+	'fig-fin-budget': 'fig-budget', 'fig-fin-month-end': 'fig-qleo',
+	'fig-fin-nl-report': 'fig-ask', 'fig-wf-builder': 'fig-canvas',
+	'fig-wf-run-audit': 'fig-dryrun', 'fig-ctl-audit-log': 'fig-audit'
+};
+var TOUR_ANCHOR = { 'finance-tour': 1, 'fin-overview': 1, 'fin-books': 1,
+                    'fin-money-in': 1, 'fin-money-out': 1, 'fin-out': 1 };
+
+function openDeepDive(inner) {
+	var btn = document.querySelector('[data-doc="dd-money"]');
+	if (!btn) return false;
+	btn.click();
+	if (!inner) return true;
+	// The reader clones the template on open, so the target only exists now.
+	var tries = 0;
+	var find = function () {
+		var body = document.getElementById('reader-body');
+		var el = body && body.querySelector('#' + inner);
+		if (el) { el.scrollIntoView(); return; }
+		if (++tries < 12) setTimeout(find, 120);
+	};
+	setTimeout(find, 120);
+	return true;
+}
+
 // ── The reader ────────────────────────────────────────────────────────────
 var modal = document.getElementById('fx-modal');
 var mBody = document.getElementById('fx-modal-body');
@@ -6467,7 +6513,6 @@ var mTitle = document.getElementById('fx-modal-title');
 var mSub = document.getElementById('fx-modal-sub');
 var mCopy = document.getElementById('fx-modal-copy');
 var lastFocus = null;
-var openCase = null;
 
 function caseBySlug(slug) {
 	for (var i = 0; i < CASES.length; i++) { if (CASES[i][0] === slug) return CASES[i]; }
@@ -6477,7 +6522,6 @@ function caseBySlug(slug) {
 function openCaseStudy(slug, push) {
 	var c = caseBySlug(slug);
 	if (!c) return;
-	openCase = slug;
 	lastFocus = document.activeElement;
 
 	mTag.textContent = c[1];
@@ -6488,13 +6532,14 @@ function openCaseStudy(slug, push) {
 	mBody.innerHTML = html;
 	mBody.scrollTop = 0;
 
-	mCopy.dataset.anchor = 'cs-' + slug;
+	var anchor = CANON[slug] || ('cs-' + slug);
+	mCopy.dataset.anchor = anchor;
 	modal.hidden = false;
 	document.body.classList.add('fx-locked');
 	mCopy.focus();
 
-	if (push && location.hash !== '#cs-' + slug) {
-		history.pushState({ cs: slug }, '', '#cs-' + slug);
+	if (push && location.hash !== '#' + anchor) {
+		history.pushState({ cs: slug }, '', '#' + anchor);
 	}
 }
 
@@ -6502,9 +6547,8 @@ function closeCaseStudy(push) {
 	if (modal.hidden) return;
 	modal.hidden = true;
 	document.body.classList.remove('fx-locked');
-	openCase = null;
 	if (lastFocus && lastFocus.focus) lastFocus.focus();
-	if (push && location.hash.indexOf('#cs-') === 0) {
+	if (push && CASE_ANCHOR[location.hash.slice(1)]) {
 		history.pushState({}, '', location.pathname + '#deskops-cases');
 	}
 }
@@ -6520,8 +6564,8 @@ document.addEventListener('keydown', function (e) {
 });
 
 window.addEventListener('popstate', function () {
-	var h = resolveHash(location.hash);
-	if (h.indexOf('#cs-') === 0) openCaseStudy(h.slice(4), false);
+	var key = location.hash.slice(1);
+	if (CASE_ANCHOR[key]) openCaseStudy(CASE_ANCHOR[key], false);
 	else closeCaseStudy(false);
 });
 
@@ -6553,76 +6597,39 @@ document.addEventListener('click', function (e) {
 });
 
 // ── Arriving on a deep link ───────────────────────────────────────────────
-// A case study opens its reader. Anything else scrolls, and has to re-settle,
-// because the gallery, the carousel and the lazy images below all change the
-// height after this runs and a single jump overshoots by thousands of pixels.
-// The brief this work came from named the finance sections #fin-r2r, #fin-o2c
-// and so on, and a CV and cover letter were written against those names before
-// the material was folded into this page under #cs- ids. Rather than ask a
-// printed document to change, the old names resolve to where the content
-// actually lives. Names with no equivalent are deliberately absent: pointing
-// them at something approximate would be worse than a dead link.
-var ALIAS = {
-	'fin-overview':   'finance-tour',
-	'fin-r2r':        'cs-r2r',
-	'fin-o2c':        'cs-o2c',
-	'fin-p2p':        'cs-p2p',
-	'fin-bank-rec':   'cs-o2c',
-	'fin-fpa':        'cs-fpa',
-	'fin-ai':         'cs-reporting',
-	'fin-ocr':        'cs-docint',
-	'fin-automation': 'cs-workflow',
-	'fin-controls':   'cs-platform',
-	'fig-fin-dashboard':    'fig-dashboard',
-	'fig-fin-ledger':       'fig-ledger',
-	'fig-fin-coa':          'fig-accounts',
-	'fig-fin-period-close': 'fig-periods',
-	'fig-fin-invoice':      'fig-invoice',
-	'fig-fin-bank-rec':     'fig-reconcile',
-	'fig-fin-budget':       'fig-budget',
-	'fig-fin-month-end':    'fig-qleo',
-	'fig-fin-nl-report':    'fig-ask',
-	'fig-wf-builder':       'fig-canvas',
-	'fig-wf-run-audit':     'fig-dryrun',
-	'fig-ctl-audit-log':    'fig-audit'
-};
-function resolveHash(h) {
-	var key = h.charAt(0) === '#' ? h.slice(1) : h;
-	return ALIAS[key] ? '#' + ALIAS[key] : h;
-}
-
 (function arrive() {
-	var h = resolveHash(location.hash);
-	if (!h) return;
-	if (h.indexOf('#cs-') === 0) {
-		var slug = h.slice(4);
-		if (caseBySlug(slug)) {
-			var go = function () { openCaseStudy(slug, false); };
-			if (document.readyState === 'complete') go();
-			else window.addEventListener('load', go);
-			return;
-		}
-	}
-	var wanted = h.slice(1), userMoved = false;
-	var settle = function () {
-		if (userMoved) return;
-		var el = document.getElementById(wanted);
-		if (!el) return;
-		if (Math.abs(el.getBoundingClientRect().top) < 4) return;
-		var prev = document.documentElement.style.scrollBehavior;
-		document.documentElement.style.scrollBehavior = 'auto';
-		el.scrollIntoView();
-		document.documentElement.style.scrollBehavior = prev;
-	};
-	var moved = function () { userMoved = true; };
-	window.addEventListener('wheel', moved, { passive: true, once: true });
-	window.addEventListener('touchstart', moved, { passive: true, once: true });
-	window.addEventListener('keydown', moved, { once: true });
-	settle();
-	window.addEventListener('load', function () {
+	var key = location.hash.slice(1);
+	if (!key) return;
+
+	var go = function () {
+		if (CASE_ANCHOR[key]) { openCaseStudy(CASE_ANCHOR[key], false); return; }
+		if (TOUR_ANCHOR[key]) { openDeepDive(key === 'finance-tour' || key === 'fin-overview' ? null : key); return; }
+		if (key.indexOf('fig-') === 0) { openDeepDive(FIG_ALIAS[key] || key); return; }
+
+		// Anything else is an ordinary anchor, and has to re-settle, because the
+		// gallery, the carousel and the lazy images all change the page height
+		// after this runs and a single jump overshoots by thousands of pixels.
+		var userMoved = false;
+		var settle = function () {
+			if (userMoved) return;
+			var el = document.getElementById(key);
+			if (!el) return;
+			if (Math.abs(el.getBoundingClientRect().top) < 4) return;
+			var prev = document.documentElement.style.scrollBehavior;
+			document.documentElement.style.scrollBehavior = 'auto';
+			el.scrollIntoView();
+			document.documentElement.style.scrollBehavior = prev;
+		};
+		var moved = function () { userMoved = true; };
+		window.addEventListener('wheel', moved, { passive: true, once: true });
+		window.addEventListener('touchstart', moved, { passive: true, once: true });
+		window.addEventListener('keydown', moved, { once: true });
 		settle();
 		[150, 500, 1200, 2200].forEach(function (ms) { setTimeout(settle, ms); });
-	});
+	};
+
+	if (document.readyState === 'complete') go();
+	else window.addEventListener('load', go);
 })();
 })();
 </script>
