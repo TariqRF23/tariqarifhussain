@@ -2378,6 +2378,101 @@
 #deskops-cases .fx-note { border: 1px dashed var(--border); border-radius: var(--radius); padding: 20px 24px; background: var(--white); }
 #deskops-cases .fx-note h3 { margin-top: 0; }
 
+/* ─── Case study cards and their reader ───────────────────────────────── */
+#deskops-cases .fx-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 18px;
+	margin-top: 28px;
+}
+#deskops-cases .fx-card {
+	display: flex; flex-direction: column; text-align: left;
+	background: var(--white); border: 1px solid var(--border);
+	border-radius: var(--radius); overflow: hidden; cursor: pointer;
+	font: inherit; color: inherit; padding: 0;
+	transition: border-color .16s, transform .16s, box-shadow .16s;
+}
+#deskops-cases .fx-card:hover,
+#deskops-cases .fx-card:focus-visible {
+	border-color: var(--accent); transform: translateY(-2px);
+	box-shadow: 0 8px 24px rgba(13,51,73,.10); outline: none;
+}
+/* The tile keeps the same 16:9 as the captures, so the grid stays even
+   whether or not a given card has an image behind it yet. */
+#deskops-cases .fx-card-img { aspect-ratio: 16 / 9; background: #e9eaec; overflow: hidden; }
+#deskops-cases .fx-card-img img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top left; }
+#deskops-cases .fx-card-body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 7px; flex: 1; }
+#deskops-cases .fx-card-body .fx-cs-tag { margin: 0; align-self: flex-start; }
+#deskops-cases .fx-card-body h3 { font-size: 17px; margin: 0; color: var(--blue-ink); line-height: 1.3; }
+#deskops-cases .fx-card-body p { margin: 0; font-size: 13.5px; color: var(--text-muted); font-family: var(--font-label); line-height: 1.6; }
+#deskops-cases .fx-card-more {
+	margin-top: auto; padding-top: 10px; font-family: var(--font-label);
+	font-size: 12.5px; color: var(--accent); letter-spacing: .04em;
+}
+#deskops-cases .fx-card.is-note { background: var(--grey-soft); }
+
+.fx-modal { position: fixed; inset: 0; z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 30px; }
+.fx-modal[hidden] { display: none; }
+.fx-modal-back { position: absolute; inset: 0; background: rgba(10,30,45,.62); }
+.fx-modal-panel {
+	position: relative; background: var(--white); border-radius: 14px;
+	width: min(920px, 100%); max-height: 100%; display: flex; flex-direction: column;
+	box-shadow: 0 30px 80px rgba(6,25,38,.4); overflow: hidden;
+}
+.fx-modal-head {
+	display: flex; gap: 16px; align-items: flex-start; justify-content: space-between;
+	padding: 22px 24px 18px; border-bottom: 1px solid var(--border); background: var(--grey-soft);
+}
+.fx-modal-head h3 { font-family: var(--font-main); font-size: 21px; color: var(--blue-ink); margin: 8px 0 6px; }
+.fx-modal-acts { display: flex; gap: 8px; flex: 0 0 auto; }
+.fx-modal-acts .fx-link { width: 34px; height: 34px; flex: 0 0 34px; border: 1px solid var(--border); background: var(--white); color: var(--text-muted); border-radius: 7px; cursor: pointer; font-size: 13px; }
+.fx-modal-acts .fx-link:hover { color: var(--accent); border-color: var(--accent); }
+.fx-modal-acts .fx-link.done { color: #1e8449; border-color: #1e8449; }
+.fx-modal-body { padding: 24px; overflow-y: auto; }
+.fx-modal-body h4 {
+	font-family: var(--font-main); font-size: 15px; color: var(--blue-deep);
+	margin: 24px 0 8px; letter-spacing: .01em;
+}
+.fx-modal-body h4:first-child { margin-top: 0; }
+.fx-modal-body p { max-width: none; margin-bottom: 13px; }
+.fx-modal-body ul { margin: 0 0 14px 20px; }
+.fx-modal-body li { margin-bottom: 7px; }
+.fx-modal-body figure.fx-shot { margin: 20px 0 22px; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: none; }
+.fx-modal-body .fx-frame { aspect-ratio: 16 / 9; background: #e9eaec; }
+.fx-modal-body figure.fx-shot img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.fx-modal-body figure.fx-shot figcaption {
+	display: flex; gap: 10px; align-items: flex-start; padding: 12px 15px;
+	border-top: 1px solid var(--border); background: var(--grey-soft);
+	font-family: var(--font-label); font-size: 13px; color: var(--text-muted);
+}
+.fx-modal-body .fx-figs2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.fx-modal-body table.fx-nums { width: 100%; border-collapse: collapse; margin: 14px 0 18px; font-family: var(--font-label); font-size: 14px; }
+.fx-modal-body table.fx-nums th, .fx-modal-body table.fx-nums td { text-align: left; padding: 8px 11px; border-bottom: 1px solid var(--border); }
+.fx-modal-body table.fx-nums th { color: var(--blue-ink); font-family: var(--font-main); font-size: 12.5px; }
+.fx-modal-body table.fx-nums td.n { text-align: right; font-variant-numeric: tabular-nums; }
+
+body.fx-locked { overflow: hidden; }
+
+/* The reader is the one long scrolling surface this page owns, so it carries a
+   slim bar in the page accent rather than Chromium's native grey one. No
+   scrollbar-width or scrollbar-color here: either standard property flips
+   Chromium to the wide native rendering and disables these rules entirely. */
+.fx-modal-body::-webkit-scrollbar { width: 10px; }
+.fx-modal-body::-webkit-scrollbar-track { background: transparent; }
+.fx-modal-body::-webkit-scrollbar-thumb {
+	background: var(--accent); border-radius: 999px;
+	border: 2px solid transparent; background-clip: padding-box; min-height: 40px;
+}
+.fx-modal-body::-webkit-scrollbar-thumb:hover { background: var(--blue-deep); background-clip: padding-box; }
+
+@media (max-width: 980px) { #deskops-cases .fx-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 680px) {
+	#deskops-cases .fx-grid { grid-template-columns: 1fr; }
+	.fx-modal { padding: 0; align-items: flex-end; }
+	.fx-modal-panel { border-radius: 14px 14px 0 0; max-height: 92vh; }
+	.fx-modal-body .fx-figs2 { grid-template-columns: 1fr; }
+}
+
 @media (max-width: 820px) {
 	#finance-tour .fx-figs2, #deskops-cases .fx-figs2 { grid-template-columns: 1fr; }
 	#deskops-cases article.fx-cs { padding: 22px 18px 18px; }
@@ -3875,48 +3970,34 @@
 		<div class="fx-label">Processes, end to end</div>
 		<h2>Case Studies</h2>
 		<p class="fx-lede">
-			The tour above shows features. These follow seven finance processes from
-			the first record to the last control, and say plainly what is built, what
-			it proves and where the limits are.
+			The tour above shows features. These follow the processes: seven finance
+			cycles from the first record to the last control, the document
+			capability beside them, and a closing statement of what none of it
+			claims. Each card opens the full study.
 		</p>
-		<div class="fx-toc" id="fx-toc"></div>
-		<div id="fx-cases-body"></div>
-
-		<h3 id="cs-limits" style="scroll-margin-top:90px">What this is not</h3>
-		<div class="fx-note">
-			<p>
-				A portfolio is worth less than nothing if it overstates, so here is the
-				boundary of each claim above.
-			</p>
-			<h3>Document intelligence reads documents, it does not capture invoices</h3>
-			<p>
-				DeskOps extracts text from attachments locally: a bundled OCR engine
-				reads images on the CPU, and separate extractors handle PDF, Word, Excel
-				and PowerPoint. A local vision model adds a description of what an image
-				shows. The result is indexed so it can be searched and cited, and
-				low-confidence fragments are dropped. It does not read an invoice into
-				vendor, date and amount fields, it does not map those fields to a
-				payable, and it does not create a ledger entry from a scan. That is
-				invoice capture, and it is not built.
-			</p>
-			<h3>The automation engine orchestrates this application</h3>
-			<p>
-				The workflow engine runs triggers, conditions and actions inside DeskOps,
-				with a run audit, a dry run mode and held changes that wait for a person.
-				Classic robotic process automation drives the user interface of other
-				people's applications. Those are different problems and I have only
-				solved the first one.
-			</p>
-			<h3>Named vendor products</h3>
-			<p>
-				I have not operated Automation Anywhere, SAP or Databricks. What I can
-				show is the same category of work built from scratch: an automation
-				control plane with scheduling and audit, an ERP with a real general
-				ledger, and a reporting layer over a relational database.
-			</p>
-		</div>
+		<div class="fx-grid" id="fx-grid"></div>
 	</div>
 </section>
+
+<!-- The case study reader. One panel, refilled per card, so the page carries a
+     single dialog rather than nine hidden copies of one. -->
+<div class="fx-modal" id="fx-modal" hidden>
+	<div class="fx-modal-back" data-close></div>
+	<div class="fx-modal-panel" role="dialog" aria-modal="true" aria-labelledby="fx-modal-title">
+		<header class="fx-modal-head">
+			<div>
+				<span class="fx-cs-tag" id="fx-modal-tag"></span>
+				<h3 id="fx-modal-title"></h3>
+				<p class="fx-cs-sub" id="fx-modal-sub"></p>
+			</div>
+			<div class="fx-modal-acts">
+				<button class="fx-link" id="fx-modal-copy" title="Copy a link to this case study" aria-label="Copy a link to this case study"><i class="fa fa-link"></i></button>
+				<button class="fx-link fx-close" data-close title="Close" aria-label="Close"><i class="fa fa-times"></i></button>
+			</div>
+		</header>
+		<div class="fx-modal-body" id="fx-modal-body"></div>
+	</div>
+</div>
 
 <section class="engines-section" id="engines">
 	<div class="engines-inner">
@@ -6144,164 +6225,305 @@ var TOUR = [
 ];
 
 // ── Part two: the case studies ────────────────────────────────────────────
+// Nine cards. Seven processes, one capability and one statement of limits.
+// Each entry carries the tile shown in the grid and the sections shown in the
+// reader, so a study is described in one place rather than two.
 var CASES = [
-	['r2r', 'Record to Report', 'Closing a month so that it stays closed',
-	 'A close is only meaningful if the system refuses to let the period move afterwards.', [
-		['The situation', '<p>A ledger that can be edited after the books are shut is not a ledger, it is a spreadsheet with ambitions. The close had to be enforced by the system rather than by agreement, and it had to leave evidence.</p>'],
-		['What was built', '<ul>'
-			+ '<li>A period register with one row per month, each showing how many entries it holds and whether it is open or closed.</li>'
-			+ '<li>A lock that every write passes through, so a posting, a reversal or a document delete dated inside a closed month is rejected at the engine rather than hidden in the interface.</li>'
-			+ '<li>A year-end close that zeroes revenue and expense into retained earnings.</li>'
-			+ '<li>An integrity check that recomputes account balances from the journal entries themselves.</li>'
-			+ '<li>An audit trail recording every posting, reversal and payment with its actor and timestamp.</li>'
-			+ '</ul>'],
-		['How it works', '<p>The lock is a single assertion in the posting engine, which means it cannot be bypassed by reaching a different screen. While seeding the demo data I needed to add September expenses after September had been closed, and the only way through was to reopen the period, post, and close it again. Both the reopening and the closing were recorded. That is the behaviour working, not around it.</p>'],
-		['Evidence', fig('periods') + figs2('integrity', 'audit')],
-		['What it proves', '<p>Period control, reconciliation of balances to entries, and a complete audit trail, which is the core of a record to report cycle and of the controls an auditor asks about.</p>']
+	['r2r', 'Record to Report', 'Closing a period so that it remains closed',
+	 'Period control enforced in the posting engine, with reconciliation of balances to entries and a complete audit trail.',
+	 'fin-periods', [
+		['Context',
+		 '<p>An accounting system establishes its credibility at the close rather than during data entry. A ledger whose prior periods remain editable is not a ledger; it is a spreadsheet with better typography. The requirement was therefore not a status field labelled closed, but a refusal that the system enforces and records.</p>'],
+		['What was implemented',
+		 '<ul>'
+		 + '<li>A period register holding one row per month, each showing the number of entries it contains and whether it is open or closed.</li>'
+		 + '<li>A lock asserted inside the posting engine, so that a posting, a reversal or a document deletion dated within a closed month is refused at the point of writing rather than concealed in the interface.</li>'
+		 + '<li>A year-end close that transfers revenue and expense balances into retained earnings.</li>'
+		 + '<li>An integrity check that recomputes account balances from the journal entries instead of trusting a stored total.</li>'
+		 + '<li>An audit trail recording every posting, reversal and payment together with its actor and timestamp.</li>'
+		 + '</ul>'],
+		['Why the lock sits in the engine',
+		 '<p>Placing the assertion in the posting engine rather than in each screen means there is no alternative route to the same table. A control that can be circumvented by reaching a different form is a convention, not a control, and conventions do not survive contact with a deadline.</p>'
+		 + '<p>The behaviour was confirmed under adverse conditions rather than asserted. Seeding demonstration data required expenses dated into a September that had already been closed. The only admissible path was to reopen the period, post, and close it again. Both the reopening and the subsequent close were recorded. The system did not yield; it required the exception to be made explicit.</p>'],
+		['Evidence', fig('periods') + figs2('integrity', 'audit') + fig('qleo')],
+		['What it demonstrates',
+		 '<p>Period governance, reconciliation of reported balances to their underlying entries, and an audit trail sufficient to answer the question an auditor actually asks, which is not whether the figure is correct but whether anyone could have changed it without trace.</p>']
 	 ]],
 
-	['o2c', 'Order to Cash', 'From a raised invoice to money in the bank',
-	 'Receivables, part payments, collection and the matching of a bank line to a ledger entry.', [
-		['The situation', '<p>Service work has to become an invoice, the invoice has to become cash, and the gap between the two has to be visible while it is open rather than at the end of the quarter.</p>'],
-		['What was built', '<ul>'
-			+ '<li>Invoices with line items, tax rates and a status that moves through draft, sent, partially paid, paid and overdue.</li>'
-			+ '<li>Part payments that leave the remaining balance on the face of the list.</li>'
-			+ '<li>An aged receivables report and an outstanding figure carried on the dashboard.</li>'
-			+ '<li>A ninety day cash forecast projected from open invoice and bill due dates.</li>'
-			+ '<li>A bank reconciliation workbench that proposes matches on equal amount within five days.</li>'
-			+ '</ul>'],
-		['How it works', '<p>Raising an invoice debits receivables and credits revenue and tax. Recording a payment debits cash and credits receivables. The two are deliberately separate capabilities: posting a document and moving money against it are different permissions, so one person cannot do both unless they have been given both.</p>'
-			+ '<p>The reconciliation scorer is read only. It reads statement lines, proposes pairs, and reports how many it matched. It never writes to the ledger, because a matching heuristic that can post is a matching heuristic that can be wrong in production.</p>'],
-		['The demo set', '<table class="fx-nums">'
-			+ '<tr><th>Measure</th><th style="text-align:right">Value</th></tr>'
-			+ '<tr><td>Revenue recognised in the year</td><td class="n">143,580.52</td></tr>'
-			+ '<tr><td>Cash at the operating account</td><td class="n">132,354.50</td></tr>'
-			+ '<tr><td>Receivables still open</td><td class="n">59,873.08</td></tr>'
-			+ '<tr><td>Invoices outstanding on the dashboard</td><td class="n">38,498.20</td></tr>'
-			+ '</table>'],
+	['o2c', 'Order to Cash', 'From engagement to settled cash',
+	 'Receivables, part payments, collection and the matching of bank activity to the ledger.',
+	 'fin-invoices', [
+		['Context',
+		 '<p>In a services business the interval between work performed and cash received is the operating cycle itself. That interval has to be visible while it remains open, not reconstructed at the end of a quarter, because an exposure that is only discovered in arrears has already cost whatever it was going to cost.</p>'],
+		['What was implemented',
+		 '<ul>'
+		 + '<li>Invoices carrying line items and tax treatment, progressing through draft, sent, partially paid, paid and overdue.</li>'
+		 + '<li>Part payments that retain and display the residual balance rather than resolving themselves to a rounded figure.</li>'
+		 + '<li>An aged receivables report, with the outstanding position carried on the dashboard.</li>'
+		 + '<li>A ninety day cash forecast projected from open invoice and bill due dates.</li>'
+		 + '<li>A reconciliation workbench that proposes matches between statement lines and ledger entries on equal amount within five days.</li>'
+		 + '</ul>'],
+		['Separation of posting from settlement',
+		 '<p>Raising an invoice debits receivables and credits revenue and tax. Recording a payment debits cash and credits receivables. These are deliberately distinct capabilities: issuing a document and moving money against it require different rights, so a single actor cannot perform both unless both have been granted. The separation is enforced in the endpoint, which means it governs the interface rather than depending on it.</p>'
+		 + '<p>The reconciliation scorer is read only by design. It reads statement lines, proposes candidate pairs and reports how many it matched. It does not write to the ledger. A matching heuristic empowered to post is a matching heuristic empowered to be wrong at scale, and the cost of that error is borne by the accounts rather than by the algorithm.</p>'],
+		['The demonstration set',
+		 '<table class="fx-nums">'
+		 + '<tr><th>Measure</th><th style="text-align:right">Value</th></tr>'
+		 + '<tr><td>Revenue recognised in the year</td><td class="n">143,580.52</td></tr>'
+		 + '<tr><td>Cash held at the operating account</td><td class="n">132,354.50</td></tr>'
+		 + '<tr><td>Receivables outstanding</td><td class="n">59,873.08</td></tr>'
+		 + '<tr><td>Journal entries, both sides in balance</td><td class="n">408,168.48</td></tr>'
+		 + '</table>'],
 		['Evidence', fig('invoices') + fig('invoice') + fig('reconcile')],
-		['What it proves', '<p>A complete order to cash chain with the separation of duties that matters in it, and a reconciliation step that assists a person instead of replacing them.</p>']
+		['What it demonstrates',
+		 '<p>A complete order to cash chain carrying the segregation of duties that matters within it, and a reconciliation step that augments a reviewer rather than displacing one.</p>']
 	 ]],
 
-	['p2p', 'Procure to Pay', 'Spend that cannot approve itself',
-	 'Vendors, expenses, an approval threshold and the refusals that make it real.', [
-		['The situation', '<p>The interesting part of procure to pay is not the happy path. It is what the system declines to do.</p>'],
-		['What was built', '<ul>'
-			+ '<li>Vendor master records, used by expenses and bills alike.</li>'
-			+ '<li>Expenses carrying a category, vendor, amount, status and payment method.</li>'
-			+ '<li>An approval queue on the dashboard for anything above the threshold.</li>'
-			+ '<li>Vendor bills with their own posting rules, and payments recorded against them.</li>'
-			+ '<li>An aged payables report.</li>'
-			+ '</ul>'],
-		['How it works', '<p>Three refusals are worth naming, because I met all three while building the demo set rather than reading them in a specification.</p>'
-			+ '<ul>'
-			+ '<li>A bill cannot be created in a paid state. It has to be opened, and then a payment has to be recorded against it, so the money movement exists as its own event.</li>'
-			+ '<li>A payment cannot be recorded against a bill that is not open.</li>'
-			+ '<li>An invoice that has credit notes against it cannot be deleted, because it is part of the books now.</li>'
-			+ '</ul>'
-			+ '<p>Expenses also refuse to be created without a vendor, which keeps spend attributable rather than floating.</p>'],
+	['p2p', 'Procure to Pay', 'Expenditure that cannot authorise itself',
+	 'Vendor records, an approval threshold, and the refusals that make the control real.',
+	 'fin-expenses', [
+		['Context',
+		 '<p>The instructive portion of procure to pay is not the path that succeeds. It is the set of operations the system declines to perform, because that set is the only part a reviewer cannot talk their way around.</p>'],
+		['What was implemented',
+		 '<ul>'
+		 + '<li>Vendor master records, referenced by expenses and bills alike, so expenditure remains attributable.</li>'
+		 + '<li>Expenses carrying category, vendor, amount, status and payment method.</li>'
+		 + '<li>An approval queue holding anything above the threshold, surfaced on the dashboard rather than buried in a module.</li>'
+		 + '<li>Vendor bills with their own posting treatment, and payments recorded against them as separate events.</li>'
+		 + '<li>An aged payables report drawn from the same ledger as every other statement.</li>'
+		 + '</ul>'],
+		['Three refusals, established by encountering them',
+		 '<p>The following constraints were not read from a specification. They were met while constructing the demonstration data, which is the only way to establish that a control exists rather than that it was intended.</p>'
+		 + '<ul>'
+		 + '<li>A bill cannot be created in a settled state. It must be opened, and a payment must then be recorded against it, so that the movement of money exists as an auditable event in its own right.</li>'
+		 + '<li>A payment cannot be recorded against a bill that is not open.</li>'
+		 + '<li>An invoice carrying credit notes cannot be deleted. It has entered the books, and the books do not forget on request.</li>'
+		 + '</ul>'
+		 + '<p>Expenses additionally refuse creation without a vendor, which prevents unattributed spend from accumulating quietly in a category total.</p>'],
 		['Evidence', fig('expenses') + figs2('master', 'reports')],
-		['What it proves', '<p>Spend controls that live in the engine, an approval step that holds real money, and a payables side that balances against the same ledger as everything else.</p>']
+		['What it demonstrates',
+		 '<p>Expenditure controls resident in the engine, an approval step that detains real money, and a payables position that reconciles to the same ledger as the receivables it is measured against.</p>']
 	 ]],
 
-	['fpa', 'Financial Planning and Analysis', 'Budget against actual, and the bug that hid it',
-	 'Variance reporting, and a defect found by looking at the screen rather than the specification.', [
-		['The situation', '<p>Budget versus actual showed a budget for every category and an actual of zero against all of them. The screen looked finished and was reporting nothing.</p>'],
-		['What was found', '<p>Saving a budget wrote the category as a name but never wrote the category identifier, while the query that computes actuals joins expenses to budgets on that identifier. The join could therefore never match. Every budget created through the application was structurally incapable of ever showing a figure, and nothing in the interface said so.</p>'],
-		['What was changed', '<ul>'
-			+ '<li>The insert now resolves the category name to its identifier and stores it.</li>'
-			+ '<li>The update repairs a row that was saved before the fix, using a coalesce so a row already pointing somewhere is left alone rather than being re-pointed by a name lookup.</li>'
-			+ '<li>The existing budgets were repaired by saving them again through the same endpoint, not by editing the database.</li>'
-			+ '</ul>'],
-		['The result', '<p>The screen now reports a real spread, which is what a variance report is for.</p>'
-			+ '<table class="fx-nums">'
-			+ '<tr><th>Category</th><th style="text-align:right">Budget</th><th style="text-align:right">Actual</th><th style="text-align:right">Used</th><th>Status</th></tr>'
-			+ '<tr><td>Travel and entertainment</td><td class="n">6,500.00</td><td class="n">6,750.00</td><td class="n">103.8%</td><td>Over budget</td></tr>'
-			+ '<tr><td>Licences and permits</td><td class="n">4,800.00</td><td class="n">4,600.00</td><td class="n">95.8%</td><td>Warning</td></tr>'
-			+ '<tr><td>Insurance</td><td class="n">8,000.00</td><td class="n">5,940.00</td><td class="n">74.3%</td><td>On track</td></tr>'
-			+ '<tr><td>Office rent and utilities</td><td class="n">32,000.00</td><td class="n">21,465.00</td><td class="n">67.1%</td><td>On track</td></tr>'
-			+ '<tr><td>Professional fees</td><td class="n">12,000.00</td><td class="n">7,200.00</td><td class="n">60.0%</td><td>On track</td></tr>'
-			+ '<tr><td>Office supplies and equipment</td><td class="n">9,000.00</td><td class="n">3,780.00</td><td class="n">42.0%</td><td>On track</td></tr>'
-			+ '</table>'],
+	['fpa', 'Financial Planning and Analysis', 'Variance reporting, and the defect that silenced it',
+	 'A budget screen that rendered perfectly and reported nothing, and what the investigation found.',
+	 'fin-budget', [
+		['Context',
+		 '<p>Budget against actual is the most frequently consulted management report and the easiest to render convincingly while conveying nothing. The screen presented a budget for every category and an actual of zero against all of them. It did not fail. It simply reported nothing, which is the more dangerous of the two outcomes.</p>'],
+		['Diagnosis',
+		 '<p>Saving a budget recorded the category as a name but never recorded the category identifier. The query that computes actuals joins expenses to budgets on that identifier. The join was therefore incapable of matching, and every budget created through the application was structurally unable to report a figure for the whole of its existence. Nothing in the interface indicated this. A zero and an absence are visually identical, which is precisely why the defect survived.</p>'],
+		['Remediation',
+		 '<ul>'
+		 + '<li>The insert now resolves the category name to its identifier and persists it.</li>'
+		 + '<li>The update repairs a record saved before the correction, using a coalesce so that a record already pointing to a category is left undisturbed rather than redirected by a name lookup.</li>'
+		 + '<li>Existing budgets were repaired by resaving them through the same endpoint rather than by editing the database, so the correction travelled the path a user would travel.</li>'
+		 + '</ul>'],
+		['Result',
+		 '<p>The report now expresses a genuine distribution, which is the entire purpose of a variance statement.</p>'
+		 + '<table class="fx-nums">'
+		 + '<tr><th>Category</th><th style="text-align:right">Budget</th><th style="text-align:right">Actual</th><th style="text-align:right">Used</th><th>Status</th></tr>'
+		 + '<tr><td>Travel and entertainment</td><td class="n">6,500.00</td><td class="n">6,750.00</td><td class="n">103.8%</td><td>Over budget</td></tr>'
+		 + '<tr><td>Licences and permits</td><td class="n">4,800.00</td><td class="n">4,600.00</td><td class="n">95.8%</td><td>Warning</td></tr>'
+		 + '<tr><td>Insurance</td><td class="n">8,000.00</td><td class="n">5,940.00</td><td class="n">74.3%</td><td>On track</td></tr>'
+		 + '<tr><td>Office rent and utilities</td><td class="n">32,000.00</td><td class="n">21,465.00</td><td class="n">67.1%</td><td>On track</td></tr>'
+		 + '<tr><td>Professional fees</td><td class="n">12,000.00</td><td class="n">7,200.00</td><td class="n">60.0%</td><td>On track</td></tr>'
+		 + '<tr><td>Office supplies and equipment</td><td class="n">9,000.00</td><td class="n">3,780.00</td><td class="n">42.0%</td><td>On track</td></tr>'
+		 + '</table>'
+		 + '<p>A second defect was identified in the same review. The dashboard comparison cards hardcoded their direction indicator in the markup, upward and green for revenue and profit, downward and red for expenses, while only the numeral was substituted at runtime. A decline of one hundred percent was therefore presented beneath a green upward arrow. The indicator is now derived from the sign.</p>'],
 		['Evidence', fig('budget') + fig('kpi')],
-		['What it proves', '<p>Variance reporting against a plan, and the habit that matters more: checking that a screen reports the truth rather than that it renders.</p>']
+		['What it demonstrates',
+		 '<p>Variance analysis against plan, and a discipline that matters considerably more than the feature itself: verifying that a report conveys the truth rather than that it renders without error.</p>']
 	 ]],
 
-	['workflow', 'Workflow automation', 'An automation that will not act behind your back',
-	 'A node canvas, a dry run, a per-step audit and changes that wait for a person.', [
-		['The situation', '<p>Automation in a service desk is easy to build and hard to trust. The risk is not that it fails, it is that it succeeds quietly on the wrong thing.</p>'],
-		['What was built', '<ul>'
-			+ '<li>A visual canvas with triggers, conditions and actions wired together, and branches for the pass and fail sides of a condition.</li>'
-			+ '<li>A dry run that evaluates conditions against a real record but sends nothing and changes nothing.</li>'
-			+ '<li>A per-step result showing the values each condition actually saw.</li>'
-			+ '<li>Held changes: a run that would alter a record waits until a person applies it.</li>'
-			+ '<li>Limits carried on the playbook itself: one run per event, a ceiling on nodes per run, and a retry path for runs that error.</li>'
-			+ '</ul>'],
-		['How it works', '<p>In the dry run shown below, the trigger fired on ticket ninety-two and the knowledge relevance gate was then evaluated with a threshold of 0.35. No article matched, so the gate failed and the run stopped before either action. The dialog reports the values it used rather than only the verdict, which is the difference between an automation you can debug and one you have to trust.</p>'],
-		['How this relates to robotic process automation', '<p>This is an orchestration engine for one application, with the scheduling, audit and approval layer that a control room provides. It does not drive the user interface of third party software, which is what classic robotic process automation does. The platform skills overlap. The technique does not, and I will not claim it does.</p>'],
+	['workflow', 'Workflow automation', 'Automation that will not act unobserved',
+	 'A node canvas, a dry run that changes nothing, a per-step record, and changes held for a person.',
+	 'playbooks-canvas', [
+		['Context',
+		 '<p>Automation within a service organisation is straightforward to construct and difficult to trust. The principal risk is not failure, which announces itself, but silent success against the wrong record, which does not.</p>'],
+		['What was implemented',
+		 '<ul>'
+		 + '<li>A visual canvas on which triggers, conditions and actions are connected, with distinct outputs for the passing and failing sides of a condition.</li>'
+		 + '<li>A dry run that evaluates conditions against a real record while transmitting nothing and altering nothing.</li>'
+		 + '<li>A per-step result reporting the values each condition actually observed, not merely its verdict.</li>'
+		 + '<li>Held changes: a run that would modify a record waits until a person applies it.</li>'
+		 + '<li>Operating limits carried on the automation itself, including one run per event, a ceiling on nodes per run, and a retry path for runs that error.</li>'
+		 + '</ul>'],
+		['Observed behaviour',
+		 '<p>In the dry run reproduced below, the trigger fired against ticket ninety-two and the knowledge relevance gate was evaluated at a threshold of 0.35. No article satisfied the threshold, the gate failed, and the run terminated before either action executed. The dialog reports the threshold, the measured distance and the resulting match state. The distinction between an automation that can be debugged and one that must simply be trusted lies in whether it reports the values it used.</p>'],
+		['Relationship to robotic process automation',
+		 '<p>This is an orchestration engine for a single application, carrying the scheduling, audit and approval layer that a control room provides. It does not drive the user interface of third party software, which is the defining characteristic of classic robotic process automation. The platform administration skills transfer directly. The technique does not, and the distinction is stated here rather than left for an interview to uncover.</p>'],
 		['Evidence', fig('canvas') + fig('dryrun')],
-		['What it proves', '<p>Designing, running and governing automations, including the parts that exist specifically to stop an automation doing something unreviewed.</p>']
+		['What it demonstrates',
+		 '<p>The design, operation and governance of automations, including the mechanisms that exist specifically to prevent an automation from acting without review.</p>']
 	 ]],
 
-	['reporting', 'Reporting', 'Getting an answer without writing SQL',
-	 'A builder, a question in plain language, and dashboards drawn without a charting library.', [
-		['The situation', '<p>Finance users need answers from a relational database and should not have to write joins to get them. The risk in solving that with a language model is that it writes a query nobody validated.</p>'],
-		['What was built', '<ul>'
-			+ '<li>A report builder with source, fields, joins, filters, output type and styling as explicit steps.</li>'
-			+ '<li>A path from a question in plain language into that same builder, so the result is a configuration a person can read and change rather than opaque SQL.</li>'
-			+ '<li>Saved reports, versions, scheduling and export.</li>'
-			+ '<li>KPI dashboards drawn by a charting library written for this application rather than pulled from a content delivery network.</li>'
-			+ '</ul>'],
-		['How it works', '<p>The generated query is bound to a described schema and lands in the builder as a structured definition, which means the output can be inspected, corrected and re-run. That is a deliberate choice: a question becomes a report configuration, not a string of SQL handed straight to the database.</p>'],
+	['reporting', 'Reporting', 'Answers from a relational model without SQL',
+	 'A structured builder, a question in plain language, and dashboards drawn without an external library.',
+	 'report-builder', [
+		['Context',
+		 '<p>Finance users require answers from a relational database and should not be required to compose joins to obtain them. Delegating that composition to a language model introduces its own exposure, namely a query that nobody has inspected executing against production data.</p>'],
+		['What was implemented',
+		 '<ul>'
+		 + '<li>A report builder in which source, fields, joins, filters, output type and presentation are explicit, inspectable steps.</li>'
+		 + '<li>A path from a question expressed in plain language into that same builder.</li>'
+		 + '<li>Saved reports with versioning, scheduling, sharing and export.</li>'
+		 + '<li>KPI dashboards rendered by a charting library written for this application rather than retrieved from a content delivery network.</li>'
+		 + '</ul>'],
+		['The constraint that makes it safe',
+		 '<p>The generated query is bound to a described schema and arrives in the builder as a structured definition. The consequence is that the output can be read, corrected and rerun by a person who did not write it. This is a deliberate architectural choice: a question becomes a report configuration rather than a string of SQL handed directly to the database. The language model proposes; the configuration is what executes.</p>'],
 		['Evidence', figs2('builder', 'ask') + fig('kpi')],
-		['What it proves', '<p>Self-service reporting over a relational model, with a language model used where it helps and constrained where it would otherwise be dangerous.</p>']
+		['What it demonstrates',
+		 '<p>Self-service reporting over a relational model, with a language model applied where it contributes and constrained where it would otherwise introduce risk.</p>']
 	 ]],
 
-	['platform', 'Platform administration', 'Access, models and the shape of the data',
-	 'A capability model, a model registry and a live view of the schema.', [
-		['The situation', '<p>A platform is not only its features. It is who may do what, which component answers which request, and whether anyone can still describe the data.</p>'],
-		['What was built', '<ul>'
-			+ '<li>A finance capability model separating view, post, approve, delete and administer, so recording a payment and posting a document are distinct rights and closing a period is an administrative one.</li>'
-			+ '<li>A model registry recording which model handles which class of task, with measured scores rather than preference.</li>'
-			+ '<li>A schema visualiser over the live database.</li>'
-			+ '<li>Scheduled work as database events and stored procedures rather than operating system tasks, so the schedule travels with the data.</li>'
-			+ '<li>An assistant that scores incoming work and leaves the decision to a person.</li>'
-			+ '</ul>'],
-		['How it works', '<p>Capabilities are checked in the endpoints, not in the interface, so hiding a button is a courtesy rather than a control. Customers hold no finance capability at all.</p>'],
+	['platform', 'Platform administration', 'Authority, components and the shape of the data',
+	 'A capability model enforced in the endpoints, a component registry, and a live view of the schema.',
+	 'platform-models', [
+		['Context',
+		 '<p>A platform is not reducible to its features. It is defined equally by who may perform which operation, which component answers which class of request, and whether anyone remains able to describe the data to a successor.</p>'],
+		['What was implemented',
+		 '<ul>'
+		 + '<li>A finance capability model separating view, post, approve, delete and administer, under which recording a payment and issuing a document are distinct rights and closing a period is an administrative one.</li>'
+		 + '<li>A registry recording which model answers which class of task, with measured scores rather than stated preference.</li>'
+		 + '<li>A schema visualiser operating over the live database.</li>'
+		 + '<li>Scheduled work expressed as database events and stored procedures rather than operating system tasks, so that the schedule travels with the data it operates on.</li>'
+		 + '<li>An assistant that scores incoming work and leaves the decision with a person.</li>'
+		 + '</ul>'],
+		['Where the check sits',
+		 '<p>Capabilities are evaluated in the endpoints rather than in the interface. Concealing a control is a courtesy to the user; it is not a security measure, because the endpoint remains reachable by anyone who can read a network tab. Customers hold no finance capability whatsoever, which is enforced at the same layer.</p>'],
 		['Evidence', figs2('models', 'schema') + fig('triage')],
-		['What it proves', '<p>Access governance, component inventory and the operational plumbing that keeps a platform explainable to the next person who has to run it.</p>']
+		['What it demonstrates',
+		 '<p>Access governance, component inventory and the operational foundation that keeps a platform explicable to whoever inherits it.</p>']
+	 ]],
+
+	['docint', 'Document intelligence', 'Reading what is inside an attachment',
+	 'Local text extraction and image understanding, stated precisely, including what it does not do.',
+	 '', [
+		['Context',
+		 '<p>Attachments accumulate faster than anyone reads them. Extracting their contents converts an inert archive into evidence that can be searched and cited. It is also the area in which overstatement is most tempting, so the boundary is set out here before the capability is described.</p>'],
+		['What was implemented',
+		 '<ul>'
+		 + '<li>A bundled optical character recognition engine that reads images locally on the processor, with no network dependency.</li>'
+		 + '<li>Separate extractors for PDF, Word, Excel and PowerPoint documents.</li>'
+		 + '<li>A local vision model that describes what an image depicts, supplying the context that character recognition alone cannot express.</li>'
+		 + '<li>Indexing of the result so that it becomes searchable and citable alongside the rest of the knowledge base.</li>'
+		 + '<li>Suppression of low-confidence fragments, so that recognition noise does not enter the index as though it were text.</li>'
+		 + '</ul>'],
+		['Why it runs locally',
+		 '<p>Processing documents on hardware under one\u2019s own control resolves the data residency question before it is raised, and continues to function when an external quota is exhausted. Attachments are among the most sensitive material a service desk holds, which makes them the least appropriate candidate for transmission to a third party for convenience.</p>'],
+		['What it does not do',
+		 '<p>It does not read an invoice into vendor, date and amount fields. It does not map extracted fields to a payable. It does not create a ledger entry from a scanned document. That capability is invoice capture, it is a materially different problem, and it is not built. Claiming otherwise would be straightforward and would not survive a single technical question.</p>'],
+		['What it demonstrates',
+		 '<p>Practical document processing with an explicit and defensible boundary, which is the more useful signal of the two.</p>']
+	 ]],
+
+	['limits', 'Scope', 'The limit of every claim on this page',
+	 'What is built, what is adjacent, and what is simply absent.',
+	 '', [
+		['Why this card exists',
+		 '<p>A portfolio that overstates is worth less than one that says nothing, because the first invites verification and fails it. The following statements define the boundary of everything asserted above.</p>'],
+		['Automation',
+		 '<p>The workflow engine orchestrates triggers, conditions and actions within DeskOps, carrying a run audit, a dry run mode and held changes awaiting human application. Classic robotic process automation drives the user interface of other organisations\u2019 software. These are different problems. Only the first has been solved here.</p>'],
+		['Document processing',
+		 '<p>Text extraction and local image understanding are built. Invoice field capture into a payable is not. The distinction is maintained throughout this page.</p>'],
+		['Named vendor products',
+		 '<p>I have not operated Automation Anywhere, SAP or Databricks. What is demonstrable is the same category of work constructed from first principles: an automation control plane with scheduling and audit, an enterprise system with a genuine general ledger, and a reporting layer over a relational database. Functional ownership of Unit4 ERP is separately evidenced in my professional record.</p>'],
+		['Provenance',
+		 '<p>DeskOps is an independent build, developed with AI coding agents under my own design, specification and review. Every screen reproduced on this page shows demonstration data.</p>']
 	 ]]
 ];
 
-// ── Render ────────────────────────────────────────────────────────────────
+// ── Render: the tour inline, the case studies as cards ────────────────────
 (function build() {
 	var tour = '';
 	TOUR.forEach(function (t) {
-		tour += '<div id="fin-' + t[0] + '" style="scroll-margin-top:20px"><h3>' + t[1] + '</h3>' + t[2].join('') + '</div>';
+		tour += '<div id="fin-' + t[0] + '" style="scroll-margin-top:90px"><h3>' + t[1] + '</h3>' + t[2].join('') + '</div>';
 	});
 	document.getElementById('fx-tour-body').innerHTML = tour;
 
-	var cases = '', toc = '';
+	var grid = '';
 	CASES.forEach(function (c) {
-		var body = '';
-		c[4].forEach(function (sec) { body += '<h4>' + sec[0] + '</h4>' + sec[1]; });
-		cases += '<article class="fx-cs" id="cs-' + c[0] + '">'
-		       +   '<div class="fx-cs-head">'
-		       +     '<span class="fx-cs-tag">' + c[1] + '</span>'
-		       +     '<h3>' + c[2] + '</h3>'
-		       +     '<p class="fx-cs-sub">' + c[3] + '</p>'
-		       +   '</div>' + body
-		       +   '<div class="fx-proof"><b>Link to this case study:</b> '
-		       +     '<button class="fx-link" data-anchor="cs-' + c[0] + '" title="Copy a link to this case study" aria-label="Copy a link to this case study"><i class="fa fa-link"></i></button>'
-		       +   '</div>'
-		       + '</article>';
-		toc += '<a href="#cs-' + c[0] + '"><b>' + c[1] + '</b><span>' + c[2] + '</span></a>';
+		var tile = c[4]
+			? '<div class="fx-card-img"><img loading="lazy" alt="" src="images/deskops/finance/thumb/' + c[4] + '.jpg' + FX_V + '"></div>'
+			: '';
+		grid += '<button type="button" class="fx-card' + (c[4] ? '' : ' is-note') + '" data-case="' + c[0] + '">'
+		     +    tile
+		     +    '<div class="fx-card-body">'
+		     +      '<span class="fx-cs-tag">' + c[1] + '</span>'
+		     +      '<h3>' + c[2] + '</h3>'
+		     +      '<p>' + c[3] + '</p>'
+		     +      '<span class="fx-card-more">Read the case study <i class="fa fa-arrow-right"></i></span>'
+		     +    '</div>'
+		     + '</button>';
 	});
-	document.getElementById('fx-cases-body').innerHTML = cases;
-	document.getElementById('fx-toc').innerHTML =
-		'<a href="#finance-tour"><b>The finance tour</b><span>Every screen, with figures</span></a>' + toc +
-		'<a href="#cs-limits"><b>What this is not</b><span>The boundary of each claim</span></a>';
+	document.getElementById('fx-grid').innerHTML = grid;
 })();
+
+// ── The reader ────────────────────────────────────────────────────────────
+var modal = document.getElementById('fx-modal');
+var mBody = document.getElementById('fx-modal-body');
+var mTag = document.getElementById('fx-modal-tag');
+var mTitle = document.getElementById('fx-modal-title');
+var mSub = document.getElementById('fx-modal-sub');
+var mCopy = document.getElementById('fx-modal-copy');
+var lastFocus = null;
+var openCase = null;
+
+function caseBySlug(slug) {
+	for (var i = 0; i < CASES.length; i++) { if (CASES[i][0] === slug) return CASES[i]; }
+	return null;
+}
+
+function openCaseStudy(slug, push) {
+	var c = caseBySlug(slug);
+	if (!c) return;
+	openCase = slug;
+	lastFocus = document.activeElement;
+
+	mTag.textContent = c[1];
+	mTitle.textContent = c[2];
+	mSub.textContent = c[3];
+	var html = '';
+	c[5].forEach(function (sec) { html += '<h4>' + sec[0] + '</h4>' + sec[1]; });
+	mBody.innerHTML = html;
+	mBody.scrollTop = 0;
+
+	mCopy.dataset.anchor = 'cs-' + slug;
+	modal.hidden = false;
+	document.body.classList.add('fx-locked');
+	mCopy.focus();
+
+	if (push && location.hash !== '#cs-' + slug) {
+		history.pushState({ cs: slug }, '', '#cs-' + slug);
+	}
+}
+
+function closeCaseStudy(push) {
+	if (modal.hidden) return;
+	modal.hidden = true;
+	document.body.classList.remove('fx-locked');
+	openCase = null;
+	if (lastFocus && lastFocus.focus) lastFocus.focus();
+	if (push && location.hash.indexOf('#cs-') === 0) {
+		history.pushState({}, '', location.pathname + '#deskops-cases');
+	}
+}
+
+document.addEventListener('click', function (e) {
+	var card = e.target.closest('.fx-card');
+	if (card) { openCaseStudy(card.dataset.case, true); return; }
+	if (e.target.closest('[data-close]')) { closeCaseStudy(true); return; }
+});
+
+document.addEventListener('keydown', function (e) {
+	if (e.key === 'Escape' && !modal.hidden) closeCaseStudy(true);
+});
+
+window.addEventListener('popstate', function () {
+	var h = location.hash;
+	if (h.indexOf('#cs-') === 0) openCaseStudy(h.slice(4), false);
+	else closeCaseStudy(false);
+});
 
 // ── Copy a deep link ──────────────────────────────────────────────────────
 var toast = document.getElementById('fx-toast'), toastTimer = null;
@@ -6314,7 +6536,7 @@ function flash(msg) {
 
 document.addEventListener('click', function (e) {
 	var btn = e.target.closest('.fx-link');
-	if (!btn) return;
+	if (!btn || !btn.dataset.anchor) return;
 	var url = location.origin + location.pathname + '#' + btn.dataset.anchor;
 	var done = function () {
 		btn.classList.add('done');
@@ -6324,18 +6546,49 @@ document.addEventListener('click', function (e) {
 	if (navigator.clipboard && navigator.clipboard.writeText) {
 		navigator.clipboard.writeText(url).then(done, function () { flash(url); });
 	} else {
-		// A page served over plain http has no clipboard API, so show the link
-		// rather than silently doing nothing.
+		// A page opened from disk has no clipboard API, so show the link rather
+		// than silently doing nothing.
 		flash(url);
 	}
 });
 
-// Arriving on a deep link before the figures exist would otherwise land at the
-// top of the page, because the anchor is written by the script above.
-if (location.hash) {
-	var target = document.getElementById(location.hash.slice(1));
-	if (target) target.scrollIntoView();
-}
+// ── Arriving on a deep link ───────────────────────────────────────────────
+// A case study opens its reader. Anything else scrolls, and has to re-settle,
+// because the gallery, the carousel and the lazy images below all change the
+// height after this runs and a single jump overshoots by thousands of pixels.
+(function arrive() {
+	var h = location.hash;
+	if (!h) return;
+	if (h.indexOf('#cs-') === 0) {
+		var slug = h.slice(4);
+		if (caseBySlug(slug)) {
+			var go = function () { openCaseStudy(slug, false); };
+			if (document.readyState === 'complete') go();
+			else window.addEventListener('load', go);
+			return;
+		}
+	}
+	var wanted = h.slice(1), userMoved = false;
+	var settle = function () {
+		if (userMoved) return;
+		var el = document.getElementById(wanted);
+		if (!el) return;
+		if (Math.abs(el.getBoundingClientRect().top) < 4) return;
+		var prev = document.documentElement.style.scrollBehavior;
+		document.documentElement.style.scrollBehavior = 'auto';
+		el.scrollIntoView();
+		document.documentElement.style.scrollBehavior = prev;
+	};
+	var moved = function () { userMoved = true; };
+	window.addEventListener('wheel', moved, { passive: true, once: true });
+	window.addEventListener('touchstart', moved, { passive: true, once: true });
+	window.addEventListener('keydown', moved, { once: true });
+	settle();
+	window.addEventListener('load', function () {
+		settle();
+		[150, 500, 1200, 2200].forEach(function (ms) { setTimeout(settle, ms); });
+	});
+})();
 })();
 </script>
 </body>
