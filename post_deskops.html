@@ -6520,7 +6520,7 @@ document.addEventListener('keydown', function (e) {
 });
 
 window.addEventListener('popstate', function () {
-	var h = location.hash;
+	var h = resolveHash(location.hash);
 	if (h.indexOf('#cs-') === 0) openCaseStudy(h.slice(4), false);
 	else closeCaseStudy(false);
 });
@@ -6556,8 +6556,43 @@ document.addEventListener('click', function (e) {
 // A case study opens its reader. Anything else scrolls, and has to re-settle,
 // because the gallery, the carousel and the lazy images below all change the
 // height after this runs and a single jump overshoots by thousands of pixels.
+// The brief this work came from named the finance sections #fin-r2r, #fin-o2c
+// and so on, and a CV and cover letter were written against those names before
+// the material was folded into this page under #cs- ids. Rather than ask a
+// printed document to change, the old names resolve to where the content
+// actually lives. Names with no equivalent are deliberately absent: pointing
+// them at something approximate would be worse than a dead link.
+var ALIAS = {
+	'fin-overview':   'finance-tour',
+	'fin-r2r':        'cs-r2r',
+	'fin-o2c':        'cs-o2c',
+	'fin-p2p':        'cs-p2p',
+	'fin-bank-rec':   'cs-o2c',
+	'fin-fpa':        'cs-fpa',
+	'fin-ai':         'cs-reporting',
+	'fin-ocr':        'cs-docint',
+	'fin-automation': 'cs-workflow',
+	'fin-controls':   'cs-platform',
+	'fig-fin-dashboard':    'fig-dashboard',
+	'fig-fin-ledger':       'fig-ledger',
+	'fig-fin-coa':          'fig-accounts',
+	'fig-fin-period-close': 'fig-periods',
+	'fig-fin-invoice':      'fig-invoice',
+	'fig-fin-bank-rec':     'fig-reconcile',
+	'fig-fin-budget':       'fig-budget',
+	'fig-fin-month-end':    'fig-qleo',
+	'fig-fin-nl-report':    'fig-ask',
+	'fig-wf-builder':       'fig-canvas',
+	'fig-wf-run-audit':     'fig-dryrun',
+	'fig-ctl-audit-log':    'fig-audit'
+};
+function resolveHash(h) {
+	var key = h.charAt(0) === '#' ? h.slice(1) : h;
+	return ALIAS[key] ? '#' + ALIAS[key] : h;
+}
+
 (function arrive() {
-	var h = location.hash;
+	var h = resolveHash(location.hash);
 	if (!h) return;
 	if (h.indexOf('#cs-') === 0) {
 		var slug = h.slice(4);
