@@ -6238,6 +6238,7 @@ var PICTURE = function (f, sub, alt, cls) {
 };
 
 var FIGS = {
+	'dashboard':     ['fin-dashboard',     'Revenue, expenses, net profit and the outstanding position, above an approval queue and three charts.'],
 	'accounts':      ['fin-accounts',      'Chart of accounts: forty-one accounts by type and category, each carrying its balance.'],
 	'ledger':        ['fin-ledger',        'General ledger grouped by account, with the controls that govern it in one toolbar.'],
 	'journal':       ['fin-journal-entry', 'A manual journal entry will not post until debits equal credits.'],
@@ -6287,6 +6288,10 @@ function figs2(a, b) { return '<div class="fx-figs2">' + fig(a) + fig(b) + '</di
 
 // ── Part one: the tour ────────────────────────────────────────────────────
 var TOUR = [
+	['overview', 'The module at a glance', [
+		'<p>Thirty erp tables behind one screen of nine tabs, with a shared posting engine underneath all of it. The dashboard is the summary the rest of this tour takes apart: revenue, expenses, net profit and the outstanding position, an approval queue holding anything above the threshold, and three charts drawn by the application’s own canvas library rather than a charting dependency.</p>',
+		fig('dashboard')
+	]],
 	['books', 'The books themselves', [
 		'<p>The module is built on orthodox double-entry accounting rather than a totals column wearing its clothes. Forty-one accounts sit in a chart organised by type and category, and every invoice, payment and expense posts journal entries through one engine.</p>',
 		'<p>That engine refuses what it should refuse. A transaction that does not balance to within half a cent is rejected. A line carrying both a debit and a credit is rejected. So is a negative amount, and so is a transaction with fewer than two lines. The ledger currently holds eighty-four transactions across a hundred and eighty-one entries, with both sides at 408,168.48 and nothing out of balance.</p>',
@@ -6589,7 +6594,7 @@ var FIG_SEC = {};       // figure id -> section id
 	}
 
 	if (essay) {
-		TOUR_SECS.push({ id: 'fin-overview', label: 'The argument', html: essay, figs: [] });
+		TOUR_SECS.push({ id: 'fin-essay', label: 'The argument', html: essay, figs: [] });
 	}
 	TOUR.forEach(function (t) {
 		var html = '<h3>' + t[1] + '</h3>' + t[2].join('');
@@ -6746,7 +6751,19 @@ var FIG_ALIAS = {
 	'fig-fin-nl-report': 'fig-ask', 'fig-wf-builder': 'fig-canvas',
 	'fig-wf-run-audit': 'fig-dryrun', 'fig-ctl-audit-log': 'fig-audit'
 };
-var TOUR_ANCHOR = { 'finance-tour': 1, 'fin-overview': 1, 'fin-books': 1,
+// A figure that lives in a case study rather than the tour. Sending these to
+// the tour would open it and land on the first stop, which is a link that
+// appears to work and does not.
+var CASE_FIG = {
+	'fig-qleo': 'r2r',        'fig-fin-month-end': 'r2r',
+	'fig-ask': 'reporting',   'fig-fin-nl-report': 'reporting',
+	'fig-builder': 'reporting',
+	'fig-canvas': 'workflow', 'fig-wf-builder': 'workflow',
+	'fig-dryrun': 'workflow', 'fig-wf-run-audit': 'workflow',
+	'fig-models': 'platform', 'fig-schema': 'platform', 'fig-triage': 'platform',
+	'fig-kpi': 'fpa'
+};
+var TOUR_ANCHOR = { 'finance-tour': 1, 'fin-essay': 1, 'fin-overview': 1, 'fin-books': 1,
                     'fin-money-in': 1, 'fin-money-out': 1, 'fin-out': 1 };
 
 function openDeepDive(inner) {
@@ -6872,6 +6889,7 @@ document.addEventListener('click', function (e) {
 	var go = function () {
 		if (CASE_ANCHOR[key]) { openCaseStudy(CASE_ANCHOR[key], false); return; }
 		if (TOUR_ANCHOR[key]) { openDeepDive(key === 'finance-tour' || key === 'fin-overview' ? null : key); return; }
+		if (CASE_FIG[key]) { openCaseStudy(CASE_FIG[key], false); return; }
 		if (key.indexOf('fig-') === 0) { openDeepDive(FIG_ALIAS[key] || key); return; }
 
 		// Anything else is an ordinary anchor, and has to re-settle, because the
