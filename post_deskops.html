@@ -2409,7 +2409,8 @@ figure.fx-shot picture { display: block; width: 100%; height: 100%; }
 	margin-top: 28px;
 }
 #deskops-cases .fx-card {
-	display: flex; flex-direction: column; text-align: left;
+	display: flex; flex-direction: column; align-items: stretch; text-align: left;
+	box-shadow: 0 4px 12px rgba(26,82,118,.06);
 	background: var(--white); border: 1px solid var(--border);
 	border-radius: var(--radius); overflow: hidden; cursor: pointer;
 	font: inherit; color: inherit; padding: 0;
@@ -2422,9 +2423,10 @@ figure.fx-shot picture { display: block; width: 100%; height: 100%; }
 }
 /* The tile keeps the same 16:9 as the captures, so the grid stays even
    whether or not a given card has an image behind it yet. */
-#deskops-cases .fx-card-img { aspect-ratio: 16 / 9; background: #e9eaec; overflow: hidden; }
+#deskops-cases .fx-card-img { aspect-ratio: 16 / 10; background: var(--grey-soft); overflow: hidden; border-bottom: 1px solid var(--border); }
+#deskops-cases .fx-card .shot-chrome span { font-family: var(--font-label); font-size: 11.5px; color: var(--text-muted); letter-spacing: .04em; }
 #deskops-cases .fx-card-img picture { display: block; width: 100%; height: 100%; }
-#deskops-cases .fx-card-img img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top left; }
+#deskops-cases .fx-card-img img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top center; }
 #deskops-cases .fx-card-body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 7px; flex: 1; }
 #deskops-cases .fx-card-body .fx-cs-tag { margin: 0; align-self: flex-start; }
 #deskops-cases .fx-card-body h3 { font-size: 17px; margin: 0; color: var(--blue-ink); line-height: 1.3; }
@@ -2570,6 +2572,18 @@ body.fx-tourmode .reader-body { overflow: hidden; padding: 0; display: flex; min
 	.fx-lane-fig { display: none; }
 	.fx-tour-pane { padding: 18px 16px 22px; }
 }
+
+/* A figure opens full size in the same zoom layer Chapter 08 uses. */
+.fx-zoom { position: relative; padding: 0; border: 0; cursor: zoom-in; display: block; width: 100%; font: inherit; }
+.fx-zoom-hint {
+	position: absolute; right: 10px; bottom: 10px;
+	background: rgba(13,51,73,.82); color: #fff; border-radius: 999px;
+	padding: 5px 12px; font-family: var(--font-label); font-size: 11.5px;
+	display: inline-flex; align-items: center; gap: 6px;
+	opacity: 0; transform: translateY(4px); transition: opacity .16s, transform .16s;
+	pointer-events: none;
+}
+.fx-zoom:hover .fx-zoom-hint, .fx-zoom:focus-visible .fx-zoom-hint { opacity: 1; transform: translateY(0); }
 
 body.fx-locked { overflow: hidden; }
 
@@ -6521,7 +6535,11 @@ function fig(key) {
 	figSeen[key] = (figSeen[key] || 0) + 1;
 	var id = 'fig-' + key + (figSeen[key] > 1 ? '-' + figSeen[key] : '');
 	return '<figure class="fx-shot" id="' + id + '">'
-	     +   '<div class="fx-frame">' + PICTURE(f[0], '', f[1]) + '</div>'
+	     +   '<button type="button" class="fx-frame fx-zoom" data-full="images/deskops/finance/full/'
+	     +     f[0] + '.webp' + FX_V + '" data-cap="' + f[1].replace(/"/g, '&quot;')
+	     +     '" title="Open full size" aria-label="Open full size">'
+	     +     PICTURE(f[0], '', f[1]) + '<span class="fx-zoom-hint"><i class="fa fa-search-plus"></i> Full size</span>'
+	     +   '</button>'
 	     +   '<figcaption>'
 	     +     '<span class="cap"><b>Figure ' + figNum[key] + '.</b> ' + f[1] + '</span>'
 	     +     '<button class="fx-link" data-anchor="fig-' + key + '" title="Copy a link to this figure" aria-label="Copy a link to this figure"><i class="fa fa-link"></i></button>'
@@ -6798,13 +6816,16 @@ var CASES = [
 
 	var grid = '';
 	CASES.forEach(function (c) {
+		// The same chrome bar Chapter 08 puts on a module tile, so a case study
+		// card and a suite card read as the same kind of object.
 		var tile = c[4]
-			? '<div class="fx-card-img">' + PICTURE(c[4], 'thumb', '') + '</div>'
+			? '<span class="shot-chrome"><i></i><i></i><i></i><span>' + c[1] + '</span></span>'
+			  + '<div class="fx-card-img">' + PICTURE(c[4], 'thumb', '') + '</div>'
 			: '';
 		grid += '<button type="button" class="fx-card' + (c[4] ? '' : ' is-note') + '" data-case="' + c[0] + '">'
 		     +    tile
 		     +    '<div class="fx-card-body">'
-		     +      '<span class="fx-cs-tag">' + c[1] + '</span>'
+		     +      (c[4] ? '' : '<span class="fx-cs-tag">' + c[1] + '</span>')
 		     +      '<h3>' + c[2] + '</h3>'
 		     +      '<p>' + c[3] + '</p>'
 		     +      '<span class="fx-card-more">Read the case study <i class="fa fa-arrow-right"></i></span>'
@@ -7126,6 +7147,28 @@ document.addEventListener('click', function (e) {
 		// than silently doing nothing.
 		flash(url);
 	}
+});
+
+// ── Full size, through the layer Chapter 08 already uses ──────────────────
+// The zoom overlay sits at z-index 2500, above both the case study reader and
+// the deep dive, so a figure can open over either. Its own close button calls
+// the page's closeZoom, which clears the inline scroll lock; the reader's lock
+// is a class, so it survives and is still correct underneath.
+document.addEventListener('click', function (e) {
+	var btn = e.target.closest('.fx-zoom');
+	if (!btn) return;
+	var modal = document.getElementById('zoom-modal');
+	var img = document.getElementById('zoom-img');
+	var cap = document.getElementById('zoom-caption');
+	if (!modal || !img) return;
+	img.src = btn.dataset.full;
+	img.alt = btn.dataset.cap || '';
+	if (cap) {
+		cap.textContent = btn.dataset.cap || '';
+		cap.style.display = btn.dataset.cap ? '' : 'none';
+	}
+	modal.classList.add('open');
+	document.body.style.overflow = 'hidden';
 });
 
 // ── Following one of these links from inside the page ─────────────────────
