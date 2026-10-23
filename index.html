@@ -27,6 +27,9 @@
 <style>
 /* Anatomy plates for the Career accordions. Scoped to .anat so nothing here
    can reach the rest of the site. */
+/* Declared on the root so the node classes work outside an .anat box. */
+:root{--anat-ink:#0d3349;--anat-muted:#5b6b7c;--anat-line:#9db0c2;--anat-accent:#2e86c1;
+  --anat-soft:#d9e7f4;--anat-panel:#f4f9fd;--anat-border:#cfe0ee;--anat-old:#a8550f;--anat-old-soft:#fbefe3}
 .anat{--anat-ink:#0d3349;--anat-muted:#5b6b7c;--anat-line:#9db0c2;--anat-accent:#2e86c1;
   --anat-soft:#d9e7f4;--anat-panel:#f4f9fd;--anat-border:#cfe0ee;--anat-old:#a8550f;--anat-old-soft:#fbefe3;
   margin:20px 0;padding:14px;background:#fff;border:1px solid var(--anat-border);border-radius:10px}
@@ -46,6 +49,32 @@
 .anat-new{fill:var(--anat-soft);stroke:var(--anat-accent);stroke-width:1.8}
 .anat-scroll{overflow-x:auto}
 .anat-scroll svg{min-width:560px}
+/* The internship cards carry their own diagram. A 320px tile would render a
+   640-unit drawing at half scale, so each internship is a row instead: the
+   drawing at close to its own size, the title and link beside it. */
+.intern-row{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:0;
+  border:1px solid var(--anat-border,#cfe0ee);border-radius:10px;background:#fff;
+  box-shadow:-2px 7px 21px -9px rgba(0,0,0,0.35);margin:0 0 20px;overflow:hidden}
+.intern-dg{padding:16px 18px;min-width:0}
+.intern-dg .anat-scroll{overflow-x:auto}
+.intern-dg svg{display:block;width:100%;height:auto;min-width:560px;
+  font-family:'Bahnschrift Light','Bahnschrift','Segoe UI',Arial,sans-serif}
+.intern-side{border-left:1px solid var(--anat-border,#cfe0ee);background:#f4f9fd;
+  padding:18px 20px;display:flex;flex-direction:column;gap:8px}
+.intern-side h6{margin:0;color:#0d3349;font-size:17px}
+.intern-when{margin:0;font-family:Consolas,'Cascadia Mono',monospace;font-size:11px;
+  letter-spacing:.06em;color:#5b6b7c}
+.intern-what{margin:0;font-family:'Bahnschrift Light',sans-serif;font-size:13px;
+  color:#5b6b7c;line-height:1.6}
+.intern-cap{margin:6px 0 0;font-family:'Bahnschrift Light',sans-serif;font-size:12px;
+  color:#5b6b7c;line-height:1.55;padding-top:10px;border-top:1px solid var(--anat-border,#cfe0ee)}
+.intern-side a{margin-top:auto;align-self:flex-start;text-decoration:none;font-weight:bold;
+  font-family:'Bahnschrift Light',sans-serif;color:#17A2B8;padding:6px 0}
+@media (max-width:860px){
+  .intern-row{grid-template-columns:minmax(0,1fr)}
+  .intern-side{border-left:0;border-top:1px solid var(--anat-border,#cfe0ee)}
+}
+
 /* Carousel for the accordions that hold more than one employer. Plain CSS and
    plain JavaScript; the Slick library already on the page is not used. */
 .anat-car{display:grid;grid-template-columns:minmax(0,1fr) 248px;gap:16px;margin:20px 0;outline:none}
@@ -1617,35 +1646,35 @@ The core values that I believe in are sincerity, creativity, showing initiative 
   <div class="main-container">
     <h5 style="text-align: center;">INTERNSHIP PROJECTS COMPLETED</h5>
     <br>
-    <div class="post-wrapper">
-      <div>
-        <div class="post">
-          <img class="thumbnail" src="images/ThumbNail1.png">
-          <div class="post-preview">
-            <h6 class="post-title">Zetes Nederland</h6>
-            <p class="post-intro">13-Feb-2017 to 15-July-2017</p>
-            <h6><a href="post3.html">EXPLORE</a></h6>
-          </div>
+    <div class="intern-list">
+      <div class="intern-row">
+        <div class="intern-dg"><div class="anat-scroll"><svg viewBox="0 0 640 318" role="img" aria-label="Leads from business cards reaching Salesforce: typed by hand today, and through a designed module in the proposal."><defs><marker id="zeA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#5b6b7c"/></marker></defs><text class="anat-eyebrow" x="40" y="24" text-anchor="start">TODAY</text><rect class="anat-node" x="40" y="38" width="150" height="50" rx="9"/><text class="anat-lbl" x="115" y="68" text-anchor="middle">Business card</text><path class="anat-edge" d="M190 63 H214" marker-end="url(#zeA)"/><rect class="anat-old" x="221" y="38" width="150" height="50" rx="9"/><text class="anat-lbl" x="296" y="68" text-anchor="middle">Typed by hand</text><path class="anat-edge" d="M371 63 H395" marker-end="url(#zeA)"/><rect class="anat-node" x="402" y="38" width="150" height="50" rx="9"/><text class="anat-lbl" x="477" y="68" text-anchor="middle">Salesforce</text><text class="anat-sub" x="296" y="108" text-anchor="middle">the step the assignment set out to remove</text><line x1="40" y1="134" x2="600" y2="134" stroke="#cfe0ee"/><text class="anat-eyebrow" x="40" y="164" text-anchor="start">PROPOSED</text><rect class="anat-node" x="40" y="178" width="150" height="50" rx="9"/><text class="anat-lbl" x="115" y="208" text-anchor="middle">Business card</text><path class="anat-edge" d="M190 203 H214" marker-end="url(#zeA)"/><rect class="anat-new" x="221" y="178" width="150" height="50" rx="9"/><text class="anat-lbl" x="296" y="200" text-anchor="middle">Module</text><text class="anat-sub" x="296" y="216" text-anchor="middle">beside Salesforce</text><polyline class="anat-lead" points="371,190 397,190 415,180 423,180"/><circle class="anat-dot" cx="371" cy="190" r="2.6"/><text class="anat-lbl" x="429" y="180">Conceptual design</text><text class="anat-sub" x="429" y="196">high-fidelity mock-ups</text><polyline class="anat-lead" points="371,203 397,203 415,222 423,222"/><circle class="anat-dot" cx="371" cy="203" r="2.6"/><text class="anat-lbl" x="429" y="222">Requirements document</text><text class="anat-sub" x="429" y="238">delivered with a UI design</text><polyline class="anat-lead" points="371,216 397,216 415,264 423,264"/><circle class="anat-dot" cx="371" cy="216" r="2.6"/><text class="anat-lbl" x="429" y="264">A design, not a build</text><text class="anat-sub" x="429" y="280">the page calls it a scenario</text></svg></div></div>
+        <div class="intern-side">
+          <h6 class="post-title">Zetes Nederland</h6>
+          <p class="intern-when">13-Feb-2017 to 15-July-2017</p>
+          <p class="intern-what">A scenario analysis of the CRM. The design was delivered, not deployed.</p>
+          <p class="intern-cap">How a lead reaches Salesforce today, and how the proposed module would change it.</p>
+          <a href="post3.html">EXPLORE</a>
         </div>
       </div>
-      <div>
-        <div class="post">
-          <img class="thumbnail" src="images/ThumbNail2.png">
-          <div class="post-preview">
-            <h6 class="post-title">Antenna Company</h6>
-            <p class="post-intro">07-Feb-2018 to 05-July-2018</p>
-            <h6><a href="post2.html">EXPLORE</a></h6>
-          </div>
+      <div class="intern-row">
+        <div class="intern-dg"><div class="anat-scroll"><svg viewBox="0 0 640 300" role="img" aria-label="The Antenna internship in four phases: research into reaching the data, then a written procedure, then the dashboard, then sign-off."><defs><marker id="anP" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#5b6b7c"/></marker></defs><rect x="40" y="126" width="140" height="46" fill="#d9e7f4" stroke="#2e86c1" stroke-width="1" rx="9"/><text class="anat-lbl" x="110" y="155" text-anchor="middle" >Research</text><rect x="180" y="126" width="140" height="46" fill="#bcd8ee" stroke="#2e86c1" stroke-width="1" /><text class="anat-lbl" x="250" y="155" text-anchor="middle" >Procedure</text><rect x="320" y="126" width="140" height="46" fill="#8fc0e2" stroke="#2e86c1" stroke-width="1" /><text class="anat-lbl" x="390" y="155" text-anchor="middle" >Dashboard</text><rect x="460" y="126" width="140" height="46" fill="#4aa3df" stroke="#2e86c1" stroke-width="1" rx="9"/><text class="anat-lbl" x="530" y="155" text-anchor="middle" fill="#ffffff">Sign-off</text><path class="anat-lead" d="M110 126 V86"/><circle class="anat-dot" cx="110" cy="126" r="2.6"/><text class="anat-lbl" x="110" y="74" text-anchor="middle">how to reach the KPI data</text><path class="anat-lead" d="M250 172 V194"/><circle class="anat-dot" cx="250" cy="172" r="2.6"/><text class="anat-lbl" x="250" y="216" text-anchor="middle">every step in exact order</text><path class="anat-lead" d="M390 126 V86"/><circle class="anat-dot" cx="390" cy="126" r="2.6"/><text class="anat-lbl" x="390" y="74" text-anchor="middle">KPIs in the IBCS standard</text><path class="anat-lead" d="M530 172 V194"/><circle class="anat-dot" cx="530" cy="172" r="2.6"/><text class="anat-lbl" x="530" y="216" text-anchor="middle">the work was passed</text><line x1="40" y1="258" x2="600" y2="258" stroke="#9db0c2"/><path class="anat-edge" d="M40 258 V252 M600 258 V252"/><text class="anat-eyebrow" x="40" y="276" text-anchor="start">INTERNSHIP BEGINS</text><text class="anat-eyebrow" x="600" y="276" text-anchor="end">PROJECT DEFENCE</text></svg></div></div>
+        <div class="intern-side">
+          <h6 class="post-title">Antenna Company</h6>
+          <p class="intern-when">07-Feb-2018 to 05-July-2018</p>
+          <p class="intern-what">Accelerating an ERP already in place, ending in a dashboard in a reporting standard.</p>
+          <p class="intern-cap">The internship as a sequence: each phase named on the page, in the order it happened.</p>
+          <a href="post2.html">EXPLORE</a>
         </div>
       </div>
-      <div>
-        <div class="post">
-          <img class="thumbnail" src="images/ThumbNail3.png">
-          <div class="post-preview">
-            <h6 class="post-title">OCS Consulting</h6>
-            <p class="post-intro">03-Sep-2018 to 08-Feb-2019</p>
-            <h6><a href="post1.html">EXPLORE</a></h6>
-          </div>
+      <div class="intern-row">
+        <div class="intern-dg"><div class="anat-scroll"><svg viewBox="0 0 640 318" role="img" aria-label="Clientele information held in spreadsheets of varying quality, replaced by a data-driven web application."><defs><marker id="ocA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#5b6b7c"/></marker></defs><text class="anat-eyebrow" x="40" y="24" text-anchor="start">BEFORE</text><rect class="anat-node" x="40" y="38" width="150" height="50" rx="9"/><text class="anat-lbl" x="115" y="68" text-anchor="middle">Contracts</text><path class="anat-edge" d="M190 63 H214" marker-end="url(#ocA)"/><rect class="anat-old" x="221" y="38" width="150" height="50" rx="9"/><text class="anat-lbl" x="296" y="68" text-anchor="middle">Spreadsheets</text><path class="anat-edge" d="M371 63 H395" marker-end="url(#ocA)"/><rect class="anat-old" x="402" y="38" width="150" height="50" rx="9"/><text class="anat-lbl" x="477" y="68" text-anchor="middle">Varying quality</text><text class="anat-sub" x="296" y="108" text-anchor="middle">handled by hand, and harder to maintain as the firm grew</text><line x1="40" y1="134" x2="600" y2="134" stroke="#cfe0ee"/><text class="anat-eyebrow" x="40" y="164" text-anchor="start">AFTER</text><rect class="anat-node" x="40" y="178" width="150" height="50" rx="9"/><text class="anat-lbl" x="115" y="208" text-anchor="middle">Contracts</text><path class="anat-edge" d="M190 203 H214" marker-end="url(#ocA)"/><rect class="anat-new" x="221" y="178" width="150" height="50" rx="9"/><text class="anat-lbl" x="296" y="200" text-anchor="middle">Web application</text><text class="anat-sub" x="296" y="216" text-anchor="middle">one place to look</text><polyline class="anat-lead" points="371,190 397,190 415,180 423,180"/><circle class="anat-dot" cx="371" cy="190" r="2.6"/><text class="anat-lbl" x="429" y="180">Built on PHP and MySQL</text><text class="anat-sub" x="429" y="196">with HTML and CSS</text><polyline class="anat-lead" points="371,203 397,203 415,222 423,222"/><circle class="anat-dot" cx="371" cy="203" r="2.6"/><text class="anat-lbl" x="429" y="222">MoSCoW</text><text class="anat-sub" x="429" y="238">requirements prioritised</text><polyline class="anat-lead" points="371,216 397,216 415,264 423,264"/><circle class="anat-dot" cx="371" cy="216" r="2.6"/><text class="anat-lbl" x="429" y="264">Usability tested</text><text class="anat-sub" x="429" y="280">run with the client</text></svg></div></div>
+        <div class="intern-side">
+          <h6 class="post-title">OCS Consulting</h6>
+          <p class="intern-when">03-Sep-2018 to 08-Feb-2019</p>
+          <p class="intern-what">A graduation project: clientele information moved out of spreadsheets into an application.</p>
+          <p class="intern-cap">What the firm did before, and what the project replaced it with.</p>
+          <a href="post1.html">EXPLORE</a>
         </div>
       </div>
     </div>
