@@ -597,7 +597,7 @@ h6 { font-size: 16px;}
   text-transform:uppercase;color:var(--anat-accent);margin-bottom:8px}
 .pp-head h3{margin:0 0 12px;color:var(--anat-ink);line-height:1.2}
 .pp-lede{font-family:'Bahnschrift Light',sans-serif;font-size:16px;line-height:1.7;
-  color:var(--anat-muted);max-width:70ch;margin:0 0 16px}
+  color:var(--anat-muted);max-width:var(--prose);margin:0 0 16px}
 .pp-meta{list-style:none;display:flex;flex-wrap:wrap;gap:10px 26px;margin:0;padding:0}
 .pp-meta li{font-family:'Bahnschrift Light',sans-serif;font-size:13.5px;color:var(--anat-ink)}
 .pp-meta span{display:block;font-family:Consolas,'Cascadia Mono',monospace;font-size:10px;
@@ -620,7 +620,10 @@ h6 { font-size: 16px;}
 
 /* The prose on a project page keeps a readable measure. At the full width of
    the container a line carries about 140 characters, and the eye loses its
-   place coming back for the next one. Unclassed paragraphs only, so the note
-   and the description lines keep their own sizing. */
-.main-container > p:not([class]){max-width:84ch;line-height:1.75;margin:0 0 14px}
+   place coming back for the next one. One measure in pixels rather than ch,
+   because the standfirst sets at 16px and the body at 15, and a ch cap would
+   wrap them at two different widths one under the other. Unclassed paragraphs
+   only, so the note and the description lines keep their own sizing. */
+:root{--prose:800px}
+.main-container > p:not([class]){max-width:var(--prose);line-height:1.75;margin:0 0 14px}
 .main-container > h4{margin:34px 0 12px}
