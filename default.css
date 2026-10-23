@@ -586,3 +586,32 @@ h6 { font-size: 16px;}
   .anat-car{grid-template-columns:minmax(0,1fr)}
   .anat-car-side{order:2}
 }
+
+
+/* ─── Project pages ───────────────────────────────────────────────────────
+   The OCS page was prose followed by 187 scanned pages, which read as an
+   archive. These give it a header, a readable measure and a way to introduce
+   the document set rather than open with it. */
+.pp-head{border-bottom:1px solid var(--anat-border);padding-bottom:18px;margin-bottom:6px}
+.pp-kicker{font-family:Consolas,'Cascadia Mono',monospace;font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--anat-accent);margin-bottom:8px}
+.pp-head h3{margin:0 0 12px;color:var(--anat-ink);line-height:1.2}
+.pp-lede{font-family:'Bahnschrift Light',sans-serif;font-size:16px;line-height:1.7;
+  color:var(--anat-muted);max-width:70ch;margin:0 0 16px}
+.pp-meta{list-style:none;display:flex;flex-wrap:wrap;gap:10px 26px;margin:0;padding:0}
+.pp-meta li{font-family:'Bahnschrift Light',sans-serif;font-size:13.5px;color:var(--anat-ink)}
+.pp-meta span{display:block;font-family:Consolas,'Cascadia Mono',monospace;font-size:10px;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--anat-muted);margin-bottom:2px}
+.pp-label{font-family:Consolas,'Cascadia Mono',monospace;font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--anat-accent);margin:34px 0 2px}
+.pp-chips{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0;padding:0}
+.pp-chips li{font-family:'Bahnschrift Light',sans-serif;font-size:13px;color:var(--anat-ink);
+  border:1px solid var(--anat-border);background:#fff;border-radius:999px;padding:6px 14px}
+.pp-note{font-family:'Bahnschrift Light',sans-serif;font-size:14px;line-height:1.7;
+  color:var(--anat-muted);max-width:74ch;background:var(--anat-panel);
+  border-left:3px solid var(--anat-accent);border-radius:0 8px 8px 0;padding:14px 18px;margin:12px 0 18px}
+.pp-ask{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin:16px 0 0}
+.pp-ask div{border:1px solid var(--anat-border);border-radius:10px;padding:16px 18px;background:#fff}
+.pp-ask b{display:block;font-family:'Bahnschrift',sans-serif;font-size:14px;color:var(--anat-ink);margin-bottom:6px}
+.pp-ask p{margin:0;font-family:'Bahnschrift Light',sans-serif;font-size:13.5px;
+  line-height:1.65;color:var(--anat-muted)}
