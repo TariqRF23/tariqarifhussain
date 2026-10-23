@@ -615,3 +615,12 @@ h6 { font-size: 16px;}
 .pp-ask b{display:block;font-family:'Bahnschrift',sans-serif;font-size:14px;color:var(--anat-ink);margin-bottom:6px}
 .pp-ask p{margin:0;font-family:'Bahnschrift Light',sans-serif;font-size:13.5px;
   line-height:1.65;color:var(--anat-muted)}
+
+.pp-what{font-family:'Bahnschrift Light',sans-serif;font-size:13.5px;color:var(--anat-muted);line-height:1.6;margin:10px 0 4px;max-width:74ch}
+
+/* The prose on a project page keeps a readable measure. At the full width of
+   the container a line carries about 140 characters, and the eye loses its
+   place coming back for the next one. Unclassed paragraphs only, so the note
+   and the description lines keep their own sizing. */
+.main-container > p:not([class]){max-width:84ch;line-height:1.75;margin:0 0 14px}
+.main-container > h4{margin:34px 0 12px}

@@ -115,6 +115,74 @@
 }
 
 
+/* The record. Six entries, one shape. The plus expands in place, the arrow
+   opens the document in a viewer. */
+.main-container {
+  width: 920px;
+}
+.accordion, .rec-open {
+  position: relative;
+  border-radius: 6px 6px 0 0;
+}
+.rec-open {
+  display: block;
+  background-color: #ecf0f3;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  text-align: left;
+  font-size: 15px;
+  transition: 0.5s;
+  font-family: 'Bahnschrift Light', monospace;
+  border: 0;
+  border-radius: 6px;
+  margin: 0 0 8px;
+}
+.rec-open:hover {
+  background-color: #d9e7f4;
+  outline: none;
+}
+.accordion:after, .rec-open:after {
+  position: absolute;
+  right: 18px;
+  top: 17px;
+  float: none;
+  margin: 0;
+}
+.rec-open:after {
+  content: '\2197';
+  color: #777;
+  font-weight: bold;
+}
+.panel {
+  margin: 0 0 8px;
+  border-radius: 0 0 6px 6px;
+}
+.accordion, .rec-open {
+  border: 0;
+}
+a.rec-open, a.rec-open:hover, a.rec-open:focus {
+  text-decoration: none;
+  color: #444;
+}
+.rec-play:after {
+  content: '\25B6';
+  font-size: 12px;
+  top: 19px;
+}
+.rec-t {
+  display: block;
+  padding-right: 28px;
+}
+.rec-d {
+  display: block;
+  margin-top: 5px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: #5b6b7c;
+  padding-right: 28px;
+}
 </style>
 	
 
@@ -159,60 +227,44 @@
 </div>
 
 
-		<div class="pp-label">The background</div>
-		<h4>Project Background.</h4>
+				<h4>What the firm does</h4>
+		<p>OCS-Consulting supplies people and services to other businesses: consultants placed on
+		site, consultancy work, and infrastructure support, for corporations and smaller firms alike.
+		Its own expertise sits in project management, business analysis, business intelligence, and
+		testing and development on SAS software.</p>
 
-		<ul>
-		<li>The project was initiated by OCS-Consulting B.V. located in 's-Hertogenbosch, The Netherlands in 2018 to better manage, analyze and investigate thier clientele information.</li>
-		<li>Their business involves supplying tools and services like on-site staff secondment, consultancy and infrastructure support services for corporations and small businesses with their expertise in the fields of Project Management, Business Analysis, Business Intelligence, and Testing and Developing technologies with SAS® Software.</li>
-		<li>To further improve their services, OCS-Consulting decided to start with a project-based approach to managing this internal process of handling clientele assignments and the information that comes from them.</li>
-		</ul>
-		<hr>
-		<ul>
-		<li>Clientele assignments are services provided by OCS-Consulting B.V. under legally binding contracts. These contracts hold information about their clients and the terms of the services provided by OCS-Consulting. 
-		<li>Further, more information is stored in spreadsheets like duration of the contract and its number, consultants assigned etc. The internal process of handling clientele information on management reports that provide an overview of all assignments is done with spreadsheets. The contracts are created in MS-Word.</li>
-		</ul>
-		<br>
+		<p>Every piece of that work is a clientele assignment, and every assignment rests on a
+		contract. The contract holds who the client is and what was agreed. Everything around it lived
+		somewhere else: how long the work runs, the number it carries, which consultants are on it.</p>
+
+		<p>The contracts were written in Word. The detail around them sat in spreadsheets. The
+		management reports meant to give a view across every assignment at once were built from those
+		same spreadsheets. In 2018 the firm decided to stop treating this as a habit and look at it as
+		a project.</p>
+
+		<h4>Where it was breaking</h4>
+		<p>Three things were going wrong, and only the first was obvious.</p>
+
+		<p>Handling assignments by hand meant paperwork and spreadsheets, which is tedious and easy to
+		get wrong. That is tolerable at one size and not at another, and the firm was growing.</p>
+
+		<p>There was no standard way of doing it, so each consultant worked out their own. That holds
+		up until somebody else has to pick the work up.</p>
+
+		<p>And because the documents varied, so did the data inside them. Quality fell, and with it the
+		chance of finding anything useful when someone went back to look.</p>
+
 			<figure class="anat">
   <div class="anat-scroll"><svg viewBox="0 0 640 318" role="img" aria-label="Clientele information held in spreadsheets of varying quality, replaced by a data-driven web application."><defs><marker id="ocA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#5b6b7c"/></marker></defs><text class="anat-eyebrow" x="40" y="24" text-anchor="start">BEFORE</text><rect class="anat-node" x="40" y="38" width="150" height="50" rx="9"/><text class="anat-lbl" x="115" y="68" text-anchor="middle">Contracts</text><path class="anat-edge" d="M190 63 H214" marker-end="url(#ocA)"/><rect class="anat-old" x="221" y="38" width="150" height="50" rx="9"/><text class="anat-lbl" x="296" y="68" text-anchor="middle">Spreadsheets</text><path class="anat-edge" d="M371 63 H395" marker-end="url(#ocA)"/><rect class="anat-old" x="402" y="38" width="150" height="50" rx="9"/><text class="anat-lbl" x="477" y="68" text-anchor="middle">Varying quality</text><text class="anat-sub" x="296" y="108" text-anchor="middle">handled by hand, and harder to maintain as the firm grew</text><line x1="40" y1="134" x2="600" y2="134" stroke="#cfe0ee"/><text class="anat-eyebrow" x="40" y="164" text-anchor="start">AFTER</text><rect class="anat-node" x="40" y="178" width="150" height="50" rx="9"/><text class="anat-lbl" x="115" y="208" text-anchor="middle">Contracts</text><path class="anat-edge" d="M190 203 H214" marker-end="url(#ocA)"/><rect class="anat-new" x="221" y="178" width="150" height="50" rx="9"/><text class="anat-lbl" x="296" y="200" text-anchor="middle">Web application</text><text class="anat-sub" x="296" y="216" text-anchor="middle">one place to look</text><polyline class="anat-lead" points="371,190 397,190 415,180 423,180"/><circle class="anat-dot" cx="371" cy="190" r="2.6"/><text class="anat-lbl" x="429" y="180">Built on PHP and MySQL</text><text class="anat-sub" x="429" y="196">with HTML and CSS</text><polyline class="anat-lead" points="371,203 397,203 415,222 423,222"/><circle class="anat-dot" cx="371" cy="203" r="2.6"/><text class="anat-lbl" x="429" y="222">MoSCoW</text><text class="anat-sub" x="429" y="238">requirements prioritised</text><polyline class="anat-lead" points="371,216 397,216 415,264 423,264"/><circle class="anat-dot" cx="371" cy="216" r="2.6"/><text class="anat-lbl" x="429" y="264">Usability tested</text><text class="anat-sub" x="429" y="280">run with the client</text></svg></div>
-  <figcaption>What the firm did before, and what the capstone replaced it with.</figcaption>
+  <figcaption>What the firm did before, and what the project replaced it with.</figcaption>
 </figure>
 
-		<div class="pp-label">The objective</div>
-		<h4>Project Objective.</h4>
-		<br>
-		<ul>
-		<li>With its growth over time the company found problems with managing its clientele information. They needed to take measures to solve them. Firstly, manual handling of these assignments involves paperwork and the use of spreadsheets can be error-prone and tedious.</li>
-		<li>To an extent this can be effective but as the company grows this becomes challenging to maintain. Secondly, without a standardized system, the consultants at OCS-Consulting needed to device their own method of managing their assignments.</li> 
-		<li>Further, variation as to how clientele information documents are made can result into the problem of diminished quality of data, creating difficulty for later reference.</li>
-		</ul>
-		<hr>
-		<ul>
-		<li>The objective of the project is to create an efficient system of managing their clientele information using a data driven web-application. The company takes a project-based approach to purpose this as an opportunity to investigate how to efficiently record their clientele assignments and standardize the process within the company.</li>
-		<li>Further, they want to investigate if this data holds any valuable information when subjected to a business intelligence or a data-visualization tool. Specifically, the company wants to know if the web-application developed for this purpose can contribute to finding valuable information, ease of reference and a more efficient process.</li>
-		<br>
-	</div>
+		<h4>What the project set out to do</h4>
+		<p>The brief was a data-driven web application: one place to record a clientele assignment, and
+		the same way of recording it every time, so that the process was standardised rather than
+		invented afresh by whoever happened to be doing it.</p>
 
-	<div class="container">
-		
-		<div class="btn-group btn-group-justified">
-		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal1">
-    	RECOMMENDATIONS: #1
-  		</button>
-
-		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">
-    	#2
-  		</button>
-
-  		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal3">
-    	#3
-  		</button>
-  		</div>
-
-  		
-	</div>
-
-		<div class="main-container">
+		<p>Underneath that sat a second question, and it is the more interesting of the two.</p>
 
 <div class="pp-ask">
   <div><b>Can the process be standardised?</b><p>Record every clientele assignment one way, so a
@@ -221,13 +273,22 @@
   collected, held anything useful when put through a business intelligence tool.</p></div>
 </div>
 
-<div class="pp-label">How it ran</div>
+		<h4>How the project ran</h4>
+		<p>It was run as a project in its own right rather than a build with notes attached. The
+		survey came first, then a plan carrying its own communication plan and risk analysis, then
+		requirements set against MoSCoW before anything was written. Six meetings were minuted, and the
+		process itself was recorded against the DOT framework.</p>
+
 <figure class="anat">
   <div class="anat-scroll"><svg viewBox="0 0 640 282" role="img" aria-label="How the project ran: survey, project plan, prioritised requirements, build, usability testing and reports, with six meetings minuted across it."><defs><marker id="ocm" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#5b6b7c"/></marker></defs><rect class="anat-node" x="30" y="40" width="170" height="56" rx="9"/><text class="anat-lbl" x="115" y="65" text-anchor="middle">Survey</text><text class="anat-sub" x="115" y="82" text-anchor="middle">the graduation project survey</text><circle cx="46" cy="40" r="10" fill="#d9e7f4" stroke="#2e86c1"/><text class="anat-sub" x="46" y="44" text-anchor="middle" fill="#0d3349">1</text><rect class="anat-node" x="235" y="40" width="170" height="56" rx="9"/><text class="anat-lbl" x="320" y="65" text-anchor="middle">Project plan</text><text class="anat-sub" x="320" y="82" text-anchor="middle">communication and risk</text><circle cx="251" cy="40" r="10" fill="#d9e7f4" stroke="#2e86c1"/><text class="anat-sub" x="251" y="44" text-anchor="middle" fill="#0d3349">2</text><path class="anat-edge" d="M200 68 H228" marker-end="url(#ocm)"/><rect class="anat-node" x="440" y="40" width="170" height="56" rx="9"/><text class="anat-lbl" x="525" y="65" text-anchor="middle">Requirements</text><text class="anat-sub" x="525" y="82" text-anchor="middle">prioritised with MoSCoW</text><circle cx="456" cy="40" r="10" fill="#d9e7f4" stroke="#2e86c1"/><text class="anat-sub" x="456" y="44" text-anchor="middle" fill="#0d3349">3</text><path class="anat-edge" d="M405 68 H433" marker-end="url(#ocm)"/><path class="anat-edge" d="M525 96 V122 H115 V143" marker-end="url(#ocm)"/><rect class="anat-node" x="30" y="150" width="170" height="56" rx="9"/><text class="anat-lbl" x="115" y="175" text-anchor="middle">Build</text><text class="anat-sub" x="115" y="192" text-anchor="middle">PHP, MySQL, AppGini</text><circle cx="46" cy="150" r="10" fill="#d9e7f4" stroke="#2e86c1"/><text class="anat-sub" x="46" y="154" text-anchor="middle" fill="#0d3349">4</text><rect class="anat-node" x="235" y="150" width="170" height="56" rx="9"/><text class="anat-lbl" x="320" y="175" text-anchor="middle">Usability testing</text><text class="anat-sub" x="320" y="192" text-anchor="middle">run with the client</text><circle cx="251" cy="150" r="10" fill="#d9e7f4" stroke="#2e86c1"/><text class="anat-sub" x="251" y="154" text-anchor="middle" fill="#0d3349">5</text><path class="anat-edge" d="M200 178 H228" marker-end="url(#ocm)"/><rect class="anat-node" x="440" y="150" width="170" height="56" rx="9"/><text class="anat-lbl" x="525" y="175" text-anchor="middle">Reports</text><text class="anat-sub" x="525" y="192" text-anchor="middle">company report, main report</text><circle cx="456" cy="150" r="10" fill="#d9e7f4" stroke="#2e86c1"/><text class="anat-sub" x="456" y="154" text-anchor="middle" fill="#0d3349">6</text><path class="anat-edge" d="M405 178 H433" marker-end="url(#ocm)"/><path class="anat-lead" stroke-dasharray="5 5" d="M30 220 V228 H610 V220"/><text class="anat-eyebrow" x="320" y="246" text-anchor="middle">SIX MEETINGS MINUTED ACROSS THE PROJECT</text><text class="anat-sub" x="320" y="264" text-anchor="middle">and the process recorded against the DOT framework</text></svg></div>
   <figcaption>Six steps and six minuted meetings. Every element here is a document in the record below.</figcaption>
 </figure>
-<div class="pp-label">Built with</div>
-<h5>Technologies Used</h5>
+
+		<h4>Built with</h4>
+		<p>Four things. The database carried the model, the PHP layer over it was generated from that
+		schema with AppGini, the interface was plain HTML and CSS, and Power BI Desktop was where the
+		second question got its answer.</p>
+
 <ul class="pp-chips">
   <li>HTML &amp; CSS</li>
   <li>MySQL</li>
@@ -235,13 +296,12 @@
   <li>Microsoft Power BI Desktop</li>
 </ul>
 
-		<div class="pp-label">The record</div>
-		<h4>Documentation</h4>
-<p class="pp-note">The project was documented as well as built. What follows is the full record as it was submitted: the main report, the project plan with its communication plan and risk analysis, the company report, the minutes of all six meetings, the MoSCoW prioritisation, and the process written up against the DOT framework.</p>
+		<h4>The record</h4>
+<p class="pp-note">The project was documented as carefully as it was built, and the whole submission is here rather than summarised. Open any part of it.</p>
 
 		
 
-		<button class="accordion">1. Main Report</button>
+		<button class="accordion"><span class="rec-t">1. Main Report</span><span class="rec-d">The project written up in full, from front matter through to the evaluation.</span></button>
 		<div class="panel">
 		<h6>1.1 Front Matter</h6>
 		<table style="width:100%">
@@ -302,9 +362,8 @@
     		</div>
 
 
-    		<button type="button" class="btn2 btn-link1" data-toggle="modal" data-target="#myModal17">2. Appendix A- Graduation Project Survey</button>
-<br>
-    	<button class="accordion">3. Appendix B- Project Plan</button>
+    		<button type="button" class="rec-open" data-toggle="modal" data-target="#myModal17"><span class="rec-t">2. Appendix A- Graduation Project Survey</span><span class="rec-d">The survey that opened the project and set its terms.</span></button>
+    	<button class="accordion"><span class="rec-t">3. Appendix B- Project Plan</span><span class="rec-d">The plan, with the communication plan and the risk analysis attached to it.</span></button>
 		<div class="panel">
 		<h6>3.1 Front Matter</h6>
 			<table style="width:100%">
@@ -390,7 +449,7 @@
 		</div>
 		
 
-		<button class="accordion">4. Appendix C- Company Report</button>
+		<button class="accordion"><span class="rec-t">4. Appendix C- Company Report</span><span class="rec-d">Written for the firm rather than the university: work estimation, routines, the MoSCoW prioritisation, and the minutes of all six meetings.</span></button>
 		<div class="panel">
 		<h6>4.1 Main Report</h6>
 			<table style="width:100%">
@@ -518,23 +577,24 @@
         	</table>
         </div>
 
-        <button type="button" class="btn2 btn-link1" data-toggle="modal" data-target="#myModal61">5. Appendix D- Process Details with DOT-Framework</button>
-<br>
-        <button type="button" class="btn2 btn-link1" data-toggle="modal" data-target="#myModal62">6. Appendix E- Analytical and Creative Problem-Solving Requirements</button>
+        <button type="button" class="rec-open" data-toggle="modal" data-target="#myModal61"><span class="rec-t">5. Appendix D- Process Details with DOT-Framework</span><span class="rec-d">The process recorded against the DOT framework, which is how the method itself was examined.</span></button>
+        <button type="button" class="rec-open" data-toggle="modal" data-target="#myModal62"><span class="rec-t">6. Appendix E- Analytical and Creative Problem-Solving Requirements</span><span class="rec-d">The reasoning requirements the project had to satisfy, answered one by one.</span></button>
 		
 
 <br>
 
 		<h4>Presentations</h4>
+		<p>Both ends of the project were recorded: the case made for it, and the thing itself
+		running.</p>
 
-		<ul>
-			<li><a target="_blank" href="https://youtu.be/LAG1lDNZfMg">Technical Presentation of the project</a></li>
-			<li><a target="_blank" href="https://www.youtube.com/watch?v=tm8gmxJFW80">Demo</a></li>
-		</ul>
+		<a class="rec-open rec-play" target="_blank" href="https://youtu.be/LAG1lDNZfMg"><span
+		class="rec-t">Technical presentation</span><span class="rec-d">The project presented in full,
+		from the problem through to what was built.</span></a>
+		<a class="rec-open rec-play" target="_blank" href="https://www.youtube.com/watch?v=tm8gmxJFW80"><span
+		class="rec-t">Demo</span><span class="rec-d">The application itself, walked through on
+		screen.</span></a>
 
 		</div>
-
-	</div>
 
 
 	<div class="container">
