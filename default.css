@@ -529,6 +529,7 @@ h6 { font-size: 16px;}
 /* The internship cards carry their own diagram. A 320px tile would render a
    640-unit drawing at half scale, so each internship is a row instead: the
    drawing at close to its own size, the title and link beside it. */
+.intern-list{max-width:1000px;margin:0 auto}
 .intern-row{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:0;
   border:1px solid var(--anat-border,#cfe0ee);border-radius:10px;background:#fff;
   box-shadow:-2px 7px 21px -9px rgba(0,0,0,0.35);margin:0 0 20px;overflow:hidden}
