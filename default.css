@@ -627,3 +627,59 @@ h6 { font-size: 16px;}
 :root{--prose:800px}
 .main-container > p:not([class]){max-width:var(--prose);line-height:1.75;margin:0 0 14px}
 .main-container > h4{margin:34px 0 12px}
+
+/* A project page runs in a narrower column than the home page, so the prose,
+   the diagrams and the record rows share one left and right edge instead of
+   the text sitting alone in a 1200px field. min() keeps the small-screen rule
+   below working, which a plain width would have overridden. */
+.main-container.pp-col{width:min(920px, 95%)}
+
+/* The record: one row per document, whatever opens it. An arrow opens a file
+   or a document viewer, a play mark opens a recording, and post1 adds a plus
+   for the ones that expand in place. */
+.rec-open{position:relative;display:block;width:100%;margin:0 0 8px;padding:18px;border:0;
+  border-radius:6px;background-color:#ecf0f3;color:#444;cursor:pointer;text-align:left;
+  font-size:15px;font-family:'Bahnschrift Light',monospace;transition:0.5s}
+.rec-open:hover{background-color:#d9e7f4;outline:none}
+.rec-open:after{position:absolute;right:18px;top:17px;float:none;margin:0;
+  content:'\2197';color:#777;font-weight:bold}
+a.rec-open, a.rec-open:hover, a.rec-open:focus{text-decoration:none;color:#444}
+.rec-play:after{content:'\25B6';font-size:12px;top:19px}
+.rec-pdf:after{content:'\2193';top:16px}
+.rec-t{display:block;padding-right:28px}
+.rec-d{display:block;margin-top:5px;padding-right:28px;font-size:13px;line-height:1.55;
+  color:#5b6b7c}
+
+/* A table of evidence lifted out of a project document. It is wider than the
+   prose measure on purpose, because it is a figure rather than a sentence, and
+   it scrolls sideways rather than squashing on a narrow screen. */
+.pp-tbl-wrap{overflow-x:auto;margin:18px 0 8px;border:1px solid var(--anat-border);
+  border-radius:10px;background:#fff}
+.pp-tbl{width:100%;min-width:620px;border-collapse:collapse;
+  font-family:'Bahnschrift Light',sans-serif;font-size:13px;color:var(--anat-ink)}
+.pp-tbl th{text-align:left;padding:11px 14px;background:var(--anat-panel);
+  font-family:Consolas,'Cascadia Mono',monospace;font-size:10px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--anat-muted);font-weight:normal;
+  border-bottom:1px solid var(--anat-border)}
+.pp-tbl td{padding:11px 14px;border-bottom:1px solid #eef4fa;line-height:1.55;vertical-align:top}
+.pp-tbl tr:last-child td{border-bottom:0}
+.pp-tbl-id{font-family:Consolas,'Cascadia Mono',monospace;font-size:12px;white-space:nowrap;
+  color:var(--anat-accent)}
+
+/* Scope, as four named buckets rather than four more bullet lists. */
+.pp-scope{display:grid;grid-template-columns:92px minmax(0,1fr);gap:0;margin:16px 0 8px;
+  max-width:var(--prose)}
+.pp-scope dt{font-family:Consolas,'Cascadia Mono',monospace;font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--anat-accent);padding:14px 0 0}
+.pp-scope dd{margin:0;padding:12px 0 14px;font-family:'Bahnschrift Light',sans-serif;
+  font-size:13.5px;line-height:1.65;color:var(--anat-muted);border-bottom:1px solid #eef4fa}
+.pp-scope dt + dd + dt{border-top:0}
+.pp-scope dd:last-child{border-bottom:0}
+
+/* A pull quote that is a reflection rather than evidence, so it reads as an
+   aside and not as a finding. */
+.pp-quote{margin:30px 0 0;padding:0 0 0 20px;border-left:3px solid var(--anat-border)}
+.pp-quote blockquote{margin:0;padding:0;border:0;font-family:'Bahnschrift Light',sans-serif;
+  font-size:14.5px;line-height:1.75;color:var(--anat-muted);max-width:var(--prose)}
+.pp-quote figcaption{margin-top:10px;font-family:Consolas,'Cascadia Mono',monospace;
+  font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--anat-muted)}

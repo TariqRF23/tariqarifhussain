@@ -115,73 +115,24 @@
 }
 
 
-/* The record. Six entries, one shape. The plus expands in place, the arrow
-   opens the document in a viewer. */
-.main-container {
-  width: 920px;
-}
-.accordion, .rec-open {
+/* Only post1 has an expanding accordion. Everything else about these rows,
+   and the column they sit in, is in the stylesheet with the other three
+   project pages. */
+.accordion {
   position: relative;
+  border: 0;
   border-radius: 6px 6px 0 0;
 }
-.rec-open {
-  display: block;
-  background-color: #ecf0f3;
-  color: #444;
-  cursor: pointer;
-  padding: 18px;
-  width: 100%;
-  text-align: left;
-  font-size: 15px;
-  transition: 0.5s;
-  font-family: 'Bahnschrift Light', monospace;
-  border: 0;
-  border-radius: 6px;
-  margin: 0 0 8px;
-}
-.rec-open:hover {
-  background-color: #d9e7f4;
-  outline: none;
-}
-.accordion:after, .rec-open:after {
+.accordion:after {
   position: absolute;
   right: 18px;
   top: 17px;
   float: none;
   margin: 0;
 }
-.rec-open:after {
-  content: '\2197';
-  color: #777;
-  font-weight: bold;
-}
 .panel {
   margin: 0 0 8px;
   border-radius: 0 0 6px 6px;
-}
-.accordion, .rec-open {
-  border: 0;
-}
-a.rec-open, a.rec-open:hover, a.rec-open:focus {
-  text-decoration: none;
-  color: #444;
-}
-.rec-play:after {
-  content: '\25B6';
-  font-size: 12px;
-  top: 19px;
-}
-.rec-t {
-  display: block;
-  padding-right: 28px;
-}
-.rec-d {
-  display: block;
-  margin-top: 5px;
-  font-size: 13px;
-  line-height: 1.55;
-  color: #5b6b7c;
-  padding-right: 28px;
 }
 </style>
 	
@@ -208,7 +159,7 @@ a.rec-open, a.rec-open:hover, a.rec-open:focus {
 		</ul>
 	</div>
 
-	<div class="main-container">
+	<div class="main-container pp-col">
 		<br>
 
 			
