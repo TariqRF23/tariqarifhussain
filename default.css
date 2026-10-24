@@ -632,7 +632,7 @@ h6 { font-size: 16px;}
    the diagrams and the record rows share one left and right edge instead of
    the text sitting alone in a 1200px field. min() keeps the small-screen rule
    below working, which a plain width would have overridden. */
-.main-container.pp-col{width:min(920px, 95%)}
+.main-container.pp-col{width:min(920px, 95%);padding-top:46px}
 
 /* The record: one row per document, whatever opens it. An arrow opens a file
    or a document viewer, a play mark opens a recording, and post1 adds a plus

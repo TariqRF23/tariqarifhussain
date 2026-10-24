@@ -122,6 +122,30 @@
   <figcaption>The argument as the abstract sets it out, from the problem to what the thesis actually concludes: particular use-cases where smart contracts are viable, rather than a cure for inaccurate invoicing.</figcaption>
 </figure>
 
+		<h4>What a smart contract actually is</h4>
+		<p>Code that facilitates, verifies or executes part of an agreement between parties once the
+		terms are met, stored and run on a platform like Ethereum. The logic is the same conditional
+		construction any programmer would recognise, written in languages such as Solidity: if the
+		condition holds, then this; otherwise, that.</p>
+
+		<p>The thesis uses a crowdfunding example to make it concrete, and it is the clearest short
+		definition I know. A team sets a minimum it needs to start. The contract holds every
+		supporter&#8217;s money. If the minimum is reached, the funds go to the team; if it is not,
+		they go back to the supporters. Nobody adjudicates. That is what self-enforcing means, and in a
+		commercial setting it extends to issuing a penalty when a clause is breached.</p>
+
+		<p>Which kind of chain matters as much as the contract on it, and the difference comes down
+		entirely to who is allowed to validate a block.</p>
+
+		<figure class="anat">
+		<div class="anat-scroll"><svg viewBox="0 0 640 234" role="img" aria-label="Three kinds of blockchain, separated by who is allowed to validate a block: public where anyone can, private where one entity appoints, and consortium where a handful of equal parties do."><text class="anat-eyebrow" x="320" y="30" text-anchor="middle">THE DIFFERENCE IS WHO IS ALLOWED TO VALIDATE A BLOCK</text><rect x="35.0" y="62" width="174" height="86" rx="10" fill="#e7f1f9" stroke="#2e86c1" stroke-width="1.2"/><text class="anat-lbl" x="122.0" y="90" text-anchor="middle">Public</text><text class="anat-sub" x="122.0" y="110" text-anchor="middle">anyone can validate</text><text class="anat-sub" x="122.0" y="170" text-anchor="middle">open</text><text class="anat-sub" x="122.0" y="186" text-anchor="middle">no gatekeeper</text><rect x="233.0" y="62" width="174" height="86" rx="10" fill="#c6dcef" stroke="#2e86c1" stroke-width="1.2"/><text class="anat-lbl" x="320.0" y="90" text-anchor="middle">Private</text><text class="anat-sub" x="320.0" y="110" text-anchor="middle">one entity appoints</text><text class="anat-sub" x="320.0" y="170" text-anchor="middle">closed</text><text class="anat-sub" x="320.0" y="186" text-anchor="middle">single authority</text><rect x="431.0" y="62" width="174" height="86" rx="10" fill="#99c2e3" stroke="#2e86c1" stroke-width="1.2"/><text class="anat-lbl" x="518.0" y="90" text-anchor="middle">Consortium</text><text class="anat-sub" x="518.0" y="110" text-anchor="middle">a few equal validators</text><text class="anat-sub" x="518.0" y="170" text-anchor="middle">between the two</text><text class="anat-sub" x="518.0" y="186" text-anchor="middle">the trade case</text><path class="anat-lead" stroke-dasharray="5 5" d="M35.0 202 H605.0"/><text class="anat-eyebrow" x="320" y="222" text-anchor="middle">OVER 70% OF SMART CONTRACT PROJECTS IN BUSINESS SIT IN SUPPLY CHAIN AND IOT</text></svg></div>
+		<figcaption>Public, private and consortium chains, separated by who may validate. The trade case needs the third.</figcaption>
+		</figure>
+
+		<p>The consortium case is the one the trade argument needs. A handful of equally powerful
+		parties validating, which is a reasonable description of a shipper, a carrier, a forwarder and
+		a bank who need a shared record but are not going to let any one of them keep it.</p>
+
 		<h4>Why invoices go wrong</h4>
 		<p>Moving a container is not one transaction. Terminal operators, trucking companies, banks,
 		insurers, customs authorities, the carrier and the freight forwarder all exchange information
@@ -152,6 +176,17 @@
 		In oil and gas alone, Accenture expected at least five per cent of annual freight spend to be
 		recoverable through better invoice accuracy and fewer overpayments.</p>
 
+		<h4>The paradox</h4>
+		<p>Boston Consulting Group surveyed more than a hundred companies across air freight, courier
+		and parcel, logistics, rail and shipping, and named what they found a blockchain paradox: the
+		technology addresses precisely the pain the industry reports, and adoption lags anyway.
+		Invoicing and payments came out among the high-priority use cases.</p>
+
+		<p>Their reasoning for why is the same reasoning the rest of this thesis rests on. Every party
+		keeps its own records and its own ledger, so invoicing is paper-heavy and often manually keyed,
+		and a reconciliation step has to run before anybody is paid, to catch mistakes and possible
+		fraud. Remove the second ledger and the reconciliation has nothing left to do.</p>
+
 		<h4>The frame</h4>
 		<p>The thesis does not treat this as an IT problem, which is what keeps it honest. It anchors
 		the argument in liquidity management, the working capital requirement and the operating cycle,
@@ -161,6 +196,24 @@
 
 		<p>That asymmetry is the recurring theme. Rivalry over who knows what, the thesis argues, can
 		take down companies that are otherwise sound.</p>
+
+		<h4>Three things that stop supply chain finance</h4>
+		<p>Suppliers need financing because invoices and bills are not reconciled as they happen. The
+		delay is the reason banks are in the picture at all, and invoice-based financing is an estimated
+		eighty to ninety per cent of that market. So the question of whether a shared ledger helps is
+		not abstract: it is a question about three specific obstacles.</p>
+
+		<figure class="anat">
+		<div class="anat-scroll"><svg viewBox="0 0 640 332" role="img" aria-label="Three barriers in supply chain finance, each with what a shared ledger changes about it: know your customer, balance sheet reclassification, and the cost of clearing and settlement."><defs><marker id="ueB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#5b6b7c"/></marker></defs><text class="anat-eyebrow" x="30" y="30" text-anchor="start">WHAT STOPS SUPPLY CHAIN FINANCE</text><text class="anat-eyebrow" x="610" y="30" text-anchor="end">WHAT A SHARED LEDGER CHANGES</text><rect class="anat-old" x="30" y="54" width="248" height="60" rx="9"/><text class="anat-lbl" x="154" y="79" text-anchor="middle">Know your customer</text><text class="anat-sub" x="154" y="98" text-anchor="middle">banks must check who they finance</text><path class="anat-edge" d="M278 84 H315" marker-end="url(#ueB)"/><rect class="anat-new" x="322" y="54" width="288" height="60" rx="9"/><text class="anat-sub" x="466" y="89" text-anchor="middle">one verified identity, re-used</text><rect class="anat-old" x="30" y="132" width="248" height="60" rx="9"/><text class="anat-lbl" x="154" y="157" text-anchor="middle">Reclassification</text><text class="anat-sub" x="154" y="176" text-anchor="middle">sharing value can move debt</text><path class="anat-edge" d="M278 162 H315" marker-end="url(#ueB)"/><rect class="anat-new" x="322" y="132" width="288" height="60" rx="9"/><text class="anat-sub" x="466" y="167" text-anchor="middle">the audit trail, without the manual audit</text><rect class="anat-old" x="30" y="210" width="248" height="60" rx="9"/><text class="anat-lbl" x="154" y="235" text-anchor="middle">Transaction costs</text><text class="anat-sub" x="154" y="254" text-anchor="middle">ledger reconciled against ledger</text><path class="anat-edge" d="M278 240 H315" marker-end="url(#ueB)"/><rect class="anat-new" x="322" y="210" width="288" height="60" rx="9"/><text class="anat-sub" x="466" y="245" text-anchor="middle">issuance and settlement in real time</text><path class="anat-lead" stroke-dasharray="5 5" d="M30 298 H610"/><text class="anat-eyebrow" x="320" y="318" text-anchor="middle">INVOICE-BASED FINANCING IS AN ESTIMATED 80 TO 90 PER CENT OF THE MARKET</text></svg></div>
+		<figcaption>The three barriers the thesis takes from the supply chain finance literature, against what a shared ledger changes about each.</figcaption>
+		</figure>
+
+		<p>The middle one is the subtlest and the thesis is careful with it. When a buyer shares some
+		of the value captured with the financing institution, the arrangement can be reclassified on
+		the balance sheet, which touches loan covenants, leverage and access to further credit.
+		Accounting rules do not bend for a technology. What a distributed ledger changes is the work
+		around them: the audit trail is immutable, so the manual audit can go, and complex transactions
+		and internal controls take less time.</p>
 
 		<h4>The method</h4>
 		<p>The practical contribution is a way of finding the problem before it surfaces as a dispute.
@@ -177,6 +230,15 @@
 		<figure class="anat">
 		<div class="anat-scroll"><svg viewBox="0 0 640 332" role="img" aria-label="A strategic early warning system in three phases, information gathering, diagnosis and strategy formulation, with the proactive method of fraud detection feeding the first and the Cynefin framework sorting the second."><defs><marker id="ueW" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#5b6b7c"/></marker></defs><text class="anat-eyebrow" x="30" y="26" text-anchor="start">MODIFIED FOR INVOICE INACCURACY</text><rect class="anat-node" x="30" y="132" width="156" height="52" rx="9"/><text class="anat-lbl" x="108" y="155" text-anchor="middle">Phase 1</text><text class="anat-sub" x="108" y="171" text-anchor="middle">information gathering</text><rect class="anat-new" x="242" y="132" width="156" height="52" rx="9"/><text class="anat-lbl" x="320" y="155" text-anchor="middle">Phase 2</text><text class="anat-sub" x="320" y="171" text-anchor="middle">diagnosis</text><path class="anat-edge" d="M186 158 H235" marker-end="url(#ueW)"/><rect class="anat-node" x="454" y="132" width="156" height="52" rx="9"/><text class="anat-lbl" x="532" y="155" text-anchor="middle">Phase 3</text><text class="anat-sub" x="532" y="171" text-anchor="middle">strategy formulation</text><path class="anat-edge" d="M398 158 H447" marker-end="url(#ueW)"/><rect class="anat-node" x="170" y="40" width="200" height="48" rx="9"/><text class="anat-lbl" x="270" y="61" text-anchor="middle">Cynefin framework</text><text class="anat-sub" x="270" y="77" text-anchor="middle">what kind of problem is this?</text><path class="anat-edge" d="M270 88 V125" marker-end="url(#ueW)"/><rect class="anat-node" x="30" y="236" width="240" height="48" rx="9"/><text class="anat-lbl" x="150" y="257" text-anchor="middle">Proactive fraud detection</text><text class="anat-sub" x="150" y="273" text-anchor="middle">six steps, symptoms catalogued</text><path class="anat-edge" d="M108 236 V191" marker-end="url(#ueW)"/><path class="anat-edge" d="M108 236 V191" marker-end="url(#ueW)"/><text class="anat-sub" x="532" y="214" text-anchor="middle">what to do about it</text><path class="anat-lead" stroke-dasharray="5 5" d="M30 296 H610"/><text class="anat-eyebrow" x="320" y="314" text-anchor="middle">THE CAUSE IS NOT THE SAME IN ANY TWO COMPANIES, SO THE MODEL IS A GUIDELINE</text></svg></div>
 		<figcaption>The early warning system the thesis proposes, and the two frameworks it is modified with.</figcaption>
+		</figure>
+
+		<p>The Cynefin half is worth seeing, because it is what stops the method prescribing
+		the same fix everywhere. It sorts a situation by what the relationship between cause and effect
+		actually is, and each answer implies a different move.</p>
+
+		<figure class="anat">
+		<div class="anat-scroll"><svg viewBox="0 0 640 396" role="img" aria-label="The Cynefin framework: complex, complicated, chaotic and simple domains, each with its own response, around a central domain of disorder."><rect x="30" y="50" width="284" height="110" rx="10" fill="#d9e7f4" stroke="#2e86c1" stroke-width="1.2"/><text class="anat-lbl" x="172" y="76" text-anchor="middle">Complex</text><text class="anat-sub" x="172" y="96" text-anchor="middle">cause and effect only visible afterwards</text><text class="anat-lbl" x="172" y="124" text-anchor="middle" fill="#2e86c1">Probe, sense, respond</text><text class="anat-sub" x="172" y="144" text-anchor="middle">then emergent practice</text><rect x="326" y="50" width="284" height="110" rx="10" fill="#e7f1f9" stroke="#2e86c1" stroke-width="1.2"/><text class="anat-lbl" x="468" y="76" text-anchor="middle">Complicated</text><text class="anat-sub" x="468" y="96" text-anchor="middle">cause and effect need expertise</text><text class="anat-lbl" x="468" y="124" text-anchor="middle" fill="#2e86c1">Sense, analyse, respond</text><text class="anat-sub" x="468" y="144" text-anchor="middle">then good practice</text><rect x="30" y="202" width="284" height="110" rx="10" fill="#c6dcef" stroke="#2e86c1" stroke-width="1.2"/><text class="anat-lbl" x="172" y="228" text-anchor="middle">Chaotic</text><text class="anat-sub" x="172" y="248" text-anchor="middle">no relationship at system level</text><text class="anat-lbl" x="172" y="276" text-anchor="middle" fill="#2e86c1">Act, sense, respond</text><text class="anat-sub" x="172" y="296" text-anchor="middle">then novel practice</text><rect x="326" y="202" width="284" height="110" rx="10" fill="#f4f9fd" stroke="#2e86c1" stroke-width="1.2"/><text class="anat-lbl" x="468" y="228" text-anchor="middle">Simple</text><text class="anat-sub" x="468" y="248" text-anchor="middle">cause and effect obvious to everyone</text><text class="anat-lbl" x="468" y="276" text-anchor="middle" fill="#2e86c1">Sense, categorise, respond</text><text class="anat-sub" x="468" y="296" text-anchor="middle">then best practice</text><rect x="232" y="143" width="176" height="46" rx="9" fill="#fff" stroke="#a8550f" stroke-width="1.6"/><text class="anat-lbl" x="320" y="164" text-anchor="middle">Disorder</text><text class="anat-sub" x="320" y="181" text-anchor="middle">not knowing which of the four</text><path class="anat-lead" stroke-dasharray="5 5" d="M30 342 H610"/><text class="anat-eyebrow" x="320" y="362" text-anchor="middle">A PROBLEM MAY SIT IN ANY OF THE FOUR; DISORDER IS THE ONE TO GET OUT OF</text><text class="anat-sub" x="320" y="382" text-anchor="middle">the thesis uses this to sort the cause before anybody prescribes a fix</text></svg></div>
+		<figcaption>The five domains and the move each one calls for. The thesis uses them to classify the cause before prescribing a fix.</figcaption>
 		</figure>
 
 		<p>The reason for the modification is stated plainly in the thesis and is the reason the model
@@ -201,6 +263,26 @@
 		so the process behind the claim cannot be checked. Saying that out loud, in the chapter that
 		most supports the hypothesis, is the part I would still defend.</p>
 
+		<h4>What it costs to run</h4>
+		<p>The most useful piece of evidence in the whole literature review is an experimental model
+		published through the IEEE, because it is the only one that lets you put a number on the
+		argument. It digitises invoicing with a VAT component across four parties, the tax
+		administrator, the seller, the buyer and the bank, on a private Ethereum chain. Invoices
+		themselves are encrypted and held in a decentralised storage network over IPFS rather than
+		on the chain, which is how it keeps the storage cost down.</p>
+
+		<p>Eight functions. The gas each one burns is fixed; what moves is the price of gas, and
+		between the paper&#8217;s own measurement in December 2018 and a recalculation in July 2020 it
+		moved a great deal.</p>
+
+		<div class="pp-tbl-wrap"><table class="pp-tbl"><thead><tr><th>Function</th><th>Gas used</th><th>Dec 2018</th><th>Jul 2020</th></tr></thead><tbody><tr><td class="pp-tbl-id">addVATPayer()</td><td>41,055</td><td>$0.009</td><td>$0.36</td></tr><tr><td class="pp-tbl-id">addInforInvoice()</td><td>94,560</td><td>$0.020</td><td>$0.83</td></tr><tr><td class="pp-tbl-id">agreeFromBuyer()</td><td>28,603</td><td>$0.006</td><td>$0.25</td></tr><tr><td class="pp-tbl-id">agreeFromSeller()</td><td>24,022</td><td>$0.005</td><td>$0.21</td></tr><tr><td class="pp-tbl-id">requestForPVP()</td><td>31,528</td><td>$0.007</td><td>$0.28</td></tr><tr><td class="pp-tbl-id">agreePVP()</td><td>20,879</td><td>$0.004</td><td>$0.18</td></tr><tr><td class="pp-tbl-id">disagreePVP()</td><td>16,528</td><td>$0.003</td><td>$0.15</td></tr><tr><td class="pp-tbl-id">getInforPVP()</td><td>0</td><td>$0.00</td><td>$0.00</td></tr><tr><td class="pp-tbl-id"><strong>All eight</strong></td><td><strong>257,175</strong></td><td><strong>$0.05</strong></td><td><strong>$2.26</strong></td></tr></tbody></table></div>
+
+		<p>Two and a quarter dollars to run the whole set. Ardent Partners put the average cost of
+		processing a single invoice by hand in 2019 at $10.08. That is the comparison the thesis makes,
+		and it is careful about what it proves: a cost advantage in an experiment, scaling in direct
+		proportion to the number of operations, on a chain whose running cost rose more than fortyfold in
+		eighteen months. The cost case is real and it is not stable.</p>
+
 		<h4>Where it is viable</h4>
 		<p>Three places, each for the same reason: a figure that is currently calculated twice becomes
 		a figure that exists once.</p>
@@ -215,6 +297,48 @@
 
 		<p>A multi-criteria decision matrix and two decision trees close the argument, which is the
 		part aimed at somebody who has to justify the spend rather than admire the technology.</p>
+
+		<h4>What a company actually weighs</h4>
+		<p>The decision matrix is the part written for whoever has to approve the spend. Six criteria,
+		each broken into sub-criteria: cost as purchase, maintenance and extras; speed as encryption,
+		transaction and query latency; privacy as security, anonymity and address tracking; logistics
+		fit as whether it works with the internet of things, with other supply chains and with the
+		process already in place; then functionality and whether developers can be hired at all.</p>
+
+		<p>Three decision makers compared them a pair at a time, with their preferences expressed as
+		ranges rather than fixed scores, which is the point of running it as a fuzzy hierarchy: it
+		takes some of the subjectivity out without pretending to remove it.</p>
+
+		<figure class="anat">
+		<div class="anat-scroll"><svg viewBox="0 0 640 356" role="img" aria-label="Weights a company put on six criteria for adopting blockchain: cost 0.42, speed 0.28, privacy 0.15, logistics fit 0.09, functionality 0.04 and developer availability 0.02."><text class="anat-eyebrow" x="30" y="30">WEIGHTS FROM THE PAIRWISE COMPARISON, THREE DECISION MAKERS</text><text class="anat-lbl" x="30" y="70">Cost</text><text class="anat-sub" x="30" y="85">purchase, maintenance, extras</text><rect x="200" y="56" width="340" height="20" rx="5" fill="#eef4fa"/><rect x="200" y="56" width="340.0" height="20" rx="5" fill="#99c2e3" stroke="#2e86c1" stroke-width="1.1"/><text class="anat-sub" x="552" y="71">0.42</text><text class="anat-lbl" x="30" y="114">Speed</text><text class="anat-sub" x="30" y="129">encryption, transactions, query latency</text><rect x="200" y="100" width="340" height="20" rx="5" fill="#eef4fa"/><rect x="200" y="100" width="226.7" height="20" rx="5" fill="#c6dcef" stroke="#2e86c1" stroke-width="1.1"/><text class="anat-sub" x="552" y="115">0.28</text><text class="anat-lbl" x="30" y="158">Privacy</text><text class="anat-sub" x="30" y="173">security, anonymity, IP tracking</text><rect x="200" y="144" width="340" height="20" rx="5" fill="#eef4fa"/><rect x="200" y="144" width="121.4" height="20" rx="5" fill="#c6dcef" stroke="#2e86c1" stroke-width="1.1"/><text class="anat-sub" x="552" y="159">0.15</text><text class="anat-lbl" x="30" y="202">Logistics fit</text><text class="anat-sub" x="30" y="217">IoT, interoperability, adaptability</text><rect x="200" y="188" width="340" height="20" rx="5" fill="#eef4fa"/><rect x="200" y="188" width="72.9" height="20" rx="5" fill="#c6dcef" stroke="#2e86c1" stroke-width="1.1"/><text class="anat-sub" x="552" y="203">0.09</text><text class="anat-lbl" x="30" y="246">Functionality</text><rect x="200" y="232" width="340" height="20" rx="5" fill="#eef4fa"/><rect x="200" y="232" width="32.4" height="20" rx="5" fill="#c6dcef" stroke="#2e86c1" stroke-width="1.1"/><text class="anat-sub" x="552" y="247">0.04</text><text class="anat-lbl" x="30" y="290">Developers</text><text class="anat-sub" x="30" y="305">can you hire any</text><rect x="200" y="276" width="340" height="20" rx="5" fill="#eef4fa"/><rect x="200" y="276" width="16.2" height="20" rx="5" fill="#c6dcef" stroke="#2e86c1" stroke-width="1.1"/><text class="anat-sub" x="552" y="291">0.02</text><path class="anat-lead" stroke-dasharray="5 5" d="M30 322 H610"/><text class="anat-eyebrow" x="320" y="342" text-anchor="middle">COST IS WORTH MORE THAN THE FOUR CRITERIA BELOW IT COMBINED</text></svg></div>
+		<figcaption>What six criteria were worth to the decision makers in the study, once their pairwise preferences were resolved.</figcaption>
+		</figure>
+
+		<p>Cost at 0.42, which is more than the four criteria below it put together. Whatever the technology promises, the
+		company in that study was asking first whether it fits the budget. Developer availability came
+		last at 0.02, which is either confidence or an oversight, and the thesis does not pretend to
+		know which.</p>
+
+		<h4>Why it stalls anyway</h4>
+		<p>Interviews with executive MBA alumni at the University of Arkansas, polled across
+		twenty-nine potential barriers, put lack of understanding first. Not of the technology, and not
+		of the use cases: of the gap between a pilot that proves a concept and the thing working at
+		scale across a supply chain. After that, in order, came integration into existing processes,
+		the benefits, the implementation cost, uncertainty about return, and the technical limits. The
+		thesis notes that the sample size is not stated, which is the right thing to note.</p>
+
+		<p>The rest of the barriers are about other people. Collaboration, because a party that joins
+		may be giving information to a competitor or losing its role in the chain altogether.
+		Standardisation and interoperability, because terminology, measurement and systems differ
+		between the firms who would have to share. Bureaucracies, because supply chains cross borders
+		and not every agency wants that much transparency. Competitive instinct, because information
+		asymmetry is somebody&#8217;s advantage and they know it.</p>
+
+		<p>And two that are properties of the technology rather than of the people. Immutability,
+		which protects a correct record and preserves a wrong one just as permanently. And security,
+		where the thesis is bluntest: once an exploit is found there is no countermeasure fast enough,
+		and a contract written with every protection its author could think of is still exposed to
+		somebody more inventive.</p>
 
 		<h4>What it concludes</h4>
 		<p>Not that blockchain fixes invoicing. That specific, identified cases exist where it does,
