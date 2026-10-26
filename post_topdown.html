@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Top-down or Bottom-up</title>
+	<link rel="shortcut icon" href="images/LOGO.jpg">
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+
+	<link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="default.css">
+	<link rel="stylesheet" type="text/css" href="bootstrap2.css">
+
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
+	<style type="text/css">
+		img{ width: 100% }
+		footer { background-color: white; padding: 1px; text-align: center; color: white; }
+	</style>
+
+</head>
+<body>
+	<div class="nav-wrapper">
+		<a href="index.html">
+			<div class="dots-wrapper">
+				<div id="dot-1" class="browser-dot"></div>
+				<div id="dot-2" class="browser-dot"></div>
+				<div id="dot-3" class="browser-dot"></div>
+			</div>
+		</a>
+		<ul id="navigation">
+			<li><a href="index.html#contact">Home</a></li>
+		</ul>
+	</div>
+
+	<div class="main-container pp-col">
+
+		<div class="pp-head">
+		<div class="pp-kicker">Research paper &middot; 2022</div>
+		<h3>Top-down or Bottom-up: which approach is better?</h3>
+		<p class="pp-lede">A hypothesis that the more users a feature-rich application takes on, the harder it pulls towards one approach or the other. The paper tests it across management, system design, computer science and service architecture, and ends up somewhere less satisfying and more useful than either end.</p>
+		<ul class="pp-meta">
+			<li><span>Subject</span>Software architecture and management</li>
+			<li><span>Focus</span>Microservices</li>
+			<li><span>Method</span>Inductive, on limited literature</li>
+			<li><span>Written</span>2022</li>
+		</ul>
+		</div>
+		<h4>The two approaches, and the one in between</h4>
+		<p>Both are general strategies for processing information and knowledge, which is why they turn up in software, in systems theory and in management without anyone translating between the fields. Top-down formulates an overview of the system without emphasising each detail. Bottom-up starts from the individual parts and links them into a whole.</p>
+
+		<p>In management the same principle gets different names. Top-down is the directive that originates with leadership, which is why it is called the traditional approach: a manager decides and the decision trickles down a hierarchy. Bottom-up is more democratic and collaborative, involving the team or the organisation as a whole, and it is common wherever disruption and innovation are the point.</p>
+
+		<figure class="anat">
+		<div class="anat-scroll"><svg viewBox="0 0 640 252" role="img" aria-label="Top-down and bottom-up as two ends of a spectrum, with the hybrid approach in the middle where most teams actually sit."><text class="anat-eyebrow" x="320" y="30" text-anchor="middle">A SPECTRUM, NOT TWO CAMPS</text><defs><linearGradient id="tdbuG" x1="0" x2="1"><stop offset="0" stop-color="#99c2e3"/><stop offset="0.5" stop-color="#e7f1f9"/><stop offset="1" stop-color="#99c2e3"/></linearGradient></defs><rect x="30" y="112" width="580" height="18" rx="9" fill="url(#tdbuG)" stroke="#cfe0ee"/><circle class="anat-dot" cx="320" cy="121" r="6" fill="#2e86c1"/><text class="anat-lbl" x="30" y="74">Top-down</text><text class="anat-sub" x="30" y="92">a directive from the top of a hierarchy</text><text class="anat-lbl" x="610" y="74" text-anchor="end">Bottom-up</text><text class="anat-sub" x="610" y="92" text-anchor="end">decided by the team as a whole</text><text class="anat-lbl" x="320" y="162" text-anchor="middle" fill="#2e86c1">Hybrid</text><text class="anat-sub" x="320" y="180" text-anchor="middle">where most teams actually sit</text><text class="anat-sub" x="30" y="206">criticised for the planning</text><text class="anat-sub" x="30" y="222">and the policy it enforces</text><text class="anat-sub" x="610" y="206" text-anchor="end">criticised for the rework</text><text class="anat-sub" x="610" y="222" text-anchor="end">and the constant updates</text><text class="anat-eyebrow" x="320" y="244" text-anchor="middle">CONTEXT DECIDES, NOT THE METHOD</text></svg></div>
+		<figcaption>Neither end is a position many organisations actually hold. Very few apply a purely top-down approach, and the hybrid is where most teams sit.</figcaption>
+		</figure>
+		<h4>Where each one earns its place</h4>
+		<p>In system design the distinction is practical. Top-down needs extensive planning and research before a product exists, which suits a large and complex system where the whole has to be understood first. Bottom-up suits experimental development, where the parts are what you are learning about, and a tight budget, where you cannot afford the planning phase before anything works. Collaborative effort pulls differently again, because parts can be built in parallel by people who do not need the whole picture.</p>
+
+		<h4>Microservices, which is the real subject</h4>
+		<p>Microservices are finely grained services, a distant cousin of service-oriented architecture, each designed to work independently on a single task. The property that matters is loose coupling: two systems are loosely coupled when a change to the design, implementation or behaviour of one does not affect the other.</p>
+
+		<p>Which brings the question every organisation that wants them has to answer. How do you divide a monolith into manageable pieces? There are two answers, and each is attractive for a reason that has nothing to do with the other.</p>
+
+		<figure class="anat">
+		<div class="anat-scroll"><svg viewBox="0 0 640 310" role="img" aria-label="The same banking monolith split two ways: top-down by business capability into lending, wealth management and online banking, or bottom-up by technology and existing development resources."><defs><marker id="tdB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#5b6b7c"/></marker></defs><text class="anat-eyebrow" x="30" y="28" text-anchor="start">TOP-DOWN: SPLIT BY WHAT THE BUSINESS DOES</text><rect class="anat-node" x="30" y="44" width="128" height="50" rx="9"/><text class="anat-lbl" x="94" y="66" text-anchor="middle">Monolith</text><text class="anat-sub" x="94" y="82" text-anchor="middle">one bank</text><path class="anat-edge" d="M158 69 H186 V69 H207" marker-end="url(#tdB)"/><rect class="anat-new" x="214" y="44" width="122" height="50" rx="9"/><text class="anat-lbl" x="275" y="74" text-anchor="middle">Lending</text><path class="anat-edge" d="M158 69 H186 V69 H343" marker-end="url(#tdB)"/><rect class="anat-new" x="350" y="44" width="122" height="50" rx="9"/><text class="anat-lbl" x="411" y="74" text-anchor="middle">Wealth</text><path class="anat-edge" d="M158 69 H186 V69 H479" marker-end="url(#tdB)"/><rect class="anat-new" x="486" y="44" width="122" height="50" rx="9"/><text class="anat-lbl" x="547" y="74" text-anchor="middle">Online banking</text><text class="anat-sub" x="320" y="116" text-anchor="middle">non-technical people can read it; each service needs its own infrastructure, and one of them</text><text class="anat-sub" x="320" y="132" text-anchor="middle">may need several teams to coordinate before it can ship</text><line x1="30" y1="158" x2="610" y2="158" stroke="#cfe0ee"/><text class="anat-eyebrow" x="30" y="190" text-anchor="start">BOTTOM-UP: SPLIT BY WHAT YOU ALREADY HAVE</text><rect class="anat-node" x="30" y="206" width="128" height="50" rx="9"/><text class="anat-lbl" x="94" y="228" text-anchor="middle">Monolith</text><text class="anat-sub" x="94" y="244" text-anchor="middle">one bank</text><path class="anat-edge" d="M158 231 H186 V231 H207" marker-end="url(#tdB)"/><rect class="anat-new" x="214" y="206" width="122" height="50" rx="9"/><text class="anat-lbl" x="275" y="228" text-anchor="middle">Deposits</text><text class="anat-sub" x="275" y="244" text-anchor="middle">a function</text><path class="anat-edge" d="M158 231 H186 V231 H343" marker-end="url(#tdB)"/><rect class="anat-new" x="350" y="206" width="122" height="50" rx="9"/><text class="anat-lbl" x="411" y="228" text-anchor="middle">Java</text><text class="anat-sub" x="411" y="244" text-anchor="middle">a stack</text><path class="anat-edge" d="M158 231 H186 V231 H479" marker-end="url(#tdB)"/><rect class="anat-new" x="486" y="206" width="122" height="50" rx="9"/><text class="anat-lbl" x="547" y="228" text-anchor="middle">Node.js</text><text class="anat-sub" x="547" y="244" text-anchor="middle">a stack</text><text class="anat-sub" x="320" y="278" text-anchor="middle">uses the people you have; one service can span several lines of business, and release cycles</text><text class="anat-sub" x="320" y="294" text-anchor="middle">stop lining up with the units that want them</text></svg></div>
+		<figcaption>The same bank, split by what the business does and split by what the engineering organisation already has. Each split carries its own failure.</figcaption>
+		</figure>
+		<p>Top-down decomposes functionally, starting at the business level, separating by domain or by business capability. Its appeal is that a non-technical decision maker can read it. Its failures are concrete: a microservice per function becomes unmanageable at any scale, each service has to arrange its own infrastructure so the cost climbs, and the resulting service may not match how the development and support teams are actually organised, so shipping one of them needs several teams to coordinate.</p>
+
+		<p>Bottom-up is purely technical, defining services from the development resources that exist: bundle the deposit functions together, or split by stack and make a service per technology. Its appeal is efficient use of the people you have. Its failures are the mirror image: a single service can span several lines of business, so ownership blurs, and release timing stops lining up, so an aggressive business unit waits on a development team serving someone else.</p>
+
+		<h4>The hybrid, concretely</h4>
+		<p>Not a compromise but an order of operations. Begin with a domain model or a functional decomposition, which engages every stakeholder the service is meant to benefit. Then optimise the resulting inventory technically, separating or folding functions together from an operational point of view, to decide how they will actually be managed.</p>
+
+		<p>The advantage is that both IT and the business are involved at the highest level and from the beginning, so the services make sense commercially and are still efficient to run day to day.</p>
+
+		<h4>What it concludes</h4>
+		<p>The hypothesis was that scale forces a choice. It does not. The hybrid is the clear winner, and the debate between the two camps is useful mainly because each side&#8217;s criticism of the other is accurate: top-down is right that bottom-up carries excessive updates and rework, and bottom-up is right that top-down carries extensive planning and strict policy enforcement. The decision sits in a grey area where contextual demand overrides technical preference.</p>
+
+		<h4>Where it goes next</h4>
+		<p>The paper ends by naming the larger question it kept running into, which is digitalisation itself, and the role of large technology companies in it. Strip away the social media and the search engines and what is underneath is cloud computing, and that is where the research was headed next: underrated technologies in that space such as OpenStack against the conventional AWS and Azure, how to circumvent vendor lock-in, and the markets that have not yet had the spotlight.</p>
+
+		<p>That turned into the multi-cloud work that follows this paper, which is the same question asked of one company with a budget attached.</p>
+
+		<h4>The record</h4>
+		<p class="pp-note">Twelve pages, with ten references.</p>
+		<a class="rec-open rec-pdf" target="_blank" href="Research Works/TD vs. BU/Top-down or Bottom-up_Which approach is better.pdf"><span class="rec-t">Download the paper</span><span class="rec-d">The full text, twelve pages.</span></a>
+		<button type="button" class="rec-open" data-toggle="modal" data-target="#scans"><span class="rec-t">Read it here</span><span class="rec-d">Every page, in the viewer.</span></button>
+		<a class="rec-open" target="_blank" href="post_multicloud.html"><span class="rec-t">Where it led</span><span class="rec-d">Multi-cloud architecture for BMW Financial Services, which is this question with a client and a cost model attached.</span></a>
+	</div>
+
+<div class="container">
+
+  <div class="modal fade" id="scans">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h6 class="modal-title">TOP-DOWN OR BOTTOM-UP</h6>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div id="scanCarousel" class="carousel slide" data-interval="6000000" data-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active"><img src="Research Works/TD vs. BU/Images/0001.jpg"></div>
+              <div class="carousel-item"><img src="Research Works/TD vs. BU/Images/0002.jpg"></div>
+              <div class="carousel-item"><img src="Research Works/TD vs. BU/Images/0003.jpg"></div>
+              <div class="carousel-item"><img src="Research Works/TD vs. BU/Images/0004.jpg"></div>
+              <div class="carousel-item"><img src="Research Works/TD vs. BU/Images/0005.jpg"></div>
+              <div class="carousel-item"><img src="Research Works/TD vs. BU/Images/0006.jpg"></div>
+              <div class="carousel-item"><img src="Research Works/TD vs. BU/Images/0007.jpg"></div>
+              <div class="carousel-item"><img src="Research Works/TD vs. BU/Images/0008.jpg"></div>
+              <div class="carousel-item"><img src="Research Works/TD vs. BU/Images/0009.jpg"></div>
+              <div class="carousel-item"><img src="Research Works/TD vs. BU/Images/0010.jpg"></div>
+              <div class="carousel-item"><img src="Research Works/TD vs. BU/Images/0011.jpg"></div>
+              <div class="carousel-item"><img src="Research Works/TD vs. BU/Images/0012.jpg"></div>
+            </div>
+            <a class="carousel-control-prev" href="#scanCarousel" data-slide="prev">
+              <span class="carousel-control-prev-icon"></span>
+            </a>
+            <a class="carousel-control-next" href="#scanCarousel" data-slide="next">
+              <span class="carousel-control-next-icon"></span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+	<footer>
+	<a href="index.html"><img src="images/tH.png" style="width:100px;height:100px;"></a>
+	</footer>
+
+</body>
+</html>

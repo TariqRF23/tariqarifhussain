@@ -670,6 +670,14 @@ a.rec-open, a.rec-open:hover, a.rec-open:focus{text-decoration:none;color:#444}
 .pp-tbl-id{font-family:Consolas,'Cascadia Mono',monospace;font-size:12px;white-space:nowrap;
   color:var(--anat-accent)}
 
+/* Code quoted from a document, so it reads as an exhibit rather than as
+   prose. It scrolls sideways rather than wrapping, because a wrapped SQL
+   statement is a different statement to read. */
+.pp-code{margin:16px 0;padding:16px 18px;overflow-x:auto;background:#0d2838;
+  border:1px solid #0d2838;border-radius:10px}
+.pp-code code{font-family:Consolas,'Cascadia Mono',monospace;font-size:12.5px;line-height:1.65;
+  color:#d7e6f2;white-space:pre;background:none;padding:0;border:0}
+
 /* Scope, as four named buckets rather than four more bullet lists. */
 .pp-scope{display:grid;grid-template-columns:92px minmax(0,1fr);gap:0;margin:16px 0 8px;
   max-width:var(--prose)}

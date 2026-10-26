@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>A wise CTE: IT governance in database updates</title>
+	<link rel="shortcut icon" href="images/LOGO.jpg">
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+
+	<link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="default.css">
+	<link rel="stylesheet" type="text/css" href="bootstrap2.css">
+
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
+	<style type="text/css">
+		img{ width: 100% }
+		footer { background-color: white; padding: 1px; text-align: center; color: white; }
+	</style>
+
+</head>
+<body>
+	<div class="nav-wrapper">
+		<a href="index.html">
+			<div class="dots-wrapper">
+				<div id="dot-1" class="browser-dot"></div>
+				<div id="dot-2" class="browser-dot"></div>
+				<div id="dot-3" class="browser-dot"></div>
+			</div>
+		</a>
+		<ul id="navigation">
+			<li><a href="index.html#contact">Home</a></li>
+		</ul>
+	</div>
+
+	<div class="main-container pp-col">
+
+		<div class="pp-head">
+		<div class="pp-kicker">Operations report &middot; September 2024</div>
+		<h3>A wise CTE: IT governance in database updates</h3>
+		<p class="pp-lede">How to change rows in a production table without becoming the reason for the incident. Written for whoever has to approve the change as much as for whoever runs it.</p>
+		<ul class="pp-meta">
+			<li><span>Subject</span>Database operations</li>
+			<li><span>Audience</span>IT operations management</li>
+			<li><span>Dated</span>23 September 2024</li>
+			<li><span>Length</span>Forty-four pages, with an appendix of scripts</li>
+		</ul>
+		</div>
+		<h4>The job</h4>
+		<p>A table called project_data is live. Three clients need their project and project manager values corrected. That is the entire task, and it is the kind of task that takes a company down when somebody does it from memory at the end of a Friday.</p>
+
+		<h4>Governance, which is not paperwork</h4>
+		<p>Four controls, each of which exists because of a specific failure. Segregation of duties, so the person who writes a change is not the only person who approves it. Peer review before it runs. Documentation and auditing, so the change can be explained afterwards. And testing in a staging environment, so the first time the statement executes is not in production.</p>
+
+		<figure class="anat">
+		<div class="anat-scroll"><svg viewBox="0 0 640 380" role="img" aria-label="Four governance controls set against the four failures they prevent: segregation of duties, peer review, documentation and auditing, and testing in staging."><defs><marker id="cteG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#5b6b7c"/></marker></defs><text class="anat-eyebrow" x="30" y="34" text-anchor="start">THE CONTROL</text><text class="anat-eyebrow" x="610" y="34" text-anchor="end">WHAT HAPPENS WITHOUT IT</text><rect class="anat-new" x="30" y="62" width="280" height="54" rx="9"/><text class="anat-lbl" x="170" y="94" text-anchor="middle">Segregation of duties</text><path class="anat-edge" d="M310 89 H339" marker-end="url(#cteG)"/><rect class="anat-old" x="346" y="62" width="264" height="54" rx="9"/><text class="anat-lbl" x="478" y="94" text-anchor="middle">unauthorised changes</text><rect class="anat-new" x="30" y="130" width="280" height="54" rx="9"/><text class="anat-lbl" x="170" y="162" text-anchor="middle">Peer review and approval</text><path class="anat-edge" d="M310 157 H339" marker-end="url(#cteG)"/><rect class="anat-old" x="346" y="130" width="264" height="54" rx="9"/><text class="anat-lbl" x="478" y="162" text-anchor="middle">data corruption</text><rect class="anat-new" x="30" y="198" width="280" height="54" rx="9"/><text class="anat-lbl" x="170" y="230" text-anchor="middle">Documentation and auditing</text><path class="anat-edge" d="M310 225 H339" marker-end="url(#cteG)"/><rect class="anat-old" x="346" y="198" width="264" height="54" rx="9"/><text class="anat-lbl" x="478" y="230" text-anchor="middle">regulatory exposure</text><rect class="anat-new" x="30" y="266" width="280" height="54" rx="9"/><text class="anat-lbl" x="170" y="298" text-anchor="middle">Testing in staging</text><path class="anat-edge" d="M310 293 H339" marker-end="url(#cteG)"/><rect class="anat-old" x="346" y="266" width="264" height="54" rx="9"/><text class="anat-lbl" x="478" y="298" text-anchor="middle">no way back</text><path class="anat-lead" stroke-dasharray="5 5" d="M30 340 H610"/><text class="anat-eyebrow" x="320" y="360" text-anchor="middle">NONE OF IT IS PAPERWORK; EACH ONE IS A FAILURE THAT HAS ALREADY HAPPENED SOMEWHERE</text></svg></div>
+		<figcaption>Each control against the failure it prevents. The right-hand column is the reason the left-hand column exists.</figcaption>
+		</figure>
+		<p>Regulatory non-compliance belongs on that list as much as data corruption does. The difference is that corruption announces itself and non-compliance does not, until somebody asks for the audit trail of a change made eighteen months ago.</p>
+
+		<h4>The order it has to happen in</h4>
+		<figure class="anat">
+		<div class="anat-scroll"><svg viewBox="0 0 640 274" role="img" aria-label="The order of a safe production update: rehearse in staging, back up the affected rows, open a transaction, update through a common table expression, verify, then commit or roll back."><defs><marker id="cteP" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#5b6b7c"/></marker></defs><rect class="anat-node" x="30" y="48" width="170" height="56" rx="9"/><text class="anat-lbl" x="115" y="73" text-anchor="middle">Staging</text><text class="anat-sub" x="115" y="90" text-anchor="middle">rehearse it</text><circle cx="46" cy="48" r="10" fill="#d9e7f4" stroke="#2e86c1"/><text class="anat-sub" x="46" y="52" text-anchor="middle" fill="#0d3349">1</text><rect class="anat-node" x="235" y="48" width="170" height="56" rx="9"/><text class="anat-lbl" x="320" y="73" text-anchor="middle">Back up</text><text class="anat-sub" x="320" y="90" text-anchor="middle">the rows you touch</text><circle cx="251" cy="48" r="10" fill="#d9e7f4" stroke="#2e86c1"/><text class="anat-sub" x="251" y="52" text-anchor="middle" fill="#0d3349">2</text><path class="anat-edge" d="M200 76 H228" marker-end="url(#cteP)"/><rect class="anat-node" x="440" y="48" width="170" height="56" rx="9"/><text class="anat-lbl" x="525" y="73" text-anchor="middle">Transaction</text><text class="anat-sub" x="525" y="90" text-anchor="middle">begin</text><circle cx="456" cy="48" r="10" fill="#d9e7f4" stroke="#2e86c1"/><text class="anat-sub" x="456" y="52" text-anchor="middle" fill="#0d3349">3</text><path class="anat-edge" d="M405 76 H433" marker-end="url(#cteP)"/><path class="anat-edge" d="M525 104 V130 H115 V151" marker-end="url(#cteP)"/><rect class="anat-node" x="30" y="158" width="170" height="56" rx="9"/><text class="anat-lbl" x="115" y="183" text-anchor="middle">Update</text><text class="anat-sub" x="115" y="200" text-anchor="middle">through a CTE</text><circle cx="46" cy="158" r="10" fill="#d9e7f4" stroke="#2e86c1"/><text class="anat-sub" x="46" y="162" text-anchor="middle" fill="#0d3349">4</text><rect class="anat-node" x="235" y="158" width="170" height="56" rx="9"/><text class="anat-lbl" x="320" y="183" text-anchor="middle">Verify</text><text class="anat-sub" x="320" y="200" text-anchor="middle">integrity, timing</text><circle cx="251" cy="158" r="10" fill="#d9e7f4" stroke="#2e86c1"/><text class="anat-sub" x="251" y="162" text-anchor="middle" fill="#0d3349">5</text><path class="anat-edge" d="M200 186 H228" marker-end="url(#cteP)"/><rect class="anat-node" x="440" y="158" width="170" height="56" rx="9"/><text class="anat-lbl" x="525" y="183" text-anchor="middle">Commit</text><text class="anat-sub" x="525" y="200" text-anchor="middle">or roll back</text><circle cx="456" cy="158" r="10" fill="#d9e7f4" stroke="#2e86c1"/><text class="anat-sub" x="456" y="162" text-anchor="middle" fill="#0d3349">6</text><path class="anat-edge" d="M405 186 H433" marker-end="url(#cteP)"/><path class="anat-lead" stroke-dasharray="5 5" d="M30 228 V236 H610 V228"/><text class="anat-eyebrow" x="320" y="256" text-anchor="middle">EVERY ROW CARRIES THE TIMESTAMP THAT MAKES THE WINDOW RECOVERABLE</text></svg></div>
+		<figcaption>The sequence the report prescribes. Nothing in it is optional, and the order is the part that does the work.</figcaption>
+		</figure>
+		<h4>Why a common table expression</h4>
+		<p>The alternative is one UPDATE statement per client, run in sequence, each one its own chance to fat-finger a WHERE clause. A CTE puts the intended new values in one readable block, joins them to the live table on the key, and updates in a single statement that a reviewer can check by reading rather than by simulating.</p>
+
+		<pre class="pp-code"><code>WITH project_data_cte AS (
+    SELECT 'Client1' AS client, 'Project A' AS project, 'PM X' AS PM
+    UNION ALL
+    SELECT 'Client2' AS client, 'Project B' AS project, 'PM Y' AS PM
+    UNION ALL
+    SELECT 'Client3' AS client, 'Project C' AS project, 'PM Z' AS PM
+)
+UPDATE pd
+SET
+    pd.client  = cte.client,
+    pd.project = cte.project,
+    pd.PM      = cte.PM
+FROM project_data_cte AS cte
+INNER JOIN project_data AS pd
+    ON pd.client = cte.client;</code></pre>
+		<p>The reviewable property is the point. Everything that is about to change is written out as literal values in one place, so a reviewer compares the block against the request rather than against the schema.</p>
+
+		<h4>Backing up only what you touch</h4>
+		<p>Not the table. The rows. A full backup of a large production table before a three-row change is the sort of thing that turns a five-minute window into a ninety-minute one, and then gets skipped next time because of it.</p>
+
+		<pre class="pp-code"><code>SELECT client, project, PM
+INTO backup_schema.project_data_backup
+FROM project_data
+WHERE client IN ('Client1', 'Client2', 'Client3');</code></pre>
+		<h4>The transaction around it</h4>
+		<p>Backup and update go inside one transaction, so the state after a failure is the state before the attempt. Either both happened or neither did, which is the only version of this that can be explained in an incident review.</p>
+
+		<pre class="pp-code"><code>BEGIN TRANSACTION;
+
+-- back up the rows about to change
+SELECT client, project, PM
+INTO backup_schema.project_data_backup
+FROM project_data AS pd
+WHERE pd.client IN ('Client1', 'Client2', 'Client3');
+
+-- then the update, through the CTE above
+
+COMMIT;          -- on success
+ROLLBACK;        -- on anything else</code></pre>
+		<p>For longer sequences the report uses savepoints, so a partial rollback is possible without discarding work that already succeeded. That matters when the update is one step in a batch and the failure is in step four of six.</p>
+
+		<h4>Timestamps, which make the window recoverable</h4>
+		<p>A rollback that restores every row from a backup is blunt: it also reverts anything legitimate that happened in between. A timestamp on each row turns the rollback into a window, so what gets reverted is what this change touched, in the minutes it touched it.</p>
+
+		<pre class="pp-code"><code>ALTER TABLE project_data
+ADD update_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP;</code></pre>
+		<pre class="pp-code"><code>UPDATE pd
+SET
+    pd.client  = backup.client,
+    pd.project = backup.project,
+    pd.PM      = backup.PM
+FROM backup_schema.project_data_backup AS backup
+INNER JOIN project_data AS pd
+    ON pd.client = backup.client
+WHERE pd.update_timestamp >= '2024-09-10 10:00:00';</code></pre>
+		<p>The practices around it are short and worth repeating. Keep the timestamp automatic, because a timestamp somebody has to remember to set is a timestamp that is sometimes missing. Keep the timezone consistent, because a rollback window computed in the wrong zone reverts the wrong hour. Archive old logs on a schedule. And feed the whole thing into whatever monitoring already exists, rather than leaving it as a column nobody reads.</p>
+
+		<h4>Generating the SQL from a spreadsheet</h4>
+		<p>The list of changes usually arrives as a spreadsheet, because that is what the business works in. Rather than retyping it into SQL, which is where transcription errors come from, the report generates the statements from the sheet itself.</p>
+
+		<pre class="pp-code"><code>="UPDATE project_data SET client = '"&amp;A2&amp;"', project = '"&amp;B2&amp;"', PM = '"&amp;C2&amp;"' WHERE client = '"&amp;A2&amp;"';"</code></pre>
+		<p>It scales to a thousand rows as easily as to three, and it removes the step where a human reads a cell and types what they think it said. The discipline around it is the same discipline as everywhere else here: validate the data types, read the generated statements before running them, test in staging, and keep the sheet with the change record so the generated SQL can be explained later.</p>
+
+		<h4>What it is really about</h4>
+		<p>None of this is clever. A CTE, a backup of three rows, a transaction, a timestamp column and a spreadsheet formula are all ordinary. What the report argues is that the ordinary version, performed in the right order with a way back at every step, is what separates a routine change from an incident, and that the ordering is a governance question rather than a technical one.</p>
+
+		<h4>The record</h4>
+		<p class="pp-note">Forty-four pages, with an appendix of the scripts and a glossary.</p>
+		<a class="rec-open" target="_blank" href="pdf_viewer.html?pdf=Research%20Works/CTE-Scenario_Analysis.pdf&amp;title=A%20Wise%20CTE%20-%20Scenario%20Analysis"><span class="rec-t">Read the report</span><span class="rec-d">The full text in the viewer: governance, the update sequence, rollback, transactions, timestamps and the Excel generation.</span></a>
+		<a class="rec-open rec-pdf" target="_blank" href="Research Works/CTE-Scenario_Analysis.pdf"><span class="rec-t">Download the PDF</span><span class="rec-d">Forty-four pages, as written.</span></a>
+	</div>
+
+<div class="container">
+
+</div>
+
+	<footer>
+	<a href="index.html"><img src="images/tH.png" style="width:100px;height:100px;"></a>
+	</footer>
+
+</body>
+</html>
