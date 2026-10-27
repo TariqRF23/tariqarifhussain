@@ -688,6 +688,11 @@ a.rec-open, a.rec-open:hover, a.rec-open:focus{text-decoration:none;color:#444}
 .pp-scope dt + dd + dt{border-top:0}
 .pp-scope dd:last-child{border-bottom:0}
 
+/* The research works on the home page: the same row the project pages use for
+   a document, since that is what each one links to now. */
+.rw-list{margin:4px 0 8px}
+.rw-list .rec-open{margin-bottom:10px}
+
 /* A pull quote that is a reflection rather than evidence, so it reads as an
    aside and not as a finding. */
 .pp-quote{margin:30px 0 0;padding:0 0 0 20px;border-left:3px solid var(--anat-border)}
