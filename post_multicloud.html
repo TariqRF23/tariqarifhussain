@@ -402,6 +402,10 @@
 			background-size: 30px 30px;
 		}
 		.mc-canvas.drag { cursor: grabbing; }
+		/* a drag across the drawing is a gesture, not a text selection; the
+		   note dialog stays selectable, because its text is worth copying */
+		.mc-canvas,
+		.diagram-wrapper svg { -webkit-user-select: none; user-select: none; }
 		/* the bar keeps its controls at any width; the prose goes first */
 		@media (max-width: 900px) { .mc-bar-hint { display: none; } }
 		@media (max-width: 560px) { .mc-bar-title { display: none; } }
