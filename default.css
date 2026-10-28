@@ -692,6 +692,15 @@ a.rec-open, a.rec-open:hover, a.rec-open:focus{text-decoration:none;color:#444}
    a document, since that is what each one links to now. */
 .rw-list{margin:4px 0 8px}
 .rw-list .rec-open{margin-bottom:10px}
+/* The research carousel: the internships' carousel, plus a way out to the
+   page each plate is drawn from, since a side item is a button and cannot
+   hold a link of its own. */
+.rw-car{margin:4px 0 14px}
+.rw-go{margin:10px 0 0;text-align:right}
+.rw-go a{display:inline-block;padding:7px 13px;border:1px solid var(--anat-border,#cfe0ee);border-radius:6px;background:#fff;color:#0d3349;font-family:'Bahnschrift Light',monospace;font-size:12.5px;white-space:nowrap;text-decoration:none;transition:background .16s,border-color .16s,color .16s}
+.rw-go a:after{content:' \2197';color:#9db0c2}
+.rw-go a:hover,.rw-go a:focus{background:#0d3349;border-color:#0d3349;color:#fff;text-decoration:none}
+.rw-go a:hover:after,.rw-go a:focus:after{color:#fff}
 
 /* A pull quote that is a reflection rather than evidence, so it reads as an
    aside and not as a finding. */
