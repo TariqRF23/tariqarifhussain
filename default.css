@@ -511,6 +511,11 @@ h6 { font-size: 16px;}
 .anat-new{fill:var(--anat-soft);stroke:var(--anat-accent);stroke-width:1.8}
 .anat-scroll{overflow-x:auto}
 .anat-scroll svg{min-width:560px}
+/* An FAQ answer runs the full width of the container, which drew a 640-unit
+   plate at 1134px, nearly twice its size and half as big again as the plates
+   in the carousels above it. Those measure 845px, so these are capped to the
+   same figure and centred under the text. */
+.content figure.anat{max-width:860px;margin-left:auto;margin-right:auto}
 
 
 /* ─── Diagram carousels and the internship rows ───────────────────────────
