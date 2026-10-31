@@ -776,21 +776,10 @@ The core values that I believe in are sincerity, creativity, showing initiative 
 </div>
 </div>
 
-<div class="container">
-<div class="modal fade" id="myModal4">
-<div class="modal-dialog modal-lg">
-<div class="modal-content">            
-<div class="modal-header">
-<h5 class="modal-title">GGG RECOMMENDATION</h5>
-<button type="button" class="close" data-dismiss="modal">&#10005;</button>
-</div>            
-<div class="modal-body">
-<img src="Record Letters/0003.jpg">
-</div>        
-</div>
-</div>
-</div>
-</div>
+<!-- The GGG recommendation modal used to live here, inside the Education tab.
+     The FAQ opens it too, and a hidden tab is display:none, so from there it
+     drew a backdrop over a dialog that could not render. It now sits at the
+     foot of the document, which is where Bootstrap asks for modals anyway. -->
 
 <!-- LinkedIn Learning modals (preserved) -->
 <div class="container">
@@ -1637,7 +1626,20 @@ The core values that I believe in are sincerity, creativity, showing initiative 
   <hr>
 </div>
 
-<button type="button" class="collapsible">6. How do you keep your knowledge current?</button>
+<button type="button" class="collapsible">6. How do you make the case for a change that costs money?</button>
+<div class="content">
+  <br>
+  <p>By starting with the number the business already feels, not with the technology I would like to use. The warehouse migration was never argued as "Snowflake is better". It was argued as 208 database objects, scored one at a time, 618 man-days, four phases and a 25-month critical path that anyone was free to take apart. An estimate that can be inspected is far harder to wave away than a conviction, and it survives the only question that matters in the room: where did that figure come from?</p>
+  <p>Then what it buys and when it arrives: a layer of the warehouse removed, every piece of business logic preserved through the translation, and a date against each phase. Then the risk, and who carries it. On that project the risk was scope ambiguity between the Belgian and Dutch teams, so it was settled in workshops while it was still a question rather than later as a change request. I would rather lose an argument in a workshop than in a steering committee.</p>
+  <p>The last part matters most. A case has to be able to lose. If the only answer the sponsor can give is yes, it was never a case, it was a pitch, and the next one will be trusted less. The same discipline sits behind the multi-cloud study in the research works above, which commits to figures for availability and recovery rather than to adjectives.</p>
+<figure class="anat">
+  <div class="anat-scroll"><svg viewBox="0 0 640 186" role="img" aria-label="The order a business case is built in: the problem in numbers, the cost estimated object by object, the return and when it lands, and the risk and who carries it."><defs><marker id="faqCase" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#5b6b7c"/></marker></defs><text class="anat-eyebrow" x="20" y="24">THE ORDER A CASE IS BUILT IN</text><rect class="anat-node" x="20" y="48" width="130" height="56" rx="9"/><text class="anat-lbl" x="85" y="73" text-anchor="middle">The problem</text><text class="anat-sub" x="85" y="90" text-anchor="middle">stated in numbers</text><rect class="anat-node" x="174" y="48" width="130" height="56" rx="9"/><text class="anat-lbl" x="239" y="73" text-anchor="middle">The cost</text><text class="anat-sub" x="239" y="90" text-anchor="middle">object by object</text><path class="anat-edge" d="M150 76 H168" marker-end="url(#faqCase)"/><rect class="anat-node" x="328" y="48" width="130" height="56" rx="9"/><text class="anat-lbl" x="393" y="73" text-anchor="middle">The return</text><text class="anat-sub" x="393" y="90" text-anchor="middle">and when it lands</text><path class="anat-edge" d="M304 76 H322" marker-end="url(#faqCase)"/><rect class="anat-node" x="482" y="48" width="130" height="56" rx="9"/><text class="anat-lbl" x="547" y="73" text-anchor="middle">The risk</text><text class="anat-sub" x="547" y="90" text-anchor="middle">and who carries it</text><path class="anat-edge" d="M458 76 H476" marker-end="url(#faqCase)"/><path class="anat-lead" stroke-dasharray="5 5" d="M20 136 H620"/><text class="anat-eyebrow" x="320" y="162" text-anchor="middle">A CASE THAT CANNOT SURVIVE A NO WAS NEVER A CASE, ONLY A PITCH</text></svg></div>
+  <figcaption>The order the parts go in, and the fact that the last two are not optional.</figcaption>
+</figure>
+  <hr>
+</div>
+
+<button type="button" class="collapsible">7. How do you keep your knowledge current?</button>
 <div class="content">
   <br>
   <p>Three ways, and they do different jobs. Courses, when a subject deserves a syllabus rather than a search: those are listed under <a href="#C12">Certificate Courses Completed</a> above, from Business Analysis Foundations and Agile Requirements Foundations through to the Google Data Analytics programme. Reading, when a field moves faster than any syllabus, which is most of applied AI at present. And building, which is the only one of the three that tells me whether I actually understood the thing.</p>
@@ -1645,7 +1647,7 @@ The core values that I believe in are sincerity, creativity, showing initiative 
   <hr>
 </div>
 
-<button type="button" class="collapsible">7. What is your educational background?</button>
+<button type="button" class="collapsible">8. What is your educational background?</button>
 <div class="content">
   <br>
   <p>I hold an MSc in Corporate Management from the University of Europe for Applied Sciences in Berlin, Germany, completed with distinction. My thesis examined Ethereum smart contracts as a way of improving invoicing accuracy. Before that I took a BSc in Information and Communication Technology at Fontys University of Applied Sciences in Eindhoven, the Netherlands.</p>
@@ -1653,20 +1655,12 @@ The core values that I believe in are sincerity, creativity, showing initiative 
   <hr>
 </div>
 
-<button type="button" class="collapsible">8. Why did you choose a management course after a bachelor's in a technology oriented field?</button>
-<div class="content">
-  <br>
-  <p>My bachelor programme was already a combination of the two. Alongside SQL and C# there were courses in project management, research methodology through the DOT framework, statistical analysis, supply chain management, economics and user interface design. That gave me the theory needed to place service-oriented architecture, data warehousing and web application development inside a business context rather than beside one.</p>
-  <p>Fontys also required internships at a professional level, so by graduation I had spent real time on real business problems: management reports, stakeholder interviews, workshops, and technical solutions that had to be defended. Those months in the Netherlands made it clear that the next step was a management programme, which is why I chose the master's at UE in Germany. The work I do now, where an architecture has to be priced, governed and approved as well as designed, is the reason I would make the same choice again.</p>
-  <hr>
-</div>
-
 <button type="button" class="collapsible">9. What type of team-player are you?</button>
 <div class="content">
   <br>
-  <p>My experiences working on team-projects with more than two members have taught me the importance of striking a balance between the personalities and strengths in a group. This exercise involves the assignment of best-fit roles with the identity of each member. It is a necessary but artful complex.</p>
-  <p>I, for one, appreciate a clear-cut description of roles and specializations with some wiggle room for trying out other facets. However, <i>context is the king</i> when it comes to achieving long-term goals and I have found fulfilment in team-work where this ideology is followed. If a team can achieve a full-view of the context within which it will operate, and strive to cover each other's blind-spots effectively, then the team surely enjoys a major advantage.</p>
-  <p>With that being said, I have participated in different roles and found affinity towards some more than others. To illustrate my claim, I would like to apply <a href="https://www.belbin.com/about/belbin-team-roles">Dr. Raymond Meredith Belbin's team-role theory (a model based on behavioural attributes)</a>, using a 5-star rating system (1 star representing the least affinity and 5 stars representing the highest).</p>
+  <p>The useful answer is not a personality type, it is what I do when a team is under load. Most of my work runs through people who do not report to me: partner teams at IBM and TCS, developers in another country, vendors with their own priorities. That teaches you two things quickly. Roles have to be explicit, and the context has to be shared, because a team that cannot see the whole picture will cover the same ground twice and leave a gap somewhere else.</p>
+  <p>I like a clear description of who owns what, with enough room to step outside it when the work asks. I am most useful finding the thing nobody had thought to look for, weighing options without a stake in the answer, and being the one who checks the work before it goes out. I am least useful driving a team by force of will. I would rather the evidence did the pushing.</p>
+  <p>The ratings below are <a href="https://www.belbin.com/about/belbin-team-roles">Dr. Raymond Meredith Belbin's team roles</a> on a five-star scale, and they are self-assessed, which is worth exactly what self-assessment is worth.</p>
   <br>
 
   <table>
@@ -1709,25 +1703,25 @@ The core values that I believe in are sincerity, creativity, showing initiative 
     </tr>
   </table>
   <br>
-  <p>This is of course very subjective and highly likely to change over time. The only certainty I can assert right now is the importance of trust and positive reinforcement within a team.</p>
+  <p>It shifts with the team and the year. What does not shift is that trust and positive reinforcement are what make any of the rest of it work.</p>
   <hr>
 </div>
 
 <button type="button" class="collapsible">10. What would you attribute as your most valued soft-skill?</button>
 <div class="content">
   <br>
-  <p>I consider my Science, Technology, Engineering, &amp; Mathematical (STEM) mindset/intuition as my most fundamental skill. It is something I started developing early on in my education, and I try to maintain it to the best of my capabilities.</p>
-  <p>The classroom mainly helped me develop my knowledge and practice of <i>the scientific approach</i>, that is, the process of objectively establishing facts through testing and experimentation. The intuition itself does not arrive overnight. It builds while grappling for conceptual clarity with something complex, fully engaged and immersed, which the industry calls deep work. I was mostly unaware of the build-up even as I was applying it in non-STEM fields, and my experiences at the intersection of technology and business have reinforced it since.</p>
-  <p>It shows up most clearly in the work where a claim has to be checked rather than asserted: a root-cause review that has to survive the next occurrence, an estimate that has to hold for 25 months, an AI answer that has to cite the evidence it came from. Critical and analytical thinking, creativity and reasoning, and communication both verbal and non-verbal are what make it usable by other people, and the combination is what I would call my most valued soft-skill.</p>
+  <p>Treating a claim as something to be checked rather than asserted. It came out of a STEM education, where a fact is established by testing rather than by agreement, and it is the one habit I apply identically to a production incident, an estimate and an answer from a model.</p>
+  <p>In practice it is unglamorous. A root-cause review that has to survive the next occurrence of the same incident. An estimate built from 208 objects so that anyone can ask where a number came from. An AI feature made to cite its sources, because an answer that cannot be traced is an opinion with good grammar. The industry calls the state you get into doing this deep work. What it actually is, is refusing to move on while something is still unexplained.</p>
+  <p>Everything else I would list follows from it: critical and analytical thinking, reasoning, and being able to explain any of it to somebody who does not share the background. That last one decides whether the work travels beyond the person who did it, which is usually what separates a good piece of work from a useful one.</p>
   <hr>
 </div>
 
 <button type="button" class="collapsible">11. What are you passionate about?</button>
 <div class="content">
   <br>
-  <p>Firstly, problem-solving at the intersection of technology and business. It is a creative enterprise, one that requires intense imagination. This probably is not surprising coming from an engineer, but I love the part that lets me experiment with code, data and various IT and software tools, video games included. When I started developing this website I did not realise how much effort goes into a mobile responsive design, or how much of it is a marketing decision rather than an aesthetic one. I deeply enjoy the process of discovery, and getting and sharing feedback with developers and users.</p>
-  <p>Secondly, self-development. I like reading essays, articles and papers, or watching material that helps me improve in a specific area, and then proving I improved by building something with it. DeskOps is the clearest case: every subsystem in it taught me something I could not have learned from a course alone, and a few of them taught me what I had misunderstood. I am also motivated by progression at work, because doing well there is what secures a better footing for a team and for the organisation at large.</p>
-  <p>Thirdly, research and writing. I like brainstorming ideas to find the favourable connections with my world-view and composing informative pieces from them. The aim is to show my interest in the area, and to get readers thinking along with me.</p>
+  <p>Building things that have to survive contact with real use. The intersection of technology and business is where I find that, because it is a creative job with a hard constraint attached: somebody has to be able to run the result on a Monday morning.</p>
+  <p>Two years of evenings on DeskOps is the honest evidence. Nobody asked for it, and it taught me what no course did. An SLA clock is simple until business hours. A billing pipeline is simple until the first credit note. An AI feature is simple until you make it prove where its answer came from. I enjoy the part where a thing I believed turns out to be wrong and the system tells me so.</p>
+  <p>And writing. I like finding where an idea connects to what I already think, and setting it down so a reader can argue with it. The research works above are that, and so are the write-ups that ship inside DeskOps, where the explanation travels with the feature rather than in somebody's head.</p>
   <hr>
 </div>
 
@@ -1743,7 +1737,8 @@ The core values that I believe in are sincerity, creativity, showing initiative 
 <button id="C13" type="button" class="collapsible">13. Can you briefly describe your project at LionRock Maritime?</button>
 <div class="content">
   <br>
-  <p>I offered my services to LionRock Maritime (an Amsterdam-based data-technology company specialized in the maritime industry, specifically towage operations) as a freelance POWER-BI consultant. It was a part-time role. Specific details of the project and its description cannot be disclosed due to an NDA signup. What I can definitively share is the fact that I received a highly positive <button type="button" class="btn1 btn-link" data-toggle="modal" data-target="#myModal6">recommendation</button>, available on my LinkedIn Profile for your perusal.</p>
+  <p>A freelance Power BI engagement for LionRock Maritime, an Amsterdam data-technology company working with towage operators. It was part-time and it is under an NDA, so the models, the data and the client names stay with them.</p>
+  <p>What I can point to is the shape of the work and its outcome: analysis and consulting that sharpened the problem statements their predictive models were built to answer, which is usually where a modelling project is won or lost. The client wrote a <button type="button" class="btn1 btn-link" data-toggle="modal" data-target="#myModal6">recommendation</button> at the end of it, and it is on my LinkedIn profile.</p>
   <hr>
 </div>
 
@@ -1760,6 +1755,23 @@ The core values that I believe in are sincerity, creativity, showing initiative 
 			</div>
 		</div>
 	</section>
+
+<!-- Opened from the Education tab and from the FAQ, so it is kept out of both -->
+<div class="container">
+<div class="modal fade" id="myModal4">
+<div class="modal-dialog modal-lg">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">GGG RECOMMENDATION</h5>
+<button type="button" class="close" data-dismiss="modal">&#10005;</button>
+</div>
+<div class="modal-body">
+<img src="Record Letters/0003.jpg">
+</div>
+</div>
+</div>
+</div>
+</div>
 
 <footer>
   <a href="index.html"><img src="images/tH.png" style="width:100px;height:100px;"></a>
