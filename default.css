@@ -643,21 +643,29 @@ h6 { font-size: 16px;}
    below working, which a plain width would have overridden. */
 .main-container.pp-col{width:min(920px, 95%);padding-top:46px}
 
-/* The record: one row per document, whatever opens it. An arrow opens a file
-   or a document viewer, a play mark opens a recording, and post1 adds a plus
-   for the ones that expand in place. */
+/* The record: one row per document, whatever opens it. The mark at the right
+   of each row is an emoji button from one family, so that it reads as the
+   button it is: the arrow opens a document in a new tab, the down arrow
+   downloads a file, and the play button plays a recording. On hover the mark
+   moves the way the row will take you. */
+:root{--emoji:'Segoe UI Emoji','Apple Color Emoji','Noto Color Emoji',sans-serif}
 .rec-open{position:relative;display:block;width:100%;margin:0 0 8px;padding:18px;border:0;
   border-radius:6px;background-color:#ecf0f3;color:#444;cursor:pointer;text-align:left;
   font-size:15px;font-family:'Bahnschrift Light',monospace;transition:0.5s}
 .rec-open:hover{background-color:#d9e7f4;outline:none}
-.rec-open:after{position:absolute;right:18px;top:17px;float:none;margin:0;
-  content:'\2197';color:#777;font-weight:bold}
+.rec-open:after{content:'\2197\FE0F';position:absolute;right:18px;top:50%;margin:-12px 0 0;
+  font-family:var(--emoji);font-size:20px;line-height:24px;font-weight:normal;
+  transition:transform .2s}
+.rec-open:hover:after,.rec-open:focus-visible:after{transform:translate(2px,-2px)}
 a.rec-open, a.rec-open:hover, a.rec-open:focus{text-decoration:none;color:#444}
-.rec-play:after{content:'\25B6';font-size:12px;top:19px}
-.rec-pdf:after{content:'\2193';top:16px}
-.rec-t{display:block;padding-right:28px}
-.rec-d{display:block;margin-top:5px;padding-right:28px;font-size:13px;line-height:1.55;
+.rec-pdf:after{content:'\2B07\FE0F'}
+.rec-pdf:hover:after,.rec-pdf:focus-visible:after{transform:translateY(2px)}
+.rec-play:after{content:'\25B6\FE0F'}
+.rec-play:hover:after,.rec-play:focus-visible:after{transform:scale(1.1)}
+.rec-t{display:block;padding-right:40px}
+.rec-d{display:block;margin-top:5px;padding-right:40px;font-size:13px;line-height:1.55;
   color:#5b6b7c}
+@media (prefers-reduced-motion:reduce){.rec-open:after,.rw-go a:after{transition:none}}
 
 /* A table of evidence lifted out of a project document. It is wider than the
    prose measure on purpose, because it is a figure rather than a sentence, and
@@ -703,9 +711,9 @@ a.rec-open, a.rec-open:hover, a.rec-open:focus{text-decoration:none;color:#444}
 .rw-car{margin:4px 0 14px}
 .rw-go{margin:10px 0 0;text-align:right}
 .rw-go a{display:inline-block;padding:7px 13px;border:1px solid var(--anat-border,#cfe0ee);border-radius:6px;background:#fff;color:#0d3349;font-family:'Bahnschrift Light',monospace;font-size:12.5px;white-space:nowrap;text-decoration:none;transition:background .16s,border-color .16s,color .16s}
-.rw-go a:after{content:' \2197';color:#9db0c2}
+.rw-go a:after{content:'\2197\FE0F';display:inline-block;margin-left:7px;font-family:var(--emoji);font-size:13px;line-height:1;transition:transform .2s}
 .rw-go a:hover,.rw-go a:focus{background:#0d3349;border-color:#0d3349;color:#fff;text-decoration:none}
-.rw-go a:hover:after,.rw-go a:focus:after{color:#fff}
+.rw-go a:hover:after,.rw-go a:focus:after{transform:translate(1px,-1px)}
 
 /* A pull quote that is a reflection rather than evidence, so it reads as an
    aside and not as a finding. */

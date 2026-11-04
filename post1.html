@@ -83,23 +83,27 @@
   border-color: transparent !important;
 }
 
+/* A row that expands in place takes the down button from the same emoji
+   family as the record's other marks, and the up button once it is open. */
 .accordion:after {
-  content: '\002B';
-  color: #777;
-  font-weight: bold;
-  float: right;
-  margin-left: 5px;
-  outline: none;
-  box-shadow: none;
-  border-color: transparent !important;
+  content: '\1F53D';
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  margin: -12px 0 0;
+  font-family: var(--emoji);
+  font-size: 20px;
+  line-height: 24px;
+  transition: transform .2s;
 }
-
 .accordionactive:after {
-  content: "\2212"; 
-  outline: none;
-  box-shadow: none;
-  border-color: transparent !important;
-  color: #777;
+  content: '\1F53C';
+}
+.accordion:hover:after, .accordion:focus-visible:after {
+  transform: translateY(2px);
+}
+.accordionactive:hover:after, .accordionactive:focus-visible:after {
+  transform: translateY(-2px);
 }
 
 .panel {
@@ -123,17 +127,14 @@
   border: 0;
   border-radius: 6px 6px 0 0;
 }
-.accordion:after {
-  position: absolute;
-  right: 18px;
-  top: 17px;
-  float: none;
-  margin: 0;
-}
 .panel {
   margin: 0 0 8px;
   border-radius: 0 0 6px 6px;
 }
+
+/* The four facts under the title spread across the column, the first and
+   last aligned to its edges, as on the estimation case study. */
+.pp-col .pp-meta { justify-content: space-between; }
 </style>
 	
 
