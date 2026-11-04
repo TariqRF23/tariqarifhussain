@@ -311,36 +311,7 @@ footer {
 					</a>
 
 					<ul id="navigation">
-						<li class="bar-cv"><a class="bar-btn bar-open" target="_blank" href="pdf_viewer.html?pdf=Resume/Tariq%20Hussain_CV(Europass%20format).pdf&amp;title=Curriculum%20vitae&amp;kind=Tariq%20Hussain" title="Open my CV in the viewer">View CV</a><a class="bar-btn bar-down" href="Resume/Tariq Hussain_CV(Europass format).pdf" download title="Download my CV as a PDF">Download</a></li>
-						<div class="container">
-  						<div class="modal fade" id="myModal100">
-    					<div class="modal-dialog modal-lg">
-      				<div class="modal-content">
-        			<div class="modal-header">
-          			<a target="_blank" href="Resume/Tariq Hussain_CV(Europass format).pdf"><i class="fa fa-download" style="font-size:15px"></i></a>
-          			<button type="button" class="close" data-dismiss="modal">&#10005;</button>
-        			</div>
-        			<div class="modal-body">
-			        <div id="demo" class="carousel slide" data-interval="3000000" data-ride="carousel">
-			        <div class="carousel-inner">
-			        <div class="carousel-item active">
-			        <img src="Resume/Tariq Hussain_CV_0001.jpg">
-			        </div>
-			        <div class="carousel-item">
-			        <img src="Resume/Tariq Hussain_CV_0002.jpg">
-			        </div>
-			        <a class="carousel-control-prev" href="#demo" data-slide="prev">
-			        <span class="carousel-control-prev-icon"></span>
-			        </a>
-			        <a class="carousel-control-next" href="#demo" data-slide="next">
-			        <span class="carousel-control-next-icon"></span>
-			        </a>
-			        </div>    
-			        </div>
-			      </div>
-    					</div>
-  						</div>
-  						</div>
+						<li class="bar-cv"><a class="bar-btn bar-open" href="pdf_viewer.html?pdf=Resume/Tariq%20Hussain_CV(Europass%20format).pdf&amp;title=Curriculum%20vitae&amp;kind=Tariq%20Hussain" data-toggle="modal" data-target="#cvModal" title="Open my CV on this page">View CV</a><a class="bar-btn bar-down" href="Resume/Tariq Hussain_CV(Europass format).pdf" download title="Download my CV as a PDF">Download</a></li>
 					</ul>
 				</div>
 
@@ -1774,6 +1745,37 @@ The core values that I believe in are sincerity, creativity, showing initiative 
 </div>
 </div>
 </div>
+
+<!-- The CV, opened from the window bar at the top of the page. The PDF loads
+     the first time the modal opens, not with the page. -->
+<div class="container">
+<div class="modal fade cv-modal" id="cvModal" tabindex="-1" role="dialog" aria-labelledby="cvModalTitle" aria-hidden="true">
+<div class="modal-dialog modal-xl">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title" id="cvModalTitle">Curriculum vitae</h5>
+<div class="cv-modal-actions">
+<a class="bar-btn bar-down" href="Resume/Tariq Hussain_CV(Europass format).pdf" download title="Download my CV as a PDF">Download</a>
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">&#10005;</button>
+</div>
+</div>
+<div class="modal-body">
+<iframe id="cv-frame" title="Curriculum vitae" data-src="Resume/Tariq Hussain_CV(Europass format).pdf#toolbar=0&amp;navpanes=0"></iframe>
+<p class="cv-fallback">If the CV does not show here, as on some phones, <a href="Resume/Tariq Hussain_CV(Europass format).pdf" target="_blank">open the PDF</a>.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+(function () {
+	var frame = document.getElementById('cv-frame');
+	var open = document.querySelector('.bar-open');
+	if (frame && open) open.addEventListener('click', function () {
+		if (!frame.getAttribute('src')) frame.setAttribute('src', frame.getAttribute('data-src'));
+	});
+})();
+</script>
 
 <footer>
   <a href="index.html"><img src="images/tH.png" style="width:100px;height:100px;"></a>

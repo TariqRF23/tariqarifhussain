@@ -719,12 +719,22 @@ a.rec-open, a.rec-open:hover, a.rec-open:focus{text-decoration:none;color:#444}
    PDF viewer's Download and Back, the emoji before the label, in the site's
    light blue, a shade deeper on hover. */
 #navigation li.bar-cv{display:inline-flex;gap:8px;vertical-align:middle;margin:0}
-#navigation li .bar-btn{display:inline-flex;align-items:center;gap:7px;height:34px;
-  box-sizing:border-box;padding:0 14px;border:0;border-radius:4px;background:#d9e7f4;color:#0d3349;
-  font-family:'Bahnschrift',sans-serif;font-size:15px;line-height:1;white-space:nowrap;
-  text-decoration:none;transition:background .16s}
-#navigation li .bar-btn:hover,#navigation li .bar-btn:focus{background:#bcd6ee;color:#0d3349;
+#navigation li .bar-btn,.cv-modal .bar-btn{display:inline-flex;align-items:center;gap:7px;
+  height:34px;box-sizing:border-box;padding:0 14px;border:0;border-radius:4px;background:#d9e7f4;
+  color:#0d3349;font-family:'Bahnschrift',sans-serif;font-size:15px;line-height:1;
+  white-space:nowrap;text-decoration:none;transition:background .16s}
+#navigation li .bar-btn:hover,#navigation li .bar-btn:focus,
+.cv-modal .bar-btn:hover,.cv-modal .bar-btn:focus{background:#bcd6ee;color:#0d3349;
   text-decoration:none}
+/* The CV modal: the PDF fills the dialog, with Download and close in its header. */
+.cv-modal .modal-header{align-items:center;padding:12px 16px 12px 20px}
+.cv-modal .modal-title{margin:0;line-height:1.2;color:#0d3349;font-family:'Bahnschrift',sans-serif}
+.cv-modal-actions{display:flex;align-items:center;gap:14px;margin-left:auto}
+.cv-modal-actions .close{margin:0;padding:0 4px;float:none}
+.cv-modal .modal-body{padding:0}
+.cv-modal iframe{display:block;width:100%;height:78vh;border:0;background:#ecf0f3}
+.cv-fallback{margin:0;padding:10px 16px;font-family:'Bahnschrift Light',sans-serif;font-size:13px;
+  color:#5b6b7c;border-top:1px solid var(--anat-border,#cfe0ee)}
 .bar-open:before,.bar-down:before{font-family:var(--emoji);font-size:15px;transition:transform .2s}
 .bar-open:before{content:'\2197\FE0F'}
 .bar-down:before{content:'\2B07\FE0F'}
