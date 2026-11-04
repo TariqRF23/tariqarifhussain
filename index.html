@@ -135,10 +135,12 @@ body {font-family: Bahnschrift;}
   border-color: transparent !important;
 }
 
+/* The expander is the down button from the record's emoji family, and the up
+   button once the section is open. */
 .accordion:after {
-  content: '\002B';
-  color: #777;
-  font-weight: bold;
+  content: '\1F53D';
+  font-family: var(--emoji);
+  font-weight: normal;
   float: right;
   margin-left: 5px;
   outline: none;
@@ -147,11 +149,10 @@ body {font-family: Bahnschrift;}
 }
 
 .accordionactive:after {
-  content: "\2212"; 
+  content: '\1F53C';
   outline: none;
   box-shadow: none;
   border-color: transparent !important;
-  color: #777;
 }
 
 .panel {
@@ -197,9 +198,9 @@ body {font-family: Bahnschrift;}
 }
 
 .collapsible:after {
-  content: '\002B';
-  color: #777;
-  font-weight: bold;
+  content: '\1F53D';
+  font-family: var(--emoji);
+  font-weight: normal;
   float: right;
   margin-left: 5px;
   border-color: transparent;
@@ -207,8 +208,7 @@ body {font-family: Bahnschrift;}
 }
 
 .collapsibleactive:after {
-  content: "\2212";
-  color: #777;
+  content: '\1F53C';
   border-color: transparent;
   border-radius: 5px;
   box-shadow: none;

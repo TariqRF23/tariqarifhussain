@@ -715,6 +715,23 @@ a.rec-open, a.rec-open:hover, a.rec-open:focus{text-decoration:none;color:#444}
 .rw-go a:hover,.rw-go a:focus{background:#0d3349;border-color:#0d3349;color:#fff;text-decoration:none}
 .rw-go a:hover:after,.rw-go a:focus:after{transform:translate(1px,-1px)}
 
+/* Every other mark that takes you somewhere wears the same emoji family as the
+   record: a download, a forward or back arrow, a carousel step, a play button,
+   a copied link and an expander. Font Awesome and the slick carousel draw
+   these by default and load after this sheet, so each rule names two classes
+   to outrank theirs. Decorative icons that are not links keep their glyphs. */
+.fa.fa-download:before,.fa.fa-arrow-down:before,.fa.fa-angle-down:before{content:'\2B07\FE0F';font-family:var(--emoji)}
+.fa.fa-arrow-right:before,.fa.fa-chevron-right:before,.fa.fa-angle-right:before{content:'\27A1\FE0F';font-family:var(--emoji)}
+.fa.fa-arrow-left:before,.fa.fa-chevron-left:before,.fa.fa-angle-left:before{content:'\2B05\FE0F';font-family:var(--emoji)}
+.fa.fa-play:before{content:'\25B6\FE0F';font-family:var(--emoji)}
+.fa.fa-link:before{content:'\1F517';font-family:var(--emoji)}
+.fa.fa-chevron-down:before{content:'\1F53D';font-family:var(--emoji)}
+.accordion-chevron.fa{font-size:15px}
+.accordion-trigger.open .accordion-chevron.fa{transform:none}
+.accordion-trigger.open .accordion-chevron.fa:before{content:'\1F53C'}
+.slick-arrow.slick-prev:before{content:'\2B05\FE0F';font-family:var(--emoji);opacity:1}
+.slick-arrow.slick-next:before{content:'\27A1\FE0F';font-family:var(--emoji);opacity:1}
+
 /* A pull quote that is a reflection rather than evidence, so it reads as an
    aside and not as a finding. */
 .pp-quote{margin:30px 0 0;padding:0 0 0 20px;border-left:3px solid var(--anat-border)}
