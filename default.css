@@ -730,9 +730,35 @@ a.rec-open, a.rec-open:hover, a.rec-open:focus{text-decoration:none;color:#444}
 .cv-modal .modal-header{align-items:center;padding:12px 16px 12px 20px}
 .cv-modal .modal-title{margin:0;line-height:1.2;color:#0d3349;font-family:'Bahnschrift',sans-serif}
 .cv-modal-actions{display:flex;align-items:center;gap:14px;margin-left:auto}
-.cv-modal-actions .close{margin:0;padding:0 4px;float:none}
+.cv-modal-actions .close{margin:0;float:none}
 .cv-modal .modal-body{padding:0}
-.cv-modal iframe{display:block;width:100%;height:78vh;border:0;background:#ecf0f3}
+
+/* THE close button, on every page: a small white box with rounded corners and a
+   thin cross, which turns bluish on hover. Bootstrap's modals, the DeskOps
+   readers and the multi-cloud note all use it. Bootstrap and the pages' own
+   styles load after this sheet, so the look is set with !important; it sets
+   appearance only, never position, so every button stays where its page put it.
+   The cross is drawn, because the buttons hold two different characters. */
+:root{
+  --x-mark:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 2.5l7 7M9.5 2.5l-7 7' stroke='%235b6b7c' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
+  --x-mark-on:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 2.5l7 7M9.5 2.5l-7 7' stroke='%232e86c1' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+button.close,.mod-close,.fx-close,.video-modal-close,.zoom-modal-close,.reader-close,.mc-close{
+  box-sizing:border-box !important;width:26px !important;height:26px !important;
+  min-width:26px !important;padding:0 !important;border:1px solid #cfe0ee !important;
+  border-radius:7px !important;background:#fff var(--x-mark) no-repeat 50% 50%/11px 11px !important;
+  color:transparent !important;font-size:0 !important;line-height:0 !important;opacity:1 !important;
+  text-shadow:none !important;box-shadow:none !important;cursor:pointer;
+  transition:background-color .16s,border-color .16s !important}
+button.close:hover,button.close:focus-visible,.mod-close:hover,.fx-close:hover,
+.video-modal-close:hover,.zoom-modal-close:hover,.reader-close:hover,.mc-close:hover,.mc-close:focus{
+  background-color:#e3f0fb !important;background-image:var(--x-mark-on) !important;
+  border-color:#9fc5e8 !important}
+.modal-header button.close{margin:0 0 0 auto !important;align-self:center}
+/* The window is as wide as the CV's page, which the PDF is told to fit, so the
+   page fills it with no grey beside it; the reader scrolls down the pages. */
+.cv-modal .modal-dialog.modal-xl{max-width:min(860px, calc(100vw - 32px))}
+.cv-modal iframe{display:block;width:100%;height:84vh;border:0;background:#ecf0f3}
 .cv-fallback{margin:0;padding:10px 16px;font-family:'Bahnschrift Light',sans-serif;font-size:13px;
   color:#5b6b7c;border-top:1px solid var(--anat-border,#cfe0ee)}
 .bar-open:before,.bar-down:before{font-family:var(--emoji);font-size:15px;transition:transform .2s}
