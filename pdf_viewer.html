@@ -153,9 +153,12 @@
 	var params  = new URLSearchParams(window.location.search);
 	var pdfPath = params.get('pdf');
 	var title   = params.get('title') || 'Research Document';
+	// the small label above the title; research works keep their default
+	var kind    = params.get('kind');
 
 	document.title                             = title + ' – Tariq Hussain';
 	document.getElementById('pdf-title').textContent = title;
+	if (kind) document.querySelector('.pdf-subtitle').textContent = kind;
 
 	if (pdfPath) {
 		// Append #toolbar=0 to hide some default browser PDF toolbar chrome
