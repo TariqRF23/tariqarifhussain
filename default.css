@@ -715,6 +715,23 @@ a.rec-open, a.rec-open:hover, a.rec-open:focus{text-decoration:none;color:#444}
 .rw-go a:hover,.rw-go a:focus{background:#0d3349;border-color:#0d3349;color:#fff;text-decoration:none}
 .rw-go a:hover:after,.rw-go a:focus:after{transform:translate(1px,-1px)}
 
+/* The CV in the home page's window bar: one split button in the style of
+   Explore, its left half opening the CV in the viewer and its right half
+   downloading it. Both halves share one height, so they read as one control. */
+#navigation li.bar-cv{display:inline-flex;vertical-align:middle;margin:0}
+#navigation li .bar-btn{display:inline-flex;align-items:center;gap:7px;height:32px;
+  box-sizing:border-box;padding:0 12px;border:1px solid var(--anat-border,#cfe0ee);background:#fff;
+  color:#0d3349;font-family:'Bahnschrift Light',sans-serif;font-size:13.5px;line-height:1;
+  white-space:nowrap;text-decoration:none;transition:background .16s,border-color .16s,color .16s}
+#navigation li .bar-open{border-radius:6px 0 0 6px}
+#navigation li .bar-down{border-radius:0 6px 6px 0;border-left:0;padding:0 10px}
+#navigation li .bar-btn:hover,#navigation li .bar-btn:focus{background:#0d3349;border-color:#0d3349;
+  color:#fff;text-decoration:none}
+.bar-open:after{content:'\2197\FE0F';font-family:var(--emoji);font-size:14px;transition:transform .2s}
+.bar-down:before{content:'\2B07\FE0F';font-family:var(--emoji);font-size:14px;transition:transform .2s}
+.bar-open:hover:after,.bar-open:focus:after{transform:translate(1px,-1px)}
+.bar-down:hover:before,.bar-down:focus:before{transform:translateY(1px)}
+
 /* Every other mark that takes you somewhere wears the same emoji family as the
    record: a download, a forward or back arrow, a carousel step, a play button,
    a copied link and an expander. Font Awesome and the slick carousel draw
