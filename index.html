@@ -1778,7 +1778,9 @@ The core values that I believe in are sincerity, creativity, showing initiative 
    shows finished pages. If the library or the PDF fails, the browser's viewer
    takes over as before. */
 (function () {
-	var LIB = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/legacy/build/';
+	/* 6.x draws the CV's gradient heading rules; 4.x painted them hot pink */
+	var PKG = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@6.4.299/';
+	var LIB = PKG + 'legacy/build/';
 	var PDF = 'Resume/Tariq Hussain - CV.pdf';
 	var open = document.querySelector('.bar-open');
 	var box = document.getElementById('cv-pages');
@@ -1873,7 +1875,7 @@ The core values that I believe in are sincerity, creativity, showing initiative 
 		var first = sheet([0, 0, 595.28, 841.89]);
 		ready = import(LIB + 'pdf.min.mjs').then(function (lib) {
 			lib.GlobalWorkerOptions.workerSrc = LIB + 'pdf.worker.min.mjs';
-			return lib.getDocument(PDF).promise.then(function (doc) {
+			return lib.getDocument({ url: PDF, wasmUrl: PKG + 'wasm/' }).promise.then(function (doc) {
 				var chain = Promise.resolve();
 				width = measure();
 				for (var i = 1; i <= doc.numPages; i++) {
